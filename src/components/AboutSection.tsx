@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import aboutCoach from "@/assets/about-coach.png";
-import training2 from "@/assets/training-2.jpg";
+import aboutCoach2 from "@/assets/about-coach-2.png";
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -64,7 +64,7 @@ const AboutSection = () => {
                 className="aspect-[3/4] rounded-2xl overflow-hidden mt-12"
               >
                 <motion.img
-                  src={training2}
+                  src={aboutCoach2}
                   alt="Focused training"
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.1 }}
