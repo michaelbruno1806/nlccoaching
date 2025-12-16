@@ -4,10 +4,22 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Phone, Mail, MapPin } from "lucide-react";
+import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
-const contactInfo = [
+// WhatsApp configuration
+const WHATSAPP_NUMBER = "33612345678"; // Replace with actual number
+const WHATSAPP_MESSAGE = "Bonjour! Je suis intéressé(e) par vos services de coaching NLC.";
+
+interface ContactItem {
+  icon: typeof Phone;
+  label: string;
+  value: string;
+  href: string;
+  isWhatsApp?: boolean;
+}
+
+const contactInfo: ContactItem[] = [
   {
     icon: Phone,
     label: "Téléphone",
@@ -25,6 +37,13 @@ const contactInfo = [
     label: "Localisation",
     value: "Paris, France",
     href: "#",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "Discuter maintenant",
+    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+    isWhatsApp: true,
   },
 ];
 
@@ -88,17 +107,29 @@ const ContactSection = () => {
               <motion.a
                 key={item.label}
                 href={item.href}
+                target={item.isWhatsApp ? "_blank" : undefined}
+                rel={item.isWhatsApp ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-background border border-border hover:border-gold/50 transition-all duration-300 group"
+                className={`flex items-center gap-4 p-4 rounded-xl bg-background border transition-all duration-300 group ${
+                  item.isWhatsApp 
+                    ? "border-[#25D366]/30 hover:border-[#25D366] hover:bg-[#25D366]/10" 
+                    : "border-border hover:border-gold/50"
+                }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                  <item.icon className="w-5 h-5 text-gold" />
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                  item.isWhatsApp 
+                    ? "bg-[#25D366]/20 group-hover:bg-[#25D366]/30" 
+                    : "bg-gold/10 group-hover:bg-gold/20"
+                }`}>
+                  <item.icon className={`w-5 h-5 ${item.isWhatsApp ? "text-[#25D366]" : "text-gold"}`} />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{item.label}</p>
-                  <p className="font-medium text-foreground">{item.value}</p>
+                  <p className={`font-medium ${item.isWhatsApp ? "text-[#25D366]" : "text-foreground"}`}>
+                    {item.value}
+                  </p>
                 </div>
               </motion.a>
             ))}
