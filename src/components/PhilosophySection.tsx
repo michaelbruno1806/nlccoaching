@@ -1,0 +1,102 @@
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Target, Users, TrendingUp } from "lucide-react";
+
+const philosophyItems = [
+  {
+    icon: Target,
+    title: "Performance Durable",
+    description:
+      "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
+  },
+  {
+    icon: Users,
+    title: "Suivi Personnalisé",
+    description:
+      "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Résultats Mesurables",
+    description:
+      "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
+  },
+];
+
+const PhilosophySection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section
+      id="philosophy"
+      className="py-32 relative overflow-hidden bg-card"
+      ref={ref}
+    >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--gold)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-3xl mx-auto mb-20"
+        >
+          <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
+            Notre Philosophie
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Une approche qui allie{" "}
+            <span className="text-gradient">performance</span> et bien-être
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Chez NLC Coaching, nous croyons en une approche du sport qui allie
+            performance, rigueur et bien-être. Chaque accompagnement est pensé
+            pour permettre une progression durable et mesurable.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {philosophyItems.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              className="group"
+            >
+              <div className="relative p-8 rounded-2xl bg-background border border-border hover:border-gold/50 transition-all duration-500 h-full">
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors duration-300">
+                    <item.icon className="w-7 h-7 text-gold" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold mb-4 group-hover:text-gold transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default PhilosophySection;
