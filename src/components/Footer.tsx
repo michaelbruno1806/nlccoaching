@@ -114,38 +114,150 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-xs text-muted-foreground/60 tracking-[0.3em] uppercase mb-3">
-            Powered by
-          </p>
-          <motion.div 
-            className="relative"
-            animate={{ 
-              textShadow: [
-                "0 0 20px hsl(200, 80%, 50%)",
-                "0 0 40px hsl(200, 80%, 60%)",
-                "0 0 20px hsl(200, 80%, 50%)"
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          <motion.p 
+            className="text-xs text-muted-foreground/60 tracking-[0.3em] uppercase mb-4"
+            animate={{ opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="text-3xl font-display font-bold tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(200,80%,50%)] to-[hsl(210,90%,60%)]">
-                MB
-              </span>
-              <span className="text-foreground">18</span>
-            </span>
+            Powered by
+          </motion.p>
+          
+          <div className="relative group cursor-pointer">
+            {/* Multiple layered glow effects */}
             <motion.div 
-              className="absolute -inset-4 bg-[hsl(200,80%,50%)]/10 blur-xl rounded-full -z-10"
+              className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-blue-500/40 to-cyan-500/30 blur-2xl rounded-full -z-10"
               animate={{ 
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.1, 1]
+                opacity: [0.4, 0.8, 0.4],
+                scale: [0.9, 1.15, 0.9],
+                rotate: [0, 180, 360]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div 
+              className="absolute -inset-6 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 blur-xl rounded-full -z-10"
+              animate={{ 
+                opacity: [0.5, 1, 0.5],
+                scale: [1, 1.2, 1]
               }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
-          </motion.div>
-          <p className="text-[10px] text-muted-foreground/50 tracking-[0.4em] uppercase mt-1">
+            
+            {/* Electric pulse rings */}
+            <motion.div 
+              className="absolute inset-0 border-2 border-cyan-400/50 rounded-lg -z-10"
+              animate={{ 
+                scale: [1, 1.5, 2],
+                opacity: [0.8, 0.3, 0]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            />
+            <motion.div 
+              className="absolute inset-0 border border-blue-400/30 rounded-lg -z-10"
+              animate={{ 
+                scale: [1, 1.8, 2.5],
+                opacity: [0.6, 0.2, 0]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+            />
+
+            {/* Main logo container */}
+            <motion.div 
+              className="relative px-6 py-3"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              {/* Shimmer overlay */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                animate={{ x: [-100, 200] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+              />
+              
+              <div className="flex items-baseline">
+                {/* MB with animated gradient */}
+                <motion.span 
+                  className="text-4xl font-display font-black tracking-tight relative"
+                  animate={{
+                    textShadow: [
+                      "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #0099ff",
+                      "0 0 20px #00d4ff, 0 0 40px #00d4ff, 0 0 60px #0099ff, 0 0 80px #0066ff",
+                      "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #0099ff"
+                    ]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    background: "linear-gradient(90deg, #00d4ff, #0099ff, #00d4ff, #0066ff)",
+                    backgroundSize: "300% 100%",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    animation: "gradient-shift 3s ease infinite"
+                  }}
+                >
+                  MB
+                </motion.span>
+                
+                {/* 18 with contrasting style */}
+                <motion.span 
+                  className="text-4xl font-display font-black tracking-tight text-foreground ml-0.5"
+                  animate={{
+                    textShadow: [
+                      "0 0 5px rgba(255,255,255,0.3)",
+                      "0 0 15px rgba(255,255,255,0.5), 0 0 30px rgba(0,212,255,0.3)",
+                      "0 0 5px rgba(255,255,255,0.3)"
+                    ]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.75 }}
+                >
+                  18
+                </motion.span>
+              </div>
+              
+              {/* Underline flash effect */}
+              <motion.div 
+                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                animate={{ 
+                  scaleX: [0, 1, 0],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
+            
+            {/* Corner sparkles */}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+                style={{
+                  top: i < 2 ? -4 : 'auto',
+                  bottom: i >= 2 ? -4 : 'auto',
+                  left: i % 2 === 0 ? -4 : 'auto',
+                  right: i % 2 === 1 ? -4 : 'auto',
+                }}
+                animate={{
+                  scale: [0, 1.5, 0],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity, 
+                  delay: i * 0.3,
+                  ease: "easeOut"
+                }}
+              />
+            ))}
+          </div>
+          
+          <motion.p 
+            className="text-xs text-muted-foreground/60 tracking-[0.5em] uppercase mt-3"
+            animate={{ 
+              opacity: [0.4, 0.7, 0.4],
+              letterSpacing: ["0.5em", "0.6em", "0.5em"]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
             Solutions
-          </p>
+          </motion.p>
         </motion.div>
       </div>
     </footer>
