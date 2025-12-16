@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import training1 from "@/assets/training-1.jpg";
+import aboutCoach from "@/assets/about-coach.png";
 import training2 from "@/assets/training-2.jpg";
 
 const AboutSection = () => {
@@ -49,7 +49,7 @@ const AboutSection = () => {
                 className="aspect-[3/4] rounded-2xl overflow-hidden"
               >
                 <motion.img
-                  src={training1}
+                  src={aboutCoach}
                   alt="Training intensity"
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.1 }}
