@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -6,6 +7,15 @@ interface LoadingScreenProps {
 }
 
 const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onComplete();
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onComplete]);
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -44,8 +54,8 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             <video
               autoPlay
               muted
+              loop
               playsInline
-              onEnded={onComplete}
               className="w-full h-full object-cover"
             >
               <source src="/videos/loading-intro.mp4" type="video/mp4" />
