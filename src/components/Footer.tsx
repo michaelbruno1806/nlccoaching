@@ -125,7 +125,7 @@ const Footer = () => {
           <div className="relative group cursor-pointer">
             {/* Multiple layered glow effects */}
             <motion.div 
-              className="absolute -inset-8 bg-gradient-to-r from-cyan-500/30 via-blue-500/40 to-cyan-500/30 blur-2xl rounded-full -z-10"
+              className="absolute -inset-8 bg-gradient-to-r from-lime-400/30 via-lime-500/40 to-lime-400/30 blur-2xl rounded-full -z-10"
               animate={{ 
                 opacity: [0.4, 0.8, 0.4],
                 scale: [0.9, 1.15, 0.9],
@@ -134,7 +134,7 @@ const Footer = () => {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div 
-              className="absolute -inset-6 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 blur-xl rounded-full -z-10"
+              className="absolute -inset-6 bg-gradient-to-r from-lime-400/20 to-lime-300/20 blur-xl rounded-full -z-10"
               animate={{ 
                 opacity: [0.5, 1, 0.5],
                 scale: [1, 1.2, 1]
@@ -144,7 +144,7 @@ const Footer = () => {
             
             {/* Electric pulse rings */}
             <motion.div 
-              className="absolute inset-0 border-2 border-cyan-400/50 rounded-lg -z-10"
+              className="absolute inset-0 border-2 border-lime-400/50 rounded-lg -z-10"
               animate={{ 
                 scale: [1, 1.5, 2],
                 opacity: [0.8, 0.3, 0]
@@ -152,7 +152,7 @@ const Footer = () => {
               transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
             />
             <motion.div 
-              className="absolute inset-0 border border-blue-400/30 rounded-lg -z-10"
+              className="absolute inset-0 border border-lime-300/30 rounded-lg -z-10"
               animate={{ 
                 scale: [1, 1.8, 2.5],
                 opacity: [0.6, 0.2, 0]
@@ -179,14 +179,14 @@ const Footer = () => {
                   className="text-4xl font-display font-black tracking-tight relative"
                   animate={{
                     textShadow: [
-                      "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #0099ff",
-                      "0 0 20px #00d4ff, 0 0 40px #00d4ff, 0 0 60px #0099ff, 0 0 80px #0066ff",
-                      "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #0099ff"
+                      "0 0 10px #84ff00, 0 0 20px #84ff00, 0 0 40px #a3ff00",
+                      "0 0 20px #84ff00, 0 0 40px #84ff00, 0 0 60px #a3ff00, 0 0 80px #c0ff00",
+                      "0 0 10px #84ff00, 0 0 20px #84ff00, 0 0 40px #a3ff00"
                     ]
                   }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                   style={{
-                    background: "linear-gradient(90deg, #00d4ff, #0099ff, #00d4ff, #0066ff)",
+                    background: "linear-gradient(90deg, #84ff00, #a3ff00, #84ff00, #c0ff00)",
                     backgroundSize: "300% 100%",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -202,7 +202,7 @@ const Footer = () => {
                   animate={{
                     textShadow: [
                       "0 0 5px rgba(255,255,255,0.3)",
-                      "0 0 15px rgba(255,255,255,0.5), 0 0 30px rgba(0,212,255,0.3)",
+                      "0 0 15px rgba(255,255,255,0.5), 0 0 30px rgba(132,255,0,0.3)",
                       "0 0 5px rgba(255,255,255,0.3)"
                     ]
                   }}
@@ -214,7 +214,7 @@ const Footer = () => {
               
               {/* Underline flash effect */}
               <motion.div 
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-lime-400 to-transparent"
                 animate={{ 
                   scaleX: [0, 1, 0],
                   opacity: [0, 1, 0]
@@ -227,7 +227,7 @@ const Footer = () => {
             {[...Array(4)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+                className="absolute w-1 h-1 bg-lime-400 rounded-full"
                 style={{
                   top: i < 2 ? -4 : 'auto',
                   bottom: i >= 2 ? -4 : 'auto',
