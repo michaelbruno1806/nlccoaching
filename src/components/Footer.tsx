@@ -105,6 +105,48 @@ const Footer = () => {
             Conçu avec passion pour la performance
           </p>
         </div>
+
+        {/* Powered by MB18 Solutions */}
+        <motion.div 
+          className="mt-12 pt-8 border-t border-border/50 flex flex-col items-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-xs text-muted-foreground/60 tracking-[0.3em] uppercase mb-3">
+            Powered by
+          </p>
+          <motion.div 
+            className="relative"
+            animate={{ 
+              textShadow: [
+                "0 0 20px hsl(200, 80%, 50%)",
+                "0 0 40px hsl(200, 80%, 60%)",
+                "0 0 20px hsl(200, 80%, 50%)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span className="text-3xl font-display font-bold tracking-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(200,80%,50%)] to-[hsl(210,90%,60%)]">
+                MB
+              </span>
+              <span className="text-foreground">18</span>
+            </span>
+            <motion.div 
+              className="absolute -inset-4 bg-[hsl(200,80%,50%)]/10 blur-xl rounded-full -z-10"
+              animate={{ 
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+          <p className="text-[10px] text-muted-foreground/50 tracking-[0.4em] uppercase mt-1">
+            Solutions
+          </p>
+        </motion.div>
       </div>
     </footer>
   );
