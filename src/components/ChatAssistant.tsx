@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
@@ -167,17 +167,21 @@ const ChatAssistant = () => {
             className="fixed bottom-40 right-6 z-50 w-80 sm:w-96 h-[28rem] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-primary p-4 flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary-foreground/20 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-5 h-5 text-primary-foreground" />
+            <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center gap-3">
+              <div className="relative w-11 h-11 bg-primary-foreground/20 rounded-full flex items-center justify-center ring-2 ring-primary-foreground/30">
+                <Bot className="w-6 h-6 text-primary-foreground" />
+                <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-primary-foreground animate-pulse" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className="font-semibold text-primary-foreground text-sm">
-                  {t("Assistant NLC", "NLC Assistant")}
+                  {t("Coach IA NLC", "NLC AI Coach")}
                 </h3>
-                <p className="text-xs text-primary-foreground/70">
-                  {t("En ligne", "Online")}
-                </p>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <p className="text-xs text-primary-foreground/80">
+                    {t("En ligne • Prêt à vous aider", "Online • Ready to help")}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -196,17 +200,25 @@ const ChatAssistant = () => {
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex items-end gap-2 ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
+                  {message.role === "assistant" && (
+                    <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-primary" />
+                    </div>
+                  )}
                   <div
-                    className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
+                    className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       message.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-md"
-                        : "bg-secondary text-secondary-foreground rounded-bl-md"
+                        ? "bg-primary text-primary-foreground rounded-br-sm"
+                        : "bg-secondary text-secondary-foreground rounded-bl-sm"
                     }`}
                   >
                     {message.content || (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span className="text-xs opacity-70">{t("Réflexion...", "Thinking...")}</span>
+                      </div>
                     )}
                   </div>
                 </motion.div>
