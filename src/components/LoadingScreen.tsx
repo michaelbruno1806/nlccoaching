@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import AnimatedLogo from "./AnimatedLogo";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -62,17 +63,14 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             </video>
           </motion.div>
 
-          {/* Loading text */}
+          {/* Animated Logo */}
           <motion.div 
             className="mt-8 flex flex-col items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <span className="text-2xl font-display font-bold">
-              <span className="text-gradient">NLC</span>
-              <span className="text-foreground ml-2">COACHING</span>
-            </span>
+            <AnimatedLogo size="lg" />
             <motion.div 
               className="flex gap-1"
               initial={{ opacity: 0 }}
