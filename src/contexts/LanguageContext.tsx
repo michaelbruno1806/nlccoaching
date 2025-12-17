@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Language = "fr" | "en";
@@ -12,7 +12,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("fr");
+  const [language, setLanguageState] = useState<Language>(() => {
+    const stored = localStorage.getItem("language");
+    return (stored === "fr" || stored === "en") ? stored : "fr";
+  });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem("language", lang);
+  };
 
   const t = (fr: string, en: string) => (language === "fr" ? fr : en);
 
