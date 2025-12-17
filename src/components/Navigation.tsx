@@ -82,20 +82,35 @@ const Navigation = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg pt-24 md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ 
+              duration: 0.4, 
+              ease: [0.22, 1, 0.36, 1],
+              opacity: { duration: 0.3 }
+            }}
+            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg pt-24 md:hidden overflow-hidden"
           >
-            <div className="flex flex-col items-center gap-8 p-8">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+              className="flex flex-col items-center gap-8 p-8"
+            >
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  transition={{ 
+                    delay: 0.1 + index * 0.08,
+                    duration: 0.4,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
                   className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -103,17 +118,22 @@ const Navigation = () => {
                 </motion.a>
               ))}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col items-center gap-4"
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                transition={{ 
+                  delay: 0.35,
+                  duration: 0.4,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className="flex flex-col items-center gap-4 mt-4"
               >
                 <LanguageToggle />
                 <Button variant="gold" size="lg">
                   <AnimatedText fr="Commencer" en="Get Started" />
                 </Button>
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
