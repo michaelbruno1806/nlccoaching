@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Language = "fr" | "en";
 
@@ -28,4 +29,33 @@ export const useLanguage = () => {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
+};
+
+// Animated text component for smooth language transitions
+export const AnimatedText = ({ 
+  fr, 
+  en, 
+  className = "" 
+}: { 
+  fr: string; 
+  en: string; 
+  className?: string;
+}) => {
+  const { language } = useLanguage();
+  const text = language === "fr" ? fr : en;
+  
+  return (
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={text}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.2 }}
+        className={className}
+      >
+        {text}
+      </motion.span>
+    </AnimatePresence>
+  );
 };
