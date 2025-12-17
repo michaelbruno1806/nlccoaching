@@ -7,6 +7,7 @@ import ServicesSection from "@/components/ServicesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ChatAssistant from "@/components/ChatAssistant";
 
 const Index = () => {
   return (
@@ -25,6 +26,9 @@ const Index = () => {
         phoneNumber="33612345678" 
         message="Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
       />
+      
+      {/* AI Chat Assistant */}
+      <ChatAssistant />
     </main>
   );
 };
