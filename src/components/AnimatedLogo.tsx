@@ -43,7 +43,7 @@ const AnimatedLogo = ({ className = "", size = "md" }: AnimatedLogoProps) => {
 
           {/* N Letter */}
           <path
-            d="M13 28V12L20 22L27 12V28"
+            d="M13 28V12L27 28V12"
             stroke="hsl(var(--primary-foreground))"
             strokeWidth="2.5"
             strokeLinecap="round"
