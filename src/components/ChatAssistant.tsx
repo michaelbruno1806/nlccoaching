@@ -187,13 +187,28 @@ const ChatAssistant = () => {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-background">
+              {/* Welcome Message */}
               {messages.length === 0 && (
-                <div className="text-center text-muted-foreground text-sm py-8">
-                  {t(
-                    "Bonjour ! Comment puis-je vous aider aujourd'hui ?",
-                    "Hello! How can I help you today?"
-                  )}
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-end gap-2 justify-start"
+                >
+                  <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Bot className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-bl-sm bg-secondary text-secondary-foreground text-sm leading-relaxed">
+                    <p className="font-medium mb-2">
+                      {t("Salut ! 👋 Je suis Coach NLC", "Hey there! 👋 I'm Coach NLC")}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {t(
+                        "Je suis là pour t'aider à atteindre tes objectifs fitness et bien-être. Pose-moi tes questions sur nos programmes, la nutrition, ou comment démarrer ton parcours ! 💪",
+                        "I'm here to help you reach your fitness and wellness goals. Ask me about our programs, nutrition, or how to start your journey! 💪"
+                      )}
+                    </p>
+                  </div>
+                </motion.div>
               )}
               {messages.map((message, index) => (
                 <motion.div
