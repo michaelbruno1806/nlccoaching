@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +19,8 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#about", label: "À Propos" },
-    { href: "#philosophy", label: "Philosophie" },
+    { href: "#about", label: t("À Propos", "About") },
+    { href: "#philosophy", label: t("Philosophie", "Philosophy") },
     { href: "#services", label: "Services" },
     { href: "#contact", label: "Contact" },
   ];
@@ -57,8 +60,9 @@ const Navigation = () => {
                   {link.label}
                 </motion.a>
               ))}
+              <LanguageToggle />
               <Button variant="gold" size="sm">
-                Commencer
+                {t("Commencer", "Get Started")}
               </Button>
             </div>
 
@@ -102,9 +106,11 @@ const Navigation = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
+                className="flex flex-col items-center gap-4"
               >
+                <LanguageToggle />
                 <Button variant="gold" size="lg">
-                  Commencer
+                  {t("Commencer", "Get Started")}
                 </Button>
               </motion.div>
             </div>
