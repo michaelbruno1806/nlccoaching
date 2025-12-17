@@ -2,31 +2,39 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Target, Users, TrendingUp } from "lucide-react";
-
-const philosophyItems = [
-  {
-    icon: Target,
-    title: "Performance Durable",
-    description:
-      "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
-  },
-  {
-    icon: Users,
-    title: "Suivi Personnalisé",
-    description:
-      "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Résultats Mesurables",
-    description:
-      "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PhilosophySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const philosophyItems = [
+    {
+      icon: Target,
+      title: t("Performance Durable", "Sustainable Performance"),
+      description: t(
+        "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
+        "Build strength, mobility, and technique without injury. A long-term approach for lasting results."
+      ),
+    },
+    {
+      icon: Users,
+      title: t("Suivi Personnalisé", "Personalized Support"),
+      description: t(
+        "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
+        "Each program is tailored to your goals, level, and lifestyle. Custom-made support."
+      ),
+    },
+    {
+      icon: TrendingUp,
+      title: t("Résultats Mesurables", "Measurable Results"),
+      description: t(
+        "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
+        "Clear progress indicators and quantifiable goals to track your evolution in real-time."
+      ),
+    },
+  ];
 
   return (
     <section
@@ -53,16 +61,17 @@ const PhilosophySection = () => {
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
-            Notre Philosophie
+            {t("Notre Philosophie", "Our Philosophy")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Une approche qui allie{" "}
-            <span className="text-gradient">performance</span> et bien-être
+            {t("Une approche qui allie", "An approach that combines")}{" "}
+            <span className="text-gradient">performance</span> {t("et bien-être", "and well-being")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Chez NLC Coaching, nous croyons en une approche du sport qui allie
-            performance, rigueur et bien-être. Chaque accompagnement est pensé
-            pour permettre une progression durable et mesurable.
+            {t(
+              "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, rigueur et bien-être. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
+              "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and well-being. Each coaching is designed to enable sustainable and measurable progress."
+            )}
           </p>
         </motion.div>
 

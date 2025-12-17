@@ -3,55 +3,63 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, User, Users, Sparkles } from "lucide-react";
-
-const services = [
-  {
-    icon: Sparkles,
-    category: "Programme",
-    title: "Programme Personnalisé",
-    description:
-      "Accompagnement sur mesure pour atteindre vos objectifs spécifiques. Un programme unique créé pour vous.",
-    features: [
-      "Analyse complète de vos besoins",
-      "Plan d'entraînement sur mesure",
-      "Suivi nutritionnel personnalisé",
-      "Ajustements en temps réel",
-    ],
-    highlighted: true,
-  },
-  {
-    icon: User,
-    category: "Programme",
-    title: "Coaching Individuel",
-    description:
-      "Séances intensives pour maximiser votre potentiel personnel. Une attention exclusive à votre progression.",
-    features: [
-      "Sessions privées 1-on-1",
-      "Correction technique approfondie",
-      "Feedback instantané",
-      "Flexibilité horaire",
-    ],
-    highlighted: false,
-  },
-  {
-    icon: Users,
-    category: "Groupes",
-    title: "Small Groupes",
-    description:
-      "Jusqu'à 4 personnes pour un suivi de qualité. L'énergie du groupe avec l'attention du coaching privé.",
-    features: [
-      "Maximum 4 participants",
-      "Dynamique de groupe motivante",
-      "Tarif avantageux",
-      "Ambiance stimulante",
-    ],
-    highlighted: false,
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Sparkles,
+      category: t("Programme", "Program"),
+      title: t("Programme Personnalisé", "Personalized Program"),
+      description: t(
+        "Accompagnement sur mesure pour atteindre vos objectifs spécifiques. Un programme unique créé pour vous.",
+        "Tailored support to achieve your specific goals. A unique program created for you."
+      ),
+      features: [
+        t("Analyse complète de vos besoins", "Complete needs analysis"),
+        t("Plan d'entraînement sur mesure", "Custom training plan"),
+        t("Suivi nutritionnel personnalisé", "Personalized nutrition tracking"),
+        t("Ajustements en temps réel", "Real-time adjustments"),
+      ],
+      highlighted: true,
+    },
+    {
+      icon: User,
+      category: t("Programme", "Program"),
+      title: t("Coaching Individuel", "Individual Coaching"),
+      description: t(
+        "Séances intensives pour maximiser votre potentiel personnel. Une attention exclusive à votre progression.",
+        "Intensive sessions to maximize your personal potential. Exclusive attention to your progress."
+      ),
+      features: [
+        t("Sessions privées 1-on-1", "Private 1-on-1 sessions"),
+        t("Correction technique approfondie", "In-depth technique correction"),
+        t("Feedback instantané", "Instant feedback"),
+        t("Flexibilité horaire", "Schedule flexibility"),
+      ],
+      highlighted: false,
+    },
+    {
+      icon: Users,
+      category: t("Groupes", "Groups"),
+      title: t("Small Groupes", "Small Groups"),
+      description: t(
+        "Jusqu'à 4 personnes pour un suivi de qualité. L'énergie du groupe avec l'attention du coaching privé.",
+        "Up to 4 people for quality support. Group energy with private coaching attention."
+      ),
+      features: [
+        t("Maximum 4 participants", "Maximum 4 participants"),
+        t("Dynamique de groupe motivante", "Motivating group dynamic"),
+        t("Tarif avantageux", "Competitive pricing"),
+        t("Ambiance stimulante", "Stimulating atmosphere"),
+      ],
+      highlighted: false,
+    },
+  ];
 
   return (
     <section id="services" className="py-32 relative overflow-hidden" ref={ref}>
@@ -82,11 +90,13 @@ const ServicesSection = () => {
             Services
           </motion.span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Mes <span className="text-gradient">programmes</span>
+            {t("Mes", "My")} <span className="text-gradient">{t("programmes", "programs")}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Des solutions adaptées à vos objectifs personnels et professionnels.
-            Choisissez la formule qui correspond le mieux à vos besoins.
+            {t(
+              "Des solutions adaptées à vos objectifs personnels et professionnels. Choisissez la formule qui correspond le mieux à vos besoins.",
+              "Solutions tailored to your personal and professional goals. Choose the formula that best fits your needs."
+            )}
           </p>
         </motion.div>
 
@@ -121,7 +131,7 @@ const ServicesSection = () => {
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     <span className="px-4 py-1 text-xs font-semibold uppercase tracking-wider bg-gold text-primary-foreground rounded-full">
-                      Populaire
+                      {t("Populaire", "Popular")}
                     </span>
                   </motion.div>
                 )}
@@ -172,7 +182,7 @@ const ServicesSection = () => {
                     variant={service.highlighted ? "gold" : "outline"}
                     className="w-full group/btn"
                   >
-                    En savoir plus
+                    {t("En savoir plus", "Learn more")}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </motion.div>
@@ -189,7 +199,7 @@ const ServicesSection = () => {
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
             <Button variant="hero" size="xl">
-              Découvrir les Formules
+              {t("Découvrir les Formules", "Discover Programs")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>

@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import aboutCoach from "@/assets/about-coach.png";
 import aboutCoach2 from "@/assets/about-coach-2.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="about" className="py-32 relative overflow-hidden" ref={ref}>
@@ -90,7 +92,7 @@ const AboutSection = () => {
                   10+
                 </motion.span>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Années d'expérience
+                  {t("Années d'expérience", "Years of experience")}
                 </p>
               </div>
             </motion.div>
@@ -115,10 +117,10 @@ const AboutSection = () => {
               animate={isInView ? { opacity: [0.7, 1, 0.7] } : {}}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              Qui Nous Sommes
+              {t("Qui Nous Sommes", "Who We Are")}
             </motion.span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Optimise ton parcours de{" "}
+              {t("Optimise ton parcours de", "Optimize your journey to")}{" "}
               <motion.span 
                 className="text-gradient inline-block"
                 animate={isInView ? { scale: [1, 1.02, 1] } : {}}
@@ -133,10 +135,10 @@ const AboutSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              Nous créons des expériences de coaching d'élite basées sur la
-              science, la discipline et la performance humaine. Chaque séance
-              vise à repousser tes limites, transformer ton corps et renforcer
-              ton mental.
+              {t(
+                "Nous créons des expériences de coaching d'élite basées sur la science, la discipline et la performance humaine. Chaque séance vise à repousser tes limites, transformer ton corps et renforcer ton mental.",
+                "We create elite coaching experiences based on science, discipline, and human performance. Each session aims to push your limits, transform your body, and strengthen your mind."
+              )}
             </motion.p>
             <motion.p 
               className="text-muted-foreground leading-relaxed mb-8"
@@ -144,10 +146,10 @@ const AboutSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              L'excellence naît du travail, de la rigueur et de la constance.
-              Notre approche personnalisée garantit que chaque athlète reçoit
-              l'attention et les outils nécessaires pour atteindre son plein
-              potentiel.
+              {t(
+                "L'excellence naît du travail, de la rigueur et de la constance. Notre approche personnalisée garantit que chaque athlète reçoit l'attention et les outils nécessaires pour atteindre son plein potentiel.",
+                "Excellence is born from work, rigor, and consistency. Our personalized approach ensures that each athlete receives the attention and tools needed to reach their full potential."
+              )}
             </motion.p>
             <motion.div 
               whileHover={{ scale: 1.05 }} 
@@ -157,7 +159,7 @@ const AboutSection = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <Button variant="goldOutline" className="group">
-                En Savoir Plus
+                {t("En Savoir Plus", "Learn More")}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>

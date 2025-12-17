@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-coach.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: string; size: number }) => (
   <motion.div
@@ -17,6 +18,8 @@ const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: 
 );
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
@@ -95,7 +98,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Transformer votre
+              {t("Transformer votre", "Transform your")}
             </motion.span>
             <br />
             <motion.span 
@@ -104,7 +107,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
-              potentiel
+              {t("potentiel", "potential")}
             </motion.span>
             <br />
             <motion.span 
@@ -113,7 +116,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
-              en performance
+              {t("en performance", "into performance")}
             </motion.span>
           </motion.h1>
 
@@ -123,9 +126,10 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
           >
-            Chaque parcours est unique, chaque objectif mérite une stratégie
-            personnalisée. Découvrez un coaching d'élite basé sur la science,
-            la discipline et la performance humaine.
+            {t(
+              "Chaque parcours est unique, chaque objectif mérite une stratégie personnalisée. Découvrez un coaching d'élite basé sur la science, la discipline et la performance humaine.",
+              "Every journey is unique, every goal deserves a personalized strategy. Discover elite coaching based on science, discipline, and human performance."
+            )}
           </motion.p>
 
           <motion.div
@@ -136,14 +140,14 @@ const HeroSection = () => {
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Button variant="hero">
-                Découvrir les Formules
+                {t("Découvrir les Formules", "Discover Programs")}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Button variant="heroOutline">
                 <Play className="mr-2 h-5 w-5" />
-                Nous Contacter
+                {t("Nous Contacter", "Contact Us")}
               </Button>
             </motion.div>
           </motion.div>

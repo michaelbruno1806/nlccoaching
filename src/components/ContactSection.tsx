@@ -6,51 +6,48 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // WhatsApp configuration
 const WHATSAPP_NUMBER = "33612345678"; // Replace with actual number
-const WHATSAPP_MESSAGE = "Bonjour! Je suis intéressé(e) par vos services de coaching NLC.";
-
-interface ContactItem {
-  icon: typeof Phone;
-  label: string;
-  value: string;
-  href: string;
-  isWhatsApp?: boolean;
-}
-
-const contactInfo: ContactItem[] = [
-  {
-    icon: Phone,
-    label: "Téléphone",
-    value: "+33 6 12 34 56 78",
-    href: "tel:+33612345678",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "contact@nlccoaching.com",
-    href: "mailto:contact@nlccoaching.com",
-  },
-  {
-    icon: MapPin,
-    label: "Localisation",
-    value: "Paris, France",
-    href: "#",
-  },
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "Discuter maintenant",
-    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
-    isWhatsApp: true,
-  },
-];
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t, language } = useLanguage();
+
+  const WHATSAPP_MESSAGE = language === "fr" 
+    ? "Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
+    : "Hello! I'm interested in your NLC coaching services.";
+
+  const contactInfo = [
+    {
+      icon: Phone,
+      label: t("Téléphone", "Phone"),
+      value: "+33 6 12 34 56 78",
+      href: "tel:+33612345678",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: "contact@nlccoaching.com",
+      href: "mailto:contact@nlccoaching.com",
+    },
+    {
+      icon: MapPin,
+      label: t("Localisation", "Location"),
+      value: "Paris, France",
+      href: "#",
+    },
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: t("Discuter maintenant", "Chat now"),
+      href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+      isWhatsApp: true,
+    },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,8 +56,8 @@ const ContactSection = () => {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success("Message envoyé avec succès!", {
-        description: "Nous vous répondrons dans les plus brefs délais.",
+      toast.success(t("Message envoyé avec succès!", "Message sent successfully!"), {
+        description: t("Nous vous répondrons dans les plus brefs délais.", "We will get back to you as soon as possible."),
       });
     }, 1500);
   };
@@ -87,11 +84,13 @@ const ContactSection = () => {
             Contact
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Prêt à <span className="text-gradient">transformer</span> votre vie?
+            {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span> {t("votre vie?", "your life?")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Contactez-nous pour discuter de vos objectifs et découvrir comment
-            nous pouvons vous accompagner vers l'excellence.
+            {t(
+              "Contactez-nous pour discuter de vos objectifs et découvrir comment nous pouvons vous accompagner vers l'excellence.",
+              "Contact us to discuss your goals and discover how we can guide you towards excellence."
+            )}
           </p>
         </motion.div>
 
@@ -141,14 +140,16 @@ const ContactSection = () => {
               className="p-6 rounded-xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent border border-gold/30"
             >
               <h4 className="font-display text-xl font-bold mb-2">
-                Séance découverte
+                {t("Séance découverte", "Discovery Session")}
               </h4>
               <p className="text-muted-foreground text-sm mb-4">
-                Réservez votre première séance gratuite et découvrez notre
-                approche unique.
+                {t(
+                  "Réservez votre première séance gratuite et découvrez notre approche unique.",
+                  "Book your first free session and discover our unique approach."
+                )}
               </p>
               <Button variant="gold" size="sm">
-                Réserver maintenant
+                {t("Réserver maintenant", "Book now")}
               </Button>
             </motion.div>
           </motion.div>
@@ -167,20 +168,20 @@ const ContactSection = () => {
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    Prénom
+                    {t("Prénom", "First Name")}
                   </label>
                   <Input
-                    placeholder="Votre prénom"
+                    placeholder={t("Votre prénom", "Your first name")}
                     className="bg-card border-border focus:border-gold"
                     required
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    Nom
+                    {t("Nom", "Last Name")}
                   </label>
                   <Input
-                    placeholder="Votre nom"
+                    placeholder={t("Votre nom", "Your last name")}
                     className="bg-card border-border focus:border-gold"
                     required
                   />
@@ -193,7 +194,7 @@ const ContactSection = () => {
                 </label>
                 <Input
                   type="email"
-                  placeholder="votre@email.com"
+                  placeholder={t("votre@email.com", "your@email.com")}
                   className="bg-card border-border focus:border-gold"
                   required
                 />
@@ -201,7 +202,7 @@ const ContactSection = () => {
 
               <div className="mb-6">
                 <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                  Téléphone
+                  {t("Téléphone", "Phone")}
                 </label>
                 <Input
                   type="tel"
@@ -215,7 +216,7 @@ const ContactSection = () => {
                   Message
                 </label>
                 <Textarea
-                  placeholder="Parlez-nous de vos objectifs..."
+                  placeholder={t("Parlez-nous de vos objectifs...", "Tell us about your goals...")}
                   rows={5}
                   className="bg-card border-border focus:border-gold resize-none"
                   required
@@ -229,10 +230,10 @@ const ContactSection = () => {
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
-                  "Envoi en cours..."
+                  t("Envoi en cours...", "Sending...")
                 ) : (
                   <>
-                    Envoyer le message
+                    {t("Envoyer le message", "Send message")}
                     <Send className="ml-2 h-4 w-4" />
                   </>
                 )}
