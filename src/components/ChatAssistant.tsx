@@ -230,9 +230,22 @@ const ChatAssistant = () => {
                     }`}
                   >
                     {message.content || (
-                      <div className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span className="text-xs opacity-70">{t("Réflexion...", "Thinking...")}</span>
+                      <div className="flex items-center gap-1 py-1">
+                        <motion.span
+                          className="w-2 h-2 bg-current rounded-full opacity-60"
+                          animate={{ y: [0, -4, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                        />
+                        <motion.span
+                          className="w-2 h-2 bg-current rounded-full opacity-60"
+                          animate={{ y: [0, -4, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
+                        />
+                        <motion.span
+                          className="w-2 h-2 bg-current rounded-full opacity-60"
+                          animate={{ y: [0, -4, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
+                        />
                       </div>
                     )}
                   </div>
