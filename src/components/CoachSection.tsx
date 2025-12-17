@@ -4,16 +4,18 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Users, Calendar } from "lucide-react";
 import coachPortrait from "@/assets/coach-portrait.jpg";
-
-const stats = [
-  { icon: Award, value: "500+", label: "Clients transformés" },
-  { icon: Users, value: "10+", label: "Années d'expérience" },
-  { icon: Calendar, value: "5000+", label: "Séances réalisées" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CoachSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const stats = [
+    { icon: Award, value: "500+", label: t("Clients transformés", "Clients transformed") },
+    { icon: Users, value: "10+", label: t("Années d'expérience", "Years of experience") },
+    { icon: Calendar, value: "5000+", label: t("Séances réalisées", "Sessions completed") },
+  ];
 
   return (
     <section className="py-32 relative overflow-hidden" ref={ref}>
@@ -32,22 +34,23 @@ const CoachSection = () => {
             className="order-2 lg:order-1"
           >
             <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
-              Votre Coach
+              {t("Votre Coach", "Your Coach")}
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Coach sportif et{" "}
-              <span className="text-gradient">mentor de vie</span>
+              {t("Coach sportif et", "Sports coach and")}{" "}
+              <span className="text-gradient">{t("mentor de vie", "life mentor")}</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              J'accompagne chacun vers l'équilibre et la performance. Mon
-              approche est simple : transformer les défis en opportunités et
-              vous guider vers votre meilleure version.
+              {t(
+                "J'accompagne chacun vers l'équilibre et la performance. Mon approche est simple : transformer les défis en opportunités et vous guider vers votre meilleure version.",
+                "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version."
+              )}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Avec plus de 10 ans d'expérience dans le coaching sportif et le
-              développement personnel, j'ai développé une méthodologie unique
-              qui combine science du sport, psychologie de la performance et
-              accompagnement humain.
+              {t(
+                "Avec plus de 10 ans d'expérience dans le coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.",
+                "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance."
+              )}
             </p>
 
             {/* Stats */}
@@ -73,7 +76,7 @@ const CoachSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="gold">
-                Parcours
+                {t("Parcours", "Journey")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button variant="outline">Contact</Button>

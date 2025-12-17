@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const socialLinks = [
   { icon: Instagram, href: "#", label: "Instagram" },
@@ -8,37 +9,39 @@ const socialLinks = [
   { icon: Youtube, href: "#", label: "YouTube" },
 ];
 
-const footerLinks = [
-  {
-    title: "Navigation",
-    links: [
-      { label: "Accueil", href: "#" },
-      { label: "À Propos", href: "#about" },
-      { label: "Services", href: "#services" },
-      { label: "Contact", href: "#contact" },
-    ],
-  },
-  {
-    title: "Services",
-    links: [
-      { label: "Programme Personnalisé", href: "#services" },
-      { label: "Coaching Individuel", href: "#services" },
-      { label: "Small Groupes", href: "#services" },
-      { label: "Séance Découverte", href: "#contact" },
-    ],
-  },
-  {
-    title: "Légal",
-    links: [
-      { label: "Mentions Légales", href: "#" },
-      { label: "Politique de Confidentialité", href: "#" },
-      { label: "CGV", href: "#" },
-      { label: "Cookies", href: "#" },
-    ],
-  },
-];
-
 const Footer = () => {
+  const { t } = useLanguage();
+
+  const footerLinks = [
+    {
+      title: "Navigation",
+      links: [
+        { label: t("Accueil", "Home"), href: "#" },
+        { label: t("À Propos", "About"), href: "#about" },
+        { label: "Services", href: "#services" },
+        { label: "Contact", href: "#contact" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { label: t("Programme Personnalisé", "Personalized Program"), href: "#services" },
+        { label: t("Coaching Individuel", "Individual Coaching"), href: "#services" },
+        { label: t("Small Groupes", "Small Groups"), href: "#services" },
+        { label: t("Séance Découverte", "Discovery Session"), href: "#contact" },
+      ],
+    },
+    {
+      title: t("Légal", "Legal"),
+      links: [
+        { label: t("Mentions Légales", "Legal Notice"), href: "#" },
+        { label: t("Politique de Confidentialité", "Privacy Policy"), href: "#" },
+        { label: t("CGV", "Terms"), href: "#" },
+        { label: "Cookies", href: "#" },
+      ],
+    },
+  ];
+
   return (
     <footer className="py-20 border-t border-border relative overflow-hidden">
       {/* Background decoration */}
@@ -55,8 +58,10 @@ const Footer = () => {
               </span>
             </a>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Transformer votre potentiel en performance. Coaching d'élite basé
-              sur la science, la discipline et la performance humaine.
+              {t(
+                "Transformer votre potentiel en performance. Coaching d'élite basé sur la science, la discipline et la performance humaine.",
+                "Transform your potential into performance. Elite coaching based on science, discipline, and human performance."
+              )}
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -99,10 +104,10 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} NLC Coaching. Tous droits réservés.
+            © {new Date().getFullYear()} NLC Coaching. {t("Tous droits réservés.", "All rights reserved.")}
           </p>
           <p className="text-sm text-muted-foreground">
-            Conçu avec passion pour la performance
+            {t("Conçu avec passion pour la performance", "Designed with passion for performance")}
           </p>
         </div>
 
