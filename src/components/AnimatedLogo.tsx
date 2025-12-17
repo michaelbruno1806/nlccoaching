@@ -16,9 +16,10 @@ const AnimatedLogo = ({ className = "", size = "md" }: AnimatedLogoProps) => {
 
   return (
     <motion.div
-      className={`flex items-center ${spacing} ${className}`}
+      className={`flex items-center ${spacing} ${className} cursor-pointer group`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.4 }}
     >
       {/* Simple animated icon */}
@@ -51,8 +52,8 @@ const AnimatedLogo = ({ className = "", size = "md" }: AnimatedLogoProps) => {
           />
         </svg>
 
-        {/* Subtle glow */}
-        <div className="absolute inset-0 bg-primary/20 rounded-full blur-md -z-10" />
+        {/* Glow effect - brighter on hover */}
+        <div className="absolute inset-0 bg-primary/20 rounded-full blur-md -z-10 transition-all duration-300 group-hover:bg-primary/40 group-hover:blur-xl group-hover:scale-150" />
       </div>
 
       {/* Text */}
