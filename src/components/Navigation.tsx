@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,10 +19,10 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#about", label: t("À Propos", "About") },
-    { href: "#philosophy", label: t("Philosophie", "Philosophy") },
-    { href: "#services", label: "Services" },
-    { href: "#contact", label: "Contact" },
+    { href: "#about", fr: "À Propos", en: "About" },
+    { href: "#philosophy", fr: "Philosophie", en: "Philosophy" },
+    { href: "#services", fr: "Services", en: "Services" },
+    { href: "#contact", fr: "Contact", en: "Contact" },
   ];
 
   return (
@@ -57,12 +57,12 @@ const Navigation = () => {
                   className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider"
                   whileHover={{ y: -2 }}
                 >
-                  {link.label}
+                  <AnimatedText fr={link.fr} en={link.en} />
                 </motion.a>
               ))}
               <LanguageToggle />
               <Button variant="gold" size="sm">
-                {t("Commencer", "Get Started")}
+                <AnimatedText fr="Commencer" en="Get Started" />
               </Button>
             </div>
 
@@ -99,7 +99,7 @@ const Navigation = () => {
                   className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.label}
+                  <AnimatedText fr={link.fr} en={link.en} />
                 </motion.a>
               ))}
               <motion.div
@@ -110,7 +110,7 @@ const Navigation = () => {
               >
                 <LanguageToggle />
                 <Button variant="gold" size="lg">
-                  {t("Commencer", "Get Started")}
+                  <AnimatedText fr="Commencer" en="Get Started" />
                 </Button>
               </motion.div>
             </div>
