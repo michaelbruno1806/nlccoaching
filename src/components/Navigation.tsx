@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
+import AnimatedLogo from "./AnimatedLogo";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,14 +40,9 @@ const Navigation = () => {
       >
         <div className="container mx-auto px-6">
           <nav className="flex items-center justify-between h-20">
-            <motion.a
-              href="#"
-              className="text-2xl font-display font-bold tracking-wider"
-              whileHover={{ scale: 1.02 }}
-            >
-              <span className="text-gradient">NLC</span>
-              <span className="text-foreground ml-2">COACHING</span>
-            </motion.a>
+            <a href="#">
+              <AnimatedLogo size="sm" />
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
