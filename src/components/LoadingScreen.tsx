@@ -87,6 +87,17 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               ))}
             </motion.div>
           </motion.div>
+
+          {/* Skip button */}
+          <motion.button
+            onClick={onComplete}
+            className="absolute bottom-8 text-foreground/50 hover:text-foreground text-sm tracking-wide transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            Skip →
+          </motion.button>
         </motion.div>
       )}
     </AnimatePresence>
