@@ -3,33 +3,35 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Target, Users, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const PhilosophySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const { getContent } = useSiteContent();
 
   const philosophyItems = [
     {
       icon: Target,
-      title: t("Performance Durable", "Sustainable Performance"),
-      description: t(
+      title: getContent("philosophy_1_title") || t("Performance Durable", "Sustainable Performance"),
+      description: getContent("philosophy_1_description") || t(
         "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
         "Build strength, mobility, and technique without injury. A long-term approach for lasting results."
       ),
     },
     {
       icon: Users,
-      title: t("Suivi Personnalisé", "Personalized Support"),
-      description: t(
+      title: getContent("philosophy_2_title") || t("Suivi Personnalisé", "Personalized Support"),
+      description: getContent("philosophy_2_description") || t(
         "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
         "Each program is tailored to your goals, level, and lifestyle. Custom-made support."
       ),
     },
     {
       icon: TrendingUp,
-      title: t("Résultats Mesurables", "Measurable Results"),
-      description: t(
+      title: getContent("philosophy_3_title") || t("Résultats Mesurables", "Measurable Results"),
+      description: getContent("philosophy_3_description") || t(
         "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
         "Clear progress indicators and quantifiable goals to track your evolution in real-time."
       ),
