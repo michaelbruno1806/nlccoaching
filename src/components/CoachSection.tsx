@@ -5,16 +5,30 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Users, Calendar } from "lucide-react";
 import coachPortrait from "@/assets/coach-portrait.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const CoachSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const { getContent } = useSiteContent();
 
   const stats = [
-    { icon: Award, value: "500+", label: t("Clients transformés", "Clients transformed") },
-    { icon: Users, value: "10+", label: t("Années d'expérience", "Years of experience") },
-    { icon: Calendar, value: "5000+", label: t("Séances réalisées", "Sessions completed") },
+    { 
+      icon: Award, 
+      value: getContent("coach_stat_1_value") || "500+", 
+      label: getContent("coach_stat_1_label") || t("Clients transformés", "Clients transformed") 
+    },
+    { 
+      icon: Users, 
+      value: getContent("coach_stat_2_value") || "10+", 
+      label: getContent("coach_stat_2_label") || t("Années d'expérience", "Years of experience") 
+    },
+    { 
+      icon: Calendar, 
+      value: getContent("coach_stat_3_value") || "5000+", 
+      label: getContent("coach_stat_3_label") || t("Séances réalisées", "Sessions completed") 
+    },
   ];
 
   return (
@@ -34,20 +48,24 @@ const CoachSection = () => {
             className="order-2 lg:order-1"
           >
             <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
-              {t("Votre Coach", "Your Coach")}
+              {getContent("coach_title") || t("Votre Coach", "Your Coach")}
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {t("Coach sportif et", "Sports coach and")}{" "}
-              <span className="text-gradient">{t("mentor de vie", "life mentor")}</span>
+              {getContent("coach_headline") || (
+                <>
+                  {t("Coach sportif et", "Sports coach and")}{" "}
+                  <span className="text-gradient">{t("mentor de vie", "life mentor")}</span>
+                </>
+              )}
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              {t(
+              {getContent("coach_bio_1") || t(
                 "J'accompagne chacun vers l'équilibre et la performance. Mon approche est simple : transformer les défis en opportunités et vous guider vers votre meilleure version.",
                 "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version."
               )}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              {t(
+              {getContent("coach_bio_2") || t(
                 "Avec plus de 10 ans d'expérience dans le coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.",
                 "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance."
               )}

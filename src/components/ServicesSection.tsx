@@ -4,58 +4,60 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, User, Users, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const { getContent } = useSiteContent();
 
   const services = [
     {
       icon: Sparkles,
       category: t("Programme", "Program"),
-      title: t("Programme Personnalisé", "Personalized Program"),
-      description: t(
+      title: getContent("service_1_title") || t("Programme Personnalisé", "Personalized Program"),
+      description: getContent("service_1_description") || t(
         "Accompagnement sur mesure pour atteindre vos objectifs spécifiques. Un programme unique créé pour vous.",
         "Tailored support to achieve your specific goals. A unique program created for you."
       ),
       features: [
-        t("Analyse complète de vos besoins", "Complete needs analysis"),
-        t("Plan d'entraînement sur mesure", "Custom training plan"),
-        t("Suivi nutritionnel personnalisé", "Personalized nutrition tracking"),
-        t("Ajustements en temps réel", "Real-time adjustments"),
+        getContent("service_1_feature_1") || t("Analyse complète de vos besoins", "Complete needs analysis"),
+        getContent("service_1_feature_2") || t("Plan d'entraînement sur mesure", "Custom training plan"),
+        getContent("service_1_feature_3") || t("Suivi nutritionnel personnalisé", "Personalized nutrition tracking"),
+        getContent("service_1_feature_4") || t("Ajustements en temps réel", "Real-time adjustments"),
       ],
       highlighted: true,
     },
     {
       icon: User,
       category: t("Programme", "Program"),
-      title: t("Coaching Individuel", "Individual Coaching"),
-      description: t(
+      title: getContent("service_2_title") || t("Coaching Individuel", "Individual Coaching"),
+      description: getContent("service_2_description") || t(
         "Séances intensives pour maximiser votre potentiel personnel. Une attention exclusive à votre progression.",
         "Intensive sessions to maximize your personal potential. Exclusive attention to your progress."
       ),
       features: [
-        t("Sessions privées 1-on-1", "Private 1-on-1 sessions"),
-        t("Correction technique approfondie", "In-depth technique correction"),
-        t("Feedback instantané", "Instant feedback"),
-        t("Flexibilité horaire", "Schedule flexibility"),
+        getContent("service_2_feature_1") || t("Sessions privées 1-on-1", "Private 1-on-1 sessions"),
+        getContent("service_2_feature_2") || t("Correction technique approfondie", "In-depth technique correction"),
+        getContent("service_2_feature_3") || t("Feedback instantané", "Instant feedback"),
+        getContent("service_2_feature_4") || t("Flexibilité horaire", "Schedule flexibility"),
       ],
       highlighted: false,
     },
     {
       icon: Users,
       category: t("Groupes", "Groups"),
-      title: t("Small Groupes", "Small Groups"),
-      description: t(
+      title: getContent("service_3_title") || t("Small Groupes", "Small Groups"),
+      description: getContent("service_3_description") || t(
         "Jusqu'à 4 personnes pour un suivi de qualité. L'énergie du groupe avec l'attention du coaching privé.",
         "Up to 4 people for quality support. Group energy with private coaching attention."
       ),
       features: [
-        t("Maximum 4 participants", "Maximum 4 participants"),
-        t("Dynamique de groupe motivante", "Motivating group dynamic"),
-        t("Tarif avantageux", "Competitive pricing"),
-        t("Ambiance stimulante", "Stimulating atmosphere"),
+        getContent("service_3_feature_1") || t("Maximum 4 participants", "Maximum 4 participants"),
+        getContent("service_3_feature_2") || t("Dynamique de groupe motivante", "Motivating group dynamic"),
+        getContent("service_3_feature_3") || t("Tarif avantageux", "Competitive pricing"),
+        getContent("service_3_feature_4") || t("Ambiance stimulante", "Stimulating atmosphere"),
       ],
       highlighted: false,
     },
@@ -159,9 +161,9 @@ const ServicesSection = () => {
                 </p>
 
                 <ul className="space-y-3 mb-8">
-                  {service.features.map((feature, fIndex) => (
+                  {service.features.filter(f => f).map((feature, fIndex) => (
                     <motion.li
-                      key={feature}
+                      key={fIndex}
                       className="flex items-center text-sm text-muted-foreground"
                       initial={{ opacity: 0, x: -10 }}
                       animate={isInView ? { opacity: 1, x: 0 } : {}}

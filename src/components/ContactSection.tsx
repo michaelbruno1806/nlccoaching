@@ -7,15 +7,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-// WhatsApp configuration
-const WHATSAPP_NUMBER = "33612345678"; // Replace with actual number
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t, language } = useLanguage();
+  const { getContent } = useSiteContent();
+
+  // Get contact info from database or use defaults
+  const phoneNumber = getContent("contact_phone") || "+33 6 12 34 56 78";
+  const emailAddress = getContent("contact_email") || "contact@nlccoaching.com";
+  const location = getContent("contact_location") || "Paris, France";
+  const whatsappNumber = getContent("contact_whatsapp") || "33612345678";
 
   const WHATSAPP_MESSAGE = language === "fr" 
     ? "Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
@@ -25,26 +30,26 @@ const ContactSection = () => {
     {
       icon: Phone,
       label: t("Téléphone", "Phone"),
-      value: "+33 6 12 34 56 78",
-      href: "tel:+33612345678",
+      value: phoneNumber,
+      href: `tel:${phoneNumber.replace(/\s/g, '')}`,
     },
     {
       icon: Mail,
       label: "Email",
-      value: "contact@nlccoaching.com",
-      href: "mailto:contact@nlccoaching.com",
+      value: emailAddress,
+      href: `mailto:${emailAddress}`,
     },
     {
       icon: MapPin,
       label: t("Localisation", "Location"),
-      value: "Paris, France",
+      value: location,
       href: "#",
     },
     {
       icon: MessageCircle,
       label: "WhatsApp",
       value: t("Discuter maintenant", "Chat now"),
-      href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+      href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
       isWhatsApp: true,
     },
   ];
@@ -61,6 +66,21 @@ const ContactSection = () => {
       });
     }, 1500);
   };
+
+  // Get discovery session content
+  const discoveryTitle = getContent("discovery_title") || t("Séance découverte", "Discovery Session");
+  const discoveryDescription = getContent("discovery_description") || t(
+    "Réservez votre première séance gratuite et découvrez notre approche unique.",
+    "Book your first free session and discover our unique approach."
+  );
+  const discoveryButton = getContent("discovery_button") || t("Réserver maintenant", "Book now");
+
+  // Get section header content
+  const sectionTitle = getContent("contact_title") || t("Prêt à transformer votre vie?", "Ready to transform your life?");
+  const sectionSubtitle = getContent("contact_subtitle") || t(
+    "Contactez-nous pour discuter de vos objectifs et découvrir comment nous pouvons vous accompagner vers l'excellence.",
+    "Contact us to discuss your goals and discover how we can guide you towards excellence."
+  );
 
   return (
     <section
@@ -84,13 +104,16 @@ const ContactSection = () => {
             Contact
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span> {t("votre vie?", "your life?")}
+            {sectionTitle.includes("transform") || sectionTitle.includes("transformer") ? (
+              <>
+                {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span> {t("votre vie?", "your life?")}
+              </>
+            ) : (
+              sectionTitle
+            )}
           </h2>
           <p className="text-muted-foreground text-lg">
-            {t(
-              "Contactez-nous pour discuter de vos objectifs et découvrir comment nous pouvons vous accompagner vers l'excellence.",
-              "Contact us to discuss your goals and discover how we can guide you towards excellence."
-            )}
+            {sectionSubtitle}
           </p>
         </motion.div>
 
@@ -140,16 +163,13 @@ const ContactSection = () => {
               className="p-6 rounded-xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent border border-gold/30"
             >
               <h4 className="font-display text-xl font-bold mb-2">
-                {t("Séance découverte", "Discovery Session")}
+                {discoveryTitle}
               </h4>
               <p className="text-muted-foreground text-sm mb-4">
-                {t(
-                  "Réservez votre première séance gratuite et découvrez notre approche unique.",
-                  "Book your first free session and discover our unique approach."
-                )}
+                {discoveryDescription}
               </p>
               <Button variant="gold" size="sm">
-                {t("Réserver maintenant", "Book now")}
+                {discoveryButton}
               </Button>
             </motion.div>
           </motion.div>
