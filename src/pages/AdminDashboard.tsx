@@ -62,6 +62,21 @@ const sectionConfigs = {
       { key: "hero_cta", label: "Button Text", type: "text", placeholder: "Call to action button text" },
     ]
   },
+  about: {
+    title: "About Section",
+    description: "Tell visitors who you are and what you do",
+    icon: UserCircle,
+    fields: [
+      { key: "about_badge", label: "Section Badge", type: "text", placeholder: "Who We Are" },
+      { key: "about_title", label: "Main Title", type: "text", placeholder: "Optimize your journey to performance" },
+      { key: "about_paragraph_1", label: "First Paragraph", type: "textarea", placeholder: "Your main description..." },
+      { key: "about_paragraph_2", label: "Second Paragraph", type: "textarea", placeholder: "Additional details..." },
+      { key: "about_button", label: "Button Text", type: "text", placeholder: "Learn More" },
+    ],
+    stats: [
+      { key: "about_stat_value", labelKey: "about_stat_label", defaultValue: "10+", defaultLabel: "Years of experience" },
+    ]
+  },
   services: {
     title: "Services Section",
     description: "Your coaching programs and offerings",
@@ -451,6 +466,10 @@ export default function AdminDashboard() {
               <LayoutDashboard className="w-4 h-4 mr-2" />
               Home
             </TabsTrigger>
+            <TabsTrigger value="about" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <UserCircle className="w-4 h-4 mr-2" />
+              About
+            </TabsTrigger>
             <TabsTrigger value="services" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Dumbbell className="w-4 h-4 mr-2" />
               Services
@@ -509,6 +528,89 @@ export default function AdminDashboard() {
                     </div>
                   );
                 })}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ABOUT SECTION TAB */}
+          <TabsContent value="about" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <UserCircle className="w-5 h-5 text-primary" />
+                  About Section
+                </CardTitle>
+                <CardDescription>Tell visitors who you are and what you do</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {sectionConfigs.about.fields.map((field) => {
+                  const value = getContentValue(field.key);
+                  return (
+                    <div key={field.key} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-base">{field.label}</Label>
+                        {renderSaveButton(field.key, value)}
+                      </div>
+                      {field.type === 'textarea' ? (
+                        <Textarea
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                          className="min-h-[100px]"
+                        />
+                      ) : (
+                        <Input
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* Stats */}
+                <div className="pt-6 border-t border-border">
+                  <h3 className="font-semibold text-lg mb-4">Statistics Card</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    The floating stats card displayed over the images
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {sectionConfigs.about.stats.map((stat) => {
+                      const valueContent = getContentValue(stat.key) || stat.defaultValue;
+                      const labelContent = getContentValue(stat.labelKey) || stat.defaultLabel;
+                      
+                      return (
+                        <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30 space-y-3">
+                          <div>
+                            <Label className="text-sm text-muted-foreground">Number/Value</Label>
+                            <div className="flex items-center gap-2 mt-1">
+                              <Input
+                                value={valueContent}
+                                onChange={(e) => updateLocalContent(stat.key, e.target.value)}
+                                placeholder={stat.defaultValue}
+                                className="text-center text-xl font-bold"
+                              />
+                              {renderSaveButton(stat.key, valueContent)}
+                            </div>
+                          </div>
+                          <div>
+                            <Label className="text-sm text-muted-foreground">Label</Label>
+                            <div className="flex items-center gap-2 mt-1">
+                              <Input
+                                value={labelContent}
+                                onChange={(e) => updateLocalContent(stat.labelKey, e.target.value)}
+                                placeholder={stat.defaultLabel}
+                                className="text-sm"
+                              />
+                              {renderSaveButton(stat.labelKey, labelContent)}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
