@@ -9,7 +9,22 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
-import { LogOut, Save, Upload, Image, Type, RefreshCw } from 'lucide-react';
+import { 
+  LogOut, Save, Upload, Image, Type, RefreshCw, 
+  Home, HelpCircle, Trash2, Plus, Globe, FileText,
+  CheckCircle, AlertCircle, Lightbulb
+} from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface ContentItem {
   id: string;
@@ -25,6 +40,19 @@ interface ImageItem {
   alt_text: string | null;
 }
 
+// Friendly names for content keys
+const contentKeyLabels: Record<string, string> = {
+  hero_title: "Homepage Main Title",
+  hero_subtitle: "Homepage Subtitle",
+  about_title: "About Section Title",
+  about_description: "About Section Description",
+  services_title: "Services Section Title",
+  contact_title: "Contact Section Title",
+  philosophy_title: "Philosophy Section Title",
+};
+
+const getContentLabel = (key: string) => contentKeyLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
 export default function AdminDashboard() {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
@@ -36,7 +64,8 @@ export default function AdminDashboard() {
   const [newImageKey, setNewImageKey] = useState('');
   const [newImageAlt, setNewImageAlt] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [savingContent, setSavingContent] = useState(false);
+  const [savingContent, setSavingContent] = useState<string | null>(null);
+  const [savedContent, setSavedContent] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -74,18 +103,20 @@ export default function AdminDashboard() {
   };
 
   const handleSaveContent = async (item: ContentItem) => {
-    setSavingContent(true);
+    setSavingContent(item.id);
     const { error } = await supabase
       .from('site_content')
       .update({ content_value: item.content_value, updated_by: user?.id })
       .eq('id', item.id);
 
     if (error) {
-      toast.error('Failed to save content');
+      toast.error('Failed to save. Please try again.');
     } else {
-      toast.success('Content saved');
+      toast.success('Saved successfully!');
+      setSavedContent(item.id);
+      setTimeout(() => setSavedContent(null), 2000);
     }
-    setSavingContent(false);
+    setSavingContent(null);
   };
 
   const handleAddContent = async () => {
@@ -97,7 +128,7 @@ export default function AdminDashboard() {
     const { error } = await supabase
       .from('site_content')
       .insert({
-        content_key: newContentKey,
+        content_key: newContentKey.toLowerCase().replace(/\s+/g, '_'),
         content_value: newContentValue,
         language: newContentLang,
         updated_by: user?.id
@@ -105,12 +136,12 @@ export default function AdminDashboard() {
 
     if (error) {
       if (error.message.includes('duplicate')) {
-        toast.error('This content key already exists for this language');
+        toast.error('This text entry already exists for this language');
       } else {
-        toast.error('Failed to add content');
+        toast.error('Failed to add. Please try again.');
       }
     } else {
-      toast.success('Content added');
+      toast.success('New text added successfully!');
       setNewContentKey('');
       setNewContentValue('');
       fetchContents();
@@ -124,9 +155,9 @@ export default function AdminDashboard() {
       .eq('id', id);
 
     if (error) {
-      toast.error('Failed to delete content');
+      toast.error('Failed to delete. Please try again.');
     } else {
-      toast.success('Content deleted');
+      toast.success('Deleted successfully!');
       fetchContents();
     }
   };
@@ -134,20 +165,20 @@ export default function AdminDashboard() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !newImageKey) {
-      toast.error('Please enter an image key first');
+      toast.error('Please enter a name for your image first');
       return;
     }
 
     setUploadingImage(true);
     const fileExt = file.name.split('.').pop();
-    const filePath = `${newImageKey}.${fileExt}`;
+    const filePath = `${newImageKey.toLowerCase().replace(/\s+/g, '_')}.${fileExt}`;
 
     const { error: uploadError } = await supabase.storage
       .from('site-images')
       .upload(filePath, file, { upsert: true });
 
     if (uploadError) {
-      toast.error('Failed to upload image');
+      toast.error('Failed to upload image. Please try again.');
       setUploadingImage(false);
       return;
     }
@@ -159,16 +190,16 @@ export default function AdminDashboard() {
     const { error: insertError } = await supabase
       .from('site_images')
       .upsert({
-        image_key: newImageKey,
+        image_key: newImageKey.toLowerCase().replace(/\s+/g, '_'),
         image_url: urlData.publicUrl,
         alt_text: newImageAlt,
         updated_by: user?.id
       }, { onConflict: 'image_key' });
 
     if (insertError) {
-      toast.error('Failed to save image record');
+      toast.error('Failed to save image. Please try again.');
     } else {
-      toast.success('Image uploaded');
+      toast.success('Image uploaded successfully!');
       setNewImageKey('');
       setNewImageAlt('');
       fetchImages();
@@ -177,22 +208,20 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteImage = async (item: ImageItem) => {
-    // Delete from storage
     const fileName = item.image_url.split('/').pop();
     if (fileName) {
       await supabase.storage.from('site-images').remove([fileName]);
     }
 
-    // Delete from database
     const { error } = await supabase
       .from('site_images')
       .delete()
       .eq('id', item.id);
 
     if (error) {
-      toast.error('Failed to delete image');
+      toast.error('Failed to delete image. Please try again.');
     } else {
-      toast.success('Image deleted');
+      toast.success('Image deleted successfully!');
       fetchImages();
     }
   };
@@ -205,7 +234,10 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+        <div className="text-center">
+          <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading your dashboard...</p>
+        </div>
       </div>
     );
   }
@@ -215,12 +247,27 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+      {/* Header */}
+      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">{user.email}</span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+              <span className="text-primary font-bold">NLC</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-foreground">Admin Panel</h1>
+              <p className="text-xs text-muted-foreground">Manage your website content</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
+              <Home className="w-4 h-4 mr-2" />
+              View Site
+            </Button>
+            <div className="hidden sm:block text-sm text-muted-foreground border-l border-border pl-3">
+              {user.email}
+            </div>
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
               Sign Out
@@ -229,179 +276,292 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 max-w-5xl">
+        {/* Welcome Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-6 mb-8"
+        >
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <Lightbulb className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold mb-1">Welcome to your Admin Panel!</h2>
+              <p className="text-muted-foreground text-sm">
+                Here you can easily update the texts and images on your website. 
+                Changes you make here will appear on your website immediately after saving.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsList className="grid w-full max-w-md grid-cols-2 mx-auto">
             <TabsTrigger value="content" className="flex items-center gap-2">
-              <Type className="w-4 h-4" />
-              Texts
+              <FileText className="w-4 h-4" />
+              Website Texts
             </TabsTrigger>
             <TabsTrigger value="images" className="flex items-center gap-2">
               <Image className="w-4 h-4" />
-              Images
+              Website Images
             </TabsTrigger>
           </TabsList>
 
+          {/* TEXTS TAB */}
           <TabsContent value="content" className="space-y-6">
+            {/* Add New Text */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-card border border-border rounded-xl p-6"
+              className="bg-card border border-border rounded-2xl p-6 shadow-sm"
             >
-              <h2 className="text-lg font-semibold mb-4">Add New Content</h2>
-              <div className="grid gap-4 md:grid-cols-4">
+              <div className="flex items-center gap-2 mb-4">
+                <Plus className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold">Add New Text</h2>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Create a new text entry for your website. Give it a clear name so you can find it later.
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="contentKey">Content Key</Label>
+                  <Label htmlFor="contentKey" className="flex items-center gap-2">
+                    Name for this text
+                    <span className="text-xs text-muted-foreground">(e.g., "About Section Title")</span>
+                  </Label>
                   <Input
                     id="contentKey"
                     value={newContentKey}
                     onChange={(e) => setNewContentKey(e.target.value)}
-                    placeholder="hero_title"
+                    placeholder="Enter a descriptive name..."
+                    className="mt-1"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="contentLang">Language</Label>
+                  <Label htmlFor="contentLang" className="flex items-center gap-2">
+                    <Globe className="w-4 h-4" />
+                    Language
+                  </Label>
                   <select
                     id="contentLang"
                     value={newContentLang}
                     onChange={(e) => setNewContentLang(e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1"
                   >
-                    <option value="en">English</option>
-                    <option value="fr">French</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="fr">🇫🇷 French</option>
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <Label htmlFor="contentValue">Value</Label>
-                  <Input
+                  <Label htmlFor="contentValue">The actual text content</Label>
+                  <Textarea
                     id="contentValue"
                     value={newContentValue}
                     onChange={(e) => setNewContentValue(e.target.value)}
-                    placeholder="Your content here"
+                    placeholder="Write your text here..."
+                    className="mt-1 min-h-[100px]"
                   />
                 </div>
               </div>
               <Button onClick={handleAddContent} className="mt-4">
-                Add Content
+                <Plus className="w-4 h-4 mr-2" />
+                Add This Text
               </Button>
             </motion.div>
 
+            {/* Existing Content */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Existing Content</h2>
+                <div>
+                  <h2 className="text-lg font-semibold">Your Website Texts</h2>
+                  <p className="text-sm text-muted-foreground">Edit any text and click Save to update your website</p>
+                </div>
                 <Button variant="outline" size="sm" onClick={fetchContents}>
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Refresh
                 </Button>
               </div>
+
               {contents.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">No content added yet</p>
+                <div className="bg-card border border-dashed border-border rounded-2xl p-12 text-center">
+                  <FileText className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                  <p className="text-muted-foreground">No texts added yet</p>
+                  <p className="text-sm text-muted-foreground/70">Add your first text using the form above</p>
+                </div>
               ) : (
-                contents.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-card border border-border rounded-xl p-4"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-mono text-sm bg-muted px-2 py-1 rounded">
-                            {item.content_key}
-                          </span>
-                          <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                            {item.language.toUpperCase()}
-                          </span>
+                <div className="space-y-4">
+                  {contents.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h3 className="font-medium text-foreground">
+                            {getContentLabel(item.content_key)}
+                          </h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                              {item.language === 'en' ? '🇬🇧 English' : '🇫🇷 French'}
+                            </span>
+                          </div>
                         </div>
-                        <Textarea
-                          value={item.content_value}
-                          onChange={(e) => {
-                            setContents(contents.map(c => 
-                              c.id === item.id ? { ...c, content_value: e.target.value } : c
-                            ));
-                          }}
-                          className="min-h-[80px]"
-                        />
+                        <div className="flex items-center gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleSaveContent(item)}
+                            disabled={savingContent === item.id}
+                            className="min-w-[100px]"
+                          >
+                            {savingContent === item.id ? (
+                              <>
+                                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                                Saving...
+                              </>
+                            ) : savedContent === item.id ? (
+                              <>
+                                <CheckCircle className="w-4 h-4 mr-2" />
+                                Saved!
+                              </>
+                            ) : (
+                              <>
+                                <Save className="w-4 h-4 mr-2" />
+                                Save
+                              </>
+                            )}
+                          </Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Delete this text?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This will permanently delete "{getContentLabel(item.content_key)}" from your website. This action cannot be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDeleteContent(item.id)}
+                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                >
+                                  Yes, Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() => handleSaveContent(item)}
-                          disabled={savingContent}
-                        >
-                          <Save className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => handleDeleteContent(item.id)}
-                        >
-                          ×
-                        </Button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))
+                      <Textarea
+                        value={item.content_value}
+                        onChange={(e) => {
+                          setContents(contents.map(c => 
+                            c.id === item.id ? { ...c, content_value: e.target.value } : c
+                          ));
+                        }}
+                        className="min-h-[100px] bg-muted/30"
+                        placeholder="Enter your text here..."
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               )}
             </div>
           </TabsContent>
 
+          {/* IMAGES TAB */}
           <TabsContent value="images" className="space-y-6">
+            {/* Upload New Image */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-card border border-border rounded-xl p-6"
+              className="bg-card border border-border rounded-2xl p-6 shadow-sm"
             >
-              <h2 className="text-lg font-semibold mb-4">Upload New Image</h2>
+              <div className="flex items-center gap-2 mb-4">
+                <Upload className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold">Upload New Image</h2>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Upload images to use on your website. Give each image a clear name and description.
+              </p>
               <div className="grid gap-4 md:grid-cols-3">
                 <div>
-                  <Label htmlFor="imageKey">Image Key</Label>
+                  <Label htmlFor="imageKey" className="flex items-center gap-2">
+                    Name for this image
+                    <span className="text-xs text-muted-foreground">(required)</span>
+                  </Label>
                   <Input
                     id="imageKey"
                     value={newImageKey}
                     onChange={(e) => setNewImageKey(e.target.value)}
-                    placeholder="hero_background"
+                    placeholder="e.g., Coach Photo"
+                    className="mt-1"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="imageAlt">Alt Text</Label>
+                  <Label htmlFor="imageAlt">
+                    Description (for accessibility)
+                  </Label>
                   <Input
                     id="imageAlt"
                     value={newImageAlt}
                     onChange={(e) => setNewImageAlt(e.target.value)}
-                    placeholder="Description of image"
+                    placeholder="Describe the image..."
+                    className="mt-1"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="imageFile">Image File</Label>
-                  <div className="relative">
-                    <Input
-                      id="imageFile"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      disabled={!newImageKey || uploadingImage}
-                      className="cursor-pointer"
-                    />
-                  </div>
+                  <Label htmlFor="imageFile">Choose image file</Label>
+                  <Input
+                    id="imageFile"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={!newImageKey || uploadingImage}
+                    className="cursor-pointer mt-1"
+                  />
                 </div>
               </div>
+              {!newImageKey && (
+                <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2 mt-3">
+                  <AlertCircle className="w-4 h-4" />
+                  Please enter a name for your image before uploading
+                </p>
+              )}
               {uploadingImage && (
-                <p className="text-sm text-muted-foreground mt-2">Uploading...</p>
+                <p className="text-sm text-primary flex items-center gap-2 mt-3">
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  Uploading your image...
+                </p>
               )}
             </motion.div>
 
+            {/* Existing Images */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Uploaded Images</h2>
+                <div>
+                  <h2 className="text-lg font-semibold">Your Website Images</h2>
+                  <p className="text-sm text-muted-foreground">Manage all images used on your website</p>
+                </div>
                 <Button variant="outline" size="sm" onClick={fetchImages}>
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Refresh
                 </Button>
               </div>
+
               {images.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">No images uploaded yet</p>
+                <div className="bg-card border border-dashed border-border rounded-2xl p-12 text-center">
+                  <Image className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                  <p className="text-muted-foreground">No images uploaded yet</p>
+                  <p className="text-sm text-muted-foreground/70">Upload your first image using the form above</p>
+                </div>
               ) : (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {images.map((item) => (
@@ -409,9 +569,9 @@ export default function AdminDashboard() {
                       key={item.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="bg-card border border-border rounded-xl overflow-hidden"
+                      className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
                     >
-                      <div className="aspect-video bg-muted">
+                      <div className="aspect-video bg-muted relative">
                         <img
                           src={item.image_url}
                           alt={item.alt_text || item.image_key}
@@ -419,20 +579,41 @@ export default function AdminDashboard() {
                         />
                       </div>
                       <div className="p-4">
-                        <p className="font-mono text-sm bg-muted px-2 py-1 rounded inline-block mb-2">
-                          {item.image_key}
-                        </p>
+                        <h3 className="font-medium text-foreground mb-1">
+                          {item.image_key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </h3>
                         {item.alt_text && (
-                          <p className="text-sm text-muted-foreground">{item.alt_text}</p>
+                          <p className="text-sm text-muted-foreground mb-3">{item.alt_text}</p>
                         )}
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          className="mt-2"
-                          onClick={() => handleDeleteImage(item)}
-                        >
-                          Delete
-                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full text-destructive border-destructive/30 hover:bg-destructive/10"
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" />
+                              Delete Image
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Delete this image?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This will permanently delete this image from your website. This action cannot be undone.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDeleteImage(item)}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                Yes, Delete
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </motion.div>
                   ))}
