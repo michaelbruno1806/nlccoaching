@@ -10,9 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import { 
-  LogOut, Save, Upload, Image, Type, RefreshCw, 
-  Home, HelpCircle, Trash2, Plus, Globe, FileText,
-  CheckCircle, AlertCircle, Lightbulb
+  LogOut, Save, Upload, Image, RefreshCw, 
+  Home, Trash2, Plus, Globe,
+  CheckCircle, AlertCircle, Lightbulb,
+  Dumbbell, Brain, UserCircle, LayoutDashboard,
+  Sparkles, User, Users
 } from 'lucide-react';
 import {
   AlertDialog,
@@ -25,6 +27,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface ContentItem {
   id: string;
@@ -40,32 +49,109 @@ interface ImageItem {
   alt_text: string | null;
 }
 
-// Friendly names for content keys
-const contentKeyLabels: Record<string, string> = {
-  hero_title: "Homepage Main Title",
-  hero_subtitle: "Homepage Subtitle",
-  about_title: "About Section Title",
-  about_description: "About Section Description",
-  services_title: "Services Section Title",
-  contact_title: "Contact Section Title",
-  philosophy_title: "Philosophy Section Title",
+// Section configurations with friendly labels
+const sectionConfigs = {
+  hero: {
+    title: "Hero Section",
+    description: "The main banner at the top of your homepage",
+    icon: LayoutDashboard,
+    fields: [
+      { key: "hero_title", label: "Main Title", type: "text", placeholder: "Your powerful headline" },
+      { key: "hero_subtitle", label: "Subtitle", type: "textarea", placeholder: "Supporting text under the title" },
+      { key: "hero_cta", label: "Button Text", type: "text", placeholder: "Call to action button text" },
+    ]
+  },
+  services: {
+    title: "Services Section",
+    description: "Your coaching programs and offerings",
+    icon: Dumbbell,
+    services: [
+      { 
+        id: "personalized",
+        icon: Sparkles,
+        titleKey: "service_1_title",
+        descKey: "service_1_description",
+        defaultTitle: "Personalized Program",
+        defaultDesc: "Tailored support to achieve your specific goals",
+        features: ["service_1_feature_1", "service_1_feature_2", "service_1_feature_3", "service_1_feature_4"]
+      },
+      { 
+        id: "individual",
+        icon: User,
+        titleKey: "service_2_title",
+        descKey: "service_2_description",
+        defaultTitle: "Individual Coaching",
+        defaultDesc: "Intensive sessions to maximize your potential",
+        features: ["service_2_feature_1", "service_2_feature_2", "service_2_feature_3", "service_2_feature_4"]
+      },
+      { 
+        id: "group",
+        icon: Users,
+        titleKey: "service_3_title",
+        descKey: "service_3_description",
+        defaultTitle: "Small Groups",
+        defaultDesc: "Up to 4 people for quality support",
+        features: ["service_3_feature_1", "service_3_feature_2", "service_3_feature_3", "service_3_feature_4"]
+      },
+    ]
+  },
+  philosophy: {
+    title: "Philosophy Section",
+    description: "Your coaching approach and values",
+    icon: Brain,
+    items: [
+      { 
+        id: "performance",
+        titleKey: "philosophy_1_title",
+        descKey: "philosophy_1_description",
+        defaultTitle: "Sustainable Performance",
+        defaultDesc: "Build strength, mobility, and technique without injury"
+      },
+      { 
+        id: "personalized",
+        titleKey: "philosophy_2_title",
+        descKey: "philosophy_2_description",
+        defaultTitle: "Personalized Support",
+        defaultDesc: "Each program is tailored to your goals"
+      },
+      { 
+        id: "results",
+        titleKey: "philosophy_3_title",
+        descKey: "philosophy_3_description",
+        defaultTitle: "Measurable Results",
+        defaultDesc: "Clear progress indicators and quantifiable goals"
+      },
+    ]
+  },
+  coach: {
+    title: "Coach Bio",
+    description: "Information about you, the coach",
+    icon: UserCircle,
+    fields: [
+      { key: "coach_title", label: "Section Title", type: "text", placeholder: "Your Coach" },
+      { key: "coach_headline", label: "Headline", type: "text", placeholder: "Sports coach and life mentor" },
+      { key: "coach_bio_1", label: "First Paragraph", type: "textarea", placeholder: "Your introduction..." },
+      { key: "coach_bio_2", label: "Second Paragraph", type: "textarea", placeholder: "Your experience..." },
+    ],
+    stats: [
+      { key: "coach_stat_1_value", labelKey: "coach_stat_1_label", defaultValue: "500+", defaultLabel: "Clients transformed" },
+      { key: "coach_stat_2_value", labelKey: "coach_stat_2_label", defaultValue: "10+", defaultLabel: "Years of experience" },
+      { key: "coach_stat_3_value", labelKey: "coach_stat_3_label", defaultValue: "5000+", defaultLabel: "Sessions completed" },
+    ]
+  }
 };
-
-const getContentLabel = (key: string) => contentKeyLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
 export default function AdminDashboard() {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [images, setImages] = useState<ImageItem[]>([]);
-  const [newContentKey, setNewContentKey] = useState('');
-  const [newContentValue, setNewContentValue] = useState('');
-  const [newContentLang, setNewContentLang] = useState('en');
+  const [currentLang, setCurrentLang] = useState('en');
+  const [savingKeys, setSavingKeys] = useState<Set<string>>(new Set());
+  const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set());
   const [newImageKey, setNewImageKey] = useState('');
   const [newImageAlt, setNewImageAlt] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [savingContent, setSavingContent] = useState<string | null>(null);
-  const [savedContent, setSavedContent] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -102,62 +188,68 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSaveContent = async (item: ContentItem) => {
-    setSavingContent(item.id);
-    const { error } = await supabase
-      .from('site_content')
-      .update({ content_value: item.content_value, updated_by: user?.id })
-      .eq('id', item.id);
+  const getContentValue = (key: string, lang: string = currentLang): string => {
+    const item = contents.find(c => c.content_key === key && c.language === lang);
+    return item?.content_value || '';
+  };
+
+  const updateLocalContent = (key: string, value: string, lang: string = currentLang) => {
+    setContents(prev => {
+      const existing = prev.find(c => c.content_key === key && c.language === lang);
+      if (existing) {
+        return prev.map(c => 
+          c.content_key === key && c.language === lang 
+            ? { ...c, content_value: value } 
+            : c
+        );
+      } else {
+        return [...prev, { id: `temp-${key}-${lang}`, content_key: key, content_value: value, language: lang }];
+      }
+    });
+  };
+
+  const handleSaveContent = async (key: string, value: string, lang: string = currentLang) => {
+    setSavingKeys(prev => new Set(prev).add(key));
+    
+    const existing = contents.find(c => c.content_key === key && c.language === lang);
+    
+    let error;
+    if (existing && !existing.id.startsWith('temp-')) {
+      const result = await supabase
+        .from('site_content')
+        .update({ content_value: value, updated_by: user?.id })
+        .eq('id', existing.id);
+      error = result.error;
+    } else {
+      const result = await supabase
+        .from('site_content')
+        .upsert({
+          content_key: key,
+          content_value: value,
+          language: lang,
+          updated_by: user?.id
+        }, { onConflict: 'content_key,language' });
+      error = result.error;
+    }
+
+    setSavingKeys(prev => {
+      const next = new Set(prev);
+      next.delete(key);
+      return next;
+    });
 
     if (error) {
       toast.error('Failed to save. Please try again.');
     } else {
       toast.success('Saved successfully!');
-      setSavedContent(item.id);
-      setTimeout(() => setSavedContent(null), 2000);
-    }
-    setSavingContent(null);
-  };
-
-  const handleAddContent = async () => {
-    if (!newContentKey || !newContentValue) {
-      toast.error('Please fill in all fields');
-      return;
-    }
-
-    const { error } = await supabase
-      .from('site_content')
-      .insert({
-        content_key: newContentKey.toLowerCase().replace(/\s+/g, '_'),
-        content_value: newContentValue,
-        language: newContentLang,
-        updated_by: user?.id
-      });
-
-    if (error) {
-      if (error.message.includes('duplicate')) {
-        toast.error('This text entry already exists for this language');
-      } else {
-        toast.error('Failed to add. Please try again.');
-      }
-    } else {
-      toast.success('New text added successfully!');
-      setNewContentKey('');
-      setNewContentValue('');
-      fetchContents();
-    }
-  };
-
-  const handleDeleteContent = async (id: string) => {
-    const { error } = await supabase
-      .from('site_content')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      toast.error('Failed to delete. Please try again.');
-    } else {
-      toast.success('Deleted successfully!');
+      setSavedKeys(prev => new Set(prev).add(key));
+      setTimeout(() => {
+        setSavedKeys(prev => {
+          const next = new Set(prev);
+          next.delete(key);
+          return next;
+        });
+      }, 2000);
       fetchContents();
     }
   };
@@ -231,6 +323,23 @@ export default function AdminDashboard() {
     navigate('/admin/login');
   };
 
+  const renderSaveButton = (key: string, value: string) => (
+    <Button
+      size="sm"
+      onClick={() => handleSaveContent(key, value)}
+      disabled={savingKeys.has(key)}
+      className="min-w-[90px]"
+    >
+      {savingKeys.has(key) ? (
+        <><RefreshCw className="w-4 h-4 mr-1 animate-spin" /> Saving</>
+      ) : savedKeys.has(key) ? (
+        <><CheckCircle className="w-4 h-4 mr-1" /> Saved!</>
+      ) : (
+        <><Save className="w-4 h-4 mr-1" /> Save</>
+      )}
+    </Button>
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -276,7 +385,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-5xl">
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Welcome Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -287,169 +396,426 @@ export default function AdminDashboard() {
             <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
               <Lightbulb className="w-6 h-6 text-primary" />
             </div>
-            <div>
+            <div className="flex-1">
               <h2 className="text-lg font-semibold mb-1">Welcome to your Admin Panel!</h2>
               <p className="text-muted-foreground text-sm">
-                Here you can easily update the texts and images on your website. 
-                Changes you make here will appear on your website immediately after saving.
+                Edit each section of your website below. Changes save instantly when you click Save.
               </p>
+            </div>
+            {/* Language Selector */}
+            <div className="flex items-center gap-2 bg-background rounded-lg p-1 border border-border">
+              <button
+                onClick={() => setCurrentLang('en')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  currentLang === 'en' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                }`}
+              >
+                🇬🇧 English
+              </button>
+              <button
+                onClick={() => setCurrentLang('fr')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  currentLang === 'fr' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                }`}
+              >
+                🇫🇷 French
+              </button>
             </div>
           </div>
         </motion.div>
 
-        <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2 mx-auto">
-            <TabsTrigger value="content" className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              Website Texts
+        <Tabs defaultValue="hero" className="space-y-6">
+          <TabsList className="flex flex-wrap justify-start gap-2 bg-transparent h-auto p-0">
+            <TabsTrigger value="hero" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <LayoutDashboard className="w-4 h-4 mr-2" />
+              Home
             </TabsTrigger>
-            <TabsTrigger value="images" className="flex items-center gap-2">
-              <Image className="w-4 h-4" />
-              Website Images
+            <TabsTrigger value="services" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <Dumbbell className="w-4 h-4 mr-2" />
+              Services
+            </TabsTrigger>
+            <TabsTrigger value="philosophy" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <Brain className="w-4 h-4 mr-2" />
+              Philosophy
+            </TabsTrigger>
+            <TabsTrigger value="coach" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <UserCircle className="w-4 h-4 mr-2" />
+              Coach Bio
+            </TabsTrigger>
+            <TabsTrigger value="images" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <Image className="w-4 h-4 mr-2" />
+              Images
             </TabsTrigger>
           </TabsList>
 
-          {/* TEXTS TAB */}
-          <TabsContent value="content" className="space-y-6">
-            {/* Add New Text */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-card border border-border rounded-2xl p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <Plus className="w-5 h-5 text-primary" />
-                <h2 className="text-lg font-semibold">Add New Text</h2>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Create a new text entry for your website. Give it a clear name so you can find it later.
-              </p>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <Label htmlFor="contentKey" className="flex items-center gap-2">
-                    Name for this text
-                    <span className="text-xs text-muted-foreground">(e.g., "About Section Title")</span>
-                  </Label>
-                  <Input
-                    id="contentKey"
-                    value={newContentKey}
-                    onChange={(e) => setNewContentKey(e.target.value)}
-                    placeholder="Enter a descriptive name..."
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="contentLang" className="flex items-center gap-2">
-                    <Globe className="w-4 h-4" />
-                    Language
-                  </Label>
-                  <select
-                    id="contentLang"
-                    value={newContentLang}
-                    onChange={(e) => setNewContentLang(e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1"
-                  >
-                    <option value="en">🇬🇧 English</option>
-                    <option value="fr">🇫🇷 French</option>
-                  </select>
-                </div>
-                <div className="md:col-span-2">
-                  <Label htmlFor="contentValue">The actual text content</Label>
-                  <Textarea
-                    id="contentValue"
-                    value={newContentValue}
-                    onChange={(e) => setNewContentValue(e.target.value)}
-                    placeholder="Write your text here..."
-                    className="mt-1 min-h-[100px]"
-                  />
-                </div>
-              </div>
-              <Button onClick={handleAddContent} className="mt-4">
-                <Plus className="w-4 h-4 mr-2" />
-                Add This Text
-              </Button>
-            </motion.div>
+          {/* HERO SECTION TAB */}
+          <TabsContent value="hero" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <LayoutDashboard className="w-5 h-5 text-primary" />
+                  Hero Section
+                </CardTitle>
+                <CardDescription>The main banner at the top of your homepage</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {sectionConfigs.hero.fields.map((field) => {
+                  const value = getContentValue(field.key);
+                  return (
+                    <div key={field.key} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-base">{field.label}</Label>
+                        {renderSaveButton(field.key, value)}
+                      </div>
+                      {field.type === 'textarea' ? (
+                        <Textarea
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                          className="min-h-[100px]"
+                        />
+                      ) : (
+                        <Input
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            {/* Existing Content */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-semibold">Your Website Texts</h2>
-                  <p className="text-sm text-muted-foreground">Edit any text and click Save to update your website</p>
-                </div>
-                <Button variant="outline" size="sm" onClick={fetchContents}>
-                  <RefreshCw className="w-4 h-4 mr-2" />
-                  Refresh
-                </Button>
-              </div>
+          {/* SERVICES SECTION TAB */}
+          <TabsContent value="services" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Dumbbell className="w-5 h-5 text-primary" />
+                  Services Section
+                </CardTitle>
+                <CardDescription>Your coaching programs and offerings - edit each service below</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-8">
+                {sectionConfigs.services.services.map((service, index) => {
+                  const ServiceIcon = service.icon;
+                  const titleValue = getContentValue(service.titleKey) || service.defaultTitle;
+                  const descValue = getContentValue(service.descKey) || service.defaultDesc;
+                  
+                  return (
+                    <div key={service.id} className="p-6 rounded-xl border border-border bg-muted/30">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <ServiceIcon className="w-5 h-5 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-lg">Service {index + 1}</h3>
+                      </div>
+                      
+                      <div className="grid gap-4">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label>Service Title</Label>
+                            {renderSaveButton(service.titleKey, titleValue)}
+                          </div>
+                          <Input
+                            value={titleValue}
+                            onChange={(e) => updateLocalContent(service.titleKey, e.target.value)}
+                            placeholder={service.defaultTitle}
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label>Service Description</Label>
+                            {renderSaveButton(service.descKey, descValue)}
+                          </div>
+                          <Textarea
+                            value={descValue}
+                            onChange={(e) => updateLocalContent(service.descKey, e.target.value)}
+                            placeholder={service.defaultDesc}
+                            className="min-h-[80px]"
+                          />
+                        </div>
 
-              {contents.length === 0 ? (
-                <div className="bg-card border border-dashed border-border rounded-2xl p-12 text-center">
-                  <FileText className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-                  <p className="text-muted-foreground">No texts added yet</p>
-                  <p className="text-sm text-muted-foreground/70">Add your first text using the form above</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {contents.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="font-medium text-foreground">
-                            {getContentLabel(item.content_key)}
-                          </h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                              {item.language === 'en' ? '🇬🇧 English' : '🇫🇷 French'}
-                            </span>
+                        <div className="space-y-3">
+                          <Label className="text-muted-foreground">Features (bullet points)</Label>
+                          {service.features.map((featureKey, fIndex) => {
+                            const featureValue = getContentValue(featureKey);
+                            return (
+                              <div key={featureKey} className="flex items-center gap-2">
+                                <span className="text-muted-foreground text-sm w-6">{fIndex + 1}.</span>
+                                <Input
+                                  value={featureValue}
+                                  onChange={(e) => updateLocalContent(featureKey, e.target.value)}
+                                  placeholder={`Feature ${fIndex + 1}`}
+                                  className="flex-1"
+                                />
+                                {renderSaveButton(featureKey, featureValue)}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* PHILOSOPHY SECTION TAB */}
+          <TabsContent value="philosophy" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-primary" />
+                  Philosophy Section
+                </CardTitle>
+                <CardDescription>Your coaching approach and core values</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {sectionConfigs.philosophy.items.map((item, index) => {
+                  const titleValue = getContentValue(item.titleKey) || item.defaultTitle;
+                  const descValue = getContentValue(item.descKey) || item.defaultDesc;
+                  
+                  return (
+                    <div key={item.id} className="p-6 rounded-xl border border-border bg-muted/30">
+                      <h3 className="font-semibold text-lg mb-4">Philosophy Point {index + 1}</h3>
+                      
+                      <div className="grid gap-4">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label>Title</Label>
+                            {renderSaveButton(item.titleKey, titleValue)}
+                          </div>
+                          <Input
+                            value={titleValue}
+                            onChange={(e) => updateLocalContent(item.titleKey, e.target.value)}
+                            placeholder={item.defaultTitle}
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label>Description</Label>
+                            {renderSaveButton(item.descKey, descValue)}
+                          </div>
+                          <Textarea
+                            value={descValue}
+                            onChange={(e) => updateLocalContent(item.descKey, e.target.value)}
+                            placeholder={item.defaultDesc}
+                            className="min-h-[80px]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* COACH BIO TAB */}
+          <TabsContent value="coach" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <UserCircle className="w-5 h-5 text-primary" />
+                  Coach Bio
+                </CardTitle>
+                <CardDescription>Information about you, the coach</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {sectionConfigs.coach.fields.map((field) => {
+                  const value = getContentValue(field.key);
+                  return (
+                    <div key={field.key} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-base">{field.label}</Label>
+                        {renderSaveButton(field.key, value)}
+                      </div>
+                      {field.type === 'textarea' ? (
+                        <Textarea
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                          className="min-h-[100px]"
+                        />
+                      ) : (
+                        <Input
+                          value={value}
+                          onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* Stats Section */}
+                <div className="pt-6 border-t border-border">
+                  <h3 className="font-semibold text-lg mb-4">Your Statistics</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Showcase your experience with impressive numbers
+                  </p>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {sectionConfigs.coach.stats.map((stat, index) => {
+                      const valueContent = getContentValue(stat.key) || stat.defaultValue;
+                      const labelContent = getContentValue(stat.labelKey) || stat.defaultLabel;
+                      
+                      return (
+                        <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30">
+                          <Label className="text-sm text-muted-foreground">Stat {index + 1}</Label>
+                          <div className="mt-2 space-y-3">
+                            <div>
+                              <Input
+                                value={valueContent}
+                                onChange={(e) => updateLocalContent(stat.key, e.target.value)}
+                                placeholder="500+"
+                                className="text-center text-xl font-bold"
+                              />
+                              {renderSaveButton(stat.key, valueContent)}
+                            </div>
+                            <div>
+                              <Input
+                                value={labelContent}
+                                onChange={(e) => updateLocalContent(stat.labelKey, e.target.value)}
+                                placeholder={stat.defaultLabel}
+                                className="text-center text-sm"
+                              />
+                              {renderSaveButton(stat.labelKey, labelContent)}
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Button
-                            size="sm"
-                            onClick={() => handleSaveContent(item)}
-                            disabled={savingContent === item.id}
-                            className="min-w-[100px]"
-                          >
-                            {savingContent === item.id ? (
-                              <>
-                                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                                Saving...
-                              </>
-                            ) : savedContent === item.id ? (
-                              <>
-                                <CheckCircle className="w-4 h-4 mr-2" />
-                                Saved!
-                              </>
-                            ) : (
-                              <>
-                                <Save className="w-4 h-4 mr-2" />
-                                Save
-                              </>
-                            )}
-                          </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* IMAGES TAB */}
+          <TabsContent value="images" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload className="w-5 h-5 text-primary" />
+                  Upload New Image
+                </CardTitle>
+                <CardDescription>Upload images to use on your website</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div>
+                    <Label htmlFor="imageKey">Name for this image</Label>
+                    <Input
+                      id="imageKey"
+                      value={newImageKey}
+                      onChange={(e) => setNewImageKey(e.target.value)}
+                      placeholder="e.g., Coach Photo"
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="imageAlt">Description (for accessibility)</Label>
+                    <Input
+                      id="imageAlt"
+                      value={newImageAlt}
+                      onChange={(e) => setNewImageAlt(e.target.value)}
+                      placeholder="Describe the image..."
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="imageFile">Choose image file</Label>
+                    <Input
+                      id="imageFile"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={!newImageKey || uploadingImage}
+                      className="cursor-pointer mt-1"
+                    />
+                  </div>
+                </div>
+                {!newImageKey && (
+                  <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2 mt-3">
+                    <AlertCircle className="w-4 h-4" />
+                    Please enter a name for your image before uploading
+                  </p>
+                )}
+                {uploadingImage && (
+                  <p className="text-sm text-primary flex items-center gap-2 mt-3">
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    Uploading your image...
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Your Website Images</CardTitle>
+                    <CardDescription>Manage all images used on your website</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchImages}>
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {images.length === 0 ? (
+                  <div className="border border-dashed border-border rounded-2xl p-12 text-center">
+                    <Image className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                    <p className="text-muted-foreground">No images uploaded yet</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {images.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="border border-border rounded-xl overflow-hidden"
+                      >
+                        <div className="aspect-video bg-muted">
+                          <img
+                            src={item.image_url}
+                            alt={item.alt_text || item.image_key}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-medium mb-1">
+                            {item.image_key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </h3>
+                          {item.alt_text && (
+                            <p className="text-sm text-muted-foreground mb-3">{item.alt_text}</p>
+                          )}
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10">
-                                <Trash2 className="w-4 h-4" />
+                              <Button size="sm" variant="outline" className="w-full text-destructive">
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Delete
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Delete this text?</AlertDialogTitle>
+                                <AlertDialogTitle>Delete this image?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  This will permanently delete "{getContentLabel(item.content_key)}" from your website. This action cannot be undone.
+                                  This will permanently delete this image. This action cannot be undone.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction
-                                  onClick={() => handleDeleteContent(item.id)}
+                                  onClick={() => handleDeleteImage(item)}
                                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                 >
                                   Yes, Delete
@@ -458,168 +824,12 @@ export default function AdminDashboard() {
                             </AlertDialogContent>
                           </AlertDialog>
                         </div>
-                      </div>
-                      <Textarea
-                        value={item.content_value}
-                        onChange={(e) => {
-                          setContents(contents.map(c => 
-                            c.id === item.id ? { ...c, content_value: e.target.value } : c
-                          ));
-                        }}
-                        className="min-h-[100px] bg-muted/30"
-                        placeholder="Enter your text here..."
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </TabsContent>
-
-          {/* IMAGES TAB */}
-          <TabsContent value="images" className="space-y-6">
-            {/* Upload New Image */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-card border border-border rounded-2xl p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <Upload className="w-5 h-5 text-primary" />
-                <h2 className="text-lg font-semibold">Upload New Image</h2>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Upload images to use on your website. Give each image a clear name and description.
-              </p>
-              <div className="grid gap-4 md:grid-cols-3">
-                <div>
-                  <Label htmlFor="imageKey" className="flex items-center gap-2">
-                    Name for this image
-                    <span className="text-xs text-muted-foreground">(required)</span>
-                  </Label>
-                  <Input
-                    id="imageKey"
-                    value={newImageKey}
-                    onChange={(e) => setNewImageKey(e.target.value)}
-                    placeholder="e.g., Coach Photo"
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="imageAlt">
-                    Description (for accessibility)
-                  </Label>
-                  <Input
-                    id="imageAlt"
-                    value={newImageAlt}
-                    onChange={(e) => setNewImageAlt(e.target.value)}
-                    placeholder="Describe the image..."
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="imageFile">Choose image file</Label>
-                  <Input
-                    id="imageFile"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={!newImageKey || uploadingImage}
-                    className="cursor-pointer mt-1"
-                  />
-                </div>
-              </div>
-              {!newImageKey && (
-                <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2 mt-3">
-                  <AlertCircle className="w-4 h-4" />
-                  Please enter a name for your image before uploading
-                </p>
-              )}
-              {uploadingImage && (
-                <p className="text-sm text-primary flex items-center gap-2 mt-3">
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  Uploading your image...
-                </p>
-              )}
-            </motion.div>
-
-            {/* Existing Images */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-semibold">Your Website Images</h2>
-                  <p className="text-sm text-muted-foreground">Manage all images used on your website</p>
-                </div>
-                <Button variant="outline" size="sm" onClick={fetchImages}>
-                  <RefreshCw className="w-4 h-4 mr-2" />
-                  Refresh
-                </Button>
-              </div>
-
-              {images.length === 0 ? (
-                <div className="bg-card border border-dashed border-border rounded-2xl p-12 text-center">
-                  <Image className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-                  <p className="text-muted-foreground">No images uploaded yet</p>
-                  <p className="text-sm text-muted-foreground/70">Upload your first image using the form above</p>
-                </div>
-              ) : (
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {images.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
-                    >
-                      <div className="aspect-video bg-muted relative">
-                        <img
-                          src={item.image_url}
-                          alt={item.alt_text || item.image_key}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-medium text-foreground mb-1">
-                          {item.image_key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                        </h3>
-                        {item.alt_text && (
-                          <p className="text-sm text-muted-foreground mb-3">{item.alt_text}</p>
-                        )}
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="w-full text-destructive border-destructive/30 hover:bg-destructive/10"
-                            >
-                              <Trash2 className="w-4 h-4 mr-2" />
-                              Delete Image
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Delete this image?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This will permanently delete this image from your website. This action cannot be undone.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteImage(item)}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                              >
-                                Yes, Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </main>
