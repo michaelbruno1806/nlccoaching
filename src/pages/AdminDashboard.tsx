@@ -13,7 +13,8 @@ import {
   LogOut, Save, Upload, Image, RefreshCw, 
   Home, Trash2, Plus, Globe,
   CheckCircle, AlertCircle, Lightbulb,
-  Dumbbell, Brain, UserCircle, LayoutDashboard,
+  Dumbbell, Brain, UserCircle, LayoutDashboard, Mail,
+  Phone, MapPin, MessageCircle,
   Sparkles, User, Users
 } from 'lucide-react';
 import {
@@ -137,6 +138,26 @@ const sectionConfigs = {
       { key: "coach_stat_1_value", labelKey: "coach_stat_1_label", defaultValue: "500+", defaultLabel: "Clients transformed" },
       { key: "coach_stat_2_value", labelKey: "coach_stat_2_label", defaultValue: "10+", defaultLabel: "Years of experience" },
       { key: "coach_stat_3_value", labelKey: "coach_stat_3_label", defaultValue: "5000+", defaultLabel: "Sessions completed" },
+    ]
+  },
+  contact: {
+    title: "Contact Section",
+    description: "Your contact information and form settings",
+    icon: Mail,
+    fields: [
+      { key: "contact_title", label: "Section Title", type: "text", placeholder: "Ready to transform your life?" },
+      { key: "contact_subtitle", label: "Section Subtitle", type: "textarea", placeholder: "Contact us to discuss your goals..." },
+    ],
+    contactInfo: [
+      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 12 34 56 78" },
+      { key: "contact_email", label: "Email Address", icon: Mail, placeholder: "contact@nlccoaching.com" },
+      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Paris, France" },
+      { key: "contact_whatsapp", label: "WhatsApp Number", icon: MessageCircle, placeholder: "33612345678 (without +)" },
+    ],
+    discoverySession: [
+      { key: "discovery_title", label: "Discovery Box Title", type: "text", placeholder: "Discovery Session" },
+      { key: "discovery_description", label: "Discovery Box Description", type: "textarea", placeholder: "Book your first free session..." },
+      { key: "discovery_button", label: "Discovery Button Text", type: "text", placeholder: "Book now" },
     ]
   }
 };
@@ -442,6 +463,10 @@ export default function AdminDashboard() {
               <UserCircle className="w-4 h-4 mr-2" />
               Coach Bio
             </TabsTrigger>
+            <TabsTrigger value="contact" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
+              <Mail className="w-4 h-4 mr-2" />
+              Contact
+            </TabsTrigger>
             <TabsTrigger value="images" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Image className="w-4 h-4 mr-2" />
               Images
@@ -688,6 +713,118 @@ export default function AdminDashboard() {
                               {renderSaveButton(stat.labelKey, labelContent)}
                             </div>
                           </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* CONTACT SECTION TAB */}
+          <TabsContent value="contact" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-primary" />
+                  Contact Section
+                </CardTitle>
+                <CardDescription>Your contact information and messaging</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Section Header */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg">Section Header</h3>
+                  {sectionConfigs.contact.fields.map((field) => {
+                    const value = getContentValue(field.key);
+                    return (
+                      <div key={field.key} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <Label className="text-base">{field.label}</Label>
+                          {renderSaveButton(field.key, value)}
+                        </div>
+                        {field.type === 'textarea' ? (
+                          <Textarea
+                            value={value}
+                            onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                            placeholder={field.placeholder}
+                            className="min-h-[80px]"
+                          />
+                        ) : (
+                          <Input
+                            value={value}
+                            onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                            placeholder={field.placeholder}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Contact Information */}
+                <div className="pt-6 border-t border-border">
+                  <h3 className="font-semibold text-lg mb-4">Contact Information</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Update your contact details shown on the website
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {sectionConfigs.contact.contactInfo.map((info) => {
+                      const InfoIcon = info.icon;
+                      const value = getContentValue(info.key);
+                      return (
+                        <div key={info.key} className="p-4 rounded-xl border border-border bg-muted/30">
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                              <InfoIcon className="w-4 h-4 text-primary" />
+                            </div>
+                            <Label>{info.label}</Label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Input
+                              value={value}
+                              onChange={(e) => updateLocalContent(info.key, e.target.value)}
+                              placeholder={info.placeholder}
+                              className="flex-1"
+                            />
+                            {renderSaveButton(info.key, value)}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Discovery Session Box */}
+                <div className="pt-6 border-t border-border">
+                  <h3 className="font-semibold text-lg mb-4">Discovery Session Box</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    The promotional box that encourages visitors to book a free session
+                  </p>
+                  <div className="p-6 rounded-xl border border-primary/30 bg-primary/5 space-y-4">
+                    {sectionConfigs.contact.discoverySession.map((field) => {
+                      const value = getContentValue(field.key);
+                      return (
+                        <div key={field.key} className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label>{field.label}</Label>
+                            {renderSaveButton(field.key, value)}
+                          </div>
+                          {field.type === 'textarea' ? (
+                            <Textarea
+                              value={value}
+                              onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                              placeholder={field.placeholder}
+                              className="min-h-[60px]"
+                            />
+                          ) : (
+                            <Input
+                              value={value}
+                              onChange={(e) => updateLocalContent(field.key, e.target.value)}
+                              placeholder={field.placeholder}
+                            />
+                          )}
                         </div>
                       );
                     })}
