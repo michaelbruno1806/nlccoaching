@@ -1,11 +1,41 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import AnimatedLogo from "./AnimatedLogo";
 
 interface LoadingScreenProps {
   isVisible: boolean;
   onComplete: () => void;
 }
+
+// Define particle positions for consistent rendering
+const particlePositions = [
+  { x: 10, y: 20 },
+  { x: 21, y: 38 },
+  { x: 32, y: 56 },
+  { x: 43, y: 74 },
+  { x: 54, y: 20 },
+  { x: 65, y: 38 },
+  { x: 76, y: 56 },
+  { x: 87, y: 74 },
+];
+
+// Generate connections between nearby particles
+const generateConnections = () => {
+  const connections: { from: number; to: number }[] = [];
+  for (let i = 0; i < particlePositions.length; i++) {
+    for (let j = i + 1; j < particlePositions.length; j++) {
+      const dx = particlePositions[i].x - particlePositions[j].x;
+      const dy = particlePositions[i].y - particlePositions[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < 35) {
+        connections.push({ from: i, to: j });
+      }
+    }
+  }
+  return connections;
+};
+
+const connections = generateConnections();
 
 const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
@@ -151,27 +181,116 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
             
-            {/* Floating particles */}
-            {[...Array(8)].map((_, i) => (
+            {/* Animated connection lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
+              <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                  <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              {connections.map((conn, index) => {
+                const from = particlePositions[conn.from];
+                const to = particlePositions[conn.to];
+                return (
+                  <motion.line
+                    key={index}
+                    x1={`${from.x}%`}
+                    y1={`${from.y}%`}
+                    x2={`${to.x}%`}
+                    y2={`${to.y}%`}
+                    stroke="url(#lineGradient)"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ 
+                      pathLength: [0, 1, 0],
+                      opacity: [0, 0.8, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.4,
+                      ease: "easeInOut",
+                    }}
+                  />
+                );
+              })}
+              {/* Flowing energy pulses along lines */}
+              {connections.map((conn, index) => {
+                const from = particlePositions[conn.from];
+                const to = particlePositions[conn.to];
+                return (
+                  <motion.circle
+                    key={`pulse-${index}`}
+                    r="3"
+                    fill="hsl(var(--primary))"
+                    filter="blur(1px)"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      cx: [`${from.x}%`, `${to.x}%`],
+                      cy: [`${from.y}%`, `${to.y}%`],
+                      opacity: [0, 1, 1, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.5 + 0.5,
+                      ease: "easeInOut",
+                    }}
+                  />
+                );
+              })}
+            </svg>
+            
+            {/* Floating particles with glow */}
+            {particlePositions.map((pos, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-primary rounded-full"
+                className="absolute"
                 style={{
-                  left: `${10 + i * 11}%`,
-                  top: `${20 + (i % 4) * 18}%`,
+                  left: `${pos.x}%`,
+                  top: `${pos.y}%`,
                 }}
                 animate={{
-                  y: [0, -40, 0],
-                  opacity: [0.2, 0.8, 0.2],
-                  scale: [1, 2, 1],
+                  y: [0, -20, 0],
+                  x: [0, i % 2 === 0 ? 10 : -10, 0],
                 }}
                 transition={{
-                  duration: 3 + i * 0.4,
+                  duration: 3 + i * 0.3,
                   repeat: Infinity,
-                  delay: i * 0.3,
+                  delay: i * 0.2,
                   ease: "easeInOut",
                 }}
-              />
+              >
+                {/* Particle glow */}
+                <motion.div
+                  className="absolute -inset-2 bg-primary/30 rounded-full blur-md"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                  }}
+                />
+                {/* Particle core */}
+                <motion.div
+                  className="w-2 h-2 bg-primary rounded-full relative z-10"
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                    scale: [1, 1.3, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                    ease: "easeInOut",
+                  }}
+                />
+              </motion.div>
             ))}
           </div>
 
