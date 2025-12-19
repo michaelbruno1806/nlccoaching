@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote, Clock, Target, Trophy } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import BeforeAfterSlider from "./BeforeAfterSlider";
 
 interface Testimonial {
   name: string;
@@ -12,6 +13,14 @@ interface Testimonial {
   resultEn: string;
   highlight: string;
   highlightEn: string;
+}
+
+interface Transformation {
+  name: string;
+  beforeImage: string;
+  afterImage: string;
+  result: string;
+  resultEn: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -72,6 +81,30 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+const transformations: Transformation[] = [
+  {
+    name: "Magdalena",
+    beforeImage: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=600&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&h=600&fit=crop",
+    result: "-14 kg en 6 mois",
+    resultEn: "-14 kg in 6 months",
+  },
+  {
+    name: "Ricardo",
+    beforeImage: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=600&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=600&fit=crop",
+    result: "-15 kg, plus de douleurs au dos",
+    resultEn: "-15 kg, no more back pain",
+  },
+  {
+    name: "Ludivine",
+    beforeImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1550345332-09e3ac987658?w=400&h=600&fit=crop",
+    result: "40 kg au bench, niveau Régional 3",
+    resultEn: "40 kg bench press, Regional 3 level",
+  },
+];
+
 const ReviewsSection = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
@@ -110,6 +143,32 @@ const ReviewsSection = () => {
               ? "Nos clients partagent leur expérience, leur progression et la transformation qu'ils ont vécue à nos côtés."
               : "Our clients share their experience, progress and the transformation they experienced with us."}
           </p>
+        </motion.div>
+
+        {/* Before/After Transformations */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-20"
+        >
+          <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
+            {isFrench ? "Transformations réelles" : "Real Transformations"}
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {transformations.map((transformation, index) => (
+              <BeforeAfterSlider
+                key={transformation.name}
+                beforeImage={transformation.beforeImage}
+                afterImage={transformation.afterImage}
+                beforeLabel={isFrench ? "Avant" : "Before"}
+                afterLabel={isFrench ? "Après" : "After"}
+                name={transformation.name}
+                result={isFrench ? transformation.result : transformation.resultEn}
+              />
+            ))}
+          </div>
         </motion.div>
 
         {/* Testimonials Grid */}
