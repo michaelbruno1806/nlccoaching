@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote, Clock, Target, Trophy, X, ZoomIn } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -113,6 +114,7 @@ const transformationShowcases: TransformationShowcase[] = [
 const ReviewsSection = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
+  const [selectedImage, setSelectedImage] = useState<TransformationShowcase | null>(null);
 
   return (
     <section id="reviews" className="py-24 bg-background relative overflow-hidden">
@@ -169,7 +171,8 @@ const ReviewsSection = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500"
+                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
+                onClick={() => setSelectedImage(showcase)}
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -180,6 +183,10 @@ const ReviewsSection = () => {
                 </div>
                 {/* Overlay with info */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Zoom icon */}
+                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ZoomIn className="w-4 h-4 text-white" />
+                </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -293,6 +300,62 @@ const ReviewsSection = () => {
           ))}
         </motion.div>
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            onClick={() => setSelectedImage(null)}
+          >
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Image container */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl w-full max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={selectedImage.image}
+                alt={`${selectedImage.name} transformation`}
+                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+              />
+              {/* Info overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-display text-2xl font-bold text-white mb-1">
+                      {selectedImage.name}
+                    </h3>
+                    <p className="text-white/80">
+                      {isFrench ? selectedImage.result : selectedImage.resultEn}
+                    </p>
+                  </div>
+                  <div className="bg-primary px-4 py-2 rounded-full">
+                    <span className="font-semibold text-primary-foreground">
+                      {isFrench ? "Avant / Après" : "Before / After"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
