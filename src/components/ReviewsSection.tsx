@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Star, Quote, Clock, Target, Trophy } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import BeforeAfterSlider from "./BeforeAfterSlider";
+import transformation1 from "@/assets/transformation-1.png";
+import transformation2 from "@/assets/transformation-2.png";
+import transformation3 from "@/assets/transformation-3.png";
+import transformation4 from "@/assets/transformation-4.png";
 
 interface Testimonial {
   name: string;
@@ -15,10 +18,9 @@ interface Testimonial {
   highlightEn: string;
 }
 
-interface Transformation {
+interface TransformationShowcase {
   name: string;
-  beforeImage: string;
-  afterImage: string;
+  image: string;
   result: string;
   resultEn: string;
 }
@@ -81,27 +83,30 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const transformations: Transformation[] = [
+const transformationShowcases: TransformationShowcase[] = [
   {
     name: "Magdalena",
-    beforeImage: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=600&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&h=600&fit=crop",
+    image: transformation1,
     result: "-14 kg en 6 mois",
     resultEn: "-14 kg in 6 months",
   },
   {
+    name: "Armand",
+    image: transformation2,
+    result: "Préparation triathlon réussie",
+    resultEn: "Successful triathlon preparation",
+  },
+  {
     name: "Ricardo",
-    beforeImage: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=600&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=600&fit=crop",
-    result: "-15 kg, plus de douleurs au dos",
-    resultEn: "-15 kg, no more back pain",
+    image: transformation3,
+    result: "-15 kg, plus de douleurs",
+    resultEn: "-15 kg, no more pain",
   },
   {
     name: "Ludivine",
-    beforeImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=600&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1550345332-09e3ac987658?w=400&h=600&fit=crop",
-    result: "40 kg au bench, niveau Régional 3",
-    resultEn: "40 kg bench press, Regional 3 level",
+    image: transformation4,
+    result: "Force et souplesse",
+    resultEn: "Strength and flexibility",
   },
 ];
 
@@ -145,7 +150,7 @@ const ReviewsSection = () => {
           </p>
         </motion.div>
 
-        {/* Before/After Transformations */}
+        {/* Transformation Showcases */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -156,17 +161,43 @@ const ReviewsSection = () => {
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
             {isFrench ? "Transformations réelles" : "Real Transformations"}
           </h3>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {transformations.map((transformation, index) => (
-              <BeforeAfterSlider
-                key={transformation.name}
-                beforeImage={transformation.beforeImage}
-                afterImage={transformation.afterImage}
-                beforeLabel={isFrench ? "Avant" : "Before"}
-                afterLabel={isFrench ? "Après" : "After"}
-                name={transformation.name}
-                result={isFrench ? transformation.result : transformation.resultEn}
-              />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {transformationShowcases.map((showcase, index) => (
+              <motion.div
+                key={showcase.name}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={showcase.image}
+                    alt={`${showcase.name} transformation`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                {/* Overlay with info */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-display text-lg font-bold text-white mb-1">
+                        {showcase.name}
+                      </h4>
+                      <p className="text-sm text-white/80">
+                        {isFrench ? showcase.result : showcase.resultEn}
+                      </p>
+                    </div>
+                    <div className="bg-primary/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                      <span className="text-xs font-semibold text-primary-foreground">
+                        {isFrench ? "Avant / Après" : "Before / After"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
