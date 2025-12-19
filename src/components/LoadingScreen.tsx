@@ -180,12 +180,36 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             {/* Logo with After Effects-style animations */}
             <div className="relative">
               
-              {/* Glow behind logo */}
+              {/* Pulsing glow behind logo */}
               <motion.div
-                className="absolute inset-0 bg-primary/30 rounded-full blur-[60px] scale-150"
+                className="absolute inset-0 bg-primary/20 rounded-full blur-[80px] scale-150"
                 initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: [0, 0.6, 0.3], scale: [0.5, 1.8, 1.5] }}
-                transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
+                animate={{ 
+                  opacity: [0.2, 0.5, 0.2], 
+                  scale: [1.3, 1.6, 1.3] 
+                }}
+                transition={{ 
+                  delay: 0.4, 
+                  duration: 2, 
+                  ease: "easeInOut",
+                  repeat: Infinity 
+                }}
+              />
+              
+              {/* Secondary pulsing ring */}
+              <motion.div
+                className="absolute inset-0 border-2 border-primary/30 rounded-full scale-[2]"
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{ 
+                  opacity: [0, 0.4, 0], 
+                  scale: [1.5, 2.2, 1.5] 
+                }}
+                transition={{ 
+                  delay: 1, 
+                  duration: 2.5, 
+                  ease: "easeInOut",
+                  repeat: Infinity 
+                }}
               />
               
               {/* Main logo image */}
