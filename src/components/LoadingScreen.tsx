@@ -179,13 +179,6 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
           >
             {/* Logo with After Effects-style animations */}
             <div className="relative">
-              {/* Flash effect on entry */}
-              <motion.div
-                className="absolute inset-0 bg-white rounded-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.9, 0] }}
-                transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
-              />
               
               {/* Glow behind logo */}
               <motion.div
