@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AnimatedLogo from "./AnimatedLogo";
 
 interface LoadingScreenProps {
@@ -68,10 +68,32 @@ const constellationConnections: Record<string, { from: number; to: number }[]> =
 const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
   const [constellationIndex, setConstellationIndex] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const currentConstellation = constellationOrder[constellationIndex];
   const currentPositions = constellations[currentConstellation];
   const currentConnections = constellationConnections[currentConstellation];
+
+  // Track mouse position
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setMousePos({ x, y });
+    }
+  };
+
+  // Get nearby particles to cursor (within 25% distance)
+  const getNearbyParticles = () => {
+    return currentPositions.filter((pos) => {
+      const dx = pos.x - mousePos.x;
+      const dy = pos.y - mousePos.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      return distance < 25;
+    });
+  };
 
   // Cycle through constellations
   useEffect(() => {
@@ -114,7 +136,9 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center"
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center cursor-none"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -294,6 +318,55 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                   />
                 );
               })}
+              
+              {/* Cursor-following lines */}
+              {getNearbyParticles().map((pos, index) => {
+                const dx = pos.x - mousePos.x;
+                const dy = pos.y - mousePos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const opacity = Math.max(0, 1 - distance / 25);
+                return (
+                  <motion.line
+                    key={`cursor-line-${index}`}
+                    x1={`${mousePos.x}%`}
+                    y1={`${mousePos.y}%`}
+                    x2={`${pos.x}%`}
+                    y2={`${pos.y}%`}
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    strokeOpacity={opacity * 0.8}
+                    filter="url(#glow)"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: opacity }}
+                    transition={{ duration: 0.1 }}
+                  />
+                );
+              })}
+              
+              {/* Cursor glow point */}
+              <motion.circle
+                cx={`${mousePos.x}%`}
+                cy={`${mousePos.y}%`}
+                r="8"
+                fill="hsl(var(--primary))"
+                fillOpacity="0.6"
+                filter="url(#glow)"
+              />
+              <motion.circle
+                cx={`${mousePos.x}%`}
+                cy={`${mousePos.y}%`}
+                r="4"
+                fill="hsl(var(--primary))"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.8, 1, 0.8],
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
             </svg>
             
             {/* Morphing constellation particles */}
