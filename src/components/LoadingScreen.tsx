@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import AnimatedLogo from "./AnimatedLogo";
 
 interface LoadingScreenProps {
@@ -7,38 +7,81 @@ interface LoadingScreenProps {
   onComplete: () => void;
 }
 
-// Define particle positions for consistent rendering
-const particlePositions = [
-  { x: 10, y: 20 },
-  { x: 21, y: 38 },
-  { x: 32, y: 56 },
-  { x: 43, y: 74 },
-  { x: 54, y: 20 },
-  { x: 65, y: 38 },
-  { x: 76, y: 56 },
-  { x: 87, y: 74 },
-];
-
-// Generate connections between nearby particles
-const generateConnections = () => {
-  const connections: { from: number; to: number }[] = [];
-  for (let i = 0; i < particlePositions.length; i++) {
-    for (let j = i + 1; j < particlePositions.length; j++) {
-      const dx = particlePositions[i].x - particlePositions[j].x;
-      const dy = particlePositions[i].y - particlePositions[j].y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < 35) {
-        connections.push({ from: i, to: j });
-      }
-    }
-  }
-  return connections;
+// Define constellation patterns (percentage positions)
+const constellations = {
+  // Fitness dumbbell shape
+  dumbbell: [
+    { x: 15, y: 35 }, { x: 20, y: 30 }, { x: 20, y: 40 },
+    { x: 35, y: 35 }, { x: 50, y: 35 }, { x: 65, y: 35 },
+    { x: 80, y: 30 }, { x: 80, y: 40 }, { x: 85, y: 35 },
+    { x: 50, y: 25 }, { x: 50, y: 45 },
+  ],
+  // Diamond/energy shape
+  diamond: [
+    { x: 50, y: 15 }, { x: 30, y: 35 }, { x: 70, y: 35 },
+    { x: 50, y: 55 }, { x: 40, y: 25 }, { x: 60, y: 25 },
+    { x: 40, y: 45 }, { x: 60, y: 45 }, { x: 50, y: 35 },
+    { x: 25, y: 35 }, { x: 75, y: 35 },
+  ],
+  // Lightning bolt
+  lightning: [
+    { x: 45, y: 15 }, { x: 35, y: 30 }, { x: 55, y: 30 },
+    { x: 45, y: 45 }, { x: 55, y: 45 }, { x: 45, y: 60 },
+    { x: 40, y: 22 }, { x: 60, y: 38 }, { x: 35, y: 52 },
+    { x: 65, y: 25 }, { x: 25, y: 40 },
+  ],
+  // Star burst
+  star: [
+    { x: 50, y: 35 }, { x: 50, y: 15 }, { x: 50, y: 55 },
+    { x: 30, y: 35 }, { x: 70, y: 35 }, { x: 35, y: 20 },
+    { x: 65, y: 20 }, { x: 35, y: 50 }, { x: 65, y: 50 },
+    { x: 20, y: 25 }, { x: 80, y: 45 },
+  ],
 };
 
-const connections = generateConnections();
+const constellationOrder = ['dumbbell', 'diamond', 'lightning', 'star'] as const;
+
+// Define connections for each constellation
+const constellationConnections: Record<string, { from: number; to: number }[]> = {
+  dumbbell: [
+    { from: 0, to: 1 }, { from: 0, to: 2 }, { from: 1, to: 3 }, { from: 2, to: 3 },
+    { from: 3, to: 4 }, { from: 4, to: 5 }, { from: 5, to: 6 }, { from: 5, to: 7 },
+    { from: 6, to: 8 }, { from: 7, to: 8 }, { from: 4, to: 9 }, { from: 4, to: 10 },
+  ],
+  diamond: [
+    { from: 0, to: 4 }, { from: 0, to: 5 }, { from: 4, to: 1 }, { from: 5, to: 2 },
+    { from: 1, to: 6 }, { from: 2, to: 7 }, { from: 6, to: 3 }, { from: 7, to: 3 },
+    { from: 8, to: 0 }, { from: 8, to: 3 }, { from: 1, to: 9 }, { from: 2, to: 10 },
+  ],
+  lightning: [
+    { from: 0, to: 6 }, { from: 6, to: 1 }, { from: 1, to: 2 }, { from: 2, to: 7 },
+    { from: 7, to: 3 }, { from: 3, to: 4 }, { from: 4, to: 8 }, { from: 8, to: 5 },
+    { from: 0, to: 9 }, { from: 5, to: 10 }, { from: 2, to: 3 },
+  ],
+  star: [
+    { from: 0, to: 1 }, { from: 0, to: 2 }, { from: 0, to: 3 }, { from: 0, to: 4 },
+    { from: 0, to: 5 }, { from: 0, to: 6 }, { from: 0, to: 7 }, { from: 0, to: 8 },
+    { from: 5, to: 9 }, { from: 8, to: 10 }, { from: 1, to: 5 }, { from: 1, to: 6 },
+  ],
+};
 
 const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
+  const [constellationIndex, setConstellationIndex] = useState(0);
+
+  const currentConstellation = constellationOrder[constellationIndex];
+  const currentPositions = constellations[currentConstellation];
+  const currentConnections = constellationConnections[currentConstellation];
+
+  // Cycle through constellations
+  useEffect(() => {
+    if (isVisible) {
+      const constellationTimer = setInterval(() => {
+        setConstellationIndex(prev => (prev + 1) % constellationOrder.length);
+      }, 2000);
+      return () => clearInterval(constellationTimer);
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     if (isVisible) {
@@ -186,56 +229,66 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               <defs>
                 <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-                  <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.6" />
+                  <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
                   <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
                 </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
               </defs>
-              {connections.map((conn, index) => {
-                const from = particlePositions[conn.from];
-                const to = particlePositions[conn.to];
+              {/* Connection lines that morph with constellation */}
+              {currentConnections.map((conn, index) => {
+                const from = currentPositions[conn.from];
+                const to = currentPositions[conn.to];
                 return (
                   <motion.line
-                    key={index}
-                    x1={`${from.x}%`}
-                    y1={`${from.y}%`}
-                    x2={`${to.x}%`}
-                    y2={`${to.y}%`}
-                    stroke="url(#lineGradient)"
-                    strokeWidth="1"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: [0, 1, 0],
-                      opacity: [0, 0.8, 0],
+                    key={`line-${index}`}
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="1.5"
+                    strokeOpacity="0.6"
+                    filter="url(#glow)"
+                    initial={false}
+                    animate={{
+                      x1: `${from.x}%`,
+                      y1: `${from.y}%`,
+                      x2: `${to.x}%`,
+                      y2: `${to.y}%`,
+                      opacity: [0.3, 0.7, 0.3],
                     }}
                     transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.4,
-                      ease: "easeInOut",
+                      x1: { duration: 1.5, ease: "easeInOut" },
+                      y1: { duration: 1.5, ease: "easeInOut" },
+                      x2: { duration: 1.5, ease: "easeInOut" },
+                      y2: { duration: 1.5, ease: "easeInOut" },
+                      opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
                     }}
                   />
                 );
               })}
               {/* Flowing energy pulses along lines */}
-              {connections.map((conn, index) => {
-                const from = particlePositions[conn.from];
-                const to = particlePositions[conn.to];
+              {currentConnections.slice(0, 6).map((conn, index) => {
+                const from = currentPositions[conn.from];
+                const to = currentPositions[conn.to];
                 return (
                   <motion.circle
                     key={`pulse-${index}`}
-                    r="3"
+                    r="4"
                     fill="hsl(var(--primary))"
-                    filter="blur(1px)"
-                    initial={{ opacity: 0 }}
+                    filter="url(#glow)"
                     animate={{
-                      cx: [`${from.x}%`, `${to.x}%`],
-                      cy: [`${from.y}%`, `${to.y}%`],
-                      opacity: [0, 1, 1, 0],
+                      cx: [`${from.x}%`, `${to.x}%`, `${from.x}%`],
+                      cy: [`${from.y}%`, `${to.y}%`, `${from.y}%`],
+                      opacity: [0.4, 1, 0.4],
+                      scale: [0.8, 1.2, 0.8],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
-                      delay: index * 0.5 + 0.5,
+                      delay: index * 0.3,
                       ease: "easeInOut",
                     }}
                   />
@@ -243,23 +296,18 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               })}
             </svg>
             
-            {/* Floating particles with glow */}
-            {particlePositions.map((pos, i) => (
+            {/* Morphing constellation particles */}
+            {currentPositions.map((pos, i) => (
               <motion.div
-                key={i}
+                key={`particle-${i}`}
                 className="absolute"
-                style={{
+                initial={false}
+                animate={{
                   left: `${pos.x}%`,
                   top: `${pos.y}%`,
                 }}
-                animate={{
-                  y: [0, -20, 0],
-                  x: [0, i % 2 === 0 ? 10 : -10, 0],
-                }}
                 transition={{
-                  duration: 3 + i * 0.3,
-                  repeat: Infinity,
-                  delay: i * 0.2,
+                  duration: 1.5,
                   ease: "easeInOut",
                 }}
               >
