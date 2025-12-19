@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import logoImage from "@/assets/logo-lc.jpg";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -176,308 +177,84 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            {/* SVG Logo with After Effects-style animations */}
-            <svg 
-              viewBox="0 0 400 300" 
-              className="w-[320px] h-[240px] md:w-[450px] md:h-[340px]"
-            >
-              <defs>
-                <filter id="logoGlow">
-                  <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-                <filter id="strongGlow">
-                  <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-                <linearGradient id="lightningGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#2d5a3d" />
-                  <stop offset="100%" stopColor="#3d7a4d" />
-                </linearGradient>
-                <linearGradient id="lightningGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#5cb85c" />
-                  <stop offset="100%" stopColor="#7dd87d" />
-                </linearGradient>
-                <clipPath id="revealClip">
-                  <motion.rect
-                    x="0"
-                    y="0"
-                    width="400"
-                    height="300"
-                    initial={{ width: 0 }}
-                    animate={{ width: 400 }}
-                    transition={{ delay: 0.5, duration: 1.5, ease: "easeOut" }}
-                  />
-                </clipPath>
-              </defs>
-
-              {/* Flash effect on lightning entry */}
-              <motion.rect
-                x="0"
-                y="0"
-                width="400"
-                height="300"
-                fill="white"
+            {/* Logo with After Effects-style animations */}
+            <div className="relative">
+              {/* Flash effect on entry */}
+              <motion.div
+                className="absolute inset-0 bg-white rounded-lg"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.8, 0] }}
-                transition={{ delay: 0.4, duration: 0.3, ease: "easeOut" }}
+                animate={{ opacity: [0, 0.9, 0] }}
+                transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
               />
-
-              {/* Lightning Bolt 1 - Dark Green (Back) */}
-              <motion.g
-                initial={{ x: 100, y: -80, opacity: 0, scale: 0.5 }}
-                animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                transition={{ 
-                  delay: 0.3, 
-                  duration: 0.5, 
-                  ease: [0.34, 1.56, 0.64, 1] // Spring-like bounce
-                }}
-              >
-                <motion.path
-                  d="M245 40 L220 75 L240 75 L210 120 L260 65 L235 65 L265 30 Z"
-                  fill="url(#lightningGrad1)"
-                  filter="url(#logoGlow)"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                />
-                {/* Lightning spark effects */}
-                <motion.circle
-                  cx="210"
-                  cy="120"
-                  r="8"
-                  fill="#3d7a4d"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: [0, 2, 0], opacity: [0, 1, 0] }}
-                  transition={{ delay: 0.6, duration: 0.4 }}
-                />
-              </motion.g>
-
-              {/* Lightning Bolt 2 - Lime Green (Front) */}
-              <motion.g
-                initial={{ x: 80, y: -100, opacity: 0, scale: 0.5 }}
-                animate={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+              
+              {/* Glow behind logo */}
+              <motion.div
+                className="absolute inset-0 bg-primary/30 rounded-full blur-[60px] scale-150"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: [0, 0.6, 0.3], scale: [0.5, 1.8, 1.5] }}
+                transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
+              />
+              
+              {/* Main logo image */}
+              <motion.img
+                src={logoImage}
+                alt="NL Coaching Logo"
+                className="w-[280px] h-auto md:w-[400px] relative z-10 drop-shadow-2xl"
+                initial={{ scale: 0, opacity: 0, rotateY: -180 }}
+                animate={{ scale: 1, opacity: 1, rotateY: 0 }}
                 transition={{ 
                   delay: 0.5, 
-                  duration: 0.5, 
-                  ease: [0.34, 1.56, 0.64, 1]
+                  duration: 0.8, 
+                  ease: [0.34, 1.56, 0.64, 1] // Spring-like bounce
                 }}
-              >
-                <motion.path
-                  d="M275 25 L245 70 L270 70 L235 125 L295 55 L265 55 L300 15 Z"
-                  fill="url(#lightningGrad2)"
-                  filter="url(#logoGlow)"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ delay: 0.5, duration: 0.4 }}
-                />
-                {/* Lightning spark effects */}
-                <motion.circle
-                  cx="235"
-                  cy="125"
-                  r="10"
-                  fill="#7dd87d"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: [0, 2.5, 0], opacity: [0, 1, 0] }}
-                  transition={{ delay: 0.8, duration: 0.4 }}
-                />
-              </motion.g>
-
-              {/* Dumbbell - Assembles from parts */}
-              <g>
-                {/* Left weight plate (outer) */}
-                <motion.ellipse
-                  cx="115"
-                  cy="115"
-                  rx="28"
-                  ry="45"
-                  fill="white"
-                  stroke="#e0e0e0"
-                  strokeWidth="2"
-                  initial={{ x: -150, opacity: 0, rotateY: 90 }}
-                  animate={{ x: 0, opacity: 1, rotateY: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
-                />
-                {/* Left weight plate (inner circle) */}
-                <motion.ellipse
-                  cx="115"
-                  cy="115"
-                  rx="18"
-                  ry="30"
-                  fill="none"
-                  stroke="#c0c0c0"
-                  strokeWidth="2"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.3 }}
-                />
-
-                {/* Right weight plate (outer) */}
-                <motion.ellipse
-                  cx="285"
-                  cy="115"
-                  rx="28"
-                  ry="45"
-                  fill="white"
-                  stroke="#e0e0e0"
-                  strokeWidth="2"
-                  initial={{ x: 150, opacity: 0, rotateY: -90 }}
-                  animate={{ x: 0, opacity: 1, rotateY: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
-                />
-                {/* Right weight plate (inner circle) */}
-                <motion.ellipse
-                  cx="285"
-                  cy="115"
-                  rx="18"
-                  ry="30"
-                  fill="none"
-                  stroke="#c0c0c0"
-                  strokeWidth="2"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.3 }}
-                />
-
-                {/* Center bar */}
-                <motion.rect
-                  x="135"
-                  y="110"
-                  width="130"
-                  height="10"
-                  rx="5"
-                  fill="white"
-                  initial={{ scaleX: 0, opacity: 0 }}
-                  animate={{ scaleX: 1, opacity: 1 }}
-                  transition={{ delay: 1.0, duration: 0.5, ease: "easeOut" }}
-                  style={{ transformOrigin: "center" }}
-                />
-
-                {/* Bar grip texture lines */}
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <motion.line
-                    key={`grip-${i}`}
-                    x1={175 + i * 12}
-                    y1="110"
-                    x2={175 + i * 12}
-                    y2="120"
-                    stroke="#d0d0d0"
-                    strokeWidth="1"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.4 + i * 0.05, duration: 0.2 }}
-                  />
-                ))}
-              </g>
-
-              {/* Dumbbell shine effect */}
-              <motion.ellipse
-                cx="200"
-                cy="90"
-                rx="60"
-                ry="10"
-                fill="white"
-                fillOpacity="0.3"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: [0, 0.5, 0], y: [50, -20, -50] }}
-                transition={{ delay: 1.3, duration: 0.8 }}
               />
-
-              {/* NL COACHING Text - Brush stroke reveal */}
-              <motion.g
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6, duration: 0.6, ease: "easeOut" }}
+              
+              {/* Shine sweep effect */}
+              <motion.div
+                className="absolute inset-0 z-20 overflow-hidden rounded-lg pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2 }}
               >
-                {/* Text shadow/glow */}
-                <motion.text
-                  x="200"
-                  y="220"
-                  textAnchor="middle"
-                  fill="hsl(var(--primary))"
-                  fillOpacity="0.3"
-                  fontSize="48"
-                  fontFamily="'Brush Script MT', cursive"
-                  fontWeight="bold"
-                  filter="url(#strongGlow)"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.5 }}
-                  transition={{ delay: 1.8, duration: 0.5 }}
-                >
-                  NL COACHING
-                </motion.text>
-                
-                {/* Main text with stagger effect */}
-                {"NL COACHING".split("").map((char, i) => (
-                  <motion.text
-                    key={`char-${i}`}
-                    x={95 + i * 19}
-                    y="220"
-                    fill="hsl(var(--primary))"
-                    fontSize="48"
-                    fontFamily="'Brush Script MT', cursive"
-                    fontWeight="bold"
-                    initial={{ opacity: 0, y: 20, scale: 0.5 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ 
-                      delay: 1.7 + i * 0.05, 
-                      duration: 0.3,
-                      ease: [0.34, 1.56, 0.64, 1]
-                    }}
-                  >
-                    {char}
-                  </motion.text>
-                ))}
-              </motion.g>
-
-              {/* Underline brush stroke */}
-              <motion.path
-                d="M100 235 Q200 240 300 235"
-                fill="none"
-                stroke="hsl(var(--primary))"
-                strokeWidth="3"
-                strokeLinecap="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 0.6 }}
-                transition={{ delay: 2.2, duration: 0.5, ease: "easeOut" }}
-              />
-
+                <motion.div
+                  className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+                  animate={{ x: [0, 800] }}
+                  transition={{ delay: 1.3, duration: 0.8, ease: "easeInOut" }}
+                />
+              </motion.div>
+              
               {/* Energy particles around logo */}
-              {[...Array(8)].map((_, i) => {
-                const angle = (i / 8) * Math.PI * 2;
-                const radius = 120;
-                const cx = 200 + Math.cos(angle) * radius;
-                const cy = 130 + Math.sin(angle) * radius;
+              {[...Array(12)].map((_, i) => {
+                const angle = (i / 12) * Math.PI * 2;
+                const radius = 180;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
                 return (
-                  <motion.circle
+                  <motion.div
                     key={`energy-${i}`}
-                    cx={cx}
-                    cy={cy}
-                    r="4"
-                    fill="hsl(var(--primary))"
-                    initial={{ opacity: 0, scale: 0 }}
+                    className="absolute w-3 h-3 bg-primary rounded-full"
+                    style={{ 
+                      left: '50%', 
+                      top: '50%',
+                      boxShadow: '0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary))'
+                    }}
+                    initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
                     animate={{ 
-                      opacity: [0, 0.8, 0],
+                      x: [0, x],
+                      y: [0, y],
+                      opacity: [0, 1, 0],
                       scale: [0, 1.5, 0],
-                      cx: cx + Math.cos(angle) * 30,
-                      cy: cy + Math.sin(angle) * 30,
                     }}
                     transition={{ 
-                      delay: 2.0 + i * 0.1, 
-                      duration: 0.8,
+                      delay: 1.5 + i * 0.08, 
+                      duration: 1,
                       repeat: Infinity,
-                      repeatDelay: 2
+                      repeatDelay: 2.5
                     }}
                   />
                 );
               })}
-            </svg>
+            </div>
 
             {/* Progress Bar */}
             <motion.div 
