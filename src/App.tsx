@@ -18,6 +18,7 @@ import RgpdCookies from "./pages/RgpdCookies";
 import ConditionsVente from "./pages/ConditionsVente";
 import LoadingScreen from "./components/LoadingScreen";
 import PageTransition from "./components/PageTransition";
+import CookieConsent from "./components/CookieConsent";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { AuthProvider } from "./hooks/useAuth";
 import AdminLogin from "./pages/AdminLogin";
@@ -63,6 +64,7 @@ const App = () => {
             <Sonner />
             <BrowserRouter>
               <AnimatedRoutes />
+              <CookieConsent />
             </BrowserRouter>
           </TooltipProvider>
         </LanguageProvider>
