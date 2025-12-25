@@ -52,6 +52,7 @@ const Formules = () => {
       priceNote: isFrench ? "(conditions applicables)" : "(conditions apply)",
       icon: Star,
       popular: true,
+      detailsLink: "/coaching-individuel",
       features: isFrench 
         ? [
             "Accompagnement en présentiel pour un maximum de résultats",
