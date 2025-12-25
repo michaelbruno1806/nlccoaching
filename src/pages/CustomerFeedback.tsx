@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowLeft, MessageCircle } from "lucide-react";
+import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowLeft, MessageCircle, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -227,6 +227,44 @@ const CustomerFeedback = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Video Testimonial Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              <Play className="w-4 h-4" />
+              {isFrench ? "Témoignage vidéo" : "Video Testimonial"}
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+              {isFrench ? "Découvrez leur parcours" : "Discover their journey"}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl aspect-video bg-card">
+              <iframe
+                src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
+                className="w-full h-full"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title={isFrench ? "Témoignage client" : "Customer testimonial"}
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 
