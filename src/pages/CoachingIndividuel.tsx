@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, Star, User, Target, Clock, Shield, MessageCircle } from "lucide-react";
+import { ArrowLeft, Star, User, Target, Clock, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import BookingFormSection from "@/components/BookingFormSection";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -15,23 +13,6 @@ import transformation4 from "@/assets/transformation-4.png";
 const CoachingIndividuel = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
-
-  const objectives = [
-    { id: "perte", label: isFrench ? "Perte de poids" : "Weight loss" },
-    { id: "remise", label: isFrench ? "Remise en forme" : "Fitness" },
-    { id: "muscle", label: isFrench ? "Développement musculaire" : "Muscle building" },
-    { id: "force", label: isFrench ? "Amélioration de la force" : "Strength improvement" },
-    { id: "reath", label: isFrench ? "Réathlétisation" : "Reathlétisation" },
-  ];
-
-  const profiles = [
-    { id: "particulier", label: isFrench ? "Particulier" : "Individual" },
-    { id: "sportif", label: isFrench ? "Sportif" : "Athlete" },
-    { id: "professionnel", label: isFrench ? "Professionnel" : "Professional" },
-    { id: "entreprise", label: isFrench ? "Entreprise" : "Company" },
-    { id: "etudiant", label: isFrench ? "Étudiant" : "Student" },
-    { id: "autre", label: isFrench ? "Autre" : "Other" },
-  ];
 
   const benefits = [
     {
@@ -228,122 +209,9 @@ const CoachingIndividuel = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-24 bg-card/50 border-y border-border/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {isFrench ? "COMMENCER MAINTENANT" : "START NOW"}
-              </h2>
-              <p className="text-muted-foreground">
-                {isFrench
-                  ? "Remplis le formulaire ci-dessous pour démarrer ton coaching individuel"
-                  : "Fill out the form below to start your individual coaching"}
-              </p>
-            </motion.div>
-
-            <motion.form
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                window.open(
-                  "https://wa.me/23058035450?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20le%20Coaching%20Individuel%20et%20j%E2%80%99aimerais%20avoir%20plus%20d%E2%80%99informations.",
-                  "_blank"
-                );
-              }}
-            >
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">{isFrench ? "Nom" : "Name"}</label>
-                  <Input placeholder={isFrench ? "Votre nom" : "Your name"} className="bg-background" />
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Email</label>
-                  <Input type="email" placeholder="email@example.com" className="bg-background" />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm text-muted-foreground mb-2 block">{isFrench ? "Téléphone" : "Phone"}</label>
-                <Input placeholder="+33 6 12 34 56 78" className="bg-background" />
-              </div>
-
-              <div>
-                <label className="text-sm text-muted-foreground mb-3 block">{isFrench ? "Objectifs" : "Goals"}</label>
-                <div className="flex flex-wrap gap-2">
-                  {objectives.map((obj) => (
-                    <label
-                      key={obj.id}
-                      className="flex items-center gap-2 bg-background border border-border/50 rounded-lg px-4 py-2 cursor-pointer hover:border-primary/50 transition-colors"
-                    >
-                      <Checkbox id={obj.id} />
-                      <span className="text-sm">{obj.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm text-muted-foreground mb-3 block">{isFrench ? "Qui êtes-vous" : "Who are you"}</label>
-                <div className="flex flex-wrap gap-2">
-                  {profiles.map((profile) => (
-                    <label
-                      key={profile.id}
-                      className="flex items-center gap-2 bg-background border border-border/50 rounded-lg px-4 py-2 cursor-pointer hover:border-primary/50 transition-colors"
-                    >
-                      <Checkbox id={profile.id} />
-                      <span className="text-sm">{profile.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm text-muted-foreground mb-2 block">Message</label>
-                <Textarea 
-                  placeholder={isFrench ? "Parlez-nous de vos objectifs..." : "Tell us about your goals..."} 
-                  className="bg-background min-h-[120px]"
-                />
-              </div>
-
-              <div className="flex items-start gap-2">
-                <Checkbox id="terms" />
-                <label htmlFor="terms" className="text-sm text-muted-foreground">
-                  {isFrench ? "J'accepte les conditions" : "I accept the terms"}
-                </label>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button type="submit" size="lg" className="flex-1">
-                  {isFrench ? "Envoyer" : "Send"}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="lg"
-                  className="gap-2"
-                  onClick={() => window.open(
-                    "https://wa.me/23058035450?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20le%20Coaching%20Individuel%20et%20j%E2%80%99aimerais%20avoir%20plus%20d%E2%80%99informations.",
-                    "_blank"
-                  )}
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp
-                </Button>
-              </div>
-            </motion.form>
-          </div>
-        </div>
-      </section>
+      <div className="bg-card/50 border-y border-border/30">
+        <BookingFormSection serviceName={isFrench ? "le Coaching Individuel" : "Individual Coaching"} />
+      </div>
 
       {/* Testimonials/Transformations */}
       <section className="py-24 relative overflow-hidden">
