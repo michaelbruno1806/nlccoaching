@@ -24,6 +24,7 @@ const Formules = () => {
       priceSuffix: isFrench ? "€ / mois" : "€ / month",
       icon: Zap,
       popular: false,
+      detailsLink: "/suivi-personnalise",
       features: isFrench 
         ? [
             "Suivi en distanciel 100 % adapté à ton rythme",
@@ -384,23 +385,37 @@ const Formules = () => {
                         ))}
                       </ul>
 
-                      {/* CTA Button */}
-                      <motion.div 
-                        className="mt-8"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Link to="/#contact" className="block">
-                          <Button 
-                            className={`w-full py-6 text-base font-semibold ${
-                              formule.popular ? '' : 'bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground'
-                            }`}
-                            variant={formule.popular ? "default" : "ghost"}
+                      {/* CTA Buttons */}
+                      <div className="mt-8 flex gap-3">
+                        <motion.div 
+                          className="flex-1"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Link to="/#contact" className="block">
+                            <Button 
+                              className={`w-full py-6 text-base font-semibold ${
+                                formule.popular ? '' : 'bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground'
+                              }`}
+                              variant={formule.popular ? "default" : "ghost"}
+                            >
+                              {isFrench ? "Réserver" : "Book"}
+                            </Button>
+                          </Link>
+                        </motion.div>
+                        {formule.detailsLink && (
+                          <motion.div 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                           >
-                            {isFrench ? "Réserver maintenant" : "Book now"}
-                          </Button>
-                        </Link>
-                      </motion.div>
+                            <Link to={formule.detailsLink}>
+                              <Button variant="outline" className="py-6 px-6 text-base font-semibold">
+                                {isFrench ? "Détails" : "Details"}
+                              </Button>
+                            </Link>
+                          </motion.div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </motion.div>
