@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-coach.jpg";
@@ -139,10 +140,12 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Button variant="hero">
-                {t("Découvrir les Formules", "Discover Programs")}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/formules">
+                <Button variant="hero">
+                  {t("Découvrir les Formules", "Discover Programs")}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Button variant="heroOutline">
