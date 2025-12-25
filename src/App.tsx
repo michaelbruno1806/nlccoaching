@@ -13,6 +13,9 @@ import SuiviPersonnalise from "./pages/SuiviPersonnalise";
 import CoachingIndividuel from "./pages/CoachingIndividuel";
 import SmallGroupes from "./pages/SmallGroupes";
 import CarnetsSeances from "./pages/CarnetsSeances";
+import MentionsLegales from "./pages/MentionsLegales";
+import RgpdCookies from "./pages/RgpdCookies";
+import ConditionsVente from "./pages/ConditionsVente";
 import LoadingScreen from "./components/LoadingScreen";
 import PageTransition from "./components/PageTransition";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -35,6 +38,9 @@ const AnimatedRoutes = () => {
         <Route path="/coaching-individuel" element={<PageTransition><CoachingIndividuel /></PageTransition>} />
         <Route path="/small-groupes" element={<PageTransition><SmallGroupes /></PageTransition>} />
         <Route path="/carnets-seances" element={<PageTransition><CarnetsSeances /></PageTransition>} />
+        <Route path="/mentions-legales" element={<PageTransition><MentionsLegales /></PageTransition>} />
+        <Route path="/rgpd-cookies" element={<PageTransition><RgpdCookies /></PageTransition>} />
+        <Route path="/conditions-vente" element={<PageTransition><ConditionsVente /></PageTransition>} />
         <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
         <Route path="/admin" element={<PageTransition><AdminDashboard /></PageTransition>} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
