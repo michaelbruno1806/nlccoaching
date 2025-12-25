@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn } from "lucide-react";
+import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
@@ -274,13 +276,29 @@ const ReviewsSection = () => {
           ))}
         </div>
 
+        {/* View All Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-12 text-center"
+        >
+          <Link to="/feedback">
+            <Button size="lg" variant="outline" className="gap-2 group">
+              {isFrench ? "Voir tous les avis" : "View all feedback"}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+        </motion.div>
+
         {/* Stats row */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
             { value: "100%", label: isFrench ? "Satisfaction" : "Satisfaction" },
