@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import logoImage from "@/assets/nlc-logo.png";
+import logoImage from "@/assets/nlc-logo-arms.png";
 
 interface LoadingScreenProps {
   isVisible: boolean;
