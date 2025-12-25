@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import serviceGroup from "@/assets/service-group.jpg";
 import serviceProgram from "@/assets/service-program.jpg";
-import serviceCarnets from "@/assets/service-carnets.jpg";
+import serviceCarnets from "@/assets/service-carnets.jpg"; // Carnets section image
 
 const Formules = () => {
   const { language } = useLanguage();
