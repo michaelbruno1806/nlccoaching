@@ -78,6 +78,7 @@ const Formules = () => {
       priceSuffix: isFrench ? "€ / personne" : "€ / person",
       icon: Users,
       popular: false,
+      detailsLink: "/small-groupes",
       features: isFrench 
         ? [
             "Ambiance motivante & dynamique",
