@@ -108,6 +108,7 @@ const Formules = () => {
       ],
       icon: Sparkles,
       popular: false,
+      detailsLink: "/carnets-seances",
       features: isFrench 
         ? [
             "Coaching personnalisé à ton rythme",
