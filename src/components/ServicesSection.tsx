@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { Button } from "@/components/ui/button";
 import serviceProgram from "@/assets/service-program.jpg";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import serviceGroup from "@/assets/service-group.jpg";
@@ -118,6 +121,21 @@ const ServicesSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <Link to="/formules">
+            <Button size="lg" className="gap-2 group">
+              {t("Découvrir les Formules", "Discover Packages")}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
