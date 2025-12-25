@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const socialLinks = [
@@ -34,10 +35,9 @@ const Footer = () => {
     {
       title: t("Légal", "Legal"),
       links: [
-        { label: t("Mentions Légales", "Legal Notice"), href: "#" },
-        { label: t("Politique de Confidentialité", "Privacy Policy"), href: "#" },
-        { label: t("CGV", "Terms"), href: "#" },
-        { label: "Cookies", href: "#" },
+        { label: t("Mentions Légales", "Legal Notice"), href: "/mentions-legales" },
+        { label: t("RGPD & Cookies", "Privacy & Cookies"), href: "/rgpd-cookies" },
+        { label: t("CGV", "Terms"), href: "/conditions-vente" },
       ],
     },
   ];
@@ -88,12 +88,21 @@ const Footer = () => {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-gold transition-colors duration-300 text-sm"
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith("/") ? (
+                      <Link
+                        to={link.href}
+                        className="text-muted-foreground hover:text-gold transition-colors duration-300 text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-muted-foreground hover:text-gold transition-colors duration-300 text-sm"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
