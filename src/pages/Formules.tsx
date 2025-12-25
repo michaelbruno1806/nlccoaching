@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import serviceGroup from "@/assets/service-group.jpg";
 import serviceProgram from "@/assets/service-program.jpg";
-import coachPortrait from "@/assets/coach-portrait.jpg";
+import serviceCarnets from "@/assets/service-carnets.jpg";
 
 const Formules = () => {
   const { language } = useLanguage();
@@ -90,7 +90,7 @@ const Formules = () => {
       description: isFrench 
         ? "Accompagnement sur mesure, flexibilité, sans engagement"
         : "Custom support, flexibility, no commitment",
-      image: coachPortrait,
+      image: serviceCarnets,
       multiPrice: true,
       prices: [
         { amount: "250", label: isFrench ? "5 séances" : "5 sessions" },
