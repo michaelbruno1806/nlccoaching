@@ -222,14 +222,36 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 }}
               />
               
+              {/* Dramatic zoom lines */}
+              {[...Array(12)].map((_, i) => (
+                <motion.div
+                  key={`line-${i}`}
+                  className="absolute bg-gradient-to-r from-transparent via-primary/60 to-transparent h-[2px]"
+                  style={{
+                    width: '200%',
+                    left: '-50%',
+                    top: '50%',
+                    transformOrigin: 'center',
+                    rotate: `${i * 30}deg`,
+                  }}
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{ scaleX: [0, 1.5, 0], opacity: [0, 1, 0] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.3 + i * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              ))}
+
               {/* Reveal curtain - left */}
               <motion.div
                 className="absolute inset-0 bg-[#0a0a0a] z-20 origin-left"
                 initial={{ scaleX: 1 }}
                 animate={{ scaleX: 0 }}
                 transition={{ 
-                  duration: 1.2,
-                  delay: 0.5,
+                  duration: 0.8,
+                  delay: 0.8,
                   ease: [0.22, 1, 0.36, 1]
                 }}
               />
@@ -240,41 +262,71 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 initial={{ scaleX: 1 }}
                 animate={{ scaleX: 0 }}
                 transition={{ 
-                  duration: 1.2,
-                  delay: 0.5,
+                  duration: 0.8,
+                  delay: 0.8,
                   ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+
+              {/* Shockwave ring */}
+              <motion.div
+                className="absolute inset-0 border-4 border-primary rounded-full z-25"
+                style={{ transform: 'scale(0.5)' }}
+                initial={{ scale: 0.5, opacity: 1 }}
+                animate={{ scale: [0.5, 3], opacity: [1, 0] }}
+                transition={{ 
+                  duration: 1,
+                  delay: 1.2,
+                  ease: "easeOut"
+                }}
+              />
+
+              {/* Second shockwave */}
+              <motion.div
+                className="absolute inset-0 border-2 border-gold rounded-full z-25"
+                style={{ transform: 'scale(0.5)' }}
+                initial={{ scale: 0.5, opacity: 1 }}
+                animate={{ scale: [0.5, 4], opacity: [1, 0] }}
+                transition={{ 
+                  duration: 1.2,
+                  delay: 1.4,
+                  ease: "easeOut"
                 }}
               />
 
               {/* Reveal flash effect */}
               <motion.div
-                className="absolute inset-0 bg-primary/80 z-30 rounded-lg"
+                className="absolute inset-0 bg-white z-30 rounded-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ 
-                  duration: 0.4,
+                  duration: 0.3,
                   delay: 1.5,
                   ease: "easeOut"
                 }}
               />
 
-              {/* Logo with reveal and heartbeat pulse animation */}
+              {/* Logo with dramatic zoom reveal and heartbeat */}
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
-                className="w-[280px] h-auto md:w-[400px] relative z-10 drop-shadow-[0_0_30px_rgba(132,204,22,0.5)]"
-                initial={{ scale: 0, opacity: 0, filter: 'blur(20px)' }}
+                className="w-[280px] h-auto md:w-[400px] relative z-10"
+                style={{
+                  filter: 'drop-shadow(0 0 40px rgba(132, 204, 22, 0.6))',
+                }}
+                initial={{ scale: 5, opacity: 0, filter: 'blur(30px)', rotateX: 45 }}
                 animate={{ 
-                  scale: [0, 1.3, 1, 1.15, 1.05, 1.12, 1],
-                  opacity: [0, 1, 1, 1, 1, 1, 1],
-                  filter: ['blur(20px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)'],
+                  scale: [5, 0.8, 1.2, 1, 1.15, 1.05, 1.12, 1],
+                  opacity: [0, 0.5, 1, 1, 1, 1, 1, 1],
+                  filter: ['blur(30px)', 'blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)'],
+                  rotateX: [45, 0, 0, 0, 0, 0, 0, 0],
                 }}
                 transition={{ 
-                  duration: 2.5,
-                  times: [0, 0.3, 0.4, 0.55, 0.7, 0.85, 1],
+                  duration: 3,
+                  times: [0, 0.2, 0.35, 0.45, 0.6, 0.7, 0.85, 1],
                   ease: [0.22, 1, 0.36, 1],
                   repeat: Infinity,
-                  repeatDelay: 0.3,
+                  repeatDelay: 0.5,
                 }}
               />
             </div>
