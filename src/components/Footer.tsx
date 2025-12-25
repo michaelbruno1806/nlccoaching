@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import nlcLogo from "@/assets/nlc-logo.png";
 
 const socialLinks = [
   { icon: Instagram, href: "#", label: "Instagram" },
@@ -52,10 +53,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="#" className="inline-block mb-6">
-              <span className="text-2xl font-display font-bold">
-                <span className="text-gradient">NLC</span>
-                <span className="text-foreground ml-2">COACHING</span>
-              </span>
+              <motion.img 
+                src={nlcLogo} 
+                alt="NLC Coaching" 
+                className="h-14 w-auto"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
             </a>
             <p className="text-muted-foreground mb-6 max-w-sm">
               {t(
