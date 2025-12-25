@@ -181,33 +181,37 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 />
               ))}
               
-              {/* Main glow effect */}
+              {/* Main glow effect - synced with heartbeat */}
               <motion.div
                 className="absolute inset-0 bg-gradient-radial from-primary/40 via-primary/20 to-transparent rounded-full blur-[60px]"
                 style={{ transform: 'scale(1.5)' }}
                 animate={{ 
-                  opacity: [0.4, 0.8, 0.4],
-                  scale: [1.5, 1.8, 1.5]
+                  opacity: [0.4, 0.9, 0.5, 0.8, 0.4],
+                  scale: [1.5, 1.9, 1.6, 1.85, 1.5]
                 }}
                 transition={{ 
-                  duration: 1.5,
-                  ease: "easeInOut",
-                  repeat: Infinity
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                  repeat: Infinity,
+                  repeatDelay: 0.3,
+                  times: [0, 0.15, 0.3, 0.45, 1]
                 }}
               />
 
-              {/* Gold accent glow */}
+              {/* Gold accent glow - synced with heartbeat */}
               <motion.div
-                className="absolute inset-0 bg-gold/20 rounded-full blur-[40px]"
-                style={{ transform: 'scale(1.2)' }}
+                className="absolute inset-0 bg-gold/25 rounded-full blur-[50px]"
+                style={{ transform: 'scale(1.3)' }}
                 animate={{ 
-                  opacity: [0.2, 0.5, 0.2],
-                  x: [-20, 20, -20],
+                  opacity: [0.2, 0.6, 0.3, 0.55, 0.2],
+                  scale: [1.3, 1.7, 1.4, 1.65, 1.3]
                 }}
                 transition={{ 
-                  duration: 2,
-                  ease: "easeInOut",
-                  repeat: Infinity
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                  repeat: Infinity,
+                  repeatDelay: 0.3,
+                  times: [0, 0.15, 0.3, 0.45, 1]
                 }}
               />
               
