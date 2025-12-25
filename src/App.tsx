@@ -11,6 +11,7 @@ import CustomerFeedback from "./pages/CustomerFeedback";
 import Formules from "./pages/Formules";
 import SuiviPersonnalise from "./pages/SuiviPersonnalise";
 import CoachingIndividuel from "./pages/CoachingIndividuel";
+import SmallGroupes from "./pages/SmallGroupes";
 import LoadingScreen from "./components/LoadingScreen";
 import PageTransition from "./components/PageTransition";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -31,6 +32,7 @@ const AnimatedRoutes = () => {
         <Route path="/formules" element={<PageTransition><Formules /></PageTransition>} />
         <Route path="/suivi-personnalise" element={<PageTransition><SuiviPersonnalise /></PageTransition>} />
         <Route path="/coaching-individuel" element={<PageTransition><CoachingIndividuel /></PageTransition>} />
+        <Route path="/small-groupes" element={<PageTransition><SmallGroupes /></PageTransition>} />
         <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
         <Route path="/admin" element={<PageTransition><AdminDashboard /></PageTransition>} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
