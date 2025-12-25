@@ -222,28 +222,59 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 }}
               />
               
-              {/* Logo with heartbeat pulse animation */}
+              {/* Reveal curtain - left */}
+              <motion.div
+                className="absolute inset-0 bg-[#0a0a0a] z-20 origin-left"
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ 
+                  duration: 1.2,
+                  delay: 0.5,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+              
+              {/* Reveal curtain - right */}
+              <motion.div
+                className="absolute inset-0 bg-[#0a0a0a] z-20 origin-right"
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ 
+                  duration: 1.2,
+                  delay: 0.5,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+
+              {/* Reveal flash effect */}
+              <motion.div
+                className="absolute inset-0 bg-primary/80 z-30 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ 
+                  duration: 0.4,
+                  delay: 1.5,
+                  ease: "easeOut"
+                }}
+              />
+
+              {/* Logo with reveal and heartbeat pulse animation */}
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
                 className="w-[280px] h-auto md:w-[400px] relative z-10 drop-shadow-[0_0_30px_rgba(132,204,22,0.5)]"
-                initial={{ scale: 0.3, opacity: 0 }}
+                initial={{ scale: 0, opacity: 0, filter: 'blur(20px)' }}
                 animate={{ 
-                  scale: [1, 1.15, 1.05, 1.12, 1],
-                  opacity: 1,
+                  scale: [0, 1.3, 1, 1.15, 1.05, 1.12, 1],
+                  opacity: [0, 1, 1, 1, 1, 1, 1],
+                  filter: ['blur(20px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)', 'blur(0px)'],
                 }}
                 transition={{ 
-                  scale: {
-                    duration: 0.8,
-                    ease: [0.22, 1, 0.36, 1],
-                    repeat: Infinity,
-                    repeatDelay: 0.3,
-                    times: [0, 0.15, 0.3, 0.45, 1]
-                  },
-                  opacity: {
-                    duration: 0.6,
-                    ease: "easeOut"
-                  }
+                  duration: 2.5,
+                  times: [0, 0.3, 0.4, 0.55, 0.7, 0.85, 1],
+                  ease: [0.22, 1, 0.36, 1],
+                  repeat: Infinity,
+                  repeatDelay: 0.3,
                 }}
               />
             </div>
