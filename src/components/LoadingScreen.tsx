@@ -46,26 +46,33 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Animated background particles */}
-          {[...Array(20)].map((_, i) => (
+          {/* Animated background particles - synced with heartbeat */}
+          {[...Array(24)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-primary/40 rounded-full"
+              className="absolute w-1.5 h-1.5 bg-primary/50 rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${10 + (i % 6) * 15}%`,
+                top: `${15 + Math.floor(i / 6) * 20}%`,
               }}
               animate={{
-                y: [0, -100, 0],
-                x: [0, Math.random() * 50 - 25, 0],
-                opacity: [0, 1, 0],
-                scale: [0, 1.5, 0],
+                scale: [1, 2, 1.3, 1.8, 1],
+                opacity: [0.3, 0.9, 0.5, 0.8, 0.3],
+                boxShadow: [
+                  '0 0 5px rgba(132, 204, 22, 0.3)',
+                  '0 0 20px rgba(132, 204, 22, 0.8)',
+                  '0 0 10px rgba(132, 204, 22, 0.5)',
+                  '0 0 18px rgba(132, 204, 22, 0.7)',
+                  '0 0 5px rgba(132, 204, 22, 0.3)',
+                ],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
                 repeat: Infinity,
-                delay: Math.random() * 2,
-                ease: "easeInOut",
+                repeatDelay: 0.3,
+                times: [0, 0.15, 0.3, 0.45, 1],
+                delay: i * 0.04,
               }}
             />
           ))}
