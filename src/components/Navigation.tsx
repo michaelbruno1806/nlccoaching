@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
-import nlcLogo from "@/assets/nlc-logo-new.svg";
+import nlcLogo from "@/assets/nlc-logo-arms.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
