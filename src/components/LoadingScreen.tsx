@@ -211,28 +211,23 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 }}
               />
               
-              {/* Logo with flex animation */}
+              {/* Logo with heartbeat pulse animation */}
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
                 className="w-[280px] h-auto md:w-[400px] relative z-10 drop-shadow-[0_0_30px_rgba(132,204,22,0.5)]"
-                initial={{ scale: 0.3, opacity: 0, rotate: -10 }}
+                initial={{ scale: 0.3, opacity: 0 }}
                 animate={{ 
-                  scale: [1, 1.08, 1],
+                  scale: [1, 1.15, 1.05, 1.12, 1],
                   opacity: 1,
-                  rotate: [0, 2, -2, 0],
                 }}
                 transition={{ 
                   scale: {
-                    duration: 1.2,
-                    ease: "easeInOut",
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
                     repeat: Infinity,
-                    delay: 0.3
-                  },
-                  rotate: {
-                    duration: 2,
-                    ease: "easeInOut",
-                    repeat: Infinity,
+                    repeatDelay: 0.3,
+                    times: [0, 0.15, 0.3, 0.45, 1]
                   },
                   opacity: {
                     duration: 0.6,
