@@ -253,12 +253,12 @@ const CustomerFeedback = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl aspect-video bg-card">
+            <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl bg-card" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
-                className="w-full h-full"
+                className="absolute inset-0 w-full h-full"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
                 title={isFrench ? "Témoignage client" : "Customer testimonial"}
