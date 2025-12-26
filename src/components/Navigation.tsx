@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
-import nlcLogo from "@/assets/nlc-concert-logo.png";
+import nlcLogo from "@/assets/nlc-logo-final.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
