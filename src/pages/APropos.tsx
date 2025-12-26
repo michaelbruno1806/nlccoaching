@@ -134,25 +134,12 @@ const APropos = () => {
                   : "At NLC Coaching, we help women and men regain a strong, mobile and performing body."
                 }
               </p>
-              <p className="text-muted-foreground leading-relaxed mb-8">
+              <p className="text-muted-foreground leading-relaxed">
                 {language === 'fr'
                   ? "Notre mission : vous accompagner à reprendre le contrôle de votre corps, à perdre du poids durablement et à atteindre vos objectifs physiques sans blessure, grâce à un suivi structuré, exigeant et bienveillant."
                   : "Our mission: to help you regain control of your body, lose weight sustainably and achieve your physical goals without injury, through structured, demanding and caring support."
                 }
               </p>
-              <div className="flex gap-4">
-                <a href="/formules">
-                  <Button variant="gold" className="group">
-                    {language === 'fr' ? 'Les Formules' : 'Programs'}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </a>
-                <a href="/#contact">
-                  <Button variant="goldOutline">
-                    {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
-                  </Button>
-                </a>
-              </div>
             </motion.div>
             
             <motion.div
@@ -419,25 +406,12 @@ const APropos = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
               {language === 'fr' ? 'Où nous trouver?' : 'Where to find us?'}
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {language === 'fr'
                 ? "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible."
                 : "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available."
               }
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/formules">
-                <Button variant="gold" size="lg" className="group">
-                  {language === 'fr' ? 'Les Formules' : 'Programs'}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
-              <a href="/#contact">
-                <Button variant="goldOutline" size="lg">
-                  {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
-                </Button>
-              </a>
-            </div>
           </motion.div>
         </div>
       </section>
