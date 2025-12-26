@@ -86,7 +86,7 @@ const Navigation = () => {
       >
         <div className="container mx-auto px-6">
           <nav className="flex items-center justify-between h-20">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
@@ -94,7 +94,7 @@ const Navigation = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
