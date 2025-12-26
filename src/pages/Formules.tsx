@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Star, Sparkles, Users, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
+import SEOHead from "@/components/SEOHead";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import serviceGroup from "@/assets/service-group.jpg";
 import serviceProgram from "@/assets/service-program.jpg";
@@ -11,6 +12,14 @@ import serviceCarnets from "@/assets/service-carnets.jpg";
 const Formules = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
+
+  // SEO content
+  const seoTitle = isFrench 
+    ? "Formules & Tarifs - Coaching Sportif Lille" 
+    : "Programs & Pricing - Sports Coaching Lille";
+  const seoDescription = isFrench
+    ? "Découvrez nos formules de coaching : suivi personnalisé, coaching individuel, small groupes et carnets de séances. Tarifs adaptés à tous les budgets."
+    : "Discover our coaching programs: personalized follow-up, individual coaching, small groups and session packages. Pricing for all budgets.";
 
   const formules = [
     {
@@ -127,6 +136,11 @@ const Formules = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title={seoTitle}
+        description={seoDescription}
+        keywords="formules coaching Lille, tarifs coach sportif, prix coaching individuel, small groupes Wasquehal, carnets séances"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Animated Background */}

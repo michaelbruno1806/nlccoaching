@@ -10,10 +10,16 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ChatAssistant from "@/components/ChatAssistant";
+import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Coach Sportif & Préparateur Physique à Lille, Wasquehal"
+        description="NLC Coaching - Coach sportif et préparateur physique dans la métropole lilloise. Suivi personnalisé, coaching individuel, small groupes. Transformez votre corps avec Noa Liam Politino."
+        keywords="coach sportif Lille, préparateur physique Wasquehal, coaching personnalisé, musculation Lille, personal trainer métropole lilloise, coaching individuel, small groupes, perte de poids"
+      />
       <Navigation />
       <HeroSection />
       <AboutSection />
