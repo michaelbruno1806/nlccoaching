@@ -176,7 +176,7 @@ const AboutSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <a href="https://nlccoaching.com/a-propos/" target="_blank" rel="noopener noreferrer">
+              <a href="/a-propos">
                 <Button variant="goldOutline" className="group">
                   {buttonText}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
