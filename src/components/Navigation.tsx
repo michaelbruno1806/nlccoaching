@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
@@ -10,6 +10,7 @@ import nlcLogo from "@/assets/nlc-logo-arms.png";
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Navigation = () => {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
+    setIsServicesOpen(false);
     
     // Check if it's a hash link
     if (href.includes("#")) {
@@ -61,6 +63,13 @@ const Navigation = () => {
     { href: "/a-propos", fr: "À Propos", en: "About" },
     { href: "/formules", fr: "Formules", en: "Programs" },
     { href: "/#contact", fr: "Contact", en: "Contact" },
+  ];
+
+  const serviceLinks = [
+    { href: "/suivi-personnalise", fr: "Suivi Personnalisé", en: "Personalized Coaching" },
+    { href: "/coaching-individuel", fr: "Coaching Individuel", en: "Individual Coaching" },
+    { href: "/small-groupes", fr: "Small Groupes", en: "Small Groups" },
+    { href: "/carnets-seances", fr: "Carnets de Séances", en: "Session Packages" },
   ];
 
   return (
@@ -99,6 +108,50 @@ const Navigation = () => {
                   </button>
                 </motion.div>
               ))}
+
+              {/* Services Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsServicesOpen(true)}
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
+                <motion.button
+                  whileHover={{ y: -2 }}
+                  className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
+                >
+                  <AnimatedText fr="Services" en="Services" />
+                  <ChevronDown 
+                    size={14} 
+                    className={`transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
+                  />
+                </motion.button>
+                
+                <AnimatePresence>
+                  {isServicesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-black/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl shadow-black/30 overflow-hidden z-50"
+                    >
+                      {serviceLinks.map((service, index) => (
+                        <motion.button
+                          key={service.href}
+                          onClick={() => handleNavClick(service.href)}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          className="w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-gold hover:bg-gold/10 transition-colors duration-200 border-b border-gold/10 last:border-b-0 bg-transparent cursor-pointer"
+                        >
+                          <AnimatedText fr={service.fr} en={service.en} />
+                        </motion.button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <LanguageToggle />
               <Button variant="gold" size="sm">
                 <AnimatedText fr="Commencer" en="Get Started" />
@@ -171,6 +224,37 @@ const Navigation = () => {
                   </button>
                 </motion.div>
               ))}
+
+              {/* Mobile Services Section */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 30 }}
+                transition={{ 
+                  delay: 0.1 + navLinks.length * 0.08,
+                  duration: 0.4,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className="flex flex-col items-center gap-2"
+              >
+                <span className="text-xl font-display text-gold uppercase tracking-wider">
+                  <AnimatedText fr="Services" en="Services" />
+                </span>
+                <div className="flex flex-col items-center gap-3 mt-2">
+                  {serviceLinks.map((service, index) => (
+                    <motion.button
+                      key={service.href}
+                      onClick={() => handleNavClick(service.href)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.05 }}
+                      className="text-base text-muted-foreground hover:text-gold transition-colors bg-transparent border-none cursor-pointer"
+                    >
+                      <AnimatedText fr={service.fr} en={service.en} />
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
