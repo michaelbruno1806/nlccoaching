@@ -182,16 +182,16 @@ const BookingFormSection = ({ serviceName, whatsappMessage }: BookingFormSection
                 <Send className="w-4 h-4" />
                 {isFrench ? "Envoyer" : "Send"}
               </Button>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="lg" 
+                className="gap-2"
+                onClick={() => window.location.href = whatsappUrl}
               >
-                <Button type="button" variant="outline" size="lg" className="gap-2">
-                  <MessageCircle className="w-4 h-4" />
-                  WhatsApp
-                </Button>
-              </a>
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp
+              </Button>
             </div>
           </form>
         </motion.div>
