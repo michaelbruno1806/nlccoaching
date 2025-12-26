@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
@@ -11,6 +11,8 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,41 @@ const Navigation = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle hash scrolling after navigation
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    
+    // Check if it's a hash link
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      const targetPath = path || "/";
+      
+      if (location.pathname === targetPath) {
+        // Same page, just scroll
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // Navigate to page, then scroll
+        navigate(href);
+      }
+    } else {
+      navigate(href);
+    }
+  };
 
   const navLinks = [
     { href: "/a-propos", fr: "À Propos", en: "About" },
@@ -54,12 +91,12 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <motion.div key={link.href} whileHover={{ y: -2 }}>
-                  <Link
-                    to={link.href}
-                    className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider"
+                  <button
+                    onClick={() => handleNavClick(link.href)}
+                    className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
                   >
                     <AnimatedText fr={link.fr} en={link.en} />
-                  </Link>
+                  </button>
                 </motion.div>
               ))}
               <LanguageToggle />
@@ -126,13 +163,12 @@ const Navigation = () => {
                     ease: [0.22, 1, 0.36, 1]
                   }}
                 >
-                  <Link
-                    to={link.href}
-                    className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <button
+                    onClick={() => handleNavClick(link.href)}
+                    className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer"
                   >
                     <AnimatedText fr={link.fr} en={link.en} />
-                  </Link>
+                  </button>
                 </motion.div>
               ))}
               <motion.div
