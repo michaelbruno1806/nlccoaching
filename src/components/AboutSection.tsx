@@ -176,10 +176,12 @@ const AboutSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <Button variant="goldOutline" className="group">
-                {buttonText}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <a href="https://nlccoaching.com/a-propos/" target="_blank" rel="noopener noreferrer">
+                <Button variant="goldOutline" className="group">
+                  {buttonText}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
             </motion.div>
           </motion.div>
         </div>
