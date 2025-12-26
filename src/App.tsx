@@ -23,6 +23,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { AuthProvider } from "./hooks/useAuth";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import APropos from "./pages/APropos";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/a-propos" element={<PageTransition><APropos /></PageTransition>} />
         <Route path="/feedback" element={<PageTransition><CustomerFeedback /></PageTransition>} />
         <Route path="/formules" element={<PageTransition><Formules /></PageTransition>} />
         <Route path="/suivi-personnalise" element={<PageTransition><SuiviPersonnalise /></PageTransition>} />
