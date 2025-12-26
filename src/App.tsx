@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CustomerFeedback from "./pages/CustomerFeedback";
@@ -55,19 +55,40 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    // Small delay to ensure loading screen exit animation starts first
+    setTimeout(() => setShowContent(true), 100);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <LanguageProvider>
           <TooltipProvider>
-            <LoadingScreen isVisible={isLoading} onComplete={() => setIsLoading(false)} />
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <AnimatedRoutes />
-              <CookieConsent />
-            </BrowserRouter>
+            <LoadingScreen isVisible={isLoading} onComplete={handleLoadingComplete} />
+            <AnimatePresence>
+              {showContent && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.2
+                  }}
+                >
+                  <Toaster />
+                  <Sonner />
+                  <BrowserRouter>
+                    <AnimatedRoutes />
+                    <CookieConsent />
+                  </BrowserRouter>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </TooltipProvider>
         </LanguageProvider>
       </AuthProvider>
