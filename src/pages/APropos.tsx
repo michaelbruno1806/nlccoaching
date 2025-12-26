@@ -394,24 +394,82 @@ const APropos = () => {
       </section>
 
       {/* Location Section */}
-      <section ref={locationRef} className="py-24 relative overflow-hidden">
+      <section ref={locationRef} className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={locationInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center mb-12"
           >
-            <MapPin className="w-12 h-12 text-gold mx-auto mb-6" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-              {language === 'fr' ? 'Où nous trouver?' : 'Where to find us?'}
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={locationInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
+            >
+              {language === 'fr' ? 'Localisation' : 'Location'}
+            </motion.span>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              {language === 'fr' ? 'Où nous' : 'Where to'}{' '}
+              <span className="text-gradient">{language === 'fr' ? 'trouver?' : 'find us?'}</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-8" />
+            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
               {language === 'fr'
                 ? "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible."
                 : "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available."
               }
             </p>
+          </motion.div>
+          
+          {/* Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={locationInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-5xl mx-auto"
+          >
+            <div className="relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shadow-black/30">
+              {/* Map glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-gold/20 via-gold/10 to-gold/20 rounded-2xl blur-xl opacity-50" />
+              
+              <div className="relative aspect-[16/9] md:aspect-[21/9]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8976!2d3.1289!3d50.6711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d64e3c9f8c1d%3A0x8c3e0e5f0f0f0f0f!2sWasquehal%2C%20France!5e0!3m2!1sen!2sfr!4v1699999999999!5m2!1sen!2sfr"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, filter: 'grayscale(100%) contrast(1.1) brightness(0.9)' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="NLC Coaching Location - Wasquehal"
+                  className="absolute inset-0"
+                />
+                {/* Gold overlay for brand consistency */}
+                <div className="absolute inset-0 bg-gold/5 pointer-events-none" />
+              </div>
+              
+              {/* Location card overlay */}
+              <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-black/90 backdrop-blur-md rounded-xl p-4 md:p-6 border border-gold/30 shadow-xl">
+                <div className="flex items-center gap-3 mb-2">
+                  <MapPin className="w-5 h-5 text-gold flex-shrink-0" />
+                  <span className="font-display font-semibold text-foreground">NLC Coaching</span>
+                </div>
+                <p className="text-muted-foreground text-sm">
+                  Wasquehal, Métropole Lilloise
+                </p>
+                <a 
+                  href="https://maps.app.goo.gl/q7iTR8WVssbFx7VSA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-gold text-sm mt-3 hover:underline"
+                >
+                  {language === 'fr' ? 'Ouvrir dans Google Maps' : 'Open in Google Maps'}
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
