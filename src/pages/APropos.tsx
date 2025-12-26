@@ -6,6 +6,7 @@ import { ArrowRight, Target, Dumbbell, Activity, Bone, Heart, Shield, MapPin, Us
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach.png";
 
 const APropos = () => {
@@ -50,6 +51,11 @@ const APropos = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="À Propos - Notre Histoire et Philosophie"
+        description="Découvrez NLC Coaching, fondé par Noa Liam Politino. Coach sportif et préparateur physique à Wasquehal, métropole lilloise. Notre mission : performance, rigueur et bienveillance."
+        keywords="Noa Liam Politino, coach sportif Wasquehal, préparateur physique Lille, histoire NLC Coaching, philosophie coaching"
+      />
       <Navigation />
       
       {/* Hero Section */}
