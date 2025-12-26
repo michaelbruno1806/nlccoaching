@@ -174,8 +174,8 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                     transformOrigin: 'center',
                   }}
                   animate={{
-                    x: Math.cos((i * Math.PI * 2) / 8) * 180 - 4,
-                    y: Math.sin((i * Math.PI * 2) / 8) * 100 - 4,
+                    x: Math.cos((i * Math.PI * 2) / 8) * 220 - 4,
+                    y: Math.sin((i * Math.PI * 2) / 8) * 80 - 4,
                     scale: [1, 1.5, 1],
                     opacity: [0.5, 1, 0.5],
                   }}
@@ -310,7 +310,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
-                className="w-[280px] h-auto md:w-[400px] relative z-10"
+                className="w-[320px] h-auto md:w-[480px] lg:w-[550px] relative z-10"
                 style={{
                   filter: 'drop-shadow(0 0 40px rgba(132, 204, 22, 0.6))',
                 }}
