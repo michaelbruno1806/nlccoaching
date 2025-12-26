@@ -71,14 +71,9 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               delay: 0.2 
             }}
           >
-            {/* Logo with subtle breathing animation */}
-            <motion.img
-              src={logoImage}
-              alt="NLC Concept Logo"
-              className="w-[280px] h-auto md:w-[380px] lg:w-[450px]"
-              style={{
-                filter: 'drop-shadow(0 0 40px rgba(163, 230, 53, 0.25))',
-              }}
+            {/* Logo container with solid background */}
+            <motion.div
+              className="bg-black rounded-2xl p-8 md:p-12"
               animate={{ 
                 opacity: [0.95, 1, 0.95],
                 scale: [1, 1.015, 1],
@@ -88,7 +83,16 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
                 ease: "easeInOut",
                 repeat: Infinity,
               }}
-            />
+            >
+              <img
+                src={logoImage}
+                alt="NLC Concept Logo"
+                className="w-[280px] h-auto md:w-[380px] lg:w-[450px]"
+                style={{
+                  filter: 'drop-shadow(0 0 40px rgba(163, 230, 53, 0.25))',
+                }}
+              />
+            </motion.div>
 
             {/* Minimal progress bar */}
             <motion.div 
