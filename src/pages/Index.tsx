@@ -33,7 +33,7 @@ const Index = () => {
       
       {/* Floating WhatsApp Button */}
       <WhatsAppButton 
-        phoneNumber="33612345678" 
+        phoneNumber="23058035450" 
         message="Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
       />
       

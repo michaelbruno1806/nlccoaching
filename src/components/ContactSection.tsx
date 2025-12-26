@@ -20,7 +20,7 @@ const ContactSection = () => {
   const phoneNumber = getContent("contact_phone") || "+33 6 12 34 56 78";
   const emailAddress = getContent("contact_email") || "contact@nlccoaching.com";
   const location = getContent("contact_location") || "Paris, France";
-  const whatsappNumber = getContent("contact_whatsapp") || "33612345678";
+  const whatsappNumber = getContent("contact_whatsapp") || "23058035450";
 
   const WHATSAPP_MESSAGE = language === "fr" 
     ? "Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
