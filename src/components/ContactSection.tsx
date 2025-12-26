@@ -129,8 +129,10 @@ const ContactSection = () => {
               <motion.a
                 key={item.label}
                 href={item.href}
-                target={item.isWhatsApp ? "_blank" : undefined}
-                rel={item.isWhatsApp ? "noopener noreferrer" : undefined}
+                onClick={item.isWhatsApp ? (e) => {
+                  e.preventDefault();
+                  window.location.href = item.href;
+                } : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}

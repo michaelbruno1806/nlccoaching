@@ -16,11 +16,16 @@ const WhatsAppButton = ({
   // Create WhatsApp URL with encoded message
   const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Use location.href for Safari compatibility (avoids cross-origin-opener-policy issues)
+    window.location.href = whatsappUrl;
+  };
+
   return (
     <motion.a
       href={whatsappUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      onClick={handleClick}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 200 }}
