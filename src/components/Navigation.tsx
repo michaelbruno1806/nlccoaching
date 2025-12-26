@@ -21,10 +21,9 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "/a-propos", fr: "À Propos", en: "About", isPage: true },
-    { href: "#philosophy", fr: "Philosophie", en: "Philosophy", isPage: false },
-    { href: "#services", fr: "Services", en: "Services", isPage: false },
-    { href: "#contact", fr: "Contact", en: "Contact", isPage: false },
+    { href: "/a-propos", fr: "À Propos", en: "About" },
+    { href: "/formules", fr: "Formules", en: "Programs" },
+    { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
 
   return (
@@ -54,25 +53,14 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                link.isPage ? (
-                  <motion.div key={link.href} whileHover={{ y: -2 }}>
-                    <Link
-                      to={link.href}
-                      className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider"
-                    >
-                      <AnimatedText fr={link.fr} en={link.en} />
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
+                <motion.div key={link.href} whileHover={{ y: -2 }}>
+                  <Link
+                    to={link.href}
                     className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider"
-                    whileHover={{ y: -2 }}
                   >
                     <AnimatedText fr={link.fr} en={link.en} />
-                  </motion.a>
-                )
+                  </Link>
+                </motion.div>
               ))}
               <LanguageToggle />
               <Button variant="gold" size="sm">
@@ -127,44 +115,25 @@ const Navigation = () => {
               className="flex flex-col items-center gap-8 p-8"
             >
               {navLinks.map((link, index) => (
-                link.isPage ? (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 30 }}
-                    transition={{ 
-                      delay: 0.1 + index * 0.08,
-                      duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                  >
-                    <Link
-                      to={link.href}
-                      className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <AnimatedText fr={link.fr} en={link.en} />
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 30 }}
-                    transition={{ 
-                      delay: 0.1 + index * 0.08,
-                      duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  transition={{ 
+                    delay: 0.1 + index * 0.08,
+                    duration: 0.4,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                >
+                  <Link
+                    to={link.href}
                     className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <AnimatedText fr={link.fr} en={link.en} />
-                  </motion.a>
-                )
+                  </Link>
+                </motion.div>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
