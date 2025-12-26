@@ -4,6 +4,7 @@ import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowLeft, MessageCircle
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
+import ClientMessages from "@/components/ClientMessages";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
@@ -229,6 +230,9 @@ const CustomerFeedback = () => {
           </div>
         </div>
       </section>
+
+      {/* Client Messages Section */}
+      <ClientMessages />
 
       {/* Video Testimonial Section */}
       <section className="py-16 bg-background">
