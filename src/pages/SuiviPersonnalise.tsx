@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import BookingFormSection from "@/components/BookingFormSection";
+import ClientMessages from "@/components/ClientMessages";
 import serviceProgram from "@/assets/service-program.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -187,6 +188,9 @@ const SuiviPersonnalise = () => {
 
       {/* Contact Form Section */}
       <BookingFormSection serviceName={isFrench ? "le Suivi Personnalisé" : "Personalized Follow-up"} />
+
+      {/* Client Messages Section */}
+      <ClientMessages />
 
       {/* Transformations Section */}
       <section className="py-20 bg-card/30">
