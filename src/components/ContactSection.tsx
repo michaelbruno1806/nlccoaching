@@ -317,7 +317,7 @@ const ContactSection = () => {
                 Wasquehal, Métropole Lilloise
               </p>
               <a 
-                href="https://maps.app.goo.gl/7EiSUMQaKrpGeVcBA" 
+                href="https://maps.app.goo.gl/9d3YMTNV6dFYU9EHA" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-gold text-sm mt-3 hover:underline"
