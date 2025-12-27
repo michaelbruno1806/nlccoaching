@@ -169,20 +169,6 @@ const AboutSection = () => {
             >
               {paragraph2}
             </motion.p>
-            <motion.div 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.98 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.7 }}
-            >
-              <a href="/a-propos">
-                <Button variant="goldOutline" className="group">
-                  {buttonText}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
-            </motion.div>
           </motion.div>
         </div>
       </div>
