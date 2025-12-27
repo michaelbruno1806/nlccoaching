@@ -61,7 +61,6 @@ const Navigation = () => {
 
   const navLinks = [
     { href: "/parcours", fr: "Parcours", en: "Journey" },
-    { href: "/formules", fr: "Formules", en: "Programs" },
     { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
 
