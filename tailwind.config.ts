@@ -64,8 +64,18 @@ export default {
         },
       },
       fontFamily: {
-        display: ["var(--font-display)", "serif"],
-        body: ["var(--font-body)", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-body)", "Segoe UI", "sans-serif"],
+      },
+      fontSize: {
+        'hero': ['4.5rem', { lineHeight: '1.1', letterSpacing: '0.02em' }],
+        'hero-sm': ['3rem', { lineHeight: '1.15', letterSpacing: '0.02em' }],
+        'section': ['2.75rem', { lineHeight: '1.2', letterSpacing: '0.02em' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.8', letterSpacing: '0.01em' }],
+      },
+      spacing: {
+        'section': '8rem',
+        'section-sm': '5rem',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -89,16 +99,35 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(30px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        shimmer: "shimmer 2s linear infinite",
-        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "accordion-down": "accordion-down 0.3s ease-out",
+        "accordion-up": "accordion-up 0.3s ease-out",
+        shimmer: "shimmer 2.5s ease-in-out infinite",
+        pulse: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "fade-up": "fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards",
+        "fade-in": "fade-in 1s cubic-bezier(0.4, 0, 0.2, 1) forwards",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-gold": "var(--gradient-gold)",
+        "gradient-luxury": "var(--gradient-luxury)",
+        "gradient-subtle": "var(--gradient-subtle)",
+      },
+      transitionTimingFunction: {
+        'elegant': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      transitionDuration: {
+        '400': '400ms',
+        '600': '600ms',
       },
     },
   },
