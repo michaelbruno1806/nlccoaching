@@ -61,6 +61,7 @@ const Navigation = () => {
 
   const navLinks = [
     { href: "/a-propos", fr: "À Propos", en: "About" },
+    { href: "/parcours", fr: "Parcours", en: "Journey" },
     { href: "/formules", fr: "Formules", en: "Programs" },
     { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
