@@ -12,7 +12,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     if (isVisible) {
-      const duration = 2000;
+      const duration = 1200;
       const interval = 30;
       const increment = 100 / (duration / interval);
       
