@@ -25,6 +25,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import APropos from "./pages/APropos";
 import ScrollToTop from "./components/ScrollToTop";
+import BackToTopButton from "./components/BackToTopButton";
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
@@ -85,6 +86,7 @@ const App = () => {
                   <BrowserRouter>
                     <ScrollToTop />
                     <AnimatedRoutes />
+                    <BackToTopButton />
                     <CookieConsent />
                   </BrowserRouter>
                 </motion.div>
