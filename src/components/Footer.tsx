@@ -15,19 +15,19 @@ const Footer = () => {
     {
       title: "Navigation",
       links: [
-        { label: t("Accueil", "Home"), href: "#" },
-        { label: t("À Propos", "About"), href: "#about" },
-        { label: "Services", href: "#services" },
-        { label: "Contact", href: "#contact" },
+        { label: t("Accueil", "Home"), href: "/" },
+        { label: t("À Propos", "About"), href: "/a-propos" },
+        { label: t("Formules", "Programs"), href: "/formules" },
+        { label: "Contact", href: "/#contact" },
       ],
     },
     {
       title: "Services",
       links: [
-        { label: t("Programme Personnalisé", "Personalized Program"), href: "#services" },
-        { label: t("Coaching Individuel", "Individual Coaching"), href: "#services" },
-        { label: t("Small Groupes", "Small Groups"), href: "#services" },
-        { label: t("Séance Découverte", "Discovery Session"), href: "#contact" },
+        { label: t("Suivi Personnalisé", "Personalized Follow-up"), href: "/suivi-personnalise" },
+        { label: t("Coaching Individuel", "Individual Coaching"), href: "/coaching-individuel" },
+        { label: t("Small Groupes", "Small Groups"), href: "/small-groupes" },
+        { label: t("Carnets de Séances", "Session Packages"), href: "/carnets-seances" },
       ],
     },
     {
