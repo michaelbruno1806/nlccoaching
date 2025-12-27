@@ -153,7 +153,7 @@ const Navigation = () => {
               </div>
 
               <LanguageToggle />
-              <Button variant="gold" size="sm">
+              <Button variant="gold" size="sm" onClick={() => handleNavClick("/#contact")}>
                 <AnimatedText fr="Commencer" en="Get Started" />
               </Button>
             </div>
@@ -267,7 +267,7 @@ const Navigation = () => {
                 className="flex flex-col items-center gap-4 mt-4"
               >
                 <LanguageToggle />
-                <Button variant="gold" size="lg">
+                <Button variant="gold" size="lg" onClick={() => handleNavClick("/#contact")}>
                   <AnimatedText fr="Commencer" en="Get Started" />
                 </Button>
               </motion.div>
