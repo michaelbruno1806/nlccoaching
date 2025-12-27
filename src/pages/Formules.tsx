@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, Star, Sparkles, Users, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -13,11 +12,6 @@ import serviceCarnets from "@/assets/service-carnets.jpg";
 const Formules = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
-
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   // SEO content
   const seoTitle = isFrench 
