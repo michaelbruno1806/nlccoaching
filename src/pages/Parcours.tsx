@@ -124,19 +124,13 @@ const Parcours = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link to="/formules">
+            <a href="#mission">
               <Button variant="gold" size="lg" className="group">
-                {language === 'fr' ? 'Les Formules' : 'Programs'}
+                {language === 'fr' ? 'Découvrir' : 'Discover'}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </Link>
-            <Link to="/#contact">
-              <Button variant="goldOutline" size="lg">
-                {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
-              </Button>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>
