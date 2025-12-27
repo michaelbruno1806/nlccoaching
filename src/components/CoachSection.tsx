@@ -92,13 +92,6 @@ const CoachSection = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="gold">
-                {t("Parcours", "Journey")}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline">Contact</Button>
-            </div>
           </motion.div>
 
           {/* Image */}
