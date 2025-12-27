@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Send, Phone, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -264,30 +264,69 @@ const ContactSection = () => {
           </motion.div>
         </div>
 
-        {/* Google Maps */}
+        {/* Location Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 max-w-6xl mx-auto"
+          className="mt-20 max-w-5xl mx-auto"
         >
-          <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20230.77889442888!2d3.1095!3d50.6692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32917b09f1b71%3A0x40af13e81644930!2s59290%20Wasquehal%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={t("Notre localisation", "Our location")}
-              className="grayscale hover:grayscale-0 transition-all duration-500"
-            />
+          <div className="text-center mb-8">
+            <span className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-4 px-4 py-2 border border-gold/20 rounded-full bg-gold/5">
+              {t("Localisation", "Location")}
+            </span>
+            <h3 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              {t("Où nous", "Where to")}{' '}
+              <span className="text-gradient">{t("trouver?", "find us?")}</span>
+            </h3>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
+              {t(
+                "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible.",
+                "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available."
+              )}
+            </p>
           </div>
-          <p className="text-center text-muted-foreground text-sm mt-4">
-            <MapPin className="inline-block w-4 h-4 mr-1 text-gold" />
-            {location}
-          </p>
+          
+          <div className="relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shadow-black/30">
+            {/* Map glow effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-gold/20 via-gold/10 to-gold/20 rounded-2xl blur-xl opacity-50" />
+            
+            <div className="relative aspect-[16/9] md:aspect-[21/9]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20230.77889442888!2d3.1095!3d50.6692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32917b09f1b71%3A0x40af13e81644930!2s59290%20Wasquehal%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: 'grayscale(100%) contrast(1.1) brightness(0.9)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={t("NLC Coaching Location - Wasquehal", "NLC Coaching Location - Wasquehal")}
+                className="absolute inset-0"
+              />
+              {/* Gold overlay for brand consistency */}
+              <div className="absolute inset-0 bg-gold/5 pointer-events-none" />
+            </div>
+            
+            {/* Location card overlay */}
+            <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-black/90 backdrop-blur-md rounded-xl p-4 md:p-6 border border-gold/30 shadow-xl">
+              <div className="flex items-center gap-3 mb-2">
+                <MapPin className="w-5 h-5 text-gold flex-shrink-0" />
+                <span className="font-display font-semibold text-foreground">NLC Coaching</span>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                Wasquehal, Métropole Lilloise
+              </p>
+              <a 
+                href="https://maps.app.goo.gl/7EiSUMQaKrpGeVcBA" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-gold text-sm mt-3 hover:underline"
+              >
+                {t("Ouvrir dans Google Maps", "Open in Google Maps")}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
