@@ -273,7 +273,7 @@ const ContactSection = () => {
         >
           <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2sfr!4v1623456789"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20230.77889442888!2d3.1095!3d50.6692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32917b09f1b71%3A0x40af13e81644930!2s59290%20Wasquehal%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
               width="100%"
               height="400"
               style={{ border: 0 }}
