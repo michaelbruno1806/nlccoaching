@@ -263,6 +263,32 @@ const ContactSection = () => {
             </form>
           </motion.div>
         </div>
+
+        {/* Google Maps */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-16 max-w-6xl mx-auto"
+        >
+          <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.292292615509614!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2sfr!4v1623456789"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title={t("Notre localisation", "Our location")}
+              className="grayscale hover:grayscale-0 transition-all duration-500"
+            />
+          </div>
+          <p className="text-center text-muted-foreground text-sm mt-4">
+            <MapPin className="inline-block w-4 h-4 mr-1 text-gold" />
+            {location}
+          </p>
+        </motion.div>
       </div>
     </section>
   );
