@@ -1,14 +1,11 @@
 import { motion } from "framer-motion";
-import { Instagram, Facebook, Linkedin, Youtube } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import nlcLogo from "@/assets/nlc-logo.png";
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Instagram, href: "https://www.instagram.com/noaliam_coaching/", label: "Instagram" },
 ];
 
 const Footer = () => {
