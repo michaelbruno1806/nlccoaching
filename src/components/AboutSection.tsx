@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import aboutCoach from "@/assets/about-coach.png";
 import aboutCoach2 from "@/assets/about-coach-2.png";
 import { useLanguage } from "@/contexts/LanguageContext";
