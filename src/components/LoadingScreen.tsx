@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import logoImage from "@/assets/nlc-logo-new.png";
+import logoImage from "@/assets/nlc-logo-new.svg";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -41,7 +41,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-gradient-to-b from-neutral-950 via-black to-neutral-950 flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] bg-[#080909] flex flex-col items-center justify-center overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
