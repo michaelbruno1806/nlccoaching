@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import nlcLogo from "@/assets/nlc-logo.png";
+import nlcLogo from "@/assets/nlc-logo-new.png";
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/noaliam_coaching/", label: "Instagram" },
