@@ -257,9 +257,9 @@ const CustomerFeedback = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-sm mx-auto"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-xl bg-card aspect-video">
+            <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-xl bg-card aspect-[9/16]">
               <iframe
                 src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
                 className="absolute inset-0 w-full h-full"
