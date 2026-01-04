@@ -429,8 +429,8 @@ const APropos = () => {
           </motion.div>
         </div>
         
-        {/* CTA Buttons */}
-        <div className="flex items-center justify-end container mx-auto px-6 relative z-10 pt-8">
+        {/* CTA Buttons - Between PAIN and GAIN */}
+        <div className="flex-1 flex items-center justify-end container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
