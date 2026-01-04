@@ -430,7 +430,7 @@ const APropos = () => {
         </div>
         
         {/* CTA Buttons - Between PAIN and GAIN */}
-        <div className="flex-1 flex items-end justify-end container mx-auto px-6 relative z-10 pb-20">
+        <div className="flex-1 flex items-end justify-center container mx-auto px-6 relative z-10 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -439,13 +439,13 @@ const APropos = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <a href="/formules">
-              <Button variant="gold" size="lg" className="group">
+              <Button variant="gold" size="lg" className="group text-lg px-8 py-6">
                 {language === 'fr' ? 'Les Formules' : 'Programs'}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
             <a href="/#contact">
-              <Button variant="goldOutline" size="lg">
+              <Button variant="goldOutline" size="lg" className="text-lg px-8 py-6">
                 {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
               </Button>
             </a>
