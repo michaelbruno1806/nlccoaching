@@ -8,6 +8,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach.png";
+import coachBanner from "@/assets/coach-banner.jpg";
 const APropos = () => {
   const {
     language
@@ -441,7 +442,7 @@ const APropos = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src="/lovable-uploads/0fbd0e4b-0bc0-46f5-a7ca-2dfac60eb9b9.png" 
+            src={coachBanner} 
             alt="Coach background"
             className="w-full h-full object-cover"
           />
