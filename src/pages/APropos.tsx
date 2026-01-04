@@ -81,8 +81,8 @@ const APropos = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
           >
-            {language === 'fr' ? 'À PROPOS DE' : 'ABOUT'}{' '}
-            <span className="text-gradient">NLC COACHING</span>
+            <span className="block">{language === 'fr' ? 'À PROPOS DE' : 'ABOUT'}</span>
+            <span className="block text-gradient">NLC COACHING</span>
           </motion.h1>
           
           <motion.p
