@@ -394,15 +394,16 @@ const APropos = () => {
 
 
       {/* New Generation Section */}
-      <section className="py-24 relative overflow-hidden min-h-[500px]">
-        {/* Background Image */}
-        <div className="absolute inset-0">
+      <section className="py-32 relative overflow-hidden min-h-[600px] flex items-center">
+        {/* Background Image - Full Banner */}
+        <div className="absolute inset-0 w-full h-full">
           <img 
             src={coachBackground} 
             alt="Coach background" 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center 30%' }}
           />
-          <div className="absolute inset-0 bg-background/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/80" />
         </div>
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
