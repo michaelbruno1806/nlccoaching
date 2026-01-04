@@ -60,7 +60,7 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { href: "/parcours", fr: "Parcours", en: "Journey" },
+    { href: "/a-propos", fr: "À propos", en: "About" },
     { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
 
