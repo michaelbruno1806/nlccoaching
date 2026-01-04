@@ -403,17 +403,17 @@ const APropos = () => {
             className="w-full h-full object-cover"
             style={{ objectPosition: 'center 30%' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/40 to-background/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-background/90" />
         </div>
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-10 flex justify-end">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-left max-w-xl"
+            className="text-right max-w-xl"
           >
-            <Users className="w-12 h-12 text-gold mb-6" />
+            <Users className="w-12 h-12 text-gold mb-6 ml-auto" />
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'coachs' : 'coaches'}</span>
@@ -424,7 +424,7 @@ const APropos = () => {
                 : "Noa Liam embodies a new generation of coaches: demanding, attentive and connected to clients' reality. A young, serious and passionate team, placing discipline, technique and confidence at the heart of every progression."
               }
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-end">
               <a href="/formules">
                 <Button variant="gold" size="lg" className="group">
                   {language === 'fr' ? 'Les Formules' : 'Programs'}
