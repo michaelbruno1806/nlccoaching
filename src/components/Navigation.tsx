@@ -60,7 +60,7 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { href: "/a-propos", fr: "À propos", en: "About" },
+    { href: "/a-propos", fr: "À propos de\nNLC Coaching", en: "About\nNLC Coaching", multiline: true },
     { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
 
@@ -101,9 +101,16 @@ const Navigation = () => {
                 <motion.div key={link.href} whileHover={{ y: -2 }}>
                   <button
                     onClick={() => handleNavClick(link.href)}
-                    className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
+                    className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
                   >
-                    <AnimatedText fr={link.fr} en={link.en} />
+                    {link.multiline ? (
+                      <span className="flex flex-col">
+                        <span>{link.fr.split('\n')[0]}</span>
+                        <span className="text-gold">{link.fr.split('\n')[1]}</span>
+                      </span>
+                    ) : (
+                      <AnimatedText fr={link.fr} en={link.en} />
+                    )}
                   </button>
                 </motion.div>
               ))}
@@ -217,9 +224,16 @@ const Navigation = () => {
                 >
                   <button
                     onClick={() => handleNavClick(link.href)}
-                    className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer"
+                    className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer text-center"
                   >
-                    <AnimatedText fr={link.fr} en={link.en} />
+                    {link.multiline ? (
+                      <span className="flex flex-col leading-tight">
+                        <span>{link.fr.split('\n')[0]}</span>
+                        <span className="text-gold">{link.fr.split('\n')[1]}</span>
+                      </span>
+                    ) : (
+                      <AnimatedText fr={link.fr} en={link.en} />
+                    )}
                   </button>
                 </motion.div>
               ))}
