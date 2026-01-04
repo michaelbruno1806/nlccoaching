@@ -121,10 +121,10 @@ const APropos = () => {
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-                {language === 'fr' ? 'Force. Discipline.' : 'Strength. Discipline.'}{' '}
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                {language === 'fr' ? 'Force. Discipline. ' : 'Strength. Discipline. '}
                 <span className="text-gradient">{language === 'fr' ? 'Résultats durables.' : 'Lasting Results.'}</span>
-              </h2>
+              </p>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 {language === 'fr'
                   ? "Chez NLC Coaching, nous aidons les femmes et les hommes à retrouver un corps fort, mobile et performant."
