@@ -394,7 +394,7 @@ const APropos = () => {
 
 
       {/* New Generation Section */}
-      <section className="py-20 relative overflow-hidden min-h-[700px] flex flex-col">
+      <section className="py-12 relative overflow-hidden min-h-[600px] flex flex-col">
         {/* Background Image - Full Banner */}
         <div className="absolute inset-0 w-full h-full">
           <img 
@@ -407,7 +407,7 @@ const APropos = () => {
         </div>
         
         {/* Text Content - Upper Area */}
-        <div className="container mx-auto px-6 relative z-10 flex justify-end pt-8">
+        <div className="container mx-auto px-6 relative z-10 flex justify-end pt-4">
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -415,12 +415,12 @@ const APropos = () => {
             transition={{ duration: 0.8 }}
             className="text-right max-w-xl"
           >
-            <Users className="w-12 h-12 text-gold mb-4 ml-auto" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+            <Users className="w-10 h-10 text-gold mb-3 ml-auto" />
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'coachs' : 'coaches'}</span>
             </h2>
-            <p className="text-foreground text-lg leading-relaxed">
+            <p className="text-foreground text-base leading-relaxed">
               {language === 'fr'
                 ? "Noa Liam incarne une nouvelle génération de coachs : exigeante, à l'écoute et connectée à la réalité des clients. Une équipe jeune, sérieuse et passionnée, plaçant discipline, technique et confiance au cœur de chaque progression."
                 : "Noa Liam embodies a new generation of coaches: demanding, attentive and connected to clients' reality. A young, serious and passionate team, placing discipline, technique and confidence at the heart of every progression."
@@ -429,8 +429,8 @@ const APropos = () => {
           </motion.div>
         </div>
         
-        {/* CTA Buttons - Positioned below PAIN in the image */}
-        <div className="flex items-end justify-end container mx-auto px-6 relative z-10 pb-16 mt-auto">
+        {/* CTA Buttons */}
+        <div className="flex items-center justify-end container mx-auto px-6 relative z-10 pt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
