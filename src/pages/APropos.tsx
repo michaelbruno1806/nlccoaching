@@ -406,8 +406,8 @@ const APropos = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-background/90" />
         </div>
         
-        {/* Text Content - Centered over the O */}
-        <div className="container mx-auto px-6 relative z-10 flex justify-center pt-8">
+        {/* Text Content - Positioned over the O */}
+        <div className="container mx-auto px-6 relative z-10 flex justify-center pt-8 pl-20 lg:pl-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -429,8 +429,8 @@ const APropos = () => {
           </motion.div>
         </div>
         
-        {/* CTA Buttons - Centered */}
-        <div className="flex-1 flex items-center justify-center container mx-auto px-6 relative z-10">
+        {/* CTA Buttons - Positioned to the right */}
+        <div className="flex-1 flex items-center justify-center container mx-auto px-6 relative z-10 pl-20 lg:pl-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
