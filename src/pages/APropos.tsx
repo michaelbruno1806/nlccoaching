@@ -36,15 +36,15 @@ const APropos = () => {
 
   const philosophyItems = [
     {
-      title: language === 'fr' ? "Performance Durable" : "Sustainable Performance",
+      title: language === 'fr' ? "Performance" : "Performance",
       description: language === 'fr' ? "Renforcer la force, la mobilité et la technique sans blessure." : "Strengthen force, mobility and technique without injury."
     },
     {
-      title: language === 'fr' ? "Suivi personnalisé" : "Personalized Follow-up",
+      title: language === 'fr' ? "Rigueur" : "Rigor",
       description: language === 'fr' ? "Programmes ajustés à votre niveau et vos objectifs." : "Programs adjusted to your level and goals."
     },
     {
-      title: language === 'fr' ? "Résultats mesurables" : "Measurable Results",
+      title: language === 'fr' ? "Bienveillance" : "Benevolence",
       description: language === 'fr' ? "Progression concrète, chiffrée et visible." : "Concrete, quantified and visible progression."
     },
   ];
