@@ -413,7 +413,7 @@ const APropos = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-right max-w-xl"
+            className="text-right max-w-md lg:max-w-lg"
           >
             <Users className="w-10 h-10 text-gold mb-3 ml-auto" />
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
@@ -430,7 +430,7 @@ const APropos = () => {
         </div>
         
         {/* CTA Buttons - Between PAIN and GAIN */}
-        <div className="flex-1 flex items-end justify-center container mx-auto px-6 relative z-10 pb-20">
+        <div className="flex-1 flex items-end justify-end container mx-auto px-6 relative z-10 pb-20 pr-12 lg:pr-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
