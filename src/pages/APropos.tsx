@@ -135,7 +135,7 @@ const APropos = () => {
                 }
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                <span className="text-gradient text-xl font-semibold">{language === 'fr' ? 'Notre mission : ' : 'Our mission: '}</span>
+                <span className="text-gradient text-2xl font-semibold">{language === 'fr' ? 'Notre mission : ' : 'Our mission: '}</span>
                 {language === 'fr'
                   ? "vous accompagner à reprendre le contrôle de votre corps, à perdre du poids durablement et à atteindre vos objectifs physiques sans blessure, grâce à un suivi structuré, exigeant et bienveillant."
                   : "to help you regain control of your body, lose weight sustainably and achieve your physical goals without injury, through structured, demanding and caring support."
