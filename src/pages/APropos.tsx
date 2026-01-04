@@ -449,7 +449,7 @@ const APropos = () => {
           once: true
         }} transition={{
           duration: 0.8
-        }} className="text-center max-w-4xl mx-auto">
+        }} className="text-center max-w-4xl mx-auto pl-12 lg:pl-24">
             <Users className="w-12 h-12 text-gold mx-auto mb-6" />
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
