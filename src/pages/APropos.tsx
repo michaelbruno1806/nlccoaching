@@ -394,15 +394,15 @@ const APropos = () => {
 
 
       {/* New Generation Section */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden min-h-[500px]">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
             src={coachBackground} 
             alt="Coach background" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-background/85" />
+          <div className="absolute inset-0 bg-background/70" />
         </div>
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
@@ -417,7 +417,7 @@ const APropos = () => {
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'coachs' : 'coaches'}</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <p className="text-foreground text-lg leading-relaxed mb-8">
               {language === 'fr'
                 ? "Noa Liam incarne une nouvelle génération de coachs : exigeante, à l'écoute et connectée à la réalité des clients. Une équipe jeune, sérieuse et passionnée, plaçant discipline, technique et confiance au cœur de chaque progression."
                 : "Noa Liam embodies a new generation of coaches: demanding, attentive and connected to clients' reality. A young, serious and passionate team, placing discipline, technique and confidence at the heart of every progression."
