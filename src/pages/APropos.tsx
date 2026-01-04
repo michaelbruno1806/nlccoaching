@@ -202,8 +202,8 @@ const APropos = () => {
                   className="text-lg md:text-xl text-foreground/90 leading-relaxed font-light"
                 >
                   {language === 'fr'
-                    ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance."
-                    : "Founded by Noa Liam Politino, sports coach, physical trainer and coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."
+                    ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur en force installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance."
+                    : "Founded by Noa Liam Politino, sports coach, physical trainer and strength coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."
                   }
                 </motion.p>
                 
@@ -226,8 +226,8 @@ const APropos = () => {
                   className="text-muted-foreground leading-relaxed"
                 >
                   {language === 'fr'
-                    ? "Après avoir passé son BPJEPS à 18 ans, puis une première année en Licence STAPS à 19 ans, il a choisi la voie du DJEPS dans les métiers de la force et de la coordination de projet sportif : une formation plus concrète, centrée sur la performance et l'entraînement."
-                    : "After passing his BPJEPS at 18, then a first year in a STAPS degree at 19, he chose the DJEPS path in strength professions and sports project coordination: a more concrete training, focused on performance and training."
+                    ? "Après avoir passé son BPJEPS AF à 18 ans, puis une première année en Licence STAPS à 19 ans, il a choisi la voie du DEJEPS dans les métiers de la force et de la coordination de projet sportif : une formation plus concrète, centrée sur la performance et l'entraînement."
+                    : "After passing his BPJEPS AF at 18, then a first year in a STAPS degree at 19, he chose the DEJEPS path in strength professions and sports project coordination: a more concrete training, focused on performance and training."
                   }
                 </motion.p>
               </div>
