@@ -115,7 +115,7 @@ const APropos = () => {
       {/* Mission Section */}
       <section id="mission" ref={missionRef} className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
