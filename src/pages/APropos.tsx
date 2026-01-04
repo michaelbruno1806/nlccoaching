@@ -134,7 +134,7 @@ const APropos = () => {
                   : "At NLC Coaching, we help women and men regain a strong, mobile and performing body."
                 }
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 {language === 'fr'
                   ? "Notre mission : vous accompagner à reprendre le contrôle de votre corps, à perdre du poids durablement et à atteindre vos objectifs physiques sans blessure, grâce à un suivi structuré, exigeant et bienveillant."
                   : "Our mission: to help you regain control of your body, lose weight sustainably and achieve your physical goals without injury, through structured, demanding and caring support."
