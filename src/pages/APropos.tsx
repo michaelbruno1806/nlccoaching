@@ -379,6 +379,9 @@ const APropos = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gold/0 group-hover:bg-gold/5 transition-all duration-300" />
                 
                 <div className="relative z-10">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold/20 to-gold/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <span className="text-2xl font-display font-bold text-gold">{['I', 'II', 'III'][index]}</span>
+                  </div>
                   <h3 className="font-display text-xl font-semibold mb-4 text-foreground">{item.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
