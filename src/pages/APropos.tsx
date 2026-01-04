@@ -121,9 +121,6 @@ const APropos = () => {
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4 block">
-                {language === 'fr' ? 'Notre Mission' : 'Our Mission'}
-              </span>
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
                 {language === 'fr' ? 'Force. Discipline.' : 'Strength. Discipline.'}{' '}
                 <span className="text-gradient">{language === 'fr' ? 'Résultats durables.' : 'Lasting Results.'}</span>
@@ -135,7 +132,7 @@ const APropos = () => {
                 }
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                <span className="text-gradient text-2xl font-semibold">{language === 'fr' ? 'Notre mission : ' : 'Our mission: '}</span>
+                <span className="font-display text-4xl md:text-5xl font-bold text-gradient">{language === 'fr' ? 'Notre mission : ' : 'Our mission: '}</span>
                 {language === 'fr'
                   ? "vous accompagner à reprendre le contrôle de votre corps, à perdre du poids durablement et à atteindre vos objectifs physiques sans blessure, grâce à un suivi structuré, exigeant et bienveillant."
                   : "to help you regain control of your body, lose weight sustainably and achieve your physical goals without injury, through structured, demanding and caring support."
