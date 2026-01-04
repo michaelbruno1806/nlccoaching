@@ -121,7 +121,7 @@ const APropos = () => {
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <p className="font-display text-4xl md:text-5xl font-bold leading-tight mb-6">
+              <p className="font-display text-lg font-bold leading-relaxed mb-6">
                 <span className="text-foreground">{language === 'fr' ? 'Force. Discipline. ' : 'Strength. Discipline. '}</span>
                 <span className="text-gradient">{language === 'fr' ? 'Résultats durables.' : 'Lasting Results.'}</span>
               </p>
