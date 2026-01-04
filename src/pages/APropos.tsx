@@ -92,8 +92,8 @@ const APropos = () => {
             className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
           >
             {language === 'fr' 
-              ? "Coach sportif, préparateur physique & entraineur dans la métropole lilloise"
-              : "Sports coach, physical trainer & coach in the Lille metropolitan area"
+              ? "Coach sportif, préparateur physique & entraineur dans la force basé dans la métropole lilloise."
+              : "Sports coach, physical trainer & strength coach based in the Lille metropolitan area."
             }
           </motion.p>
           
