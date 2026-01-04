@@ -394,7 +394,7 @@ const APropos = () => {
 
 
       {/* New Generation Section */}
-      <section className="py-32 relative overflow-hidden min-h-[600px] flex items-center">
+      <section className="py-20 relative overflow-hidden min-h-[700px] flex flex-col">
         {/* Background Image - Full Banner */}
         <div className="absolute inset-0 w-full h-full">
           <img 
@@ -405,7 +405,9 @@ const APropos = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-background/90" />
         </div>
-        <div className="container mx-auto px-6 relative z-10 flex justify-end">
+        
+        {/* Text Content - Upper Area */}
+        <div className="container mx-auto px-6 relative z-10 flex justify-end pt-8">
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -413,30 +415,40 @@ const APropos = () => {
             transition={{ duration: 0.8 }}
             className="text-right max-w-xl"
           >
-            <Users className="w-12 h-12 text-gold mb-6 ml-auto" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+            <Users className="w-12 h-12 text-gold mb-4 ml-auto" />
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'coachs' : 'coaches'}</span>
             </h2>
-            <p className="text-foreground text-lg leading-relaxed mb-8">
+            <p className="text-foreground text-lg leading-relaxed">
               {language === 'fr'
                 ? "Noa Liam incarne une nouvelle génération de coachs : exigeante, à l'écoute et connectée à la réalité des clients. Une équipe jeune, sérieuse et passionnée, plaçant discipline, technique et confiance au cœur de chaque progression."
                 : "Noa Liam embodies a new generation of coaches: demanding, attentive and connected to clients' reality. A young, serious and passionate team, placing discipline, technique and confidence at the heart of every progression."
               }
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-end">
-              <a href="/formules">
-                <Button variant="gold" size="lg" className="group">
-                  {language === 'fr' ? 'Les Formules' : 'Programs'}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
-              <a href="/#contact">
-                <Button variant="goldOutline" size="lg">
-                  {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
-                </Button>
-              </a>
-            </div>
+          </motion.div>
+        </div>
+        
+        {/* CTA Buttons - Positioned in the middle area (between NO PAIN / NO GAIN) */}
+        <div className="flex-1 flex items-center justify-end container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <a href="/formules">
+              <Button variant="gold" size="lg" className="group">
+                {language === 'fr' ? 'Les Formules' : 'Programs'}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
+            <a href="/#contact">
+              <Button variant="goldOutline" size="lg">
+                {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
+              </Button>
+            </a>
           </motion.div>
         </div>
       </section>
