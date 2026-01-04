@@ -11,7 +11,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -97,23 +97,26 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <motion.div key={link.href} whileHover={{ y: -2 }}>
-                  <button
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
-                  >
-                    {link.multiline ? (
-                      <span className="flex flex-col">
-                        <span>{link.fr.split('\n')[0]}</span>
-                        <span className="text-gold">{link.fr.split('\n')[1]}</span>
-                      </span>
-                    ) : (
-                      <AnimatedText fr={link.fr} en={link.en} />
-                    )}
-                  </button>
-                </motion.div>
-              ))}
+              {navLinks.map((link) => {
+                const text = language === 'fr' ? link.fr : link.en;
+                return (
+                  <motion.div key={link.href} whileHover={{ y: -2 }}>
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
+                    >
+                      {link.multiline ? (
+                        <span className="flex flex-col">
+                          <span>{text.split('\n')[0]}</span>
+                          <span className="text-gold">{text.split('\n')[1]}</span>
+                        </span>
+                      ) : (
+                        <AnimatedText fr={link.fr} en={link.en} />
+                      )}
+                    </button>
+                  </motion.div>
+                );
+              })}
 
               {/* Services Dropdown */}
               <div 
@@ -210,33 +213,36 @@ const Navigation = () => {
               transition={{ duration: 0.2, delay: 0.1 }}
               className="flex flex-col items-center gap-8 p-8"
             >
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 30 }}
-                  transition={{ 
-                    delay: 0.1 + index * 0.08,
-                    duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                >
-                  <button
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer text-center"
+              {navLinks.map((link, index) => {
+                const text = language === 'fr' ? link.fr : link.en;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 30 }}
+                    transition={{ 
+                      delay: 0.1 + index * 0.08,
+                      duration: 0.4,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
                   >
-                    {link.multiline ? (
-                      <span className="flex flex-col leading-tight">
-                        <span>{link.fr.split('\n')[0]}</span>
-                        <span className="text-gold">{link.fr.split('\n')[1]}</span>
-                      </span>
-                    ) : (
-                      <AnimatedText fr={link.fr} en={link.en} />
-                    )}
-                  </button>
-                </motion.div>
-              ))}
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer text-center"
+                    >
+                      {link.multiline ? (
+                        <span className="flex flex-col leading-tight">
+                          <span>{text.split('\n')[0]}</span>
+                          <span className="text-gold">{text.split('\n')[1]}</span>
+                        </span>
+                      ) : (
+                        <AnimatedText fr={link.fr} en={link.en} />
+                      )}
+                    </button>
+                  </motion.div>
+                );
+              })}
 
               {/* Mobile Services Section */}
               <motion.div
