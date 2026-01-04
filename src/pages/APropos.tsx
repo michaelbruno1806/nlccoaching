@@ -429,8 +429,8 @@ const APropos = () => {
           </motion.div>
         </div>
         
-        {/* CTA Buttons - Positioned in the middle area (between NO PAIN / NO GAIN) */}
-        <div className="flex-1 flex items-center justify-end container mx-auto px-6 relative z-10">
+        {/* CTA Buttons - Positioned below PAIN in the image */}
+        <div className="flex items-end justify-end container mx-auto px-6 relative z-10 pb-16 mt-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
