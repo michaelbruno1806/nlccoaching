@@ -20,19 +20,18 @@ const ContactSection = () => {
   const phoneNumber = getContent("contact_phone") || "+33 6 16 22 40 37";
   const emailAddress = getContent("contact_email") || "contact.nlccoaching@gmail.com";
   const location = getContent("contact_location") || "Lille, France";
-  const whatsappNumber = getContent("contact_whatsapp") || "23058035450";
+  const whatsappNumber = getContent("contact_whatsapp") || "33616224037";
 
-  const WHATSAPP_MESSAGE =
-    language === "fr"
-      ? "Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
-      : "Hello! I'm interested in your NLC coaching services.";
+  const WHATSAPP_MESSAGE = language === "fr" 
+    ? "Bonjour! Je suis intéressé(e) par vos services de coaching NLC."
+    : "Hello! I'm interested in your NLC coaching services.";
 
   const contactInfo = [
     {
       icon: Phone,
       label: t("Téléphone", "Phone"),
       value: phoneNumber,
-      href: `tel:${phoneNumber.replace(/\s/g, "")}`,
+      href: `tel:${phoneNumber.replace(/\s/g, '')}`,
     },
     {
       icon: Mail,
@@ -58,41 +57,37 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
       toast.success(t("Message envoyé avec succès!", "Message sent successfully!"), {
-        description: t(
-          "Nous vous répondrons dans les plus brefs délais.",
-          "We will get back to you as soon as possible.",
-        ),
+        description: t("Nous vous répondrons dans les plus brefs délais.", "We will get back to you as soon as possible."),
       });
     }, 1500);
   };
 
   // Get discovery session content
   const discoveryTitle = getContent("discovery_title") || t("Séance découverte", "Discovery Session");
-  const discoveryDescription =
-    getContent("discovery_description") ||
-    t(
-      "Réservez votre première séance gratuite et découvrez notre approche unique.",
-      "Book your first free session and discover our unique approach.",
-    );
+  const discoveryDescription = getContent("discovery_description") || t(
+    "Réservez votre première séance gratuite et découvrez notre approche unique.",
+    "Book your first free session and discover our unique approach."
+  );
   const discoveryButton = getContent("discovery_button") || t("Réserver maintenant", "Book now");
 
   // Get section header content
-  const sectionTitle =
-    getContent("contact_title") || t("Prêt à transformer votre vie?", "Ready to transform your life?");
-  const sectionSubtitle =
-    getContent("contact_subtitle") ||
-    t(
-      "Contactez-nous pour discuter de vos objectifs et découvrir comment nous pouvons vous accompagner vers l'excellence.",
-      "Contact us to discuss your goals and discover how we can guide you towards excellence.",
-    );
+  const sectionTitle = getContent("contact_title") || t("Prêt à transformer votre vie?", "Ready to transform your life?");
+  const sectionSubtitle = getContent("contact_subtitle") || t(
+    "Contactez-nous pour discuter de vos objectifs et découvrir comment nous pouvons vous accompagner vers l'excellence.",
+    "Contact us to discuss your goals and discover how we can guide you towards excellence."
+  );
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden bg-card" ref={ref}>
+    <section
+      id="contact"
+      className="py-32 relative overflow-hidden bg-card"
+      ref={ref}
+    >
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2" />
@@ -105,18 +100,21 @@ const ContactSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">Contact</span>
+          <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
+            Contact
+          </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             {sectionTitle.includes("transform") || sectionTitle.includes("transformer") ? (
               <>
-                {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span>{" "}
-                {t("votre vie?", "your life?")}
+                {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span> {t("votre vie?", "your life?")}
               </>
             ) : (
               sectionTitle
             )}
           </h2>
-          <p className="text-muted-foreground text-lg">{sectionSubtitle}</p>
+          <p className="text-muted-foreground text-lg">
+            {sectionSubtitle}
+          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
@@ -131,30 +129,24 @@ const ContactSection = () => {
               <motion.a
                 key={item.label}
                 href={item.href}
-                onClick={
-                  item.isWhatsApp
-                    ? (e) => {
-                        e.preventDefault();
-                        window.location.href = item.href;
-                      }
-                    : undefined
-                }
+                onClick={item.isWhatsApp ? (e) => {
+                  e.preventDefault();
+                  window.location.href = item.href;
+                } : undefined}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 className={`flex items-center gap-4 p-4 rounded-xl bg-background border transition-all duration-300 group ${
-                  item.isWhatsApp
-                    ? "border-[#25D366]/30 hover:border-[#25D366] hover:bg-[#25D366]/10"
+                  item.isWhatsApp 
+                    ? "border-[#25D366]/30 hover:border-[#25D366] hover:bg-[#25D366]/10" 
                     : "border-border hover:border-gold/50"
                 }`}
               >
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                    item.isWhatsApp
-                      ? "bg-[#25D366]/20 group-hover:bg-[#25D366]/30"
-                      : "bg-gold/10 group-hover:bg-gold/20"
-                  }`}
-                >
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                  item.isWhatsApp 
+                    ? "bg-[#25D366]/20 group-hover:bg-[#25D366]/30" 
+                    : "bg-gold/10 group-hover:bg-gold/20"
+                }`}>
                   <item.icon className={`w-5 h-5 ${item.isWhatsApp ? "text-[#25D366]" : "text-gold"}`} />
                 </div>
                 <div>
@@ -165,19 +157,6 @@ const ContactSection = () => {
                 </div>
               </motion.a>
             ))}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="p-6 rounded-xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent border border-gold/30"
-            >
-              <h4 className="font-display text-xl font-bold mb-2">{discoveryTitle}</h4>
-              <p className="text-muted-foreground text-sm mb-4">{discoveryDescription}</p>
-              <Button variant="gold" size="sm">
-                {discoveryButton}
-              </Button>
-            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
@@ -187,7 +166,10 @@ const ContactSection = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-background border border-border">
+            <form
+              onSubmit={handleSubmit}
+              className="p-8 rounded-2xl bg-background border border-border"
+            >
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium mb-2 text-muted-foreground">
@@ -212,7 +194,9 @@ const ContactSection = () => {
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">Email</label>
+                <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                  Email
+                </label>
                 <Input
                   type="email"
                   placeholder={t("votre@email.com", "your@email.com")}
@@ -225,11 +209,17 @@ const ContactSection = () => {
                 <label className="block text-sm font-medium mb-2 text-muted-foreground">
                   {t("Téléphone", "Phone")}
                 </label>
-                <Input type="tel" placeholder="+33 6 00 00 00 00" className="bg-card border-border focus:border-gold" />
+                <Input
+                  type="tel"
+                  placeholder="+33 6 00 00 00 00"
+                  className="bg-card border-border focus:border-gold"
+                />
               </div>
 
               <div className="mb-8">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">Message</label>
+                <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                  Message
+                </label>
                 <Textarea
                   placeholder={t("Parlez-nous de vos objectifs...", "Tell us about your goals...")}
                   rows={5}
@@ -238,7 +228,12 @@ const ContactSection = () => {
                 />
               </div>
 
-              <Button type="submit" variant="gold" className="w-full" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                variant="gold"
+                className="w-full"
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? (
                   t("Envoi en cours...", "Sending...")
                 ) : (
@@ -264,52 +259,55 @@ const ContactSection = () => {
               {t("Localisation", "Location")}
             </span>
             <h3 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              {t("Où nous", "Where to")} <span className="text-gradient">{t("trouver?", "find us?")}</span>
+              {t("Où nous", "Where to")}{' '}
+              <span className="text-gradient">{t("trouver?", "find us?")}</span>
             </h3>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
               {t(
-                "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible.",
-                "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available.",
+                "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
+                "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available."
               )}
             </p>
           </div>
-
+          
           <div className="relative rounded-2xl overflow-hidden border border-gold/20 shadow-2xl shadow-black/30">
             {/* Map glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-gold/20 via-gold/10 to-gold/20 rounded-2xl blur-xl opacity-50" />
-
+            
             <div className="relative aspect-[16/9] md:aspect-[21/9]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20230.77889442888!2d3.1095!3d50.6692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32917b09f1b71%3A0x40af13e81644930!2s59290%20Wasquehal%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80918.90367373695!2d2.9613697!3d50.6292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d579b3256e11%3A0x40af13e81646540!2sLille%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
                 width="100%"
                 height="100%"
-                style={{ border: 0, filter: "grayscale(100%) contrast(1.1) brightness(0.9)" }}
+                style={{ border: 0, filter: 'grayscale(100%) contrast(1.1) brightness(0.9)' }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title={t("NLC Coaching Location - Wasquehal", "NLC Coaching Location - Wasquehal")}
+                title={t("NLC Coaching Location - Lille", "NLC Coaching Location - Lille")}
                 className="absolute inset-0"
               />
               {/* Gold overlay for brand consistency */}
               <div className="absolute inset-0 bg-gold/5 pointer-events-none" />
             </div>
-
+            
             {/* Location card overlay */}
             <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-md bg-black/90 backdrop-blur-md rounded-xl p-4 md:p-6 border border-gold/30 shadow-xl">
               <div className="flex items-center gap-3 mb-2">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0" />
                 <span className="font-display font-semibold text-foreground">NLC Coaching</span>
               </div>
-              <p className="text-muted-foreground text-sm mb-3">Wasquehal, Métropole Lilloise</p>
+              <p className="text-muted-foreground text-sm mb-3">
+                Lille, Métropole Lilloise
+              </p>
               <p className="text-muted-foreground/80 text-xs leading-relaxed mb-3">
                 {t(
-                  "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible.",
-                  "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available.",
+                  "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
+                  "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available."
                 )}
               </p>
-              <a
-                href="https://maps.app.goo.gl/9d3YMTNV6dFYU9EHA"
-                target="_blank"
+              <a 
+                href="https://maps.app.goo.gl/9d3YMTNV6dFYU9EHA" 
+                target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-gold text-sm hover:underline"
               >
