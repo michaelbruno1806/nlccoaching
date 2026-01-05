@@ -20,7 +20,7 @@ const ContactSection = () => {
   const phoneNumber = getContent("contact_phone") || "+33 6 16 22 40 37";
   const emailAddress = getContent("contact_email") || "contact.nlccoaching@gmail.com";
   const location = getContent("contact_location") || "Lille, France";
-  const whatsappNumber = getContent("contact_whatsapp") || "33616224037";
+  const whatsappNumber = getContent("contact_whatsapp") || "23058035450";
 
   const WHATSAPP_MESSAGE =
     language === "fr"
@@ -165,6 +165,19 @@ const ContactSection = () => {
                 </div>
               </motion.a>
             ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="p-6 rounded-xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent border border-gold/30"
+            >
+              <h4 className="font-display text-xl font-bold mb-2">{discoveryTitle}</h4>
+              <p className="text-muted-foreground text-sm mb-4">{discoveryDescription}</p>
+              <Button variant="gold" size="sm">
+                {discoveryButton}
+              </Button>
+            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
@@ -255,8 +268,8 @@ const ContactSection = () => {
             </h3>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
               {t(
-                "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
-                "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available.",
+                "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible.",
+                "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available.",
               )}
             </p>
           </div>
@@ -267,14 +280,14 @@ const ContactSection = () => {
 
             <div className="relative aspect-[16/9] md:aspect-[21/9]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80918.90367373695!2d2.9613697!3d50.6292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d579b3256e11%3A0x40af13e81646540!2sLille%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20230.77889442888!2d3.1095!3d50.6692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32917b09f1b71%3A0x40af13e81644930!2s59290%20Wasquehal%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "grayscale(100%) contrast(1.1) brightness(0.9)" }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title={t("NLC Coaching Location - Lille", "NLC Coaching Location - Lille")}
+                title={t("NLC Coaching Location - Wasquehal", "NLC Coaching Location - Wasquehal")}
                 className="absolute inset-0"
               />
               {/* Gold overlay for brand consistency */}
@@ -287,11 +300,11 @@ const ContactSection = () => {
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0" />
                 <span className="font-display font-semibold text-foreground">NLC Coaching</span>
               </div>
-              <p className="text-muted-foreground text-sm mb-3">Lille, Métropole Lilloise</p>
+              <p className="text-muted-foreground text-sm mb-3">Wasquehal, Métropole Lilloise</p>
               <p className="text-muted-foreground/80 text-xs leading-relaxed mb-3">
                 {t(
-                  "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
-                  "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available.",
+                  "Basés à Wasquehal, nous intervenons sur l'ensemble de la métropole lilloise : Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix et alentours. Coaching en ligne également disponible.",
+                  "Based in Wasquehal, we operate throughout the Lille metropolitan area: Lille, Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix and surroundings. Online coaching also available.",
                 )}
               </p>
               <a
