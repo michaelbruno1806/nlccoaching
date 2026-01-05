@@ -481,7 +481,7 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
-        {/* Screenshots Carousel */}
+        {/* Screenshots as Mobile Phone Mockups */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -492,31 +492,91 @@ const ReviewsSection = () => {
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
             {isFrench ? "Optimise ton Parcours de Performance" : "Optimize Your Performance Journey"}
           </h3>
-          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             {isFrench
               ? "Découvrez les retours authentiques de nos clients sur leur expérience."
               : "Discover authentic feedback from our clients about their experience."}
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+          {/* Mobile Phone Mockups Grid */}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
             {screenshots.map((screenshot, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-gold/50 transition-all duration-300 cursor-pointer"
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className="group cursor-pointer perspective-1000"
                 onClick={() => setSelectedImage({ image: screenshot, title: `Screenshot ${index + 1}` })}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={{ y: -10, scale: 1.05, rotateY: 5 }}
               >
-                <img
-                  src={screenshot}
-                  alt={`Client feedback ${index + 1}`}
-                  className="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <ZoomIn className="w-6 h-6 text-white" />
+                {/* Phone Frame */}
+                <div className="relative w-44 md:w-52 mx-auto">
+                  {/* Phone body */}
+                  <div className="relative bg-gradient-to-b from-zinc-800 via-zinc-900 to-black rounded-[2.5rem] p-2 shadow-2xl shadow-black/50 group-hover:shadow-primary/20 transition-shadow duration-500">
+                    {/* Phone bezel/notch area */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-2xl z-20 flex items-center justify-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-zinc-700" />
+                      <div className="w-12 h-1.5 rounded-full bg-zinc-700" />
+                    </div>
+                    
+                    {/* Screen container */}
+                    <div className="relative rounded-[2rem] overflow-hidden bg-black">
+                      {/* Status bar */}
+                      <div className="absolute top-0 left-0 right-0 h-7 bg-black/80 z-10 flex items-center justify-between px-5 pt-1">
+                        <span className="text-white text-[10px] font-medium">9:41</span>
+                        <div className="flex items-center gap-1">
+                          <div className="flex gap-0.5">
+                            <div className="w-1 h-2 bg-white rounded-sm" />
+                            <div className="w-1 h-2.5 bg-white rounded-sm" />
+                            <div className="w-1 h-3 bg-white rounded-sm" />
+                            <div className="w-1 h-3.5 bg-white/50 rounded-sm" />
+                          </div>
+                          <div className="w-5 h-2.5 border border-white rounded-sm ml-1">
+                            <div className="w-3 h-full bg-primary rounded-sm" />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Screenshot image */}
+                      <img
+                        src={screenshot}
+                        alt={`Client feedback ${index + 1}`}
+                        className="w-full aspect-[9/19] object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                      />
+                      
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                          <ZoomIn className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                      
+                      {/* Home indicator */}
+                      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/30 rounded-full" />
+                    </div>
+                  </div>
+                  
+                  {/* Phone side buttons */}
+                  <div className="absolute -left-0.5 top-24 w-1 h-8 bg-zinc-700 rounded-l-sm" />
+                  <div className="absolute -left-0.5 top-36 w-1 h-12 bg-zinc-700 rounded-l-sm" />
+                  <div className="absolute -right-0.5 top-28 w-1 h-10 bg-zinc-700 rounded-r-sm" />
+                  
+                  {/* Reflection effect */}
+                  <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none" />
                 </div>
+                
+                {/* Floating label */}
+                <motion.div 
+                  className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  initial={{ y: 10 }}
+                  whileHover={{ y: 0 }}
+                >
+                  <span className="text-sm text-primary font-medium">
+                    {isFrench ? "Voir le message" : "View message"}
+                  </span>
+                </motion.div>
               </motion.div>
             ))}
           </div>
