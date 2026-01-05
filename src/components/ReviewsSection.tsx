@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight, Play } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight, Play, MessageCircle, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,74 @@ import screenshot1 from "@/assets/screenshot-1.jpg";
 import screenshot2 from "@/assets/screenshot-2.jpg";
 import screenshot3 from "@/assets/screenshot-3.jpg";
 import screenshot4 from "@/assets/screenshot-4.jpg";
+
+// Additional text reviews without images
+interface TextReview {
+  name: string;
+  review: string;
+  reviewEn: string;
+  highlight?: string;
+  highlightEn?: string;
+}
+
+const textReviews: TextReview[] = [
+  {
+    name: "Thomas",
+    review: "Liam est un coach exceptionnel. Il m'a aidé à perdre 10kg en 3 mois tout en gagnant en muscle. Son approche est professionnelle et motivante.",
+    reviewEn: "Liam is an exceptional coach. He helped me lose 10kg in 3 months while gaining muscle. His approach is professional and motivating.",
+    highlight: "-10kg en 3 mois",
+    highlightEn: "-10kg in 3 months"
+  },
+  {
+    name: "Sophie",
+    review: "J'étais sceptique au début mais les résultats parlent d'eux-mêmes. Liam a su adapter les séances à mes besoins et me pousser à dépasser mes limites.",
+    reviewEn: "I was skeptical at first but the results speak for themselves. Liam knew how to adapt the sessions to my needs and push me beyond my limits.",
+    highlight: "Transformation totale",
+    highlightEn: "Total transformation"
+  },
+  {
+    name: "Antoine",
+    review: "Le suivi nutritionnel combiné aux entraînements m'a permis d'atteindre mes objectifs plus rapidement que prévu. Merci Liam!",
+    reviewEn: "The nutritional follow-up combined with training allowed me to reach my goals faster than expected. Thank you Liam!",
+    highlight: "Objectifs dépassés",
+    highlightEn: "Goals exceeded"
+  },
+  {
+    name: "Julie",
+    review: "Enfin un coach qui comprend les femmes! Liam m'a aidée à tonifier mon corps sans devenir trop musclée. Exactement ce que je voulais.",
+    reviewEn: "Finally a coach who understands women! Liam helped me tone my body without becoming too muscular. Exactly what I wanted.",
+    highlight: "Corps tonifié",
+    highlightEn: "Toned body"
+  },
+  {
+    name: "Marc",
+    review: "Après une blessure, je pensais ne plus pouvoir faire de sport. Liam m'a accompagné dans ma rééducation et aujourd'hui je suis plus fort qu'avant!",
+    reviewEn: "After an injury, I thought I couldn't exercise anymore. Liam accompanied me in my rehabilitation and today I'm stronger than before!",
+    highlight: "Retour en force",
+    highlightEn: "Back stronger"
+  },
+  {
+    name: "Camille",
+    review: "Les séances en small group sont géniales! L'ambiance est motivante et on se pousse les uns les autres. Je recommande à 100%!",
+    reviewEn: "The small group sessions are great! The atmosphere is motivating and we push each other. I recommend 100%!",
+    highlight: "Esprit d'équipe",
+    highlightEn: "Team spirit"
+  },
+  {
+    name: "Lucas",
+    review: "Liam m'a préparé pour ma première compétition de powerlifting. Son expertise technique est impressionnante. J'ai fini sur le podium!",
+    reviewEn: "Liam prepared me for my first powerlifting competition. His technical expertise is impressive. I finished on the podium!",
+    highlight: "Podium 🏆",
+    highlightEn: "Podium 🏆"
+  },
+  {
+    name: "Emma",
+    review: "Ce qui me plaît avec Liam, c'est qu'il ne vend pas du rêve. Il est honnête, direct et les résultats suivent. Un vrai professionnel.",
+    reviewEn: "What I like about Liam is that he doesn't sell dreams. He's honest, direct and the results follow. A true professional.",
+    highlight: "Pro et honnête",
+    highlightEn: "Pro and honest"
+  }
+];
 
 interface Testimonial {
   name: string;
@@ -186,6 +254,73 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
+        {/* Dynamic Text Reviews Marquee */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="mb-20"
+        >
+          <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8 flex items-center justify-center gap-3">
+            <MessageCircle className="w-7 h-7 text-primary" />
+            {isFrench ? "Ce Que Disent Nos Clients" : "What Our Clients Say"}
+          </h3>
+          
+          {/* Animated marquee of text reviews */}
+          <div className="relative overflow-hidden py-4">
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+            
+            <motion.div
+              className="flex gap-6"
+              animate={{
+                x: [0, -2000],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 40,
+                  ease: "linear",
+                },
+              }}
+            >
+              {[...textReviews, ...textReviews, ...textReviews].map((review, index) => (
+                <motion.div
+                  key={`${review.name}-${index}`}
+                  className="flex-shrink-0 w-80 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm border border-border/50 rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--primary),0.1)]"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                >
+                  <Quote className="w-6 h-6 text-primary/40 mb-3" />
+                  <p className="text-foreground/80 text-sm leading-relaxed mb-4 line-clamp-4">
+                    "{isFrench ? review.review : review.reviewEn}"
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-primary-foreground font-bold text-sm">
+                        {review.name[0]}
+                      </div>
+                      <span className="text-sm font-semibold text-foreground">{review.name}</span>
+                    </div>
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 fill-gold text-gold" />
+                      ))}
+                    </div>
+                  </div>
+                  {review.highlight && (
+                    <div className="mt-3 inline-flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
+                      <Trophy className="w-3 h-3" />
+                      {isFrench ? review.highlight : review.highlightEn}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Testimonials Grid - Cards with Photos */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -194,9 +329,13 @@ const ReviewsSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-20"
         >
-          <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
+          <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-4 flex items-center justify-center gap-3">
+            <Heart className="w-7 h-7 text-primary" />
             {isFrench ? "Témoignages Clients" : "Client Testimonials"}
           </h3>
+          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+            {isFrench ? "Cliquez sur une carte pour découvrir l'histoire complète" : "Click on a card to discover the full story"}
+          </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
@@ -207,41 +346,45 @@ const ReviewsSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group cursor-pointer"
                 onClick={() => setSelectedTestimonial(testimonial)}
+                whileHover={{ y: -8 }}
               >
-                <div className="relative h-full bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(var(--primary),0.15)]">
+                <div className="relative h-full bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--primary),0.2)]">
                   {/* Image */}
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden relative">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                    
+                    {/* Floating badge */}
+                    <motion.div 
+                      className="absolute top-4 right-4 bg-gold/90 backdrop-blur-sm text-black px-3 py-1.5 rounded-full text-sm font-bold shadow-lg"
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, delay: index * 0.2 }}
+                    >
+                      {isFrench ? testimonial.highlight : testimonial.highlightEn}
+                    </motion.div>
                   </div>
 
                   {/* Content overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     {/* Quote icon */}
-                    <Quote className="absolute top-4 right-4 w-8 h-8 text-primary/40 group-hover:text-primary/60 transition-colors" />
+                    <Quote className="absolute -top-6 left-4 w-10 h-10 text-primary/60 group-hover:text-primary transition-colors" />
 
                     {/* Stars */}
                     <div className="flex gap-1 mb-3">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className="w-4 h-4 fill-gold text-gold"
+                          className="w-4 h-4 fill-gold text-gold drop-shadow-[0_0_4px_rgba(255,215,0,0.5)]"
                         />
                       ))}
                     </div>
 
-                    {/* Highlight badge */}
-                    <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full text-sm font-semibold mb-3">
-                      <Trophy className="w-4 h-4" />
-                      {isFrench ? testimonial.highlight : testimonial.highlightEn}
-                    </div>
-
                     {/* Name */}
-                    <h3 className="font-display text-xl font-bold text-white mb-2">
+                    <h3 className="font-display text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
                       {testimonial.name}
                     </h3>
 
@@ -261,10 +404,16 @@ const ReviewsSection = () => {
                         {isFrench ? testimonial.objective : testimonial.objectiveEn}
                       </p>
                     </div>
+
+                    {/* Read more indicator */}
+                    <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>{isFrench ? "Lire l'histoire" : "Read the story"}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
 
                   {/* Bottom gradient line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-gold to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </motion.div>
             ))}
@@ -291,6 +440,7 @@ const ReviewsSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500"
+                whileHover={{ y: -5 }}
               >
                 {/* Before/After comparison */}
                 <div className="relative aspect-[3/4]">
@@ -344,8 +494,8 @@ const ReviewsSection = () => {
           </h3>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
             {isFrench
-              ? "Nos clients partagent leur expérience, leur progression et la transformation qu'ils ont vécue à nos côtés."
-              : "Our clients share their experience, progress and the transformation they experienced with us."}
+              ? "Découvrez les retours authentiques de nos clients sur leur expérience."
+              : "Discover authentic feedback from our clients about their experience."}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {screenshots.map((screenshot, index) => (
@@ -357,6 +507,7 @@ const ReviewsSection = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-gold/50 transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedImage({ image: screenshot, title: `Screenshot ${index + 1}` })}
+                whileHover={{ y: -5, scale: 1.02 }}
               >
                 <img
                   src={screenshot}
@@ -380,7 +531,7 @@ const ReviewsSection = () => {
           className="mt-12 text-center"
         >
           <Link to="/feedback">
-            <Button size="lg" variant="outline" className="gap-2 group">
+            <Button size="lg" className="gap-2 group bg-gradient-to-r from-primary to-gold hover:from-primary/90 hover:to-gold/90 text-primary-foreground shadow-lg shadow-primary/20">
               {isFrench ? "Voir tous les avis" : "View all feedback"}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
