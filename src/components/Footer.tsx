@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import nlcLogo from "@/assets/nlc-logo-new.svg";
 
 const socialLinks = [
-  { icon: Instagram, href: "https://www.instagram.com/nlc.coaching/", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/noaliam_coaching/", label: "Instagram" },
 ];
 
 const Footer = () => {
