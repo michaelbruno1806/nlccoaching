@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, Dumbbell, Activity, Bone, Heart, Shield, Users } from "lucide-react";
+import { ArrowRight, Target, Dumbbell, Activity, Bone, Heart, Shield, Users, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import ReviewsSection from "@/components/ReviewsSection";
 import aboutCoach from "@/assets/about-coach.png";
 import coachBackground from "@/assets/coach-background.jpg";
 
@@ -444,6 +445,12 @@ const APropos = () => {
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
+            <a href="#avis-clients">
+              <Button variant="goldOutline" size="lg" className="text-lg px-8 py-6 gap-2">
+                <Star className="h-5 w-5" />
+                {language === 'fr' ? 'Avis Clients' : 'Client Reviews'}
+              </Button>
+            </a>
             <a href="/#contact">
               <Button variant="goldOutline" size="lg" className="text-lg px-8 py-6">
                 {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
@@ -452,6 +459,11 @@ const APropos = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Avis Clients Section */}
+      <div id="avis-clients">
+        <ReviewsSection />
+      </div>
 
       <Footer />
     </div>
