@@ -481,7 +481,7 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
-        {/* Screenshots as Premium Mobile Phone Mockups */}
+        {/* WhatsApp-style Messages */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -489,12 +489,7 @@ const ReviewsSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-20 relative"
         >
-          {/* Section background glow */}
-          <div className="absolute inset-0 -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
-          </div>
-
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <motion.span 
               className="inline-flex items-center gap-2 text-primary uppercase tracking-widest text-sm font-medium mb-4"
               initial={{ opacity: 0, y: 10 }}
@@ -504,145 +499,136 @@ const ReviewsSection = () => {
               <MessageCircle className="w-4 h-4" />
               {isFrench ? "Messages Clients" : "Client Messages"}
             </motion.span>
-            <h3 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               {isFrench ? "Optimise ton Parcours" : "Optimize Your Journey"}
             </h3>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base max-w-xl mx-auto">
               {isFrench
-                ? "Découvrez les retours authentiques de nos clients sur leur expérience."
-                : "Discover authentic feedback from our clients about their experience."}
+                ? "Découvrez les retours authentiques de nos clients."
+                : "Discover authentic feedback from our clients."}
             </p>
           </div>
           
-          {/* Premium Mobile Phone Mockups */}
-          <div className="flex justify-center items-end gap-4 md:gap-8 lg:gap-12 px-4 overflow-x-auto pb-8" style={{ perspective: '1500px' }}>
-            {screenshots.map((screenshot, index) => {
-              // Create staggered heights and rotations for visual interest
-              const rotations = [-8, -3, 3, 8];
-              const heights = [0, 16, 16, 0];
-              const delays = [0, 0.1, 0.2, 0.3];
+          {/* WhatsApp Chat Container */}
+          <div className="max-w-md mx-auto">
+            {/* Chat Header */}
+            <div className="bg-[#075e54] rounded-t-2xl px-4 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-bold text-sm">
+                NL
+              </div>
+              <div className="flex-1">
+                <p className="text-white font-semibold text-sm">NL Coaching</p>
+                <p className="text-white/70 text-xs">{isFrench ? "en ligne" : "online"}</p>
+              </div>
+              <div className="flex items-center gap-4 text-white/80">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z"/>
+                </svg>
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"/>
+                </svg>
+              </div>
+            </div>
+            
+            {/* Chat Messages */}
+            <div className="bg-[#ece5dd] dark:bg-[#0b141a] p-4 space-y-3 rounded-b-2xl min-h-[500px]">
+              {/* WhatsApp background pattern */}
+              <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+              }} />
               
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 60, rotateY: rotations[index] * 2 }}
-                  whileInView={{ opacity: 1, y: heights[index], rotateY: rotations[index] }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: delays[index], ease: [0.16, 1, 0.3, 1] }}
-                  className="group cursor-pointer flex-shrink-0"
-                  onClick={() => setSelectedImage({ image: screenshot, title: `Screenshot ${index + 1}` })}
-                  whileHover={{ 
-                    y: heights[index] - 20, 
-                    rotateY: 0,
-                    scale: 1.08,
-                    transition: { duration: 0.4, ease: "easeOut" }
-                  }}
-                  style={{ 
-                    transformStyle: 'preserve-3d',
-                    transform: `rotateY(${rotations[index]}deg) translateY(${heights[index]}px)`
-                  }}
-                >
-                  {/* Phone Container with premium shadow */}
-                  <div className="relative w-40 md:w-48 lg:w-56">
-                    {/* Ambient glow behind phone */}
-                    <div className="absolute -inset-4 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* Premium iPhone Frame */}
-                    <div className="relative bg-gradient-to-b from-[#2a2a2e] via-[#1a1a1e] to-[#0a0a0e] rounded-[2.8rem] p-[3px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)] group-hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.9),0_0_40px_rgba(var(--primary),0.15)] transition-all duration-500">
+              {screenshots.map((screenshot, index) => {
+                const times = ["09:41", "10:15", "14:32", "18:47"];
+                const senderNames = [
+                  isFrench ? "Armand" : "Armand",
+                  isFrench ? "Magdalena" : "Magdalena", 
+                  isFrench ? "Ricardo" : "Ricardo",
+                  isFrench ? "Ludivine" : "Ludivine"
+                ];
+                
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.15 }}
+                    className="flex justify-start"
+                  >
+                    <div 
+                      className="relative max-w-[85%] bg-white dark:bg-[#202c33] rounded-lg rounded-tl-none shadow-sm cursor-pointer group overflow-hidden"
+                      onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${senderNames[index]}` })}
+                    >
+                      {/* Message tail */}
+                      <div className="absolute -left-2 top-0 w-3 h-3">
+                        <svg viewBox="0 0 8 13" className="w-full h-full">
+                          <path fill="white" className="dark:fill-[#202c33]" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.567 0 5.188 0z"/>
+                        </svg>
+                      </div>
                       
-                      {/* Titanium frame inner edge */}
-                      <div className="relative bg-gradient-to-b from-[#1c1c1e] to-[#0c0c0e] rounded-[2.6rem] p-[2px]">
-                        
-                        {/* Screen bezel */}
-                        <div className="relative bg-black rounded-[2.5rem] overflow-hidden">
-                          
-                          {/* Dynamic Island */}
-                          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-20">
-                            <motion.div 
-                              className="w-[90px] h-[28px] bg-black rounded-full flex items-center justify-center gap-3 shadow-inner"
-                              whileHover={{ width: 100 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#1a1a1e] ring-1 ring-[#2a2a2e]" />
-                              <div className="w-2 h-2 rounded-full bg-[#0d4d2e] ring-1 ring-[#1a5a3a] opacity-80" />
-                            </motion.div>
-                          </div>
-                          
-                          {/* Status Bar */}
-                          <div className="absolute top-0 left-0 right-0 h-12 z-10 flex items-end justify-between px-7 pb-1">
-                            <span className="text-white text-[11px] font-semibold tracking-tight">9:41</span>
-                            <div className="flex items-center gap-1.5">
-                              {/* Signal bars */}
-                              <div className="flex items-end gap-[2px]">
-                                <div className="w-[3px] h-[4px] bg-white rounded-[1px]" />
-                                <div className="w-[3px] h-[6px] bg-white rounded-[1px]" />
-                                <div className="w-[3px] h-[8px] bg-white rounded-[1px]" />
-                                <div className="w-[3px] h-[10px] bg-white/40 rounded-[1px]" />
-                              </div>
-                              {/* WiFi */}
-                              <svg className="w-[15px] h-[11px] text-white" viewBox="0 0 16 12" fill="currentColor">
-                                <path d="M8 2.4c2.7 0 5.2 1 7.1 2.7.4.3.4.9.1 1.2-.3.4-.9.4-1.2.1C12.4 4.9 10.3 4 8 4s-4.4.9-6 2.4c-.4.3-.9.3-1.2-.1-.3-.4-.3-.9.1-1.2C2.8 3.4 5.3 2.4 8 2.4zm0 3c1.9 0 3.6.7 5 1.9.4.3.4.9.1 1.2-.3.4-.9.4-1.2.1-1-.9-2.4-1.4-3.9-1.4s-2.9.5-3.9 1.4c-.4.3-.9.3-1.2-.1-.3-.4-.3-.9.1-1.2 1.4-1.2 3.1-1.9 5-1.9zm0 3c1 0 2 .4 2.8 1.1.4.3.4.9.1 1.2-.3.4-.9.4-1.2.1-.5-.4-1.1-.7-1.7-.7s-1.2.2-1.7.7c-.4.3-.9.3-1.2-.1-.3-.4-.3-.9.1-1.2.8-.7 1.8-1.1 2.8-1.1z"/>
-                              </svg>
-                              {/* Battery */}
-                              <div className="flex items-center gap-[2px]">
-                                <div className="w-[22px] h-[11px] border border-white/40 rounded-[3px] p-[2px] relative">
-                                  <div className="h-full w-[75%] bg-white rounded-[1px]" />
-                                </div>
-                                <div className="w-[2px] h-[4px] bg-white/40 rounded-r-[1px]" />
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* Screenshot Content */}
-                          <div className="relative">
-                            <img
-                              src={screenshot}
-                              alt={`Client feedback ${index + 1}`}
-                              className="w-full aspect-[9/19.5] object-cover object-top"
-                            />
-                            
-                            {/* Screen glass reflection */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none" />
-                            
-                            {/* Hover overlay */}
-                            <motion.div 
-                              className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
-                              initial={false}
-                            >
-                              <motion.div 
-                                className="bg-white/10 backdrop-blur-md rounded-2xl px-5 py-3 border border-white/20 flex items-center gap-2"
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                whileHover={{ scale: 1 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                              >
-                                <ZoomIn className="w-5 h-5 text-white" />
-                                <span className="text-white text-sm font-medium">
-                                  {isFrench ? "Agrandir" : "View"}
-                                </span>
-                              </motion.div>
-                            </motion.div>
-                          </div>
-                          
-                          {/* Home Indicator */}
-                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[100px] h-[4px] bg-white/20 rounded-full" />
+                      {/* Sender name */}
+                      <div className="px-2 pt-1">
+                        <span className="text-xs font-medium text-[#06cf9c]">{senderNames[index]}</span>
+                      </div>
+                      
+                      {/* Image */}
+                      <div className="p-1">
+                        <img
+                          src={screenshot}
+                          alt={`Message from ${senderNames[index]}`}
+                          className="rounded-md w-full max-w-[240px] object-cover group-hover:brightness-90 transition-all duration-200"
+                        />
+                      </div>
+                      
+                      {/* Time and read status */}
+                      <div className="flex items-center justify-end gap-1 px-2 pb-1 -mt-1">
+                        <span className="text-[10px] text-muted-foreground/70">{times[index]}</span>
+                      </div>
+                      
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
+                          <ZoomIn className="w-4 h-4 text-white" />
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Side Buttons with metallic effect */}
-                    <div className="absolute -left-[2px] top-[80px] w-[3px] h-[25px] bg-gradient-to-b from-[#3a3a3e] via-[#2a2a2e] to-[#1a1a1e] rounded-l-sm shadow-sm" />
-                    <div className="absolute -left-[2px] top-[115px] w-[3px] h-[45px] bg-gradient-to-b from-[#3a3a3e] via-[#2a2a2e] to-[#1a1a1e] rounded-l-sm shadow-sm" />
-                    <div className="absolute -left-[2px] top-[170px] w-[3px] h-[45px] bg-gradient-to-b from-[#3a3a3e] via-[#2a2a2e] to-[#1a1a1e] rounded-l-sm shadow-sm" />
-                    <div className="absolute -right-[2px] top-[130px] w-[3px] h-[70px] bg-gradient-to-b from-[#3a3a3e] via-[#2a2a2e] to-[#1a1a1e] rounded-r-sm shadow-sm" />
+                  </motion.div>
+                );
+              })}
+              
+              {/* Typing indicator */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+                className="flex justify-start"
+              >
+                <div className="bg-white dark:bg-[#202c33] rounded-lg rounded-tl-none px-4 py-2 shadow-sm">
+                  <div className="flex gap-1">
+                    <motion.div
+                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                    />
+                    <motion.div
+                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
+                    />
+                    <motion.div
+                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
+                    />
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </motion.div>
+            </div>
           </div>
           
-          {/* Subtle instruction text */}
           <motion.p 
-            className="text-center text-muted-foreground/60 text-sm mt-8"
+            className="text-center text-muted-foreground/60 text-sm mt-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
