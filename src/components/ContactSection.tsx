@@ -17,7 +17,7 @@ const ContactSection = () => {
   const { getContent } = useSiteContent();
 
   // Get contact info from database or use defaults
-  const phoneNumber = getContent("contact_phone") || "06 16 22 40 37";
+  const phoneNumber = getContent("contact_phone") || "+33 6 16 22 40 37";
   const emailAddress = getContent("contact_email") || "contact.nlccoaching@gmail.com";
   const location = getContent("contact_location") || "Lille, France";
   const whatsappNumber = getContent("contact_whatsapp") || "33616224037";
