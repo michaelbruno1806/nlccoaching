@@ -164,10 +164,10 @@ const sectionConfigs = {
       { key: "contact_subtitle", label: "Section Subtitle", type: "textarea", placeholder: "Contact us to discuss your goals..." },
     ],
     contactInfo: [
-      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 12 34 56 78" },
+      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 16 22 40 37" },
       { key: "contact_email", label: "Email Address", icon: Mail, placeholder: "contact@nlccoaching.com" },
-      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Paris, France" },
-      { key: "contact_whatsapp", label: "WhatsApp Number", icon: MessageCircle, placeholder: "33612345678 (without +)" },
+      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Lille, France" },
+      { key: "contact_whatsapp", label: "WhatsApp Number", icon: MessageCircle, placeholder: "33616224037 (without +)" },
     ],
     discoverySession: [
       { key: "discovery_title", label: "Discovery Box Title", type: "text", placeholder: "Discovery Session" },
