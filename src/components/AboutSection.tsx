@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import aboutCoach from "@/assets/about-coach.png";
-import aboutCoach2 from "@/assets/about-coach-2.png";
+import aboutCoach2 from "@/assets/coach-portrait-new.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
@@ -78,7 +78,7 @@ const AboutSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 whileHover={{ scale: 1.02 }}
-                className="aspect-[3/4] rounded-2xl overflow-hidden mt-12"
+                className="aspect-[3/4] rounded-2xl overflow-hidden mt-12 col-span-2 sm:col-span-1 max-w-sm mx-auto sm:max-w-none"
               >
                 <motion.img
                   src={aboutCoach2}

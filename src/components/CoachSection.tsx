@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Users, Calendar } from "lucide-react";
-import coachPortrait from "@/assets/coach-portrait-new.jpg";
+import coachPortrait from "@/assets/coach-portrait.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
@@ -64,7 +64,7 @@ const CoachSection = () => {
                 "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version."
               )}
             </p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-8">
               {getContent("coach_bio_2") || t(
                 "Avec plus de 10 ans d'expérience dans le coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.",
                 "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance."
@@ -101,7 +101,7 @@ const CoachSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="order-1 lg:order-2 relative"
           >
-            <div className="relative aspect-[3/4] max-w-lg mx-auto lg:max-w-xl">
+            <div className="relative aspect-[3/4] max-w-md mx-auto">
               {/* Border gradient effect */}
               <div className="absolute -inset-1 bg-gradient-to-br from-gold via-gold/50 to-transparent rounded-2xl blur-sm" />
               <div className="relative rounded-2xl overflow-hidden h-full">
