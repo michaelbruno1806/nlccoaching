@@ -481,7 +481,7 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
-        {/* WhatsApp-style Messages */}
+        {/* WhatsApp-style Messages - Horizontal Swipeable */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -509,132 +509,118 @@ const ReviewsSection = () => {
             </p>
           </div>
           
-          {/* WhatsApp Chat Container */}
-          <div className="max-w-md mx-auto">
-            {/* Chat Header */}
-            <div className="bg-[#075e54] rounded-t-2xl px-4 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-white font-bold text-sm">
-                NL
-              </div>
-              <div className="flex-1">
-                <p className="text-white font-semibold text-sm">NL Coaching</p>
-                <p className="text-white/70 text-xs">{isFrench ? "en ligne" : "online"}</p>
-              </div>
-              <div className="flex items-center gap-4 text-white/80">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z"/>
-                </svg>
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"/>
-                </svg>
-              </div>
-            </div>
+          {/* Horizontal Swipeable Container */}
+          <div className="relative">
+            {/* Gradient fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
             
-            {/* Chat Messages */}
-            <div className="bg-[#ece5dd] dark:bg-[#0b141a] p-4 space-y-3 rounded-b-2xl min-h-[500px]">
-              {/* WhatsApp background pattern */}
-              <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-              }} />
-              
+            {/* Swipe instruction */}
+            <motion.div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 0 }}
+              transition={{ delay: 2, duration: 0.5 }}
+            >
+              <div className="flex items-center gap-2 bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm">
+                <ChevronLeft className="w-4 h-4 animate-pulse" />
+                <span>{isFrench ? "Glissez" : "Swipe"}</span>
+                <ChevronRight className="w-4 h-4 animate-pulse" />
+              </div>
+            </motion.div>
+            
+            {/* Scrollable messages container */}
+            <div 
+              className="flex gap-6 overflow-x-auto pb-6 pt-2 px-8 md:px-20 snap-x snap-mandatory scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
               {screenshots.map((screenshot, index) => {
                 const times = ["09:41", "10:15", "14:32", "18:47"];
-                const senderNames = [
-                  isFrench ? "Armand" : "Armand",
-                  isFrench ? "Magdalena" : "Magdalena", 
-                  isFrench ? "Ricardo" : "Ricardo",
-                  isFrench ? "Ludivine" : "Ludivine"
-                ];
+                const senderNames = ["Armand", "Magdalena", "Ricardo", "Ludivine"];
+                const messages = isFrench 
+                  ? ["Merci coach ! 💪", "Incroyable résultat !", "Tu gères Liam 🔥", "Trop contente !"]
+                  : ["Thanks coach! 💪", "Incredible result!", "You rock Liam 🔥", "So happy!"];
                 
                 return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.15 }}
-                    className="flex justify-start"
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="flex-shrink-0 snap-center"
                   >
+                    {/* WhatsApp Message Bubble - Bigger */}
                     <div 
-                      className="relative max-w-[85%] bg-white dark:bg-[#202c33] rounded-lg rounded-tl-none shadow-sm cursor-pointer group overflow-hidden"
+                      className="relative bg-white dark:bg-[#202c33] rounded-2xl rounded-tl-none shadow-xl cursor-pointer group overflow-hidden w-[280px] md:w-[320px] lg:w-[360px]"
                       onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${senderNames[index]}` })}
                     >
                       {/* Message tail */}
-                      <div className="absolute -left-2 top-0 w-3 h-3">
+                      <div className="absolute -left-3 top-0 w-4 h-4">
                         <svg viewBox="0 0 8 13" className="w-full h-full">
                           <path fill="white" className="dark:fill-[#202c33]" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.567 0 5.188 0z"/>
                         </svg>
                       </div>
                       
                       {/* Sender name */}
-                      <div className="px-2 pt-1">
-                        <span className="text-xs font-medium text-[#06cf9c]">{senderNames[index]}</span>
+                      <div className="px-4 pt-3">
+                        <span className="text-sm font-semibold text-[#06cf9c]">{senderNames[index]}</span>
                       </div>
                       
                       {/* Image */}
-                      <div className="p-1">
+                      <div className="p-2">
                         <img
                           src={screenshot}
                           alt={`Message from ${senderNames[index]}`}
-                          className="rounded-md w-full max-w-[240px] object-cover group-hover:brightness-90 transition-all duration-200"
+                          className="rounded-xl w-full aspect-[3/4] object-cover group-hover:brightness-95 transition-all duration-300"
                         />
                       </div>
                       
+                      {/* Text message */}
+                      <div className="px-4 pb-1">
+                        <p className="text-foreground text-sm">{messages[index]}</p>
+                      </div>
+                      
                       {/* Time and read status */}
-                      <div className="flex items-center justify-end gap-1 px-2 pb-1 -mt-1">
-                        <span className="text-[10px] text-muted-foreground/70">{times[index]}</span>
+                      <div className="flex items-center justify-end gap-1.5 px-4 pb-3">
+                        <span className="text-xs text-muted-foreground/60">{times[index]}</span>
+                        {/* Double check marks */}
+                        <svg className="w-4 h-4 text-[#53bdeb]" viewBox="0 0 16 15" fill="currentColor">
+                          <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"/>
+                        </svg>
                       </div>
                       
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
-                          <ZoomIn className="w-4 h-4 text-white" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="bg-black/60 backdrop-blur-sm rounded-full p-3 transform scale-90 group-hover:scale-100 transition-transform duration-200">
+                          <ZoomIn className="w-5 h-5 text-white" />
                         </div>
                       </div>
                     </div>
                   </motion.div>
                 );
               })}
-              
-              {/* Typing indicator */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-                className="flex justify-start"
-              >
-                <div className="bg-white dark:bg-[#202c33] rounded-lg rounded-tl-none px-4 py-2 shadow-sm">
-                  <div className="flex gap-1">
-                    <motion.div
-                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                    />
-                    <motion.div
-                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
-                    />
-                    <motion.div
-                      className="w-2 h-2 bg-muted-foreground/40 rounded-full"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
           
+          {/* Scroll indicator dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {screenshots.map((_, index) => (
+              <div 
+                key={index}
+                className="w-2 h-2 rounded-full bg-primary/30 hover:bg-primary/60 transition-colors"
+              />
+            ))}
+          </div>
+          
           <motion.p 
-            className="text-center text-muted-foreground/60 text-sm mt-6"
+            className="text-center text-muted-foreground/50 text-sm mt-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            {isFrench ? "Cliquez sur un téléphone pour voir le message complet" : "Click on a phone to view the full message"}
+            {isFrench ? "Glissez pour voir plus • Cliquez pour agrandir" : "Swipe to see more • Click to enlarge"}
           </motion.p>
         </motion.div>
 
