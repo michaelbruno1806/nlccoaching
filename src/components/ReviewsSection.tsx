@@ -481,7 +481,7 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
-        {/* Text Banner Display - Scrolling Messages */}
+        {/* Vertical Stacked Banner Display */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -509,78 +509,73 @@ const ReviewsSection = () => {
             </p>
           </div>
           
-          {/* Scrolling Banner */}
-          <div className="relative overflow-hidden py-8 bg-gradient-to-r from-card/50 via-card to-card/50 border-y border-border/30">
-            {/* Gradient fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
-            
-            {/* First row - scrolling left */}
-            <motion.div
-              className="flex gap-8 mb-6"
-              animate={{ x: [0, -1500] }}
-              transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 25, ease: "linear" } }}
-            >
-              {[...screenshots, ...screenshots, ...screenshots].map((screenshot, index) => {
-                const senderNames = ["Armand", "Magdalena", "Ricardo", "Ludivine"];
-                const name = senderNames[index % 4];
-                
-                return (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 flex items-center gap-4 bg-background/80 backdrop-blur-sm rounded-full px-4 py-3 border border-border/50 shadow-sm cursor-pointer hover:border-primary/50 hover:shadow-md transition-all group"
-                    onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${name}` })}
-                  >
-                    <img
-                      src={screenshot}
-                      alt={name}
-                      className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all"
-                    />
-                    <div className="pr-2">
-                      <p className="text-sm font-semibold text-foreground">{name}</p>
-                      <p className="text-xs text-muted-foreground">{isFrench ? "Voir le message" : "View message"}</p>
+          {/* Vertical Stacked Banners */}
+          <div className="max-w-2xl mx-auto space-y-4 px-4">
+            {screenshots.map((screenshot, index) => {
+              const senderNames = ["Armand", "Magdalena", "Ricardo", "Ludivine"];
+              const messages = isFrench 
+                ? [
+                    "Coach incroyable, résultats au-delà de mes attentes ! 💪",
+                    "Ma transformation en 3 mois, je n'y croyais pas possible !",
+                    "Suivi personnalisé et motivation au top 🔥",
+                    "Merci Liam pour tout, je me sens enfin bien dans mon corps !"
+                  ]
+                : [
+                    "Incredible coach, results beyond my expectations! 💪",
+                    "My transformation in 3 months, I didn't think it was possible!",
+                    "Personalized follow-up and top motivation 🔥",
+                    "Thank you Liam for everything, I finally feel good in my body!"
+                  ];
+              const times = ["Hier, 09:41", "Lun, 14:32", "Sam, 18:15", "Jeu, 10:22"];
+              const timesEn = ["Yesterday, 09:41", "Mon, 14:32", "Sat, 18:15", "Thu, 10:22"];
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${senderNames[index]}` })}
+                >
+                  <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-4 hover:border-primary/30 hover:bg-card transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                    <div className="flex items-start gap-4">
+                      {/* Avatar */}
+                      <div className="relative flex-shrink-0">
+                        <img
+                          src={screenshot}
+                          alt={senderNames[index]}
+                          className="w-16 h-16 rounded-xl object-cover ring-2 ring-border group-hover:ring-primary/50 transition-all"
+                        />
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-card" />
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className="font-semibold text-foreground">{senderNames[index]}</h4>
+                          <span className="text-xs text-muted-foreground">{isFrench ? times[index] : timesEn[index]}</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground line-clamp-2">{messages[index]}</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex gap-0.5">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-gold text-gold" />
+                            ))}
+                          </div>
+                          <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                            <ZoomIn className="w-3 h-3" />
+                            {isFrench ? "Voir" : "View"}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <ZoomIn className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                );
-              })}
-            </motion.div>
-            
-            {/* Second row - scrolling right */}
-            <motion.div
-              className="flex gap-8"
-              animate={{ x: [-1500, 0] }}
-              transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
-            >
-              {[...screenshots, ...screenshots, ...screenshots].reverse().map((screenshot, index) => {
-                const senderNames = ["Ludivine", "Ricardo", "Magdalena", "Armand"];
-                const name = senderNames[index % 4];
-                
-                return (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 flex items-center gap-4 bg-background/80 backdrop-blur-sm rounded-full px-4 py-3 border border-border/50 shadow-sm cursor-pointer hover:border-primary/50 hover:shadow-md transition-all group"
-                    onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${name}` })}
-                  >
-                    <img
-                      src={screenshot}
-                      alt={name}
-                      className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all"
-                    />
-                    <div className="pr-2">
-                      <p className="text-sm font-semibold text-foreground">{name}</p>
-                      <p className="text-xs text-muted-foreground">{isFrench ? "Voir le message" : "View message"}</p>
-                    </div>
-                    <ZoomIn className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                );
-              })}
-            </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
-          
-          <p className="text-center text-muted-foreground/50 text-sm mt-6">
-            {isFrench ? "Cliquez sur un message pour l'agrandir" : "Click on a message to enlarge"}
-          </p>
         </motion.div>
 
         {/* View All Button */}
