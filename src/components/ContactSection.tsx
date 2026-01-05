@@ -157,23 +157,6 @@ const ContactSection = () => {
                 </div>
               </motion.a>
             ))}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="p-6 rounded-xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent border border-gold/30"
-            >
-              <h4 className="font-display text-xl font-bold mb-2">
-                {discoveryTitle}
-              </h4>
-              <p className="text-muted-foreground text-sm mb-4">
-                {discoveryDescription}
-              </p>
-              <Button variant="gold" size="sm">
-                {discoveryButton}
-              </Button>
-            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
