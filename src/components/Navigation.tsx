@@ -66,10 +66,10 @@ const Navigation = () => {
   ];
 
   const serviceLinks = [
-    { href: "/suivi-personnalise", fr: "Suivi Personnalisé", en: "Personalized Coaching" },
-    { href: "/coaching-individuel", fr: "Coaching Individuel", en: "Individual Coaching" },
-    { href: "/small-groupes", fr: "Small Groupes", en: "Small Groups" },
-    { href: "/carnets-seances", fr: "Carnets de Séances", en: "Session Packages" },
+    { href: "/suivi-personnalise", fr: "Suivi Personnalisé", en: "Personalized Coaching", price: "À partir de 150€/mois", priceEn: "From €150/month" },
+    { href: "/coaching-individuel", fr: "Coaching Individuel", en: "Individual Coaching", price: "À partir de 50€/séance", priceEn: "From €50/session" },
+    { href: "/small-groupes", fr: "Small Groupes", en: "Small Groups", price: "À partir de 25€/séance", priceEn: "From €25/session" },
+    { href: "/carnets-seances", fr: "Carnets de Séances", en: "Session Packages", price: "Packs de 5 ou 10 séances", priceEn: "Packs of 5 or 10 sessions" },
   ];
 
   return (
@@ -129,7 +129,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
                 >
-                  <AnimatedText fr="Services" en="Services" />
+                  <AnimatedText fr="Les Formules" en="Programs" />
                   <ChevronDown 
                     size={14} 
                     className={`transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
@@ -143,8 +143,13 @@ const Navigation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-black/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl shadow-black/30 overflow-hidden z-50"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-black/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl shadow-black/30 overflow-hidden z-50"
                     >
+                      <div className="p-3 border-b border-gold/20">
+                        <p className="text-xs text-gold uppercase tracking-wider font-semibold text-center">
+                          {language === 'fr' ? 'Nos Formules' : 'Our Programs'}
+                        </p>
+                      </div>
                       {serviceLinks.map((service, index) => (
                         <motion.button
                           key={service.href}
@@ -152,11 +157,24 @@ const Navigation = () => {
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.05 }}
-                          className="w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-gold hover:bg-gold/10 transition-colors duration-200 border-b border-gold/10 last:border-b-0 bg-transparent cursor-pointer"
+                          className="w-full text-left px-4 py-3 hover:bg-gold/10 transition-colors duration-200 border-b border-gold/10 last:border-b-0 bg-transparent cursor-pointer"
                         >
-                          <AnimatedText fr={service.fr} en={service.en} />
+                          <div className="text-sm text-foreground font-medium">
+                            <AnimatedText fr={service.fr} en={service.en} />
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            {language === 'fr' ? service.price : service.priceEn}
+                          </div>
                         </motion.button>
                       ))}
+                      <div className="p-3 border-t border-gold/20 bg-gold/5">
+                        <button
+                          onClick={() => handleNavClick('/formules')}
+                          className="w-full text-center text-xs text-gold hover:text-gold/80 font-medium uppercase tracking-wider bg-transparent border-none cursor-pointer"
+                        >
+                          {language === 'fr' ? 'Voir toutes les formules →' : 'View all programs →'}
+                        </button>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -258,7 +276,7 @@ const Navigation = () => {
                 className="flex flex-col items-center gap-2"
               >
                 <span className="text-xl font-display text-gold uppercase tracking-wider">
-                  <AnimatedText fr="Services" en="Services" />
+                  <AnimatedText fr="Les Formules" en="Programs" />
                 </span>
                 <div className="flex flex-col items-center gap-3 mt-2">
                   {serviceLinks.map((service, index) => (
