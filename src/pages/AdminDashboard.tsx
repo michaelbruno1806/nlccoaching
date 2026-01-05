@@ -1,39 +1,22 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast } from "sonner";
-import { motion } from "framer-motion";
-import {
-  LogOut,
-  Save,
-  Upload,
-  Image,
-  RefreshCw,
-  Home,
-  Trash2,
-  Plus,
-  Globe,
-  CheckCircle,
-  AlertCircle,
-  Lightbulb,
-  Dumbbell,
-  Brain,
-  UserCircle,
-  LayoutDashboard,
-  Mail,
-  Phone,
-  MapPin,
-  MessageCircle,
-  Sparkles,
-  User,
-  Users,
-} from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { toast } from 'sonner';
+import { motion } from 'framer-motion';
+import { 
+  LogOut, Save, Upload, Image, RefreshCw, 
+  Home, Trash2, Plus, Globe,
+  CheckCircle, AlertCircle, Lightbulb,
+  Dumbbell, Brain, UserCircle, LayoutDashboard, Mail,
+  Phone, MapPin, MessageCircle,
+  Sparkles, User, Users
+} from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -45,7 +28,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface ContentItem {
   id: string;
@@ -71,7 +60,7 @@ const sectionConfigs = {
       { key: "hero_title", label: "Main Title", type: "text", placeholder: "Your powerful headline" },
       { key: "hero_subtitle", label: "Subtitle", type: "textarea", placeholder: "Supporting text under the title" },
       { key: "hero_cta", label: "Button Text", type: "text", placeholder: "Call to action button text" },
-    ],
+    ]
   },
   about: {
     title: "About Section",
@@ -85,75 +74,70 @@ const sectionConfigs = {
       { key: "about_button", label: "Button Text", type: "text", placeholder: "Learn More" },
     ],
     stats: [
-      {
-        key: "about_stat_value",
-        labelKey: "about_stat_label",
-        defaultValue: "10+",
-        defaultLabel: "Years of experience",
-      },
-    ],
+      { key: "about_stat_value", labelKey: "about_stat_label", defaultValue: "10+", defaultLabel: "Years of experience" },
+    ]
   },
   services: {
     title: "Services Section",
     description: "Your coaching programs and offerings",
     icon: Dumbbell,
     services: [
-      {
+      { 
         id: "personalized",
         icon: Sparkles,
         titleKey: "service_1_title",
         descKey: "service_1_description",
         defaultTitle: "Personalized Program",
         defaultDesc: "Tailored support to achieve your specific goals",
-        features: ["service_1_feature_1", "service_1_feature_2", "service_1_feature_3", "service_1_feature_4"],
+        features: ["service_1_feature_1", "service_1_feature_2", "service_1_feature_3", "service_1_feature_4"]
       },
-      {
+      { 
         id: "individual",
         icon: User,
         titleKey: "service_2_title",
         descKey: "service_2_description",
         defaultTitle: "Individual Coaching",
         defaultDesc: "Intensive sessions to maximize your potential",
-        features: ["service_2_feature_1", "service_2_feature_2", "service_2_feature_3", "service_2_feature_4"],
+        features: ["service_2_feature_1", "service_2_feature_2", "service_2_feature_3", "service_2_feature_4"]
       },
-      {
+      { 
         id: "group",
         icon: Users,
         titleKey: "service_3_title",
         descKey: "service_3_description",
         defaultTitle: "Small Groups",
         defaultDesc: "Up to 4 people for quality support",
-        features: ["service_3_feature_1", "service_3_feature_2", "service_3_feature_3", "service_3_feature_4"],
+        features: ["service_3_feature_1", "service_3_feature_2", "service_3_feature_3", "service_3_feature_4"]
       },
-    ],
+    ]
   },
   philosophy: {
     title: "Philosophy Section",
     description: "Your coaching approach and values",
     icon: Brain,
     items: [
-      {
+      { 
         id: "performance",
         titleKey: "philosophy_1_title",
         descKey: "philosophy_1_description",
         defaultTitle: "Sustainable Performance",
-        defaultDesc: "Build strength, mobility, and technique without injury",
+        defaultDesc: "Build strength, mobility, and technique without injury"
       },
-      {
+      { 
         id: "personalized",
         titleKey: "philosophy_2_title",
         descKey: "philosophy_2_description",
         defaultTitle: "Personalized Support",
-        defaultDesc: "Each program is tailored to your goals",
+        defaultDesc: "Each program is tailored to your goals"
       },
-      {
+      { 
         id: "results",
         titleKey: "philosophy_3_title",
         descKey: "philosophy_3_description",
         defaultTitle: "Measurable Results",
-        defaultDesc: "Clear progress indicators and quantifiable goals",
+        defaultDesc: "Clear progress indicators and quantifiable goals"
       },
-    ],
+    ]
   },
   coach: {
     title: "Coach Bio",
@@ -166,25 +150,10 @@ const sectionConfigs = {
       { key: "coach_bio_2", label: "Second Paragraph", type: "textarea", placeholder: "Your experience..." },
     ],
     stats: [
-      {
-        key: "coach_stat_1_value",
-        labelKey: "coach_stat_1_label",
-        defaultValue: "500+",
-        defaultLabel: "Clients transformed",
-      },
-      {
-        key: "coach_stat_2_value",
-        labelKey: "coach_stat_2_label",
-        defaultValue: "10+",
-        defaultLabel: "Years of experience",
-      },
-      {
-        key: "coach_stat_3_value",
-        labelKey: "coach_stat_3_label",
-        defaultValue: "5000+",
-        defaultLabel: "Sessions completed",
-      },
-    ],
+      { key: "coach_stat_1_value", labelKey: "coach_stat_1_label", defaultValue: "500+", defaultLabel: "Clients transformed" },
+      { key: "coach_stat_2_value", labelKey: "coach_stat_2_label", defaultValue: "10+", defaultLabel: "Years of experience" },
+      { key: "coach_stat_3_value", labelKey: "coach_stat_3_label", defaultValue: "5000+", defaultLabel: "Sessions completed" },
+    ]
   },
   contact: {
     title: "Contact Section",
@@ -192,35 +161,20 @@ const sectionConfigs = {
     icon: Mail,
     fields: [
       { key: "contact_title", label: "Section Title", type: "text", placeholder: "Ready to transform your life?" },
-      {
-        key: "contact_subtitle",
-        label: "Section Subtitle",
-        type: "textarea",
-        placeholder: "Contact us to discuss your goals...",
-      },
+      { key: "contact_subtitle", label: "Section Subtitle", type: "textarea", placeholder: "Contact us to discuss your goals..." },
     ],
     contactInfo: [
-      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 16 22 40 37" },
-      { key: "contact_email", label: "Email Address", icon: Mail, placeholder: "contact.nlccoaching@gmail.com" },
-      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Lille, France" },
-      {
-        key: "contact_whatsapp",
-        label: "WhatsApp Number",
-        icon: MessageCircle,
-        placeholder: "23058035450 (without +)",
-      },
+      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 12 34 56 78" },
+      { key: "contact_email", label: "Email Address", icon: Mail, placeholder: "contact@nlccoaching.com" },
+      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Paris, France" },
+      { key: "contact_whatsapp", label: "WhatsApp Number", icon: MessageCircle, placeholder: "33612345678 (without +)" },
     ],
     discoverySession: [
       { key: "discovery_title", label: "Discovery Box Title", type: "text", placeholder: "Discovery Session" },
-      {
-        key: "discovery_description",
-        label: "Discovery Box Description",
-        type: "textarea",
-        placeholder: "Book your first free session...",
-      },
+      { key: "discovery_description", label: "Discovery Box Description", type: "textarea", placeholder: "Book your first free session..." },
       { key: "discovery_button", label: "Discovery Button Text", type: "text", placeholder: "Book now" },
-    ],
-  },
+    ]
+  }
 };
 
 export default function AdminDashboard() {
@@ -228,16 +182,16 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [images, setImages] = useState<ImageItem[]>([]);
-  const [currentLang, setCurrentLang] = useState("en");
+  const [currentLang, setCurrentLang] = useState('en');
   const [savingKeys, setSavingKeys] = useState<Set<string>>(new Set());
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set());
-  const [newImageKey, setNewImageKey] = useState("");
-  const [newImageAlt, setNewImageAlt] = useState("");
+  const [newImageKey, setNewImageKey] = useState('');
+  const [newImageAlt, setNewImageAlt] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
-      navigate("/admin/login");
+      navigate('/admin/login');
     }
   }, [user, isAdmin, loading, navigate]);
 
@@ -249,31 +203,41 @@ export default function AdminDashboard() {
   }, [user, isAdmin]);
 
   const fetchContents = async () => {
-    const { data, error } = await supabase.from("site_content").select("*").order("content_key");
-
+    const { data, error } = await supabase
+      .from('site_content')
+      .select('*')
+      .order('content_key');
+    
     if (!error && data) {
       setContents(data);
     }
   };
 
   const fetchImages = async () => {
-    const { data, error } = await supabase.from("site_images").select("*").order("image_key");
-
+    const { data, error } = await supabase
+      .from('site_images')
+      .select('*')
+      .order('image_key');
+    
     if (!error && data) {
       setImages(data);
     }
   };
 
   const getContentValue = (key: string, lang: string = currentLang): string => {
-    const item = contents.find((c) => c.content_key === key && c.language === lang);
-    return item?.content_value || "";
+    const item = contents.find(c => c.content_key === key && c.language === lang);
+    return item?.content_value || '';
   };
 
   const updateLocalContent = (key: string, value: string, lang: string = currentLang) => {
-    setContents((prev) => {
-      const existing = prev.find((c) => c.content_key === key && c.language === lang);
+    setContents(prev => {
+      const existing = prev.find(c => c.content_key === key && c.language === lang);
       if (existing) {
-        return prev.map((c) => (c.content_key === key && c.language === lang ? { ...c, content_value: value } : c));
+        return prev.map(c => 
+          c.content_key === key && c.language === lang 
+            ? { ...c, content_value: value } 
+            : c
+        );
       } else {
         return [...prev, { id: `temp-${key}-${lang}`, content_key: key, content_value: value, language: lang }];
       }
@@ -281,43 +245,42 @@ export default function AdminDashboard() {
   };
 
   const handleSaveContent = async (key: string, value: string, lang: string = currentLang) => {
-    setSavingKeys((prev) => new Set(prev).add(key));
-
-    const existing = contents.find((c) => c.content_key === key && c.language === lang);
-
+    setSavingKeys(prev => new Set(prev).add(key));
+    
+    const existing = contents.find(c => c.content_key === key && c.language === lang);
+    
     let error;
-    if (existing && !existing.id.startsWith("temp-")) {
+    if (existing && !existing.id.startsWith('temp-')) {
       const result = await supabase
-        .from("site_content")
+        .from('site_content')
         .update({ content_value: value, updated_by: user?.id })
-        .eq("id", existing.id);
+        .eq('id', existing.id);
       error = result.error;
     } else {
-      const result = await supabase.from("site_content").upsert(
-        {
+      const result = await supabase
+        .from('site_content')
+        .upsert({
           content_key: key,
           content_value: value,
           language: lang,
-          updated_by: user?.id,
-        },
-        { onConflict: "content_key,language" },
-      );
+          updated_by: user?.id
+        }, { onConflict: 'content_key,language' });
       error = result.error;
     }
 
-    setSavingKeys((prev) => {
+    setSavingKeys(prev => {
       const next = new Set(prev);
       next.delete(key);
       return next;
     });
 
     if (error) {
-      toast.error("Failed to save. Please try again.");
+      toast.error('Failed to save. Please try again.');
     } else {
-      toast.success("Saved successfully!");
-      setSavedKeys((prev) => new Set(prev).add(key));
+      toast.success('Saved successfully!');
+      setSavedKeys(prev => new Set(prev).add(key));
       setTimeout(() => {
-        setSavedKeys((prev) => {
+        setSavedKeys(prev => {
           const next = new Set(prev);
           next.delete(key);
           return next;
@@ -330,64 +293,70 @@ export default function AdminDashboard() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !newImageKey) {
-      toast.error("Please enter a name for your image first");
+      toast.error('Please enter a name for your image first');
       return;
     }
 
     setUploadingImage(true);
-    const fileExt = file.name.split(".").pop();
-    const filePath = `${newImageKey.toLowerCase().replace(/\s+/g, "_")}.${fileExt}`;
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${newImageKey.toLowerCase().replace(/\s+/g, '_')}.${fileExt}`;
 
-    const { error: uploadError } = await supabase.storage.from("site-images").upload(filePath, file, { upsert: true });
+    const { error: uploadError } = await supabase.storage
+      .from('site-images')
+      .upload(filePath, file, { upsert: true });
 
     if (uploadError) {
-      toast.error("Failed to upload image. Please try again.");
+      toast.error('Failed to upload image. Please try again.');
       setUploadingImage(false);
       return;
     }
 
-    const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(filePath);
+    const { data: urlData } = supabase.storage
+      .from('site-images')
+      .getPublicUrl(filePath);
 
-    const { error: insertError } = await supabase.from("site_images").upsert(
-      {
-        image_key: newImageKey.toLowerCase().replace(/\s+/g, "_"),
+    const { error: insertError } = await supabase
+      .from('site_images')
+      .upsert({
+        image_key: newImageKey.toLowerCase().replace(/\s+/g, '_'),
         image_url: urlData.publicUrl,
         alt_text: newImageAlt,
-        updated_by: user?.id,
-      },
-      { onConflict: "image_key" },
-    );
+        updated_by: user?.id
+      }, { onConflict: 'image_key' });
 
     if (insertError) {
-      toast.error("Failed to save image. Please try again.");
+      toast.error('Failed to save image. Please try again.');
     } else {
-      toast.success("Image uploaded successfully!");
-      setNewImageKey("");
-      setNewImageAlt("");
+      toast.success('Image uploaded successfully!');
+      setNewImageKey('');
+      setNewImageAlt('');
       fetchImages();
     }
     setUploadingImage(false);
   };
 
   const handleDeleteImage = async (item: ImageItem) => {
-    const fileName = item.image_url.split("/").pop();
+    const fileName = item.image_url.split('/').pop();
     if (fileName) {
-      await supabase.storage.from("site-images").remove([fileName]);
+      await supabase.storage.from('site-images').remove([fileName]);
     }
 
-    const { error } = await supabase.from("site_images").delete().eq("id", item.id);
+    const { error } = await supabase
+      .from('site_images')
+      .delete()
+      .eq('id', item.id);
 
     if (error) {
-      toast.error("Failed to delete image. Please try again.");
+      toast.error('Failed to delete image. Please try again.');
     } else {
-      toast.success("Image deleted successfully!");
+      toast.success('Image deleted successfully!');
       fetchImages();
     }
   };
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/admin/login");
+    navigate('/admin/login');
   };
 
   const renderSaveButton = (key: string, value: string) => (
@@ -398,17 +367,11 @@ export default function AdminDashboard() {
       className="min-w-[90px]"
     >
       {savingKeys.has(key) ? (
-        <>
-          <RefreshCw className="w-4 h-4 mr-1 animate-spin" /> Saving
-        </>
+        <><RefreshCw className="w-4 h-4 mr-1 animate-spin" /> Saving</>
       ) : savedKeys.has(key) ? (
-        <>
-          <CheckCircle className="w-4 h-4 mr-1" /> Saved!
-        </>
+        <><CheckCircle className="w-4 h-4 mr-1" /> Saved!</>
       ) : (
-        <>
-          <Save className="w-4 h-4 mr-1" /> Save
-        </>
+        <><Save className="w-4 h-4 mr-1" /> Save</>
       )}
     </Button>
   );
@@ -443,7 +406,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
               <Home className="w-4 h-4 mr-2" />
               View Site
             </Button>
@@ -478,17 +441,17 @@ export default function AdminDashboard() {
             {/* Language Selector */}
             <div className="flex items-center gap-2 bg-background rounded-lg p-1 border border-border">
               <button
-                onClick={() => setCurrentLang("en")}
+                onClick={() => setCurrentLang('en')}
                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  currentLang === "en" ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                  currentLang === 'en' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
                 }`}
               >
                 🇬🇧 English
               </button>
               <button
-                onClick={() => setCurrentLang("fr")}
+                onClick={() => setCurrentLang('fr')}
                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  currentLang === "fr" ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                  currentLang === 'fr' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
                 }`}
               >
                 🇫🇷 French
@@ -499,52 +462,31 @@ export default function AdminDashboard() {
 
         <Tabs defaultValue="hero" className="space-y-6">
           <TabsList className="flex flex-wrap justify-start gap-2 bg-transparent h-auto p-0">
-            <TabsTrigger
-              value="hero"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="hero" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <LayoutDashboard className="w-4 h-4 mr-2" />
               Home
             </TabsTrigger>
-            <TabsTrigger
-              value="about"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="about" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <UserCircle className="w-4 h-4 mr-2" />
               About
             </TabsTrigger>
-            <TabsTrigger
-              value="services"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="services" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Dumbbell className="w-4 h-4 mr-2" />
               Services
             </TabsTrigger>
-            <TabsTrigger
-              value="philosophy"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="philosophy" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Brain className="w-4 h-4 mr-2" />
               Philosophy
             </TabsTrigger>
-            <TabsTrigger
-              value="coach"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="coach" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <UserCircle className="w-4 h-4 mr-2" />
               Coach Bio
             </TabsTrigger>
-            <TabsTrigger
-              value="contact"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="contact" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Mail className="w-4 h-4 mr-2" />
               Contact
             </TabsTrigger>
-            <TabsTrigger
-              value="images"
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
-            >
+            <TabsTrigger value="images" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2">
               <Image className="w-4 h-4 mr-2" />
               Images
             </TabsTrigger>
@@ -569,7 +511,7 @@ export default function AdminDashboard() {
                         <Label className="text-base">{field.label}</Label>
                         {renderSaveButton(field.key, value)}
                       </div>
-                      {field.type === "textarea" ? (
+                      {field.type === 'textarea' ? (
                         <Textarea
                           value={value}
                           onChange={(e) => updateLocalContent(field.key, e.target.value)}
@@ -609,7 +551,7 @@ export default function AdminDashboard() {
                         <Label className="text-base">{field.label}</Label>
                         {renderSaveButton(field.key, value)}
                       </div>
-                      {field.type === "textarea" ? (
+                      {field.type === 'textarea' ? (
                         <Textarea
                           value={value}
                           onChange={(e) => updateLocalContent(field.key, e.target.value)}
@@ -637,7 +579,7 @@ export default function AdminDashboard() {
                     {sectionConfigs.about.stats.map((stat) => {
                       const valueContent = getContentValue(stat.key) || stat.defaultValue;
                       const labelContent = getContentValue(stat.labelKey) || stat.defaultLabel;
-
+                      
                       return (
                         <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30 space-y-3">
                           <div>
@@ -688,7 +630,7 @@ export default function AdminDashboard() {
                   const ServiceIcon = service.icon;
                   const titleValue = getContentValue(service.titleKey) || service.defaultTitle;
                   const descValue = getContentValue(service.descKey) || service.defaultDesc;
-
+                  
                   return (
                     <div key={service.id} className="p-6 rounded-xl border border-border bg-muted/30">
                       <div className="flex items-center gap-3 mb-4">
@@ -697,7 +639,7 @@ export default function AdminDashboard() {
                         </div>
                         <h3 className="font-semibold text-lg">Service {index + 1}</h3>
                       </div>
-
+                      
                       <div className="grid gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
@@ -710,7 +652,7 @@ export default function AdminDashboard() {
                             placeholder={service.defaultTitle}
                           />
                         </div>
-
+                        
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <Label>Service Description</Label>
@@ -764,11 +706,11 @@ export default function AdminDashboard() {
                 {sectionConfigs.philosophy.items.map((item, index) => {
                   const titleValue = getContentValue(item.titleKey) || item.defaultTitle;
                   const descValue = getContentValue(item.descKey) || item.defaultDesc;
-
+                  
                   return (
                     <div key={item.id} className="p-6 rounded-xl border border-border bg-muted/30">
                       <h3 className="font-semibold text-lg mb-4">Philosophy Point {index + 1}</h3>
-
+                      
                       <div className="grid gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
@@ -781,7 +723,7 @@ export default function AdminDashboard() {
                             placeholder={item.defaultTitle}
                           />
                         </div>
-
+                        
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <Label>Description</Label>
@@ -821,7 +763,7 @@ export default function AdminDashboard() {
                         <Label className="text-base">{field.label}</Label>
                         {renderSaveButton(field.key, value)}
                       </div>
-                      {field.type === "textarea" ? (
+                      {field.type === 'textarea' ? (
                         <Textarea
                           value={value}
                           onChange={(e) => updateLocalContent(field.key, e.target.value)}
@@ -842,12 +784,14 @@ export default function AdminDashboard() {
                 {/* Stats Section */}
                 <div className="pt-6 border-t border-border">
                   <h3 className="font-semibold text-lg mb-4">Your Statistics</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Showcase your experience with impressive numbers</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Showcase your experience with impressive numbers
+                  </p>
                   <div className="grid md:grid-cols-3 gap-4">
                     {sectionConfigs.coach.stats.map((stat, index) => {
                       const valueContent = getContentValue(stat.key) || stat.defaultValue;
                       const labelContent = getContentValue(stat.labelKey) || stat.defaultLabel;
-
+                      
                       return (
                         <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30">
                           <Label className="text-sm text-muted-foreground">Stat {index + 1}</Label>
@@ -902,7 +846,7 @@ export default function AdminDashboard() {
                           <Label className="text-base">{field.label}</Label>
                           {renderSaveButton(field.key, value)}
                         </div>
-                        {field.type === "textarea" ? (
+                        {field.type === 'textarea' ? (
                           <Textarea
                             value={value}
                             onChange={(e) => updateLocalContent(field.key, e.target.value)}
@@ -924,7 +868,9 @@ export default function AdminDashboard() {
                 {/* Contact Information */}
                 <div className="pt-6 border-t border-border">
                   <h3 className="font-semibold text-lg mb-4">Contact Information</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Update your contact details shown on the website</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Update your contact details shown on the website
+                  </p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {sectionConfigs.contact.contactInfo.map((info) => {
                       const InfoIcon = info.icon;
@@ -967,7 +913,7 @@ export default function AdminDashboard() {
                             <Label>{field.label}</Label>
                             {renderSaveButton(field.key, value)}
                           </div>
-                          {field.type === "textarea" ? (
+                          {field.type === 'textarea' ? (
                             <Textarea
                               value={value}
                               onChange={(e) => updateLocalContent(field.key, e.target.value)}
@@ -1086,9 +1032,11 @@ export default function AdminDashboard() {
                         </div>
                         <div className="p-4">
                           <h3 className="font-medium mb-1">
-                            {item.image_key.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                            {item.image_key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                           </h3>
-                          {item.alt_text && <p className="text-sm text-muted-foreground mb-3">{item.alt_text}</p>}
+                          {item.alt_text && (
+                            <p className="text-sm text-muted-foreground mb-3">{item.alt_text}</p>
+                          )}
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button size="sm" variant="outline" className="w-full text-destructive">
