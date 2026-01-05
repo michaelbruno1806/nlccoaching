@@ -532,46 +532,97 @@ const ReviewsSection = () => {
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.15,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
                   className="group cursor-pointer"
                   onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${senderNames[index]}` })}
+                  whileHover={{ scale: 1.02, y: -2 }}
                 >
-                  <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-4 hover:border-primary/30 hover:bg-card transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                  <motion.div 
+                    className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-4 hover:border-primary/30 hover:bg-card transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+                    initial={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
+                    whileInView={{ boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.15 + 0.3 }}
+                  >
                     <div className="flex items-start gap-4">
                       {/* Avatar */}
-                      <div className="relative flex-shrink-0">
+                      <motion.div 
+                        className="relative flex-shrink-0"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.15 + 0.1, duration: 0.4 }}
+                      >
                         <img
                           src={screenshot}
                           alt={senderNames[index]}
                           className="w-16 h-16 rounded-xl object-cover ring-2 ring-border group-hover:ring-primary/50 transition-all"
                         />
-                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-card" />
-                      </div>
+                        <motion.div 
+                          className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-card"
+                          initial={{ scale: 0 }}
+                          whileInView={{ scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.15 + 0.3, type: "spring", stiffness: 500 }}
+                        />
+                      </motion.div>
                       
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
+                        <motion.div 
+                          className="flex items-center justify-between mb-1"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.15 + 0.15 }}
+                        >
                           <h4 className="font-semibold text-foreground">{senderNames[index]}</h4>
                           <span className="text-xs text-muted-foreground">{isFrench ? times[index] : timesEn[index]}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground line-clamp-2">{messages[index]}</p>
-                        <div className="flex items-center gap-2 mt-2">
+                        </motion.div>
+                        <motion.p 
+                          className="text-sm text-muted-foreground line-clamp-2"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.15 + 0.2 }}
+                        >
+                          {messages[index]}
+                        </motion.p>
+                        <motion.div 
+                          className="flex items-center gap-2 mt-2"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.15 + 0.25 }}
+                        >
                           <div className="flex gap-0.5">
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-3 h-3 fill-gold text-gold" />
+                              <motion.div
+                                key={i}
+                                initial={{ scale: 0, rotate: -180 }}
+                                whileInView={{ scale: 1, rotate: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.15 + 0.3 + i * 0.05, type: "spring", stiffness: 400 }}
+                              >
+                                <Star className="w-3 h-3 fill-gold text-gold" />
+                              </motion.div>
                             ))}
                           </div>
                           <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                             <ZoomIn className="w-3 h-3" />
                             {isFrench ? "Voir" : "View"}
                           </span>
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
