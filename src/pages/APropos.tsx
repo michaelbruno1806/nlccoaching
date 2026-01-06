@@ -343,54 +343,33 @@ const APropos = () => {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8 items-start">
-            {/* Benefits Grid - Left side */}
-            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
-              {benefits.map((benefit, index) => <motion.div key={index} initial={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95
-            }} animate={forceInView ? {
-              opacity: 1,
-              y: 0,
-              scale: 1
-            } : {}} transition={{
-              duration: 0.5,
-              delay: index * 0.1
-            }} className="group relative bg-gradient-to-br from-card/80 to-card/40 border border-border/50 rounded-2xl p-8 hover:border-gold/40 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
-                  {/* Hover glow */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-300" />
-                  
-                  <div className="relative z-10">
-                    <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
-                      {benefit.image ? (
-                        <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
-                      ) : benefit.icon ? (
-                        <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
-                      ) : null}
-                    </div>
-                    <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((benefit, index) => <motion.div key={index} initial={{
+            opacity: 0,
+            y: 30,
+            scale: 0.95
+          }} animate={forceInView ? {
+            opacity: 1,
+            y: 0,
+            scale: 1
+          } : {}} transition={{
+            duration: 0.5,
+            delay: index * 0.1
+          }} className="group relative bg-gradient-to-br from-card/80 to-card/40 border border-border/50 rounded-2xl p-8 hover:border-gold/40 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
+                {/* Hover glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-300" />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
+                    {benefit.image ? (
+                      <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
+                    ) : benefit.icon ? (
+                      <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
+                    ) : null}
                   </div>
-                </motion.div>)}
-            </div>
-            
-            {/* Image - Right side */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              animate={forceInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block"
-            >
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden sticky top-32">
-                <img
-                  src={coachThinking}
-                  alt={language === 'fr' ? "Coach en réflexion" : "Coach thinking"}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 border-l-2 border-b-2 border-gold/40 rounded-bl-xl" />
-            </motion.div>
+                  <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
+                </div>
+              </motion.div>)}
           </div>
         </div>
       </section>
@@ -431,28 +410,51 @@ const APropos = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
-            {philosophyItems.map((item, index) => <motion.div key={index} initial={{
-            opacity: 0,
-            y: 30
-          }} animate={philosophyInView ? {
-            opacity: 1,
-            y: 0
-          } : {}} transition={{
-            duration: 0.6,
-            delay: index * 0.15
-          }} className="group relative bg-gradient-to-b from-card to-card/60 border border-border/50 rounded-2xl p-10 text-center hover:border-gold/40 transition-all duration-300">
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gold/0 group-hover:bg-gold/5 transition-all duration-300" />
-                
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold/20 to-gold/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    <span className="text-2xl font-display font-bold text-gold">{['I', 'II', 'III'][index]}</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Philosophy Cards */}
+            <div className="grid gap-8">
+              {philosophyItems.map((item, index) => <motion.div key={index} initial={{
+              opacity: 0,
+              y: 30
+            }} animate={philosophyInView ? {
+              opacity: 1,
+              y: 0
+            } : {}} transition={{
+              duration: 0.6,
+              delay: index * 0.15
+            }} className="group relative bg-gradient-to-b from-card to-card/60 border border-border/50 rounded-2xl p-8 hover:border-gold/40 transition-all duration-300">
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gold/0 group-hover:bg-gold/5 transition-all duration-300" />
+                  
+                  <div className="relative z-10 flex items-center gap-6">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/20 to-gold/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <span className="text-xl font-display font-bold text-gold">{['I', 'II', 'III'][index]}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-display text-xl font-semibold mb-2 text-foreground">{item.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                    </div>
                   </div>
-                  <h3 className="font-display text-xl font-semibold mb-4 text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                </div>
-              </motion.div>)}
+                </motion.div>)}
+            </div>
+            
+            {/* Image */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              animate={philosophyInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden lg:block"
+            >
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden">
+                <img
+                  src={coachThinking}
+                  alt={language === 'fr' ? "Coach en réflexion" : "Coach thinking"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -top-4 -right-4 w-20 h-20 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 border-l-2 border-b-2 border-gold/40 rounded-bl-xl" />
+            </motion.div>
           </div>
         </div>
       </section>
