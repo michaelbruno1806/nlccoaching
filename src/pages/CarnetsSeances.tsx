@@ -30,7 +30,6 @@ const CarnetsSeances = () => {
       validity: isFrench ? "3 mois" : "3 months",
       description: isFrench ? "Pour progresser sur la durée" : "For long-term progress",
       pricePerSession: 48,
-      popular: true,
     },
     {
       sessions: 12,
@@ -40,6 +39,7 @@ const CarnetsSeances = () => {
         ? "L'équivalent d'un suivi sur 3 mois à raison d'une séance par semaine"
         : "Equivalent to 3-month follow-up with one session per week",
       pricePerSession: 45,
+      popular: true,
     },
   ];
 
