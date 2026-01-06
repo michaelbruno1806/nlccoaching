@@ -61,139 +61,153 @@ const BookingFormSection = ({ serviceName, whatsappMessage }: BookingFormSection
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-24 bg-card/30">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
+          className="max-w-3xl mx-auto"
         >
-          <div className="text-center mb-10">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-12">
+            <span className="inline-block text-primary text-sm font-medium tracking-widest uppercase mb-4">
+              {isFrench ? "Prendre rendez-vous" : "Book appointment"}
+            </span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">
               {isFrench ? "Réserver votre suivi" : "Book your session"}
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               {isFrench
-                ? "Remplissez le formulaire ci-dessous pour commencer"
-                : "Fill out the form below to get started"}
+                ? "Remplissez le formulaire ci-dessous pour commencer votre transformation"
+                : "Fill out the form below to start your transformation"}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {isFrench ? "Nom" : "Name"}
+          <div className="bg-background/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 md:p-10 shadow-xl">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                    {isFrench ? "Nom complet" : "Full name"}
+                  </label>
+                  <Input
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder={isFrench ? "Votre nom" : "Your name"}
+                    className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                    Email
+                  </label>
+                  <Input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder={isFrench ? "Votre email" : "Your email"}
+                    className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                  {isFrench ? "Téléphone" : "Phone"}
                 </label>
                 <Input
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder={isFrench ? "Votre nom" : "Your name"}
-                  required
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder={isFrench ? "Votre numéro" : "Your phone number"}
+                  className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Email
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                    {isFrench ? "Objectif" : "Objective"}
+                  </label>
+                  <select
+                    value={formData.objective}
+                    onChange={(e) => setFormData({ ...formData, objective: e.target.value })}
+                    className="w-full h-12 rounded-lg border border-border/50 bg-background px-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
+                    {objectives.map((obj) => (
+                      <option key={obj} value={obj} className="bg-background text-foreground">{obj}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                    {isFrench ? "Profil" : "Profile"}
+                  </label>
+                  <select
+                    value={formData.profile}
+                    onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
+                    className="w-full h-12 rounded-lg border border-border/50 bg-background px-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
+                    {profiles.map((profile) => (
+                      <option key={profile} value={profile} className="bg-background text-foreground">{profile}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground/90 tracking-wide">
+                  Message
                 </label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder={isFrench ? "Votre email" : "Your email"}
-                  required
+                <Textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder={isFrench ? "Décrivez vos objectifs et attentes..." : "Describe your goals and expectations..."}
+                  rows={5}
+                  className="bg-background border-border/50 focus:border-primary transition-colors resize-none"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                {isFrench ? "Téléphone" : "Phone"}
-              </label>
-              <Input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder={isFrench ? "Votre numéro" : "Your phone number"}
-              />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {isFrench ? "Objectif" : "Objective"}
+              <div className="flex items-center gap-3 py-2">
+                <Checkbox
+                  id="terms"
+                  checked={formData.acceptTerms}
+                  onCheckedChange={(checked) => setFormData({ ...formData, acceptTerms: checked as boolean })}
+                  className="border-border/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                />
+                <label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer">
+                  {isFrench ? "J'accepte les conditions générales de vente" : "I accept the terms and conditions"}
                 </label>
-                <select
-                  value={formData.objective}
-                  onChange={(e) => setFormData({ ...formData, objective: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  required
-                >
-                  <option value="">{isFrench ? "Sélectionner" : "Select"}</option>
-                  {objectives.map((obj) => (
-                    <option key={obj} value={obj}>{obj}</option>
-                  ))}
-                </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {isFrench ? "Profil" : "Profile"}
-                </label>
-                <select
-                  value={formData.profile}
-                  onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  required
+
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="flex-1 h-14 gap-3 text-base font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20"
                 >
-                  <option value="">{isFrench ? "Sélectionner" : "Select"}</option>
-                  {profiles.map((profile) => (
-                    <option key={profile} value={profile}>{profile}</option>
-                  ))}
-                </select>
+                  <Send className="w-5 h-5" />
+                  {isFrench ? "Envoyer ma demande" : "Send my request"}
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="lg" 
+                  className="h-14 gap-3 text-base font-medium border-border/50 hover:bg-card hover:border-primary/50"
+                  onClick={() => window.location.href = whatsappUrl}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp
+                </Button>
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Message
-              </label>
-              <Textarea
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder={isFrench ? "Décrivez vos objectifs..." : "Describe your goals..."}
-                rows={4}
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="terms"
-                checked={formData.acceptTerms}
-                onCheckedChange={(checked) => setFormData({ ...formData, acceptTerms: checked as boolean })}
-              />
-              <label htmlFor="terms" className="text-sm text-muted-foreground">
-                {isFrench ? "J'accepte les conditions" : "I accept the terms"}
-              </label>
-            </div>
-
-            <div className="flex gap-4">
-              <Button type="submit" size="lg" className="flex-1 gap-2">
-                <Send className="w-4 h-4" />
-                {isFrench ? "Envoyer" : "Send"}
-              </Button>
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="lg" 
-                className="gap-2"
-                onClick={() => window.location.href = whatsappUrl}
-              >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
-              </Button>
-            </div>
-          </form>
+            </form>
+          </div>
         </motion.div>
       </div>
     </section>
