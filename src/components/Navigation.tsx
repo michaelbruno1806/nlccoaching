@@ -119,66 +119,15 @@ const Navigation = () => {
                 );
               })}
 
-              {/* Services Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-              >
-                <motion.button
-                  whileHover={{ y: -2 }}
-                  className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
+              {/* Formules Direct Link */}
+              <motion.div whileHover={{ y: -2 }}>
+                <button
+                  onClick={() => handleNavClick('/formules')}
+                  className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
                 >
                   <AnimatedText fr="Les Formules" en="Programs" />
-                  <ChevronDown 
-                    size={14} 
-                    className={`transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
-                  />
-                </motion.button>
-                
-                <AnimatePresence>
-                  {isServicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-black/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl shadow-black/30 overflow-hidden z-50"
-                    >
-                      <div className="p-3 border-b border-gold/20">
-                        <p className="text-xs text-gold uppercase tracking-wider font-semibold text-center">
-                          {language === 'fr' ? 'Nos Formules' : 'Our Programs'}
-                        </p>
-                      </div>
-                      {serviceLinks.map((service, index) => (
-                        <motion.button
-                          key={service.href}
-                          onClick={() => handleNavClick(service.href)}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="w-full text-left px-4 py-3 hover:bg-gold/10 transition-colors duration-200 border-b border-gold/10 last:border-b-0 bg-transparent cursor-pointer"
-                        >
-                          <div className="text-sm text-foreground font-medium">
-                            <AnimatedText fr={service.fr} en={service.en} />
-                          </div>
-                          <div className="text-xs text-muted-foreground mt-0.5">
-                            {language === 'fr' ? service.price : service.priceEn}
-                          </div>
-                        </motion.button>
-                      ))}
-                      <div className="p-3 border-t border-gold/20 bg-gold/5">
-                        <button
-                          onClick={() => handleNavClick('/formules')}
-                          className="w-full text-center text-xs text-gold hover:text-gold/80 font-medium uppercase tracking-wider bg-transparent border-none cursor-pointer"
-                        >
-                          {language === 'fr' ? 'Voir toutes les formules →' : 'View all programs →'}
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                </button>
+              </motion.div>
 
               <LanguageToggle />
               <Button variant="gold" size="sm" onClick={() => handleNavClick("/#contact")}>
@@ -263,7 +212,7 @@ const Navigation = () => {
                 );
               })}
 
-              {/* Mobile Services Section */}
+              {/* Mobile Formules Direct Link */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -273,25 +222,13 @@ const Navigation = () => {
                   duration: 0.4,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="flex flex-col items-center gap-2"
               >
-                <span className="text-xl font-display text-gold uppercase tracking-wider">
+                <button
+                  onClick={() => handleNavClick('/formules')}
+                  className="text-xl font-display text-gold hover:text-gold/80 transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer"
+                >
                   <AnimatedText fr="Les Formules" en="Programs" />
-                </span>
-                <div className="flex flex-col items-center gap-3 mt-2">
-                  {serviceLinks.map((service, index) => (
-                    <motion.button
-                      key={service.href}
-                      onClick={() => handleNavClick(service.href)}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + index * 0.05 }}
-                      className="text-base text-muted-foreground hover:text-gold transition-colors bg-transparent border-none cursor-pointer"
-                    >
-                      <AnimatedText fr={service.fr} en={service.en} />
-                    </motion.button>
-                  ))}
-                </div>
+                </button>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
