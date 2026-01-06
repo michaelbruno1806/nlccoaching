@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { Button } from "@/components/ui/button";
 import serviceProgram from "@/assets/service-program.jpg";
-import serviceIndividual from "@/assets/service-individual.jpg";
+import serviceIndividual from "@/assets/service-individual-new.jpg";
 import serviceGroup from "@/assets/service-group.jpg";
 
 const ServicesSection = () => {
