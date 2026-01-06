@@ -9,6 +9,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach.png";
+import methodTraining from "@/assets/method-training.jpg";
 
 const Parcours = () => {
   const { language } = useLanguage();
@@ -88,50 +89,71 @@ const Parcours = () => {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent opacity-50" />
         </div>
         
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-6"
-          >
-            {language === 'fr' ? 'Parcours' : 'Journey'}
-          </motion.span>
-          
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-          >
-            {language === 'fr' ? 'UNE MÉTHODE NÉE' : 'A METHOD BORN'}{' '}
-            <span className="text-gradient">{language === 'fr' ? 'DU TERRAIN' : 'FROM THE FIELD'}</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
-          >
-            {language === 'fr' 
-              ? "Coach sportif, préparateur physique & entraineur dans la métropole lilloise"
-              : "Sports coach, physical trainer & coach in the Lille metropolitan area"
-            }
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <a href="#mission">
-              <Button variant="gold" size="lg" className="group">
-                {language === 'fr' ? 'Découvrir' : 'Discover'}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </a>
-          </motion.div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-6"
+              >
+                {language === 'fr' ? 'Parcours' : 'Journey'}
+              </motion.span>
+              
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+              >
+                {language === 'fr' ? 'UNE MÉTHODE NÉE' : 'A METHOD BORN'}{' '}
+                <span className="text-gradient">{language === 'fr' ? 'DU TERRAIN' : 'FROM THE FIELD'}</span>
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-10"
+              >
+                {language === 'fr' 
+                  ? "Coach sportif, préparateur physique & entraineur dans la métropole lilloise"
+                  : "Sports coach, physical trainer & coach in the Lille metropolitan area"
+                }
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <a href="#mission">
+                  <Button variant="gold" size="lg" className="group">
+                    {language === 'fr' ? 'Découvrir' : 'Discover'}
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </a>
+              </motion.div>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden lg:block"
+            >
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden">
+                <img
+                  src={methodTraining}
+                  alt={language === 'fr' ? "Coach en action" : "Coach in action"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-gold/30 rounded-bl-2xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 border-r-2 border-t-2 border-gold/30 rounded-tr-2xl" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
