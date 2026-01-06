@@ -291,28 +291,22 @@ const ContactSection = () => {
             </div>
             
             {/* Location card overlay */}
-            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-md bg-black/90 backdrop-blur-md rounded-xl p-4 md:p-6 border border-gold/30 shadow-xl">
-              <div className="flex items-center gap-3 mb-2">
-                <MapPin className="w-5 h-5 text-gold flex-shrink-0" />
-                <span className="font-display font-semibold text-foreground">NLC Coaching</span>
+            <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 md:max-w-xs bg-black/90 backdrop-blur-md rounded-lg p-3 border border-gold/30 shadow-xl">
+              <div className="flex items-center gap-2 mb-1">
+                <MapPin className="w-4 h-4 text-gold flex-shrink-0" />
+                <span className="font-display font-semibold text-foreground text-sm">NLC Coaching</span>
               </div>
-              <p className="text-muted-foreground text-sm mb-3">
+              <p className="text-muted-foreground text-xs mb-2">
                 Lille, Métropole Lilloise
-              </p>
-              <p className="text-muted-foreground/80 text-xs leading-relaxed mb-3">
-                {t(
-                  "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
-                  "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available."
-                )}
               </p>
               <a 
                 href="https://maps.app.goo.gl/9d3YMTNV6dFYU9EHA" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-gold text-sm hover:underline"
+                className="inline-flex items-center gap-1 text-gold text-xs hover:underline"
               >
                 {t("Ouvrir dans Google Maps", "Open in Google Maps")}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3 h-3" />
               </a>
             </div>
           </div>
