@@ -84,13 +84,13 @@ const Navigation = () => {
             : "bg-black"
         }`}
       >
-        <div className="container mx-auto px-6">
-          <nav className="flex items-center justify-between h-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <nav className="flex items-center justify-between h-14 sm:h-20">
             <Link to="/" className="flex items-center">
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-10 md:h-12 w-auto max-w-[160px] md:max-w-[200px]"
+                className="h-7 sm:h-10 md:h-12 w-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
@@ -172,7 +172,7 @@ const Navigation = () => {
               ease: [0.22, 1, 0.36, 1],
               opacity: { duration: 0.3 }
             }}
-            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg pt-24 md:hidden overflow-hidden"
+            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg pt-16 sm:pt-24 md:hidden overflow-hidden"
           >
             <motion.div 
               initial={{ opacity: 0 }}
