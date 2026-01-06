@@ -367,9 +367,9 @@ const APropos = () => {
                   <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
                     {benefit.image ? (
                       <img src={benefit.image} alt="" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
-                    ) : (
+                    ) : benefit.icon ? (
                       <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
-                    )}
+                    ) : null}
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                 </div>
