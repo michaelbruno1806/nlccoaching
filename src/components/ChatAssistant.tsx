@@ -129,9 +129,10 @@ const ChatAssistant = () => {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
+        className="fixed bottom-28 sm:bottom-24 right-4 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-secondary border-2 border-gold rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="AI Coach Assistant"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -141,7 +142,7 @@ const ChatAssistant = () => {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
             >
-              <X className="w-6 h-6 text-primary-foreground" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6 text-gold" />
             </motion.div>
           ) : (
             <motion.div
@@ -150,7 +151,7 @@ const ChatAssistant = () => {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: -90, opacity: 0 }}
             >
-              <Bot className="w-6 h-6 text-primary-foreground" />
+              <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-gold" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -164,7 +165,7 @@ const ChatAssistant = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-40 right-6 z-50 w-80 sm:w-96 h-[28rem] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-40 sm:right-6 z-50 sm:w-96 h-[70vh] sm:h-[28rem] max-h-[500px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center gap-3">
