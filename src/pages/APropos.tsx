@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Dumbbell, Scale, Bone, Zap, Footprints, Users, MoveVertical } from "lucide-react";
+import { ArrowRight, Dumbbell, Scale, Bone, Zap, Footprints, Users } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
+import spineIcon from "@/assets/spine-icon.png";
 const APropos = () => {
   const {
     language
@@ -38,7 +39,8 @@ const APropos = () => {
     margin: "-100px"
   });
   const benefits = [{
-    icon: MoveVertical,
+    icon: null,
+    image: spineIcon,
     label: language === 'fr' ? "Améliore la posture et la mobilité" : "Improves posture and mobility"
   }, {
     icon: Scale,
@@ -363,7 +365,11 @@ const APropos = () => {
                 
                 <div className="relative z-10">
                   <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
-                    <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
+                    {benefit.image ? (
+                      <img src={benefit.image} alt="" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+                    ) : (
+                      <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
+                    )}
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                 </div>
