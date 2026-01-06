@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Dumbbell, Sparkles } from "lucide-react";
+import { X, Send, Loader2, Dumbbell, Sparkles, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
@@ -126,12 +126,21 @@ const ChatAssistant = () => {
 
   return (
     <>
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button - Animated Robot Avatar */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
-        whileHover={{ scale: 1.05 }}
+        className="fixed bottom-24 right-6 z-50 w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
+        animate={!isOpen ? { 
+          boxShadow: [
+            "0 0 0 0 hsla(var(--primary), 0.4)",
+            "0 0 0 12px hsla(var(--primary), 0)",
+          ]
+        } : {}}
+        transition={!isOpen ? { 
+          boxShadow: { duration: 1.5, repeat: Infinity, ease: "easeOut" }
+        } : {}}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -145,12 +154,28 @@ const ChatAssistant = () => {
             </motion.div>
           ) : (
             <motion.div
-              key="chat"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
+              key="robot"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              className="relative"
             >
-              <MessageCircle className="w-6 h-6 text-primary-foreground" />
+              {/* Robot Face */}
+              <div className="relative w-10 h-10 bg-primary-foreground/20 rounded-full flex items-center justify-center">
+                <Bot className="w-6 h-6 text-primary-foreground" />
+                {/* Animated Eyes/Glow Effect */}
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-primary-foreground/10"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </div>
+              {/* Online Indicator */}
+              <motion.div
+                className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-primary"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              />
             </motion.div>
           )}
         </AnimatePresence>
