@@ -22,11 +22,6 @@ import transformAfter3 from "@/assets/transform-after-3.jpg";
 import transformBefore4 from "@/assets/transform-before-4.jpg";
 import transformAfter4 from "@/assets/transform-after-4.jpg";
 
-// Screenshot images
-import screenshot1 from "@/assets/screenshot-1.jpg";
-import screenshot2 from "@/assets/screenshot-2.jpg";
-import screenshot3 from "@/assets/screenshot-3.jpg";
-import screenshot4 from "@/assets/screenshot-4.jpg";
 
 // Additional text reviews without images
 interface TextReview {
@@ -185,7 +180,7 @@ const transformationShowcases: TransformationShowcase[] = [
   { name: "Transformation 4", beforeImage: transformBefore4, afterImage: transformAfter4 },
 ];
 
-const screenshots = [screenshot1, screenshot2, screenshot3, screenshot4];
+
 
 const ReviewsSection = () => {
   const { language } = useLanguage();
@@ -481,153 +476,6 @@ const ReviewsSection = () => {
           </div>
         </motion.div>
 
-        {/* Vertical Stacked Banner Display */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-20"
-        >
-          <div className="text-center mb-10">
-            <motion.span 
-              className="inline-flex items-center gap-2 text-primary uppercase tracking-widest text-sm font-medium mb-4"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <MessageCircle className="w-4 h-4" />
-              {isFrench ? "Messages Clients" : "Client Messages"}
-            </motion.span>
-            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {isFrench ? "Optimise ton Parcours" : "Optimize Your Journey"}
-            </h3>
-            <p className="text-muted-foreground text-base max-w-xl mx-auto">
-              {isFrench
-                ? "Découvrez les retours authentiques de nos clients."
-                : "Discover authentic feedback from our clients."}
-            </p>
-          </div>
-          
-          {/* Vertical Stacked Banners */}
-          <div className="max-w-2xl mx-auto space-y-4 px-4">
-            {screenshots.map((screenshot, index) => {
-              const senderNames = ["Armand", "Magdalena", "Ricardo", "Ludivine"];
-              const messages = isFrench 
-                ? [
-                    "Coach incroyable, résultats au-delà de mes attentes ! 💪",
-                    "Ma transformation en 3 mois, je n'y croyais pas possible !",
-                    "Suivi personnalisé et motivation au top 🔥",
-                    "Merci Liam pour tout, je me sens enfin bien dans mon corps !"
-                  ]
-                : [
-                    "Incredible coach, results beyond my expectations! 💪",
-                    "My transformation in 3 months, I didn't think it was possible!",
-                    "Personalized follow-up and top motivation 🔥",
-                    "Thank you Liam for everything, I finally feel good in my body!"
-                  ];
-              const times = ["Hier, 09:41", "Lun, 14:32", "Sam, 18:15", "Jeu, 10:22"];
-              const timesEn = ["Yesterday, 09:41", "Mon, 14:32", "Sat, 18:15", "Thu, 10:22"];
-              
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.15,
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }}
-                  className="group cursor-pointer"
-                  onClick={() => setSelectedImage({ image: screenshot, title: `Message de ${senderNames[index]}` })}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                >
-                  <motion.div 
-                    className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-4 hover:border-primary/30 hover:bg-card transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
-                    initial={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
-                    whileInView={{ boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.15 + 0.3 }}
-                  >
-                    <div className="flex items-start gap-4">
-                      {/* Avatar */}
-                      <motion.div 
-                        className="relative flex-shrink-0"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.15 + 0.1, duration: 0.4 }}
-                      >
-                        <img
-                          src={screenshot}
-                          alt={senderNames[index]}
-                          className="w-16 h-16 rounded-xl object-cover ring-2 ring-border group-hover:ring-primary/50 transition-all"
-                        />
-                        <motion.div 
-                          className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-card"
-                          initial={{ scale: 0 }}
-                          whileInView={{ scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.15 + 0.3, type: "spring", stiffness: 500 }}
-                        />
-                      </motion.div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <motion.div 
-                          className="flex items-center justify-between mb-1"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.15 + 0.15 }}
-                        >
-                          <h4 className="font-semibold text-foreground">{senderNames[index]}</h4>
-                          <span className="text-xs text-muted-foreground">{isFrench ? times[index] : timesEn[index]}</span>
-                        </motion.div>
-                        <motion.p 
-                          className="text-sm text-muted-foreground line-clamp-2"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.15 + 0.2 }}
-                        >
-                          {messages[index]}
-                        </motion.p>
-                        <motion.div 
-                          className="flex items-center gap-2 mt-2"
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.15 + 0.25 }}
-                        >
-                          <div className="flex gap-0.5">
-                            {[...Array(5)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                initial={{ scale: 0, rotate: -180 }}
-                                whileInView={{ scale: 1, rotate: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 + 0.3 + i * 0.05, type: "spring", stiffness: 400 }}
-                              >
-                                <Star className="w-3 h-3 fill-gold text-gold" />
-                              </motion.div>
-                            ))}
-                          </div>
-                          <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                            <ZoomIn className="w-3 h-3" />
-                            {isFrench ? "Voir" : "View"}
-                          </span>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
 
         {/* View All Button */}
         <motion.div
