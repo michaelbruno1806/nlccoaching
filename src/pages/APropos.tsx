@@ -10,6 +10,7 @@ import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
 import spineIcon from "@/assets/spine-icon.png";
+import methodTraining from "@/assets/method-training.jpg";
 const APropos = () => {
   const {
     language
@@ -74,8 +75,18 @@ const APropos = () => {
       
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* Blurry background image on the left */}
+        <div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden">
+          <img 
+            src={methodTraining} 
+            alt="" 
+            className="w-full h-full object-cover blur-sm opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-background/80 to-background" />
+        </div>
+        
         {/* Background with gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/95 to-background">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent opacity-50" />
         </div>
         
