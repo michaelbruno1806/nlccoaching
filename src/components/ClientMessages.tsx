@@ -59,34 +59,51 @@ const ClientMessages = () => {
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.span 
+        {/* Rolling Header */}
+        <div className="mb-16 overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
+            >
+              <MessageCircle className="w-4 h-4" />
+              {isFrench ? "Messages Clients" : "Client Messages"}
+            </motion.span>
+          </motion.div>
+          
+          {/* Marquee container */}
+          <div className="relative w-full">
+            <div className="flex animate-marquee whitespace-nowrap">
+              {[...Array(4)].map((_, i) => (
+                <span key={i} className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mx-8">
+                  {isFrench ? "Ce Que Disent Nos Clients" : "What Our Clients Say"}{" "}
+                  <span className="text-gold">•</span>
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 text-gold uppercase tracking-[0.3em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
+            className="text-center mt-8"
           >
-            <MessageCircle className="w-4 h-4" />
-            {isFrench ? "Messages Clients" : "Client Messages"}
-          </motion.span>
-          
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {isFrench ? "Ce que nos clients" : "What our clients"}{" "}
-            <span className="text-gradient">{isFrench ? "nous disent" : "tell us"}</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {isFrench
-              ? "Des retours authentiques de nos clients après leurs séances"
-              : "Authentic feedback from our clients after their sessions"}
-          </p>
-        </motion.div>
+            <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-6" />
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              {isFrench
+                ? "Des retours authentiques de nos clients après leurs séances"
+                : "Authentic feedback from our clients after their sessions"}
+            </p>
+          </motion.div>
+        </div>
 
         {/* Messages Grid */}
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
@@ -124,20 +141,8 @@ const ClientMessages = () => {
                   </div>
                 </div>
                 
-                {/* Content */}
-                <div className="p-6 pt-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-gold" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{message.author}</p>
-                      <p className="text-muted-foreground text-xs">
-                        {isFrench ? "Message direct" : "Direct message"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {/* Simple bottom padding */}
+                <div className="pb-4" />
               </div>
             </motion.div>
           ))}
