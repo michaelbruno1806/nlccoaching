@@ -75,18 +75,8 @@ const APropos = () => {
       
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
-        {/* Blurry background image on the left */}
-        <div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden">
-          <img 
-            src={methodTraining} 
-            alt="" 
-            className="w-full h-full object-cover blur-sm opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-background/80 to-background" />
-        </div>
-        
         {/* Background with gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/95 to-background">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent opacity-50" />
         </div>
         
@@ -198,6 +188,16 @@ const APropos = () => {
 
       {/* Origine Section */}
       <section ref={origineRef} className="py-32 bg-gradient-to-b from-background via-card/40 to-background relative overflow-hidden">
+        {/* Blurry background image on the left */}
+        <div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden">
+          <img 
+            src={methodTraining} 
+            alt="" 
+            className="w-full h-full object-cover blur-sm opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/70 to-background" />
+        </div>
+        
         {/* Decorative elements */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/8 via-transparent to-transparent" />
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
