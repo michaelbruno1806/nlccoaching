@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Bot, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Dumbbell, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
@@ -169,7 +169,7 @@ const ChatAssistant = () => {
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center gap-3">
               <div className="relative w-11 h-11 bg-primary-foreground/20 rounded-full flex items-center justify-center ring-2 ring-primary-foreground/30">
-                <Bot className="w-6 h-6 text-primary-foreground" />
+                <Dumbbell className="w-6 h-6 text-primary-foreground" />
                 <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-primary-foreground animate-pulse" />
               </div>
               <div className="flex-1">
@@ -195,7 +195,7 @@ const ChatAssistant = () => {
                   className="flex items-end gap-2 justify-start"
                 >
                   <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
+                    <Dumbbell className="w-4 h-4 text-primary" />
                   </div>
                   <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-bl-sm bg-secondary text-secondary-foreground text-sm leading-relaxed">
                     <p className="font-medium mb-2">
@@ -219,7 +219,7 @@ const ChatAssistant = () => {
                 >
                   {message.role === "assistant" && (
                     <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Bot className="w-4 h-4 text-primary" />
+                      <Dumbbell className="w-4 h-4 text-primary" />
                     </div>
                   )}
                   <div
