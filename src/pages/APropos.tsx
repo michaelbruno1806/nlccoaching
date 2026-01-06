@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, Dumbbell, Activity, Bone, Heart, Shield, Users } from "lucide-react";
+import { ArrowRight, Target, Dumbbell, Scale, Bone, Zap, Footprints, Users, MoveVertical } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -38,22 +38,22 @@ const APropos = () => {
     margin: "-100px"
   });
   const benefits = [{
-    icon: Activity,
+    icon: MoveVertical,
     label: language === 'fr' ? "Améliore la posture et la mobilité" : "Improves posture and mobility"
   }, {
-    icon: Target,
+    icon: Scale,
     label: language === 'fr' ? "Favorise la perte de masse grasse" : "Promotes fat loss"
   }, {
     icon: Bone,
     label: language === 'fr' ? "Renforce la densité osseuse" : "Strengthens bone density"
   }, {
-    icon: Heart,
+    icon: Zap,
     label: language === 'fr' ? "Soutient la réathlétisation" : "Supports re-athletization"
   }, {
     icon: Dumbbell,
     label: language === 'fr' ? "Équilibre le métabolisme" : "Balances metabolism"
   }, {
-    icon: Shield,
+    icon: Footprints,
     label: language === 'fr' ? "Développe la confiance physique" : "Develops physical confidence"
   }];
   const philosophyItems = [{
