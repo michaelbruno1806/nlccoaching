@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { MessageCircle, Send } from "lucide-react";
+import { MessageCircle, Send, User, Mail, Phone, Target, UserCircle } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,26 +90,32 @@ const BookingFormSection = ({ serviceName, whatsappMessage }: BookingFormSection
                   <label className="block text-sm font-medium text-foreground/90 tracking-wide">
                     {isFrench ? "Nom complet" : "Full name"}
                   </label>
-                  <Input
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder={isFrench ? "Votre nom" : "Your name"}
-                    className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
-                    required
-                  />
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder={isFrench ? "Votre nom" : "Your name"}
+                      className="h-12 pl-12 bg-background border-border/50 focus:border-primary transition-colors"
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-foreground/90 tracking-wide">
                     Email
                   </label>
-                  <Input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder={isFrench ? "Votre email" : "Your email"}
-                    className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
-                    required
-                  />
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder={isFrench ? "Votre email" : "Your email"}
+                      className="h-12 pl-12 bg-background border-border/50 focus:border-primary transition-colors"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -117,13 +123,16 @@ const BookingFormSection = ({ serviceName, whatsappMessage }: BookingFormSection
                 <label className="block text-sm font-medium text-foreground/90 tracking-wide">
                   {isFrench ? "Téléphone" : "Phone"}
                 </label>
-                <Input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder={isFrench ? "Votre numéro" : "Your phone number"}
-                  className="h-12 bg-background border-border/50 focus:border-primary transition-colors"
-                />
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder={isFrench ? "Votre numéro" : "Your phone number"}
+                    className="h-12 pl-12 bg-background border-border/50 focus:border-primary transition-colors"
+                  />
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -131,33 +140,39 @@ const BookingFormSection = ({ serviceName, whatsappMessage }: BookingFormSection
                   <label className="block text-sm font-medium text-foreground/90 tracking-wide">
                     {isFrench ? "Objectif" : "Objective"}
                   </label>
-                  <select
-                    value={formData.objective}
-                    onChange={(e) => setFormData({ ...formData, objective: e.target.value })}
-                    className="w-full h-12 rounded-lg border border-border/50 bg-background px-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
-                    required
-                  >
-                    <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
-                    {objectives.map((obj) => (
-                      <option key={obj} value={obj} className="bg-background text-foreground">{obj}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <Target className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+                    <select
+                      value={formData.objective}
+                      onChange={(e) => setFormData({ ...formData, objective: e.target.value })}
+                      className="w-full h-12 rounded-lg border border-border/50 bg-background pl-12 pr-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
+                      required
+                    >
+                      <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
+                      {objectives.map((obj) => (
+                        <option key={obj} value={obj} className="bg-background text-foreground">{obj}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-foreground/90 tracking-wide">
                     {isFrench ? "Profil" : "Profile"}
                   </label>
-                  <select
-                    value={formData.profile}
-                    onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
-                    className="w-full h-12 rounded-lg border border-border/50 bg-background px-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
-                    required
-                  >
-                    <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
-                    {profiles.map((profile) => (
-                      <option key={profile} value={profile} className="bg-background text-foreground">{profile}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <UserCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+                    <select
+                      value={formData.profile}
+                      onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
+                      className="w-full h-12 rounded-lg border border-border/50 bg-background pl-12 pr-4 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
+                      required
+                    >
+                      <option value="" className="bg-background text-muted-foreground">{isFrench ? "Sélectionner" : "Select"}</option>
+                      {profiles.map((profile) => (
+                        <option key={profile} value={profile} className="bg-background text-foreground">{profile}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 
