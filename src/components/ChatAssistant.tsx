@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Loader2, Dumbbell, Sparkles } from "lucide-react";
+import { Bot, X, Send, Loader2, Dumbbell, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
@@ -150,7 +150,7 @@ const ChatAssistant = () => {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: -90, opacity: 0 }}
             >
-              <MessageCircle className="w-6 h-6 text-primary-foreground" />
+              <Bot className="w-6 h-6 text-primary-foreground" />
             </motion.div>
           )}
         </AnimatePresence>
