@@ -36,6 +36,7 @@ const Footer = () => {
         { label: t("Mentions Légales", "Legal Notice"), href: "/mentions-legales" },
         { label: t("RGPD & Cookies", "Privacy & Cookies"), href: "/rgpd-cookies" },
         { label: t("CGV", "Terms"), href: "/conditions-vente" },
+        { label: "Admin", href: "/admin/login" },
       ],
     },
   ];
