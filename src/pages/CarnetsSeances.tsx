@@ -19,26 +19,24 @@ const CarnetsSeances = () => {
       sessions: 5,
       price: 250,
       validity: isFrench ? "2 mois" : "2 months",
-      description: isFrench 
+      description: isFrench
         ? "Pour une remise en route ou un accompagnement court"
         : "For a restart or short-term support",
       pricePerSession: 50,
     },
     {
       sessions: 10,
-      price: 500,
+      price: 480,
       validity: isFrench ? "3 mois" : "3 months",
-      description: isFrench 
-        ? "Pour progresser sur la durée"
-        : "For long-term progress",
-      pricePerSession: 50,
+      description: isFrench ? "Pour progresser sur la durée" : "For long-term progress",
+      pricePerSession: 48,
       popular: true,
     },
     {
       sessions: 12,
       price: 540,
       validity: isFrench ? "4 mois" : "4 months",
-      description: isFrench 
+      description: isFrench
         ? "L'équivalent d'un suivi sur 3 mois à raison d'une séance par semaine"
         : "Equivalent to 3-month follow-up with one session per week",
       pricePerSession: 45,
@@ -49,30 +47,30 @@ const CarnetsSeances = () => {
     {
       icon: Calendar,
       title: isFrench ? "Grande Flexibilité" : "Great Flexibility",
-      description: isFrench 
+      description: isFrench
         ? "Tu planifies tes séances selon tes disponibilités, sans engagement mensuel."
-        : "You schedule your sessions according to your availability, without monthly commitment."
+        : "You schedule your sessions according to your availability, without monthly commitment.",
     },
     {
       icon: CreditCard,
       title: isFrench ? "Tarif Avantageux" : "Competitive Pricing",
-      description: isFrench 
+      description: isFrench
         ? "Profite de coachings personnalisés avec un tarif réduit grâce aux carnets."
-        : "Enjoy personalized coaching at a reduced rate thanks to the booklets."
+        : "Enjoy personalized coaching at a reduced rate thanks to the booklets.",
     },
     {
       icon: Sparkles,
       title: isFrench ? "Qualité Identique" : "Same Quality",
-      description: isFrench 
+      description: isFrench
         ? "Chaque séance est entièrement adaptée à ton niveau, ton objectif et ta progression."
-        : "Each session is fully adapted to your level, goal and progress."
+        : "Each session is fully adapted to your level, goal and progress.",
     },
     {
       icon: Clock,
       title: isFrench ? "Sans Engagement" : "No Commitment",
-      description: isFrench 
+      description: isFrench
         ? "Pas d'abonnement, tu choisis simplement la formule qui te correspond."
-        : "No subscription, you simply choose the package that suits you."
+        : "No subscription, you simply choose the package that suits you.",
     },
   ];
 
@@ -83,11 +81,7 @@ const CarnetsSeances = () => {
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src={serviceCarnets}
-            alt="Carnets de Séances"
-            className="w-full h-full object-cover"
-          />
+          <img src={serviceCarnets} alt="Carnets de Séances" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" />
         </div>
@@ -100,11 +94,7 @@ const CarnetsSeances = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <Link to="/formules">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <Button variant="ghost" className="mb-8 gap-2 hover:bg-primary/10">
                 <ArrowLeft className="w-4 h-4" />
                 {isFrench ? "Retour aux formules" : "Back to packages"}
@@ -118,7 +108,7 @@ const CarnetsSeances = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -126,8 +116,8 @@ const CarnetsSeances = () => {
             >
               Carnet
             </motion.span>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -137,8 +127,8 @@ const CarnetsSeances = () => {
               <br />
               <span className="text-foreground/90">DE SÉANCES</span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -195,9 +185,9 @@ const CarnetsSeances = () => {
                 transition={{ delay: index * 0.15 }}
                 whileHover={{ y: -8 }}
                 className={`relative bg-card border rounded-3xl p-8 ${
-                  pkg.popular 
-                    ? 'border-primary shadow-[0_0_40px_rgba(var(--primary),0.15)]' 
-                    : 'border-border/50 hover:border-primary/50'
+                  pkg.popular
+                    ? "border-primary shadow-[0_0_40px_rgba(var(--primary),0.15)]"
+                    : "border-border/50 hover:border-primary/50"
                 } transition-all duration-300`}
               >
                 {pkg.popular && (
@@ -230,17 +220,14 @@ const CarnetsSeances = () => {
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-6">
                   <Clock className="w-4 h-4 text-primary" />
-                  <span>{isFrench ? "Validité :" : "Validity:"} {pkg.validity}</span>
+                  <span>
+                    {isFrench ? "Validité :" : "Validity:"} {pkg.validity}
+                  </span>
                 </div>
 
-                <motion.a
-                  href="#contact"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="block"
-                >
-                  <Button 
-                    className={`w-full py-6 ${pkg.popular ? '' : 'bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground'}`}
+                <motion.a href="#contact" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="block">
+                  <Button
+                    className={`w-full py-6 ${pkg.popular ? "" : "bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground"}`}
                     variant={pkg.popular ? "default" : "ghost"}
                   >
                     {isFrench ? "Choisir" : "Choose"}
@@ -267,7 +254,7 @@ const CarnetsSeances = () => {
                 <br />
                 <span className="text-gradient">{isFrench ? "S'ENTRAÎNER À TON RYTHME" : "TRAINING AT YOUR PACE"}</span>
               </h2>
-              
+
               <div className="space-y-4 text-muted-foreground">
                 <p>
                   {isFrench
@@ -293,8 +280,8 @@ const CarnetsSeances = () => {
                 </h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-primary" />
-                    5 {isFrench ? "séances" : "sessions"} → 2 {isFrench ? "mois" : "months"}
+                    <Check className="w-4 h-4 text-primary" />5 {isFrench ? "séances" : "sessions"} → 2{" "}
+                    {isFrench ? "mois" : "months"}
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-primary" />
@@ -380,11 +367,7 @@ const CarnetsSeances = () => {
                 className="flex-shrink-0 w-64 md:w-80 snap-center"
               >
                 <div className="bg-card border border-border/50 rounded-2xl overflow-hidden">
-                  <img
-                    src={img}
-                    alt={`Transformation ${(index % 4) + 1}`}
-                    className="w-full h-auto object-cover"
-                  />
+                  <img src={img} alt={`Transformation ${(index % 4) + 1}`} className="w-full h-auto object-cover" />
                 </div>
               </motion.div>
             ))}
@@ -395,11 +378,7 @@ const CarnetsSeances = () => {
       {/* CTA */}
       <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-gold/5">
         <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <Sparkles className="w-12 h-12 text-primary mx-auto mb-6" />
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
               {isFrench ? "PRÊT À COMMENCER ?" : "READY TO START?"}
@@ -410,11 +389,7 @@ const CarnetsSeances = () => {
                 : "Choose your booklet and start your transformation today."}
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.a href="#contact" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Button size="lg" className="text-lg px-8 py-6">
                   {isFrench ? "Réserver maintenant" : "Book now"}
                 </Button>
