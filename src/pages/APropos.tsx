@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import aboutCoach from "@/assets/about-coach.png";
+import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
 const APropos = () => {
   const {
