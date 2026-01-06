@@ -160,9 +160,10 @@ const HeroSection = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex justify-center"
+          className="flex flex-col items-center -space-y-4"
         >
-          <ChevronDown className="w-8 h-8 text-gold/70" />
+          <ChevronDown className="w-8 h-8 text-gold/80" />
+          <ChevronDown className="w-8 h-8 text-gold/50" />
         </motion.div>
       </motion.div>
     </section>
