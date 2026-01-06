@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, ChevronDown } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-coach.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ScrollIndicator from "@/components/ScrollIndicator";
 
 const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: string; size: number }) => (
   <motion.div
@@ -151,21 +152,7 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center -space-y-4"
-        >
-          <ChevronDown className="w-8 h-8 text-gold/80" />
-          <ChevronDown className="w-8 h-8 text-gold/50" />
-        </motion.div>
-      </motion.div>
+      <ScrollIndicator />
     </section>
   );
 };
