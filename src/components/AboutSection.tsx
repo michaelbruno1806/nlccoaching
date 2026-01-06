@@ -78,7 +78,7 @@ const AboutSection = () => {
               delay: 0.4
             }} whileHover={{
               scale: 1.02
-            }} className="aspect-[3/4] rounded-2xl overflow-hidden mt-12 col-span-2 sm:col-span-1 max-w-sm mx-auto sm:max-w-none">
+            }} className="aspect-[3/4] rounded-2xl overflow-hidden mt-12 col-span-2 max-w-md mx-auto lg:max-w-full">
                 <motion.img alt="Focused training" className="w-full h-full object-cover" whileHover={{
                 scale: 1.1
               }} transition={{
