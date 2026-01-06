@@ -276,7 +276,7 @@ const ContactSection = () => {
             
             <div className="relative aspect-[16/9] md:aspect-[21/9]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80918.90367373695!2d2.9613697!3d50.6292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d579b3256e11%3A0x40af13e81646540!2sLille%2C%20France!5e0!3m2!1sfr!2sfr!4v1703700000000!5m2!1sfr!2sfr"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27106.99954957058!2d3.054048!3d50.6198166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d59f46ded225%3A0x1c0af141f1250860!2s59000%20Lille%2C%20France!5e1!3m2!1sen!2smu!4v1767680563895!5m2!1sen!2smu"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'grayscale(100%) contrast(1.1) brightness(0.9)' }}
