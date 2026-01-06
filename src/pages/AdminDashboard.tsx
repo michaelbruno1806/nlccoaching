@@ -207,7 +207,7 @@ const sectionConfigs = {
         key: "contact_whatsapp",
         label: "WhatsApp Number",
         icon: MessageCircle,
-        placeholder: "33612345678 (without +)",
+        placeholder: "33616224037 (without +)",
       },
     ],
     discoverySession: [
