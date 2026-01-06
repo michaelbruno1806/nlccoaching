@@ -140,7 +140,7 @@ const APropos = () => {
       {/* Mission Section */}
       <section id="mission" ref={missionRef} className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div initial={{
             opacity: 0,
             x: -50
@@ -149,15 +149,15 @@ const APropos = () => {
             x: 0
           } : {}} transition={{
             duration: 0.8
-          }} className="my-[181px]">
+          }} className="">
               <p className="font-display text-2xl font-bold leading-relaxed mb-6">
                 <span className="text-foreground my-[32px] text-4xl">{language === 'fr' ? 'Force. Discipline. ' : 'Strength. Discipline. '}</span>
                 <span className="text-gradient text-4xl">{language === 'fr' ? 'Résultats durables.' : 'Lasting Results.'}</span>
               </p>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-6 my-[48px]">
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 {language === 'fr' ? "Chez NLC Coaching, nous aidons les femmes et les hommes à retrouver un corps fort, mobile et performant." : "At NLC Coaching, we help women and men regain a strong, mobile and performing body."}
               </p>
-              <p className="text-muted-foreground text-lg leading-relaxed mt-[231px] my-[45px]">
+              <p className="text-muted-foreground text-lg leading-relaxed mt-8">
                 <span className="font-display text-4xl md:text-5xl font-bold text-gradient">{language === 'fr' ? 'Notre mission : ' : 'Our mission: '}</span>
                 {language === 'fr' ? "vous accompagner à reprendre le contrôle de votre corps, à perdre du poids durablement et à atteindre vos objectifs physiques sans blessure, grâce à un suivi structuré, exigeant et bienveillant." : "to help you regain control of your body, lose weight sustainably and achieve your physical goals without injury, through structured, demanding and caring support."}
               </p>
