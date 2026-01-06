@@ -13,6 +13,7 @@ import spineIcon from "@/assets/spine-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
+import coachExplaining from "@/assets/coach-explaining.jpg";
 const APropos = () => {
   const {
     language
@@ -179,7 +180,7 @@ const APropos = () => {
             delay: 0.2
           }} className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden">
-                <img src={coachSquat} alt="NLC Coaching Mission" className="w-full h-full object-cover" />
+                <img src={coachExplaining} alt="NLC Coaching Mission" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-gold/30 rounded-bl-2xl" />
               <div className="absolute -top-4 -right-4 w-24 h-24 border-r-2 border-t-2 border-gold/30 rounded-tr-2xl" />
