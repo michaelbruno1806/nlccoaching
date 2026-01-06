@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import heroImage from "@/assets/hero-coach.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -158,15 +158,11 @@ const HeroSection = () => {
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-gold/50 rounded-full flex justify-center pt-2"
+          className="flex justify-center"
         >
-          <motion.div 
-            className="w-1.5 h-1.5 bg-gold rounded-full"
-            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
+          <ChevronDown className="w-8 h-8 text-gold/70" />
         </motion.div>
       </motion.div>
     </section>
