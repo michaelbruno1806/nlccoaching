@@ -11,6 +11,8 @@ import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
 import spineIcon from "@/assets/spine-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
+import coachSquat from "@/assets/coach-squat.jpg";
+import coachThinking from "@/assets/coach-thinking.jpg";
 const APropos = () => {
   const {
     language
@@ -177,7 +179,7 @@ const APropos = () => {
             delay: 0.2
           }} className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden">
-                <img src={aboutCoach} alt="NLC Coaching Mission" className="w-full h-full object-cover" />
+                <img src={coachSquat} alt="NLC Coaching Mission" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-gold/30 rounded-bl-2xl" />
               <div className="absolute -top-4 -right-4 w-24 h-24 border-r-2 border-t-2 border-gold/30 rounded-tr-2xl" />
@@ -341,33 +343,54 @@ const APropos = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {benefits.map((benefit, index) => <motion.div key={index} initial={{
-            opacity: 0,
-            y: 30,
-            scale: 0.95
-          }} animate={forceInView ? {
-            opacity: 1,
-            y: 0,
-            scale: 1
-          } : {}} transition={{
-            duration: 0.5,
-            delay: index * 0.1
-          }} className="group relative bg-gradient-to-br from-card/80 to-card/40 border border-border/50 rounded-2xl p-8 hover:border-gold/40 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-300" />
-                
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
-                    {benefit.image ? (
-                      <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
-                    ) : benefit.icon ? (
-                      <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
-                    ) : null}
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            {/* Benefits Grid - Left side */}
+            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+              {benefits.map((benefit, index) => <motion.div key={index} initial={{
+              opacity: 0,
+              y: 30,
+              scale: 0.95
+            }} animate={forceInView ? {
+              opacity: 1,
+              y: 0,
+              scale: 1
+            } : {}} transition={{
+              duration: 0.5,
+              delay: index * 0.1
+            }} className="group relative bg-gradient-to-br from-card/80 to-card/40 border border-border/50 rounded-2xl p-8 hover:border-gold/40 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-300" />
+                  
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
+                      {benefit.image ? (
+                        <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
+                      ) : benefit.icon ? (
+                        <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
+                      ) : null}
+                    </div>
+                    <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
-                </div>
-              </motion.div>)}
+                </motion.div>)}
+            </div>
+            
+            {/* Image - Right side */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              animate={forceInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden lg:block"
+            >
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden sticky top-32">
+                <img
+                  src={coachThinking}
+                  alt={language === 'fr' ? "Coach en réflexion" : "Coach thinking"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -top-4 -right-4 w-20 h-20 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 border-l-2 border-b-2 border-gold/40 rounded-bl-xl" />
+            </motion.div>
           </div>
         </div>
       </section>
