@@ -246,9 +246,9 @@ const ReviewsSection = () => {
               muted
               loop
               playsInline
-              poster="/videos/hero-background.mp4"
+              poster="/videos/reviews-video.mp4"
             >
-              <source src="/videos/hero-background.mp4" type="video/mp4" />
+              <source src="/videos/reviews-video.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
           </div>
