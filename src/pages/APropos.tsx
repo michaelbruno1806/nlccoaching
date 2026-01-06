@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, Dumbbell, Scale, Bone, Zap, Footprints, Users, MoveVertical } from "lucide-react";
+import { ArrowRight, Dumbbell, Scale, Bone, Zap, Footprints, Users, MoveVertical } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
