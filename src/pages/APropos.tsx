@@ -187,138 +187,121 @@ const APropos = () => {
       </section>
 
       {/* Origine Section */}
-      <section ref={origineRef} className="py-32 bg-gradient-to-b from-background via-card/40 to-background relative overflow-hidden">
-        {/* Blurry background image on the left */}
-        <div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden">
-          <img 
-            src={methodTraining} 
-            alt="" 
-            className="w-full h-full object-cover blur-sm opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/70 to-background" />
-        </div>
-        
+      <section ref={origineRef} className="py-32 bg-background relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/8 via-transparent to-transparent" />
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
         
         <div className="container mx-auto px-6 relative z-10">
-          <motion.div initial={{
-          opacity: 0,
-          y: 30
-        }} animate={origineInView ? {
-          opacity: 1,
-          y: 0
-        } : {}} transition={{
-          duration: 0.8
-        }} className="max-w-5xl mx-auto">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <motion.span initial={{
-              opacity: 0,
-              y: 10
-            }} animate={origineInView ? {
-              opacity: 1,
-              y: 0
-            } : {}} transition={{
-              duration: 0.5
-            }} className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5">
-                {language === 'fr' ? 'Parcours' : 'Journey'}
-              </motion.span>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                {language === 'fr' ? 'Une méthode née du' : 'A method born from the'}{' '}
-                <span className="text-gradient">{language === 'fr' ? 'terrain' : 'field'}</span>
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full" />
-            </div>
-            
-            {/* Content Grid */}
-            <div className="grid lg:grid-cols-5 gap-12 items-start">
-              {/* Main Text Content */}
-              <div className="lg:col-span-3 space-y-8">
-                <motion.p initial={{
-                opacity: 0,
-                y: 20
-              }} animate={origineInView ? {
-                opacity: 1,
-                y: 0
-              } : {}} transition={{
-                duration: 0.6,
-                delay: 0.2
-              }} className="text-lg md:text-xl text-foreground/90 leading-relaxed font-light">
-                  {language === 'fr' ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur en force installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance." : "Founded by Noa Liam Politino, sports coach, physical trainer and strength coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."}
-                </motion.p>
-                
-                <motion.p initial={{
-                opacity: 0,
-                y: 20
-              }} animate={origineInView ? {
-                opacity: 1,
-                y: 0
-              } : {}} transition={{
-                duration: 0.6,
-                delay: 0.3
-              }} className="text-muted-foreground leading-relaxed">
-                  {language === 'fr' ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la rigueur, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique." : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with rigor, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."}
-                </motion.p>
-                
-                <motion.p initial={{
-                opacity: 0,
-                y: 20
-              }} animate={origineInView ? {
-                opacity: 1,
-                y: 0
-              } : {}} transition={{
-                duration: 0.6,
-                delay: 0.4
-              }} className="text-muted-foreground leading-relaxed">
-                  {language === 'fr' ? "Après avoir passé son BPJEPS AF à 18 ans, puis une première année en Licence STAPS à 19 ans, il a choisi la voie du DEJEPS dans les métiers de la force et de la coordination de projet sportif : une formation plus concrète, centrée sur la performance et l'entraînement." : "After passing his BPJEPS AF at 18, then a first year in a STAPS degree at 19, he chose the DEJEPS path in strength professions and sports project coordination: a more concrete training, focused on performance and training."}
-                </motion.p>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Text Content - Left Side */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              animate={origineInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              {/* Section Header */}
+              <div className="mb-8">
+                <motion.span 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={origineInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5 }}
+                  className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
+                >
+                  {language === 'fr' ? 'Parcours' : 'Journey'}
+                </motion.span>
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                  {language === 'fr' ? 'Une méthode née du' : 'A method born from the'}{' '}
+                  <span className="text-gradient">{language === 'fr' ? 'terrain' : 'field'}</span>
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold rounded-full" />
               </div>
               
-              {/* Achievements Card */}
-              <motion.div initial={{
-              opacity: 0,
-              x: 30
-            }} animate={origineInView ? {
-              opacity: 1,
-              x: 0
-            } : {}} transition={{
-              duration: 0.6,
-              delay: 0.5
-            }} className="lg:col-span-2">
-                <div className="bg-gradient-to-br from-card via-card/80 to-card/60 rounded-2xl p-8 border border-gold/20 shadow-xl shadow-black/20 relative overflow-hidden">
-                  {/* Card glow */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-3xl" />
-                  
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-6 flex items-center gap-3">
-                    <span className="w-8 h-px bg-gold" />
-                    {language === 'fr' ? "Expériences" : "Experience"}
-                  </h3>
-                  
-                  <ul className="space-y-5 relative z-10">
-                    <li className="flex items-start gap-4 group">
-                      <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
-                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-                        {language === 'fr' ? "Des particuliers souhaitant transformer leur silhouette" : "Individuals wishing to transform their figure"}
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-4 group">
-                      <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
-                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-                        {language === 'fr' ? "Entreprises (Orange, La Foir'Fouille) — ateliers Sport-Santé" : "Companies (Orange, La Foir'Fouille) — Sport-Health workshops"}
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-4 group">
-                      <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
-                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-                        {language === 'fr' ? "Athlètes préparés au Championnat de France" : "Athletes prepared for French Championship"}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </motion.div>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={origineInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-lg md:text-xl text-foreground/90 leading-relaxed font-light"
+              >
+                {language === 'fr' ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur en force installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance." : "Founded by Noa Liam Politino, sports coach, physical trainer and strength coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."}
+              </motion.p>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={origineInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-muted-foreground leading-relaxed"
+              >
+                {language === 'fr' ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la rigueur, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique." : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with rigor, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."}
+              </motion.p>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={origineInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-muted-foreground leading-relaxed"
+              >
+                {language === 'fr' ? "Après avoir passé son BPJEPS AF à 18 ans, puis une première année en Licence STAPS à 19 ans, il a choisi la voie du DEJEPS dans les métiers de la force et de la coordination de projet sportif : une formation plus concrète, centrée sur la performance et l'entraînement." : "After passing his BPJEPS AF at 18, then a first year in a STAPS degree at 19, he chose the DEJEPS path in strength professions and sports project coordination: a more concrete training, focused on performance and training."}
+              </motion.p>
+            </motion.div>
+            
+            {/* Image - Right Side */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              animate={origineInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative"
+            >
+              <div className="aspect-[4/5] rounded-lg overflow-hidden">
+                <img
+                  src={methodTraining}
+                  alt={language === 'fr' ? "Coach en action" : "Coach in action"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Corner decorations */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-gold/40 rounded-bl-xl" />
+            </motion.div>
+          </div>
+          
+          {/* Experiences Card - Below */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={origineInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-20 max-w-3xl"
+          >
+            <div className="bg-gradient-to-br from-card via-card/80 to-card/60 rounded-2xl p-8 border border-gold/20 shadow-xl shadow-black/20 relative overflow-hidden">
+              {/* Card glow */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-3xl" />
+              
+              <h3 className="font-display text-xl font-semibold text-foreground mb-6 flex items-center gap-3">
+                <span className="w-8 h-px bg-gold" />
+                {language === 'fr' ? "Expériences" : "Experience"}
+              </h3>
+              
+              <ul className="space-y-5 relative z-10">
+                <li className="flex items-start gap-4 group">
+                  <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
+                  <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                    {language === 'fr' ? "Des particuliers souhaitant transformer leur silhouette" : "Individuals wishing to transform their figure"}
+                  </span>
+                </li>
+                <li className="flex items-start gap-4 group">
+                  <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
+                  <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                    {language === 'fr' ? "Entreprises (Orange, La Foir'Fouille) — ateliers Sport-Santé" : "Companies (Orange, La Foir'Fouille) — Sport-Health workshops"}
+                  </span>
+                </li>
+                <li className="flex items-start gap-4 group">
+                  <span className="flex-shrink-0 w-2 h-2 rounded-full bg-gold mt-2.5 group-hover:scale-150 transition-transform" />
+                  <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                    {language === 'fr' ? "Athlètes préparés au Championnat de France" : "Athletes prepared for French Championship"}
+                  </span>
+                </li>
+              </ul>
             </div>
           </motion.div>
         </div>
