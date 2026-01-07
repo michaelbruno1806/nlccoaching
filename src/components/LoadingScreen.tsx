@@ -106,7 +106,8 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
-                className="w-[220px] h-auto md:w-[300px] lg:w-[350px] relative z-10 drop-shadow-[0_0_30px_rgba(34,139,34,0.3)]"
+                className="w-[320px] h-auto md:w-[450px] lg:w-[550px] relative z-10 drop-shadow-[0_0_40px_rgba(34,139,34,0.4)]"
+                style={{ mixBlendMode: 'lighten' }}
                 initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
                 animate={{ 
                   scale: 1,

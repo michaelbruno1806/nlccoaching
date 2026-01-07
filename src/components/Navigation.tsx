@@ -91,7 +91,7 @@ const Navigation = () => {
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-7 sm:h-10 md:h-12 w-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
+                className="h-10 sm:h-14 md:h-16 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[250px]"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
