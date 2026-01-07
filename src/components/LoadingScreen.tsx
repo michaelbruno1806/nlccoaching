@@ -14,7 +14,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
     if (isVisible) {
       const duration = 2000;
       const interval = 30;
-      const increment = 3000 / (duration / interval);
+      const increment = 2000 / (duration / interval);
 
       const progressTimer = setInterval(() => {
         setProgress((prev) => {
