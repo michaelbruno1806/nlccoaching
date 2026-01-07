@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage, AnimatedText } from "@/contexts/LanguageContext";
-import nlcLogo from "@/assets/nlc-logo-new.svg";
+import nlcLogo from "@/assets/nlc-coaching-logo.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,8 +61,9 @@ const Navigation = () => {
 
   const navLinks = [
     { href: "/a-propos", fr: "À propos de\nNLC Coaching", en: "About\nNLC Coaching", multiline: true },
-    { href: "/#contact", fr: "Contact", en: "Contact" },
+    { href: "/formules", fr: "Les Formules", en: "Programs" },
     { href: "/#reviews", fr: "Avis Clients", en: "Client Reviews" },
+    { href: "/#contact", fr: "Contact", en: "Contact" },
   ];
 
   const serviceLinks = [
@@ -118,16 +119,6 @@ const Navigation = () => {
                   </motion.div>
                 );
               })}
-
-              {/* Formules Direct Link */}
-              <motion.div whileHover={{ y: -2 }}>
-                <button
-                  onClick={() => handleNavClick('/formules')}
-                  className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer"
-                >
-                  <AnimatedText fr="Les Formules" en="Programs" />
-                </button>
-              </motion.div>
 
               <LanguageToggle />
               <Button variant="gold" size="sm" onClick={() => handleNavClick("/#contact")}>
@@ -212,24 +203,7 @@ const Navigation = () => {
                 );
               })}
 
-              {/* Mobile Formules Direct Link */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ 
-                  delay: 0.1 + navLinks.length * 0.08,
-                  duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-              >
-                <button
-                  onClick={() => handleNavClick('/formules')}
-                  className="text-xl font-display text-gold hover:text-gold/80 transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer"
-                >
-                  <AnimatedText fr="Les Formules" en="Programs" />
-                </button>
-              </motion.div>
+              {/* Mobile Get Started Button */}
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}

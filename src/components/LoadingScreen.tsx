@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import logoImage from "@/assets/nlc-logo-new.svg";
+import logoImage from "@/assets/nlc-coaching-logo.png";
 
 interface LoadingScreenProps {
   isVisible: boolean;
@@ -105,15 +105,20 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               
               <motion.img
                 src={logoImage}
-                alt="NL Coaching Logo"
-                className="w-[280px] h-auto md:w-[380px] lg:w-[420px] relative z-10"
+                alt="NLC Coaching Logo"
+                className="w-[220px] h-auto md:w-[300px] lg:w-[350px] relative z-10 drop-shadow-[0_0_30px_rgba(34,139,34,0.3)]"
+                initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
                 animate={{ 
-                  y: [0, -4, 0],
+                  scale: 1,
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  y: [0, -6, 0],
                 }}
                 transition={{ 
-                  duration: 4,
-                  ease: "easeInOut",
-                  repeat: Infinity,
+                  scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                  opacity: { duration: 0.6 },
+                  filter: { duration: 0.8 },
+                  y: { duration: 3, ease: "easeInOut", repeat: Infinity, delay: 0.8 },
                 }}
               />
             </motion.div>
