@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import nlcLogo from "@/assets/nlc-logo-new.svg";
+import nlcLogo from "@/assets/nlc-coaching-logo.png";
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/noaliam_coaching/", label: "Instagram" },
@@ -54,7 +54,7 @@ const Footer = () => {
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-14 w-auto"
+                className="h-20 md:h-24 w-auto"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
