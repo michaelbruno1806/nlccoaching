@@ -12,12 +12,12 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
 
   useEffect(() => {
     if (isVisible) {
-      const duration = 1200;
+      const duration = 3000;
       const interval = 30;
-      const increment = 100 / (duration / interval);
-      
+      const increment = 3000 / (duration / interval);
+
       const progressTimer = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(progressTimer);
             return 100;
@@ -47,22 +47,22 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Ambient glow - green accent */}
-          <motion.div 
+          <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[150px]"
-            style={{ backgroundColor: 'rgba(34, 139, 34, 0.15)' }}
+            style={{ backgroundColor: "rgba(34, 139, 34, 0.15)" }}
             animate={{
               opacity: [0.1, 0.25, 0.1],
               scale: [1, 1.1, 1],
             }}
-            transition={{ 
-              duration: 4, 
+            transition={{
+              duration: 4,
               ease: "easeInOut",
-              repeat: Infinity
+              repeat: Infinity,
             }}
           />
 
           {/* Main content */}
-          <motion.div 
+          <motion.div
             className="relative z-10 flex flex-col items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -73,40 +73,40 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
               className="relative"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ 
-                duration: 0.8, 
+              transition={{
+                duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
-                delay: 0.2
+                delay: 0.2,
               }}
             >
               {/* Subtle glow behind logo */}
               <motion.div
                 className="absolute inset-0 blur-2xl opacity-30"
-                style={{ 
-                  background: 'radial-gradient(ellipse at center, rgba(34, 139, 34, 0.4) 0%, transparent 70%)',
+                style={{
+                  background: "radial-gradient(ellipse at center, rgba(34, 139, 34, 0.4) 0%, transparent 70%)",
                 }}
-                animate={{ 
+                animate={{
                   opacity: [0.2, 0.35, 0.2],
                 }}
-                transition={{ 
+                transition={{
                   duration: 3,
                   ease: "easeInOut",
                   repeat: Infinity,
                 }}
               />
-              
+
               <motion.img
                 src={logoImage}
                 alt="NLC Coaching Logo"
                 className="w-[350px] h-auto md:w-[500px] lg:w-[600px] relative z-10"
                 initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-                animate={{ 
+                animate={{
                   scale: 1,
                   opacity: 1,
                   filter: "blur(0px)",
                   y: [0, -6, 0],
                 }}
-                transition={{ 
+                transition={{
                   scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
                   opacity: { duration: 0.6 },
                   filter: { duration: 0.8 },
@@ -116,7 +116,7 @@ const LoadingScreen = ({ isVisible, onComplete }: LoadingScreenProps) => {
             </motion.div>
 
             {/* Progress bar */}
-            <motion.div 
+            <motion.div
               className="w-32 md:w-40 mt-12"
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
