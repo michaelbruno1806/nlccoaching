@@ -24,7 +24,7 @@ const PhilosophySection = () => {
     },
     {
       icon: Users,
-      title: getContent("philosophy_2_title") || t("Rigueur", "Rigor"),
+      title: getContent("philosophy_2_title") || t("Discipline", "Discipline"),
       description:
         getContent("philosophy_2_description") ||
         t(
@@ -69,11 +69,11 @@ const PhilosophySection = () => {
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             {t("Une approche qui allie", "An approach that combines")}{" "}
-            <span className="text-gradient">{t("performance, rigueur", "performance, rigor")}</span> {t("et bienveillance", "and kindness")}
+            <span className="text-gradient">{t("performance, discipline", "performance, discipline")}</span> {t("et bienveillance", "and kindness")}
           </h2>
           <p className="text-muted-foreground text-lg">
             {t(
-              "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, rigueur et bienveillance. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
+              "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, discipline et bienveillance. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
               "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and kindness. Each coaching is designed to enable sustainable and measurable progress.",
             )}
           </p>
