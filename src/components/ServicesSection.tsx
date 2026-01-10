@@ -73,7 +73,7 @@ const ServicesSection = () => {
             Services
           </motion.span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wider">
-            {t("MES PROGRAMMES", "MY PROGRAMS")}
+            {t("NOS PROGRAMMES", "OUR PROGRAMS")}
           </h2>
           <p className="text-white text-lg">
             {t(
