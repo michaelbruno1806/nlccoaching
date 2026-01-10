@@ -20,11 +20,11 @@ const CoachSection = () => {
   } = useSiteContent();
   const stats = [{
     icon: Award,
-    value: getContent("coach_stat_1_value") || "500+",
+    value: getContent("coach_stat_1_value") || "350+",
     label: getContent("coach_stat_1_label") || t("Clients transformés", "Clients transformed")
   }, {
     icon: Users,
-    value: getContent("coach_stat_2_value") || "10+",
+    value: getContent("coach_stat_2_value") || "6+",
     label: getContent("coach_stat_2_label") || t("Années d'expérience", "Years of experience")
   }, {
     icon: Calendar,
@@ -62,7 +62,7 @@ const CoachSection = () => {
               {getContent("coach_bio_1") || t("J'accompagne chacun vers l'équilibre et la performance. Mon approche est simple : transformer les défis en opportunités et vous guider vers votre meilleure version.", "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version.")}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              {getContent("coach_bio_2") || t("Avec plus de 10 ans d'expérience dans le coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.", "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance.")}
+              {getContent("coach_bio_2") || t("Depuis 2019 dans le domaine du coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.", "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance.")}
             </p>
 
             {/* Stats */}
