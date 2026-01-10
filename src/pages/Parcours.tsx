@@ -256,8 +256,8 @@ const Parcours = () => {
                 className="text-muted-foreground leading-relaxed"
               >
                 {language === 'fr'
-                  ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la rigueur, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique."
-                  : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with rigor, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."
+                  ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la discipline, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique."
+                  : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with discipline, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."
                 }
               </motion.p>
               
@@ -375,7 +375,7 @@ const Parcours = () => {
               {language === 'fr' ? 'Notre Philosophie' : 'Our Philosophy'}
             </motion.span>
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-              {language === 'fr' ? 'Performance, rigueur,' : 'Performance, rigor,'}{' '}
+              {language === 'fr' ? 'Performance, discipline,' : 'Performance, discipline,'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'bienveillance' : 'care'}</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto">

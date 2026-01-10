@@ -66,14 +66,14 @@ const APropos = () => {
     title: language === 'fr' ? "Performance" : "Performance",
     description: language === 'fr' ? "Renforcer la force, la mobilité et la technique sans blessure." : "Strengthen force, mobility and technique without injury."
   }, {
-    title: language === 'fr' ? "Rigueur" : "Rigor",
+    title: language === 'fr' ? "Discipline" : "Discipline",
     description: language === 'fr' ? "Programmes ajustés à votre niveau et vos objectifs." : "Programs adjusted to your level and goals."
   }, {
     title: language === 'fr' ? "Bienveillance" : "Benevolence",
     description: language === 'fr' ? "Progression concrète, chiffrée et visible." : "Concrete, quantified and visible progression."
   }];
   return <div className="min-h-screen bg-background">
-      <SEOHead title="À Propos - Notre Histoire et Philosophie" description="Découvrez NLC Coaching, fondé par Noa Liam Politino. Coach sportif et préparateur physique à Wasquehal, métropole lilloise. Notre mission : performance, rigueur et bienveillance." keywords="Noa Liam Politino, coach sportif Wasquehal, préparateur physique Lille, histoire NLC Coaching, philosophie coaching" />
+      <SEOHead title="À Propos - Notre Histoire et Philosophie" description="Découvrez NLC Coaching, fondé par Noa Liam Politino. Coach sportif et préparateur physique à Wasquehal, métropole lilloise. Notre mission : performance, discipline et bienveillance." keywords="Noa Liam Politino, coach sportif Wasquehal, préparateur physique Lille, histoire NLC Coaching, philosophie coaching" />
       <Navigation />
       
       {/* Hero Section */}
@@ -236,7 +236,7 @@ const APropos = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-muted-foreground leading-relaxed"
               >
-                {language === 'fr' ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la rigueur, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique." : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with rigor, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."}
+                {language === 'fr' ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la discipline, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique." : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with discipline, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."}
               </motion.p>
               
               <motion.p 
@@ -402,7 +402,7 @@ const APropos = () => {
               {language === 'fr' ? 'Notre Philosophie' : 'Our Philosophy'}
             </motion.span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              {language === 'fr' ? 'Performance, rigueur,' : 'Performance, rigor,'}{' '}
+              {language === 'fr' ? 'Performance, discipline,' : 'Performance, discipline,'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'bienveillance.' : 'caring.'}</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-8" />
