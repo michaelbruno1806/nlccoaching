@@ -22,7 +22,7 @@ const CoachSection = () => {
     },
     {
       icon: Users,
-      value: getContent("coach_stat_2_value") || "6+",
+      value: getContent("coach_stat_2_value") || "10+",
       label: getContent("coach_stat_2_label") || t("Années d'expérience", "Years of experience"),
     },
     {
