@@ -105,7 +105,7 @@ const Navigation = () => {
                   <motion.div key={link.href} whileHover={{ y: -2 }}>
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="text-sm font-medium text-white hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
+                      className="text-xs font-medium text-white hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
                     >
                       {link.multiline ? (
                         <span className="flex flex-col">
