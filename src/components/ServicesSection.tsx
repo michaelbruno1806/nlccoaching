@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { Button } from "@/components/ui/button";
@@ -15,37 +15,41 @@ const ServicesSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
   const { getContent } = useSiteContent();
+  const navigate = useNavigate();
 
   const services = [
     {
       category: t("Programme", "Program"),
-      titleLine1: t("PROGRAMME", "PERSONALIZED"),
-      titleLine2: t("PERSONNALISÉ", "PROGRAM"),
+      titleLine1: t("SUIVI", "PERSONALIZED"),
+      titleLine2: t("PERSONNALISÉ", "COACHING"),
       description: getContent("service_1_description") || t(
-        "Accompagnement sur mesure pour atteindre vos objectifs spécifiques.",
-        "Tailored support to achieve your specific goals."
+        "Accompagnement sur mesure pour atteindre vos objectifs spécifiques. Un programme unique créé pour vous.",
+        "Tailored support to achieve your specific goals. A unique program created for you."
       ),
       image: serviceProgram,
+      link: "/suivi-personnalise",
     },
     {
       category: t("Programme", "Program"),
       titleLine1: t("COACHING", "INDIVIDUAL"),
       titleLine2: t("INDIVIDUEL", "COACHING"),
       description: getContent("service_2_description") || t(
-        "Séances intensives pour maximiser votre potentiel personnel.",
-        "Intensive sessions to maximize your personal potential."
+        "Séances intensives pour maximiser votre potentiel personnel. Une attention exclusive à votre progression.",
+        "Intensive sessions to maximize your personal potential. Exclusive attention to your progress."
       ),
       image: serviceIndividual,
+      link: "/coaching-individuel",
     },
     {
       category: t("Groupes", "Groups"),
       titleLine1: "SMALL",
       titleLine2: "GROUPS",
       description: getContent("service_3_description") || t(
-        "Jusqu'à 4 personnes pour un suivi de qualité.",
-        "Up to 4 people for quality support."
+        "Jusqu'à 4 personnes pour un suivi de qualité. L'énergie du groupe avec l'attention du coaching privé.",
+        "Up to 4 people for quality support. Group energy with private coaching attention."
       ),
       image: serviceGroup,
+      link: "/small-groupes",
     },
   ];
 
@@ -74,7 +78,7 @@ const ServicesSection = () => {
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wider">
             {t("MES PROGRAMMES", "MY PROGRAMS")}
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-white text-lg">
             {t(
               "Des solutions adaptées à vos objectifs personnels et professionnels.",
               "Solutions tailored to your personal and professional goals."
@@ -89,9 +93,11 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 + index * 0.15 }}
-              className="group"
+              className="group cursor-pointer"
+              onClick={() => navigate(service.link)}
+              whileHover={{ y: -8 }}
             >
-              <div className="relative bg-card/30 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500">
+              <div className="relative bg-card/30 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--primary),0.2)]">
                 {/* Content */}
                 <div className="p-6 lg:p-8 flex-grow">
                   <span className="text-primary text-sm font-medium tracking-wide">
@@ -103,7 +109,7 @@ const ServicesSection = () => {
                     <span className="text-primary block">{service.titleLine2}</span>
                   </h3>
                   
-                  <p className="text-muted-foreground mt-4 text-sm lg:text-base leading-relaxed">
+                  <p className="text-white/90 mt-4 text-sm lg:text-base leading-relaxed">
                     {service.description}
                   </p>
                 </div>

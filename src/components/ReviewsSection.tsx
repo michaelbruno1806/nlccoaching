@@ -35,36 +35,36 @@ interface TextReview {
 const textReviews: TextReview[] = [
   {
     name: "Thomas",
-    review: "Liam est un coach exceptionnel. Il m'a aidé à perdre 10kg en 3 mois tout en gagnant en muscle. Son approche est professionnelle et motivante.",
-    reviewEn: "Liam is an exceptional coach. He helped me lose 10kg in 3 months while gaining muscle. His approach is professional and motivating.",
+    review: "Noa-Liam est un coach exceptionnel. Il m'a aidé à perdre 10kg en 3 mois tout en gagnant en muscle. Son approche est professionnelle et motivante.",
+    reviewEn: "Noa-Liam is an exceptional coach. He helped me lose 10kg in 3 months while gaining muscle. His approach is professional and motivating.",
     highlight: "-10kg en 3 mois",
     highlightEn: "-10kg in 3 months"
   },
   {
     name: "Sophie",
-    review: "J'étais sceptique au début mais les résultats parlent d'eux-mêmes. Liam a su adapter les séances à mes besoins et me pousser à dépasser mes limites.",
-    reviewEn: "I was skeptical at first but the results speak for themselves. Liam knew how to adapt the sessions to my needs and push me beyond my limits.",
+    review: "J'étais sceptique au début mais les résultats parlent d'eux-mêmes. Noa-Liam a su adapter les séances à mes besoins et me pousser à dépasser mes limites.",
+    reviewEn: "I was skeptical at first but the results speak for themselves. Noa-Liam knew how to adapt the sessions to my needs and push me beyond my limits.",
     highlight: "Transformation totale",
     highlightEn: "Total transformation"
   },
   {
     name: "Antoine",
-    review: "Le suivi nutritionnel combiné aux entraînements m'a permis d'atteindre mes objectifs plus rapidement que prévu. Merci Liam!",
-    reviewEn: "The nutritional follow-up combined with training allowed me to reach my goals faster than expected. Thank you Liam!",
+    review: "Le suivi nutritionnel combiné aux entraînements m'a permis d'atteindre mes objectifs plus rapidement que prévu. Merci Noa-Liam!",
+    reviewEn: "The nutritional follow-up combined with training allowed me to reach my goals faster than expected. Thank you Noa-Liam!",
     highlight: "Objectifs dépassés",
     highlightEn: "Goals exceeded"
   },
   {
     name: "Julie",
-    review: "Enfin un coach qui comprend les femmes! Liam m'a aidée à tonifier mon corps sans devenir trop musclée. Exactement ce que je voulais.",
-    reviewEn: "Finally a coach who understands women! Liam helped me tone my body without becoming too muscular. Exactly what I wanted.",
+    review: "Enfin un coach qui comprend les femmes! Noa-Liam m'a aidée à tonifier mon corps sans devenir trop musclée. Exactement ce que je voulais.",
+    reviewEn: "Finally a coach who understands women! Noa-Liam helped me tone my body without becoming too muscular. Exactly what I wanted.",
     highlight: "Corps tonifié",
     highlightEn: "Toned body"
   },
   {
     name: "Marc",
-    review: "Après une blessure, je pensais ne plus pouvoir faire de sport. Liam m'a accompagné dans ma rééducation et aujourd'hui je suis plus fort qu'avant!",
-    reviewEn: "After an injury, I thought I couldn't exercise anymore. Liam accompanied me in my rehabilitation and today I'm stronger than before!",
+    review: "Après une blessure, je pensais ne plus pouvoir faire de sport. Noa-Liam m'a accompagné dans ma rééducation et aujourd'hui je suis plus fort qu'avant!",
+    reviewEn: "After an injury, I thought I couldn't exercise anymore. Noa-Liam accompanied me in my rehabilitation and today I'm stronger than before!",
     highlight: "Retour en force",
     highlightEn: "Back stronger"
   },
@@ -77,15 +77,15 @@ const textReviews: TextReview[] = [
   },
   {
     name: "Lucas",
-    review: "Liam m'a préparé pour ma première compétition de powerlifting. Son expertise technique est impressionnante. J'ai fini sur le podium!",
-    reviewEn: "Liam prepared me for my first powerlifting competition. His technical expertise is impressive. I finished on the podium!",
+    review: "Noa-Liam m'a préparé pour ma première compétition de powerlifting. Son expertise technique est impressionnante. J'ai fini sur le podium!",
+    reviewEn: "Noa-Liam prepared me for my first powerlifting competition. His technical expertise is impressive. I finished on the podium!",
     highlight: "Podium 🏆",
     highlightEn: "Podium 🏆"
   },
   {
     name: "Emma",
-    review: "Ce qui me plaît avec Liam, c'est qu'il ne vend pas du rêve. Il est honnête, direct et les résultats suivent. Un vrai professionnel.",
-    reviewEn: "What I like about Liam is that he doesn't sell dreams. He's honest, direct and the results follow. A true professional.",
+    review: "Ce qui me plaît avec Noa-Liam, c'est qu'il ne vend pas du rêve. Il est honnête, direct et les résultats suivent. Un vrai professionnel.",
+    reviewEn: "What I like about Noa-Liam is that he doesn't sell dreams. He's honest, direct and the results follow. A true professional.",
     highlight: "Pro et honnête",
     highlightEn: "Pro and honest"
   }
@@ -211,43 +211,15 @@ const ReviewsSection = () => {
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             <span className="text-gradient">
-              {isFrench ? "Performance" : "Performance"}
+              {isFrench ? "Témoignages" : "Testimonials"}
             </span>{" "}
             <span className="text-foreground">&</span>{" "}
             <span className="text-gradient">
-              {isFrench ? "Transformation" : "Transformation"}
+              {isFrench ? "Résultats" : "Results"}
             </span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {isFrench
-              ? "Nos clients partagent leur expérience, leur progression et la transformation qu'ils ont vécue à nos côtés."
-              : "Our clients share their experience, progress and the transformation they experienced with us."}
-          </p>
         </motion.div>
 
-        {/* Video Section - Auto Play */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-20 max-w-4xl mx-auto"
-        >
-          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/30">
-            <video
-              ref={videoRef}
-              className="w-full aspect-video object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/videos/reviews-video.mp4"
-            >
-              <source src="/videos/reviews-video.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-          </div>
-        </motion.div>
 
         {/* Dynamic Text Reviews Marquee */}
         <motion.div
@@ -259,7 +231,7 @@ const ReviewsSection = () => {
         >
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8 flex items-center justify-center gap-3">
             <MessageCircle className="w-7 h-7 text-primary" />
-            {isFrench ? "Ce Que Disent Nos Clients" : "What Our Clients Say"}
+            {isFrench ? "Ce Que Pensent Les Autres.." : "What Others Think.."}
           </h3>
           
           {/* Animated marquee of text reviews */}
@@ -463,13 +435,6 @@ const ReviewsSection = () => {
                   </div>
                   {/* Center divider */}
                   <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-gold/50" />
-                  {/* Zoom icon on hover */}
-                  <div 
-                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
-                    onClick={() => setSelectedImage({ image: showcase.afterImage, title: showcase.name })}
-                  >
-                    <ZoomIn className="w-8 h-8 text-white" />
-                  </div>
                 </div>
               </motion.div>
             ))}
@@ -514,7 +479,7 @@ const ReviewsSection = () => {
               <div className="text-3xl md:text-4xl font-bold text-gradient mb-2">
                 {stat.value}
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-sm text-white/80">{stat.label}</div>
             </div>
           ))}
         </motion.div>

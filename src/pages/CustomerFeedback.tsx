@@ -174,7 +174,7 @@ const CustomerFeedback = () => {
                 {isFrench ? "confiance" : "trust us"}
               </span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-white text-lg max-w-2xl mx-auto">
               {isFrench
                 ? "Découvrez les témoignages de nos clients et leurs transformations exceptionnelles."
                 : "Discover our clients' testimonials and their exceptional transformations."}
