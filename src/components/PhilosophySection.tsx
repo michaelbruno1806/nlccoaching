@@ -69,7 +69,7 @@ const PhilosophySection = () => {
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             {t("Une approche qui allie", "An approach that combines")}{" "}
-            <span className="text-gradient">performance</span> {t("et bien-être", "and well-being")}
+            <span className="text-gradient">performance</span> {t("et bienveillance", "and kindness")}
           </h2>
           <p className="text-muted-foreground text-lg">
             {t(
