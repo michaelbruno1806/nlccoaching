@@ -91,7 +91,7 @@ const Navigation = () => {
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-10 sm:h-14 md:h-16 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[250px]"
+                className="h-14 sm:h-20 md:h-24 w-auto max-w-[180px] sm:max-w-[260px] md:max-w-[320px]"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
@@ -105,7 +105,7 @@ const Navigation = () => {
                   <motion.div key={link.href} whileHover={{ y: -2 }}>
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
+                      className="text-base font-medium text-white hover:text-gold transition-colors duration-300 uppercase tracking-wider bg-transparent border-none cursor-pointer text-center leading-tight"
                     >
                       {link.multiline ? (
                         <span className="flex flex-col">
@@ -188,7 +188,7 @@ const Navigation = () => {
                   >
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="text-xl font-display text-foreground hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer text-center"
+                      className="text-2xl font-display text-white hover:text-gold transition-colors uppercase tracking-wider bg-transparent border-none cursor-pointer text-center"
                     >
                       {link.multiline ? (
                         <span className="flex flex-col leading-tight">
