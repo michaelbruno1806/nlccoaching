@@ -5,9 +5,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import serviceIndividual from "@/assets/service-individual.jpg";
+import serviceGroup from "@/assets/service-group.jpg";
 import serviceProgram from "@/assets/service-program.jpg";
-import serviceIndividual from "@/assets/service-individual-new.jpg";
-import serviceGroup from "@/assets/service-group-new.jpg";
 import serviceCarnets from "@/assets/service-carnets.jpg";
 
 const Formules = () => {
@@ -15,8 +15,8 @@ const Formules = () => {
   const isFrench = language === "fr";
 
   // SEO content
-  const seoTitle = isFrench 
-    ? "Formules & Tarifs - Coaching Sportif Lille" 
+  const seoTitle = isFrench
+    ? "Formules & Tarifs - Coaching Sportif Lille"
     : "Programs & Pricing - Sports Coaching Lille";
   const seoDescription = isFrench
     ? "Découvrez nos formules de coaching : suivi personnalisé, coaching individuel, small groupes et carnets de séances. Tarifs adaptés à tous les budgets."
@@ -26,7 +26,7 @@ const Formules = () => {
     {
       category: isFrench ? "Suivi" : "Follow-up",
       title: isFrench ? "Suivi Personnalisé" : "Personalized Follow-up",
-      description: isFrench 
+      description: isFrench
         ? "Suivi en distanciel sur mesure pour atteindre vos objectifs spécifiques."
         : "Remote custom follow-up to achieve your specific goals.",
       image: serviceProgram,
@@ -35,7 +35,7 @@ const Formules = () => {
       icon: Zap,
       popular: false,
       detailsLink: "/suivi-personnalise",
-      features: isFrench 
+      features: isFrench
         ? [
             "Suivi en distanciel 100 % adapté à ton rythme",
             "Échanges hebdos pour ajuster ton évolution",
@@ -52,7 +52,7 @@ const Formules = () => {
     {
       category: isFrench ? "Coaching" : "Coaching",
       title: isFrench ? "Coaching Individuel" : "Individual Coaching",
-      description: isFrench 
+      description: isFrench
         ? "Un accompagnement 100% personnalisé pour des résultats réels"
         : "100% personalized support for real results",
       image: serviceIndividual,
@@ -63,7 +63,7 @@ const Formules = () => {
       icon: Star,
       popular: true,
       detailsLink: "/coaching-individuel",
-      features: isFrench 
+      features: isFrench
         ? [
             "Accompagnement en présentiel pour un maximum de résultats",
             "Guidance continue du début à la fin",
@@ -80,16 +80,14 @@ const Formules = () => {
     {
       category: isFrench ? "Groupes" : "Groups",
       title: "Small Groupes",
-      description: isFrench 
-        ? "Jusqu'à 6 personnes pour un suivi de qualité"
-        : "Up to 6 people for quality support",
+      description: isFrench ? "Jusqu'à 6 personnes pour un suivi de qualité" : "Up to 6 people for quality support",
       image: serviceGroup,
       price: "30",
       priceSuffix: isFrench ? "€ / personne" : "€ / person",
       icon: Users,
       popular: false,
       detailsLink: "/small-groupes",
-      features: isFrench 
+      features: isFrench
         ? [
             "Ambiance motivante & dynamique",
             "Encadrement professionnel et personnalisé",
@@ -106,7 +104,7 @@ const Formules = () => {
     {
       category: isFrench ? "Carnet" : "Booklet",
       title: isFrench ? "Carnets de Séances" : "Session Booklets",
-      description: isFrench 
+      description: isFrench
         ? "Accompagnement sur mesure, flexibilité, sans engagement"
         : "Custom support, flexibility, no commitment",
       image: serviceCarnets,
@@ -119,7 +117,7 @@ const Formules = () => {
       icon: Sparkles,
       popular: false,
       detailsLink: "/carnets-seances",
-      features: isFrench 
+      features: isFrench
         ? [
             "Coaching personnalisé à ton rythme",
             "Tarif avantageux",
@@ -137,7 +135,7 @@ const Formules = () => {
 
   return (
     <main className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title={seoTitle}
         description={seoDescription}
         keywords="formules coaching Lille, tarifs coach sportif, prix coaching individuel, small groupes Wasquehal, carnets séances"
@@ -146,11 +144,7 @@ const Formules = () => {
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={serviceIndividual}
-            alt="Coaching"
-            className="w-full h-full object-cover"
-          />
+          <img src={serviceIndividual} alt="Coaching" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" />
         </div>
@@ -169,11 +163,7 @@ const Formules = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <Link to="/">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <Button variant="ghost" className="mb-8 gap-2 hover:bg-primary/10">
                 <ArrowLeft className="w-4 h-4" />
                 {isFrench ? "Retour à l'accueil" : "Back to home"}
@@ -187,7 +177,7 @@ const Formules = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -195,8 +185,8 @@ const Formules = () => {
             >
               Coaching
             </motion.span>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -207,29 +197,25 @@ const Formules = () => {
               <br />
               <span className="text-foreground/90">{isFrench ? "DE COACHING" : "PACKAGES"}</span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10"
+              className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
             >
               {isFrench
                 ? "Choisissez l'accompagnement qui vous transformera et vous aidera à atteindre vos objectifs personnels et professionnels."
                 : "Choose the support that will transform you and help you achieve your personal and professional goals."}
             </motion.p>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
               className="flex gap-4 justify-center flex-wrap"
             >
-              <motion.a 
-                href="#formules"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.a href="#formules" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Button size="lg" className="text-lg px-8 py-6">
                   {isFrench ? "Découvrir" : "Discover"}
                 </Button>
@@ -267,8 +253,8 @@ const Formules = () => {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               {isFrench ? "Choisissez votre formule" : "Choose your package"}
             </h2>
-            <p className="text-white max-w-xl mx-auto">
-              {isFrench 
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              {isFrench
                 ? "Des offres adaptées à tous les niveaux et tous les objectifs"
                 : "Offers adapted to all levels and all goals"}
             </p>
@@ -287,11 +273,13 @@ const Formules = () => {
                   whileHover={{ y: -8 }}
                   className="group"
                 >
-                  <div className={`relative bg-card border rounded-3xl overflow-hidden h-full flex flex-col transition-all duration-500 ${
-                    formule.popular 
-                      ? 'border-primary shadow-[0_0_40px_rgba(var(--primary),0.15)]' 
-                      : 'border-border/50 hover:border-primary/50'
-                  }`}>
+                  <div
+                    className={`relative bg-card border rounded-3xl overflow-hidden h-full flex flex-col transition-all duration-500 ${
+                      formule.popular
+                        ? "border-primary shadow-[0_0_40px_rgba(var(--primary),0.15)]"
+                        : "border-border/50 hover:border-primary/50"
+                    }`}
+                  >
                     {/* Popular Badge */}
                     {formule.popular && (
                       <motion.div
@@ -314,10 +302,10 @@ const Formules = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-                      
+
                       {/* Icon Badge */}
                       <div className="absolute bottom-4 left-6">
-                        <motion.div 
+                        <motion.div
                           whileHover={{ rotate: [0, -10, 10, 0] }}
                           transition={{ duration: 0.5 }}
                           className="w-12 h-12 bg-primary/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg"
@@ -337,9 +325,7 @@ const Formules = () => {
                         <h3 className="font-display text-2xl lg:text-3xl font-bold text-foreground mt-2">
                           {formule.title}
                         </h3>
-                        <p className="text-muted-foreground text-sm mt-2">
-                          {formule.description}
-                        </p>
+                        <p className="text-muted-foreground text-sm mt-2">{formule.description}</p>
                       </div>
 
                       {/* Pricing */}
@@ -370,8 +356,8 @@ const Formules = () => {
                       {/* Features */}
                       <ul className="space-y-3 flex-grow">
                         {formule.features.map((feature, i) => (
-                          <motion.li 
-                            key={i} 
+                          <motion.li
+                            key={i}
                             initial={{ opacity: 0, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -388,15 +374,13 @@ const Formules = () => {
 
                       {/* CTA Buttons */}
                       <div className="mt-8 flex gap-3">
-                        <motion.div 
-                          className="flex-1"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
+                        <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Link to="/#contact" className="block">
-                            <Button 
+                            <Button
                               className={`w-full py-6 text-base font-semibold ${
-                                formule.popular ? '' : 'bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground'
+                                formule.popular
+                                  ? ""
+                                  : "bg-foreground/10 text-foreground hover:bg-primary hover:text-primary-foreground"
                               }`}
                               variant={formule.popular ? "default" : "ghost"}
                             >
@@ -405,10 +389,7 @@ const Formules = () => {
                           </Link>
                         </motion.div>
                         {formule.detailsLink && (
-                          <motion.div 
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
+                          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                             <Link to={formule.detailsLink}>
                               <Button variant="outline" className="py-6 px-6 text-base font-semibold">
                                 {isFrench ? "Détails" : "Details"}
@@ -432,7 +413,7 @@ const Formules = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "100%", label: isFrench ? "Satisfaction" : "Satisfaction" },
-              { value: "50+", label: isFrench ? "Clients accompagnés" : "Clients coached" },
+              { value: "350+", label: isFrench ? "Clients accompagnés" : "Clients coached" },
               { value: "500+", label: isFrench ? "Séances réalisées" : "Sessions completed" },
               { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
             ].map((stat, index) => (
@@ -444,9 +425,7 @@ const Formules = () => {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-2">
-                  {stat.value}
-                </div>
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-2">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
@@ -457,7 +436,7 @@ const Formules = () => {
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-gold/5" />
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -473,20 +452,20 @@ const Formules = () => {
             >
               <Sparkles className="w-12 h-12 text-primary" />
             </motion.div>
-            
+
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
               {isFrench ? "PRÊT À TRANSFORMER" : "READY TO TRANSFORM"}
               <br />
               <span className="text-gradient">{isFrench ? "TA VIE ?" : "YOUR LIFE?"}</span>
             </h2>
-            
+
             <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
               {isFrench
                 ? "Rejoins nos clients satisfaits et commence ta transformation dès aujourd'hui."
                 : "Join our satisfied clients and start your transformation today."}
             </p>
-            
-            <motion.div 
+
+            <motion.div
               className="flex gap-4 justify-center flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

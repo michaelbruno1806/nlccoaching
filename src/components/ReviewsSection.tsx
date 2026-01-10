@@ -1,6 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight, Play, MessageCircle, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Star,
+  Quote,
+  Clock,
+  Target,
+  Trophy,
+  X,
+  ZoomIn,
+  ArrowRight,
+  Play,
+  MessageCircle,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -22,7 +36,6 @@ import transformAfter3 from "@/assets/transform-after-3.jpg";
 import transformBefore4 from "@/assets/transform-before-4.jpg";
 import transformAfter4 from "@/assets/transform-after-4.jpg";
 
-
 // Additional text reviews without images
 interface TextReview {
   name: string;
@@ -35,60 +48,76 @@ interface TextReview {
 const textReviews: TextReview[] = [
   {
     name: "Thomas",
-    review: "Noa-Liam est un coach exceptionnel. Il m'a aidé à perdre 10kg en 3 mois tout en gagnant en muscle. Son approche est professionnelle et motivante.",
-    reviewEn: "Noa-Liam is an exceptional coach. He helped me lose 10kg in 3 months while gaining muscle. His approach is professional and motivating.",
+    review:
+      "Liam est un coach exceptionnel. Il m'a aidé à perdre 10kg en 3 mois tout en gagnant en muscle. Son approche est professionnelle et motivante.",
+    reviewEn:
+      "Liam is an exceptional coach. He helped me lose 10kg in 3 months while gaining muscle. His approach is professional and motivating.",
     highlight: "-10kg en 3 mois",
-    highlightEn: "-10kg in 3 months"
+    highlightEn: "-10kg in 3 months",
   },
   {
     name: "Sophie",
-    review: "J'étais sceptique au début mais les résultats parlent d'eux-mêmes. Noa-Liam a su adapter les séances à mes besoins et me pousser à dépasser mes limites.",
-    reviewEn: "I was skeptical at first but the results speak for themselves. Noa-Liam knew how to adapt the sessions to my needs and push me beyond my limits.",
+    review:
+      "J'étais sceptique au début mais les résultats parlent d'eux-mêmes. Liam a su adapter les séances à mes besoins et me pousser à dépasser mes limites.",
+    reviewEn:
+      "I was skeptical at first but the results speak for themselves. Liam knew how to adapt the sessions to my needs and push me beyond my limits.",
     highlight: "Transformation totale",
-    highlightEn: "Total transformation"
+    highlightEn: "Total transformation",
   },
   {
     name: "Antoine",
-    review: "Le suivi nutritionnel combiné aux entraînements m'a permis d'atteindre mes objectifs plus rapidement que prévu. Merci Noa-Liam!",
-    reviewEn: "The nutritional follow-up combined with training allowed me to reach my goals faster than expected. Thank you Noa-Liam!",
+    review:
+      "Le suivi nutritionnel combiné aux entraînements m'a permis d'atteindre mes objectifs plus rapidement que prévu. Merci Liam!",
+    reviewEn:
+      "The nutritional follow-up combined with training allowed me to reach my goals faster than expected. Thank you Liam!",
     highlight: "Objectifs dépassés",
-    highlightEn: "Goals exceeded"
+    highlightEn: "Goals exceeded",
   },
   {
     name: "Julie",
-    review: "Enfin un coach qui comprend les femmes! Noa-Liam m'a aidée à tonifier mon corps sans devenir trop musclée. Exactement ce que je voulais.",
-    reviewEn: "Finally a coach who understands women! Noa-Liam helped me tone my body without becoming too muscular. Exactly what I wanted.",
+    review:
+      "Enfin un coach qui comprend les femmes! Liam m'a aidée à tonifier mon corps sans devenir trop musclée. Exactement ce que je voulais.",
+    reviewEn:
+      "Finally a coach who understands women! Liam helped me tone my body without becoming too muscular. Exactly what I wanted.",
     highlight: "Corps tonifié",
-    highlightEn: "Toned body"
+    highlightEn: "Toned body",
   },
   {
     name: "Marc",
-    review: "Après une blessure, je pensais ne plus pouvoir faire de sport. Noa-Liam m'a accompagné dans ma rééducation et aujourd'hui je suis plus fort qu'avant!",
-    reviewEn: "After an injury, I thought I couldn't exercise anymore. Noa-Liam accompanied me in my rehabilitation and today I'm stronger than before!",
+    review:
+      "Après une blessure, je pensais ne plus pouvoir faire de sport. Liam m'a accompagné dans ma rééducation et aujourd'hui je suis plus fort qu'avant!",
+    reviewEn:
+      "After an injury, I thought I couldn't exercise anymore. Liam accompanied me in my rehabilitation and today I'm stronger than before!",
     highlight: "Retour en force",
-    highlightEn: "Back stronger"
+    highlightEn: "Back stronger",
   },
   {
     name: "Camille",
-    review: "Les séances en small group sont géniales! L'ambiance est motivante et on se pousse les uns les autres. Je recommande à 100%!",
-    reviewEn: "The small group sessions are great! The atmosphere is motivating and we push each other. I recommend 100%!",
+    review:
+      "Les séances en small group sont géniales! L'ambiance est motivante et on se pousse les uns les autres. Je recommande à 100%!",
+    reviewEn:
+      "The small group sessions are great! The atmosphere is motivating and we push each other. I recommend 100%!",
     highlight: "Esprit d'équipe",
-    highlightEn: "Team spirit"
+    highlightEn: "Team spirit",
   },
   {
     name: "Lucas",
-    review: "Noa-Liam m'a préparé pour ma première compétition de powerlifting. Son expertise technique est impressionnante. J'ai fini sur le podium!",
-    reviewEn: "Noa-Liam prepared me for my first powerlifting competition. His technical expertise is impressive. I finished on the podium!",
+    review:
+      "Liam m'a préparé pour ma première compétition de powerlifting. Son expertise technique est impressionnante. J'ai fini sur le podium!",
+    reviewEn:
+      "Liam prepared me for my first powerlifting competition. His technical expertise is impressive. I finished on the podium!",
     highlight: "Podium 🏆",
-    highlightEn: "Podium 🏆"
+    highlightEn: "Podium 🏆",
   },
   {
     name: "Emma",
-    review: "Ce qui me plaît avec Noa-Liam, c'est qu'il ne vend pas du rêve. Il est honnête, direct et les résultats suivent. Un vrai professionnel.",
-    reviewEn: "What I like about Noa-Liam is that he doesn't sell dreams. He's honest, direct and the results follow. A true professional.",
+    review:
+      "Ce qui me plaît avec Liam, c'est qu'il ne vend pas du rêve. Il est honnête, direct et les résultats suivent. Un vrai professionnel.",
+    reviewEn:
+      "What I like about Liam is that he doesn't sell dreams. He's honest, direct and the results follow. A true professional.",
     highlight: "Pro et honnête",
-    highlightEn: "Pro and honest"
-  }
+    highlightEn: "Pro and honest",
+  },
 ];
 
 interface Testimonial {
@@ -118,8 +147,10 @@ const testimonials: Testimonial[] = [
     durationEn: "3 months personalized coaching",
     objective: "Se préparer pour un triathlon",
     objectiveEn: "Prepare for a triathlon",
-    story: "Armand m'a fait confiance et aujourd'hui, il a développé un physique et une mentalité à toute épreuve. Aujourd'hui, il a non seulement atteint son objectif, mais il a également développé une maîtrise solide de la technique en salle, des méthodes d'entraînement et de la nutrition.",
-    storyEn: "Armand trusted me and today, he has developed an unshakeable physique and mentality. Today, he has not only achieved his goal, but has also developed a solid mastery of gym technique, training methods and nutrition.",
+    story:
+      "Armand m'a fait confiance et aujourd'hui, il a développé un physique et une mentalité à toute épreuve. Aujourd'hui, il a non seulement atteint son objectif, mais il a également développé une maîtrise solide de la technique en salle, des méthodes d'entraînement et de la nutrition.",
+    storyEn:
+      "Armand trusted me and today, he has developed an unshakeable physique and mentality. Today, he has not only achieved his goal, but has also developed a solid mastery of gym technique, training methods and nutrition.",
     highlight: "Objectif atteint et dépassé",
     highlightEn: "Goal achieved and exceeded",
   },
@@ -130,8 +161,10 @@ const testimonials: Testimonial[] = [
     durationEn: "6 months individual coaching",
     objective: "Perte de poids de 14 kg",
     objectiveEn: "14 kg weight loss",
-    story: "Après seulement quelques séances, elle a pris goût à la salle de sport et ne pouvait plus s'arrêter, elle était déterminée ! Une fois son objectif atteint, elle était heureuse de constater qu'elle n'avait pas seulement changé physiquement : elle avait enfin appris à aimer son corps, qu'elle avait détesté pendant longtemps.",
-    storyEn: "After just a few sessions, she developed a taste for the gym and couldn't stop, she was determined! Once she achieved her goal, she was happy to see that she hadn't just changed physically: she had finally learned to love her body, which she had hated for a long time.",
+    story:
+      "Après seulement quelques séances, elle a pris goût à la salle de sport et ne pouvait plus s'arrêter, elle était déterminée ! Une fois son objectif atteint, elle était heureuse de constater qu'elle n'avait pas seulement changé physiquement : elle avait enfin appris à aimer son corps, qu'elle avait détesté pendant longtemps.",
+    storyEn:
+      "After just a few sessions, she developed a taste for the gym and couldn't stop, she was determined! Once she achieved her goal, she was happy to see that she hadn't just changed physically: she had finally learned to love her body, which she had hated for a long time.",
     highlight: "-14 kg",
     highlightEn: "-14 kg",
   },
@@ -142,8 +175,10 @@ const testimonials: Testimonial[] = [
     durationEn: "6 months individual coaching",
     objective: "Perte de poids de 21 kg",
     objectiveEn: "21 kg weight loss",
-    story: "Après 6 mois, accompagnés d'un suivi nutritionnel adapté, nous sommes arrivés à -15 kg sur la balance. Mais ce qui a le plus surpris Ricardo, ce n'est pas le poids perdu, c'est la sensation de renforcement et de mieux-être général. Des douleurs au dos le gênaient depuis plusieurs années. Après avoir amélioré sa condition physique, ces douleurs ont totalement disparu.",
-    storyEn: "After 6 months, accompanied by adapted nutritional monitoring, we achieved -15 kg on the scale. But what surprised Ricardo the most wasn't the weight lost, it was the feeling of strengthening and overall well-being. Back pain had been bothering him for several years. After improving his physical condition, this pain completely disappeared.",
+    story:
+      "Après 6 mois, accompagnés d'un suivi nutritionnel adapté, nous sommes arrivés à -15 kg sur la balance. Mais ce qui a le plus surpris Ricardo, ce n'est pas le poids perdu, c'est la sensation de renforcement et de mieux-être général. Des douleurs au dos le gênaient depuis plusieurs années. Après avoir amélioré sa condition physique, ces douleurs ont totalement disparu.",
+    storyEn:
+      "After 6 months, accompanied by adapted nutritional monitoring, we achieved -15 kg on the scale. But what surprised Ricardo the most wasn't the weight lost, it was the feeling of strengthening and overall well-being. Back pain had been bothering him for several years. After improving his physical condition, this pain completely disappeared.",
     highlight: "-15 kg",
     highlightEn: "-15 kg",
   },
@@ -154,8 +189,10 @@ const testimonials: Testimonial[] = [
     durationEn: "1 year personalized coaching",
     objective: "Atteindre le niveau Régional 3 en Force Athlétique",
     objectiveEn: "Reach Regional 3 level in Powerlifting",
-    story: "Ludivine m'a découvert lors d'un entraînement de force athlétique. Elle a immédiatement été passionnée par ce sport et a décidé de me faire confiance. Cette fille qui ne connaissait rien du bench réalise aujourd'hui 40 kg sans difficulté. Physiquement, Ludivine s'est métamorphosée : ses performances ne cessent de progresser. Elle continue de me faire confiance en repartant pour une nouvelle année de travail à mes côtés.",
-    storyEn: "Ludivine discovered me during a powerlifting training session. She was immediately passionate about this sport and decided to trust me. This girl who knew nothing about bench press now achieves 40 kg effortlessly. Physically, Ludivine has transformed: her performance continues to improve. She continues to trust me by starting another year of work by my side.",
+    story:
+      "Ludivine m'a découvert lors d'un entraînement de force athlétique. Elle a immédiatement été passionnée par ce sport et a décidé de me faire confiance. Cette fille qui ne connaissait rien du bench réalise aujourd'hui 40 kg sans difficulté. Physiquement, Ludivine s'est métamorphosée : ses performances ne cessent de progresser. Elle continue de me faire confiance en repartant pour une nouvelle année de travail à mes côtés.",
+    storyEn:
+      "Ludivine discovered me during a powerlifting training session. She was immediately passionate about this sport and decided to trust me. This girl who knew nothing about bench press now achieves 40 kg effortlessly. Physically, Ludivine has transformed: her performance continues to improve. She continues to trust me by starting another year of work by my side.",
     highlight: "40 kg au bench",
     highlightEn: "40 kg bench press",
   },
@@ -166,8 +203,10 @@ const testimonials: Testimonial[] = [
     durationEn: "3 months personalized coaching",
     objective: "Ventre plus plat et développer sa silhouette",
     objectiveEn: "Flatter stomach and improved silhouette",
-    story: "Manon m'a rencontré grâce à Instagram et m'a tout de suite contacté ! Après seulement un mois, son premier objectif était atteint. Au bout de trois mois, son physique n'avait plus rien à voir avec celui du premier jour. Ce que Manon a appris durant ces trois mois lui servira pour toute sa vie : une bonne technique, une mentalité de gagnante et surtout, la fierté d'elle-même.",
-    storyEn: "Manon met me through Instagram and contacted me right away! After just one month, her first goal was achieved. After three months, her physique had nothing to do with that of the first day. What Manon learned during these three months will serve her for life: good technique, a winner's mentality and above all, pride in herself.",
+    story:
+      "Manon m'a rencontré grâce à Instagram et m'a tout de suite contacté ! Après seulement un mois, son premier objectif était atteint. Au bout de trois mois, son physique n'avait plus rien à voir avec celui du premier jour. Ce que Manon a appris durant ces trois mois lui servira pour toute sa vie : une bonne technique, une mentalité de gagnante et surtout, la fierté d'elle-même.",
+    storyEn:
+      "Manon met me through Instagram and contacted me right away! After just one month, her first goal was achieved. After three months, her physique had nothing to do with that of the first day. What Manon learned during these three months will serve her for life: good technique, a winner's mentality and above all, pride in herself.",
     highlight: "Transformation complète",
     highlightEn: "Complete transformation",
   },
@@ -179,8 +218,6 @@ const transformationShowcases: TransformationShowcase[] = [
   { name: "Transformation 3", beforeImage: transformBefore3, afterImage: transformAfter3 },
   { name: "Transformation 4", beforeImage: transformBefore4, afterImage: transformAfter4 },
 ];
-
-
 
 const ReviewsSection = () => {
   const { language } = useLanguage();
@@ -198,25 +235,52 @@ const ReviewsSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Video Testimonial Section */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-20 max-w-sm mx-auto"
+          className="text-center mb-16"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/30 aspect-[9/16]">
-            <iframe
-              src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
-              className="absolute inset-0 w-full h-full"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title={isFrench ? "Témoignage client" : "Customer testimonial"}
-            />
-          </div>
+          <span className="text-primary uppercase tracking-widest text-sm font-medium mb-4 block">
+            {isFrench ? "Avis" : "Reviews"}
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="text-gradient">{isFrench ? "Performance" : "Performance"}</span>{" "}
+            <span className="text-foreground">&</span>{" "}
+            <span className="text-gradient">{isFrench ? "Transformation" : "Transformation"}</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            {isFrench
+              ? "Nos clients partagent leur expérience, leur progression et la transformation qu'ils ont vécue à nos côtés."
+              : "Our clients share their experience, progress and the transformation they experienced with us."}
+          </p>
         </motion.div>
 
+        {/* Video Section - Auto Play */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-20 max-w-4xl mx-auto"
+        >
+          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/30">
+            <video
+              ref={videoRef}
+              className="w-full aspect-video object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/videos/reviews-video.mp4"
+            >
+              <source src="/videos/reviews-video.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+          </div>
+        </motion.div>
 
         {/* Dynamic Text Reviews Marquee */}
         <motion.div
@@ -228,14 +292,14 @@ const ReviewsSection = () => {
         >
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8 flex items-center justify-center gap-3">
             <MessageCircle className="w-7 h-7 text-primary" />
-            {isFrench ? "Ce Que Pensent Les Autres.." : "What Others Think.."}
+            {isFrench ? "Ce Que Disent Nos Clients" : "What Our Clients Say"}
           </h3>
-          
+
           {/* Animated marquee of text reviews */}
           <div className="relative overflow-hidden py-4">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
-            
+
             <motion.div
               className="flex gap-6"
               animate={{
@@ -298,7 +362,9 @@ const ReviewsSection = () => {
             {isFrench ? "Témoignages Clients" : "Client Testimonials"}
           </h3>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {isFrench ? "Cliquez sur une carte pour découvrir l'histoire complète" : "Click on a card to discover the full story"}
+            {isFrench
+              ? "Cliquez sur une carte pour découvrir l'histoire complète"
+              : "Click on a card to discover the full story"}
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
@@ -321,9 +387,9 @@ const ReviewsSection = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                    
+
                     {/* Floating badge */}
-                    <motion.div 
+                    <motion.div
                       className="absolute top-4 right-4 bg-gold/90 backdrop-blur-sm text-black px-3 py-1.5 rounded-full text-sm font-bold shadow-lg"
                       animate={{ y: [0, -5, 0] }}
                       transition={{ repeat: Infinity, duration: 2, delay: index * 0.2 }}
@@ -362,9 +428,7 @@ const ReviewsSection = () => {
                     <div className="flex items-start gap-2">
                       <Target className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-white/70">
-                        <span className="font-medium text-white">
-                          {isFrench ? "Objectif:" : "Goal:"}
-                        </span>{" "}
+                        <span className="font-medium text-white">{isFrench ? "Objectif:" : "Goal:"}</span>{" "}
                         {isFrench ? testimonial.objective : testimonial.objectiveEn}
                       </p>
                     </div>
@@ -395,7 +459,7 @@ const ReviewsSection = () => {
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
             {isFrench ? "Nos Transformations" : "Our Transformations"}
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {transformationShowcases.map((showcase, index) => (
               <motion.div
                 key={showcase.name}
@@ -403,41 +467,39 @@ const ReviewsSection = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
+                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500"
                 whileHover={{ y: -5 }}
               >
-                {/* Before/After comparison - INVERTED: After on left, Before on right */}
+                {/* Before/After comparison */}
                 <div className="relative aspect-[3/4]">
                   <div className="absolute inset-0 grid grid-cols-2">
                     <div className="relative overflow-hidden">
-                      <img
-                        src={showcase.afterImage}
-                        alt="Après"
-                        className="w-full h-full object-cover object-center"
-                      />
-                      <div className="absolute bottom-2 left-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-primary-foreground shadow-lg">
-                        {isFrench ? "Après" : "After"}
+                      <img src={showcase.beforeImage} alt="Avant" className="w-full h-full object-cover" />
+                      <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-white">
+                        {isFrench ? "Avant" : "Before"}
                       </div>
                     </div>
                     <div className="relative overflow-hidden">
-                      <img
-                        src={showcase.beforeImage}
-                        alt="Avant"
-                        className="w-full h-full object-cover object-center"
-                      />
-                      <div className="absolute bottom-2 right-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg">
-                        {isFrench ? "Avant" : "Before"}
+                      <img src={showcase.afterImage} alt="Après" className="w-full h-full object-cover" />
+                      <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-primary-foreground">
+                        {isFrench ? "Après" : "After"}
                       </div>
                     </div>
                   </div>
                   {/* Center divider */}
-                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
+                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-gold/50" />
+                  {/* Zoom icon on hover */}
+                  <div
+                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                    onClick={() => setSelectedImage({ image: showcase.afterImage, title: showcase.name })}
+                  >
+                    <ZoomIn className="w-8 h-8 text-white" />
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
-
 
         {/* View All Button */}
         <motion.div
@@ -448,7 +510,10 @@ const ReviewsSection = () => {
           className="mt-12 text-center"
         >
           <Link to="/feedback">
-            <Button size="lg" className="gap-2 group bg-gradient-to-r from-primary to-gold hover:from-primary/90 hover:to-gold/90 text-primary-foreground shadow-lg shadow-primary/20">
+            <Button
+              size="lg"
+              className="gap-2 group bg-gradient-to-r from-primary to-gold hover:from-primary/90 hover:to-gold/90 text-primary-foreground shadow-lg shadow-primary/20"
+            >
               {isFrench ? "Voir tous les avis" : "View all feedback"}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -465,18 +530,13 @@ const ReviewsSection = () => {
         >
           {[
             { value: "100%", label: isFrench ? "Satisfaction" : "Satisfaction" },
-            { value: "350", label: isFrench ? "Clients transformés" : "Transformed clients" },
+            { value: "350+", label: isFrench ? "Clients transformés" : "Transformed clients" },
             { value: "-15kg", label: isFrench ? "Perte moyenne" : "Average loss" },
             { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
           ].map((stat, index) => (
-            <div
-              key={index}
-              className="text-center p-6 bg-card/30 rounded-xl border border-border/30"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-gradient mb-2">
-                {stat.value}
-              </div>
-              <div className="text-sm text-white/80">{stat.label}</div>
+            <div key={index} className="text-center p-6 bg-card/30 rounded-xl border border-border/30">
+              <div className="text-3xl md:text-4xl font-bold text-gradient mb-2">{stat.value}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -558,15 +618,13 @@ const ReviewsSection = () => {
                       <Star key={i} className="w-5 h-5 fill-gold text-gold" />
                     ))}
                   </div>
-                  
+
                   <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-3 py-1.5 rounded-full text-sm font-semibold mb-4">
                     <Trophy className="w-4 h-4" />
                     {isFrench ? selectedTestimonial.highlight : selectedTestimonial.highlightEn}
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-foreground mb-3">
-                    {selectedTestimonial.name}
-                  </h3>
+                  <h3 className="font-display text-2xl font-bold text-foreground mb-3">{selectedTestimonial.name}</h3>
 
                   <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
                     <Clock className="w-4 h-4 text-primary" />
@@ -576,9 +634,7 @@ const ReviewsSection = () => {
                   <div className="flex items-start gap-2 mb-4">
                     <Target className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                     <p className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">
-                        {isFrench ? "Objectif:" : "Goal:"}
-                      </span>{" "}
+                      <span className="font-medium text-foreground">{isFrench ? "Objectif:" : "Goal:"}</span>{" "}
                       {isFrench ? selectedTestimonial.objective : selectedTestimonial.objectiveEn}
                     </p>
                   </div>
