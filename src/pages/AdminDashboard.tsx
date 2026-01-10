@@ -33,6 +33,11 @@ import {
   Sparkles,
   User,
   Users,
+  Star,
+  Quote,
+  ArrowLeftRight,
+  Edit,
+  X,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -59,6 +64,29 @@ interface ImageItem {
   image_key: string;
   image_url: string;
   alt_text: string | null;
+}
+
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string | null;
+  message: string;
+  image_url: string | null;
+  highlight: string | null;
+  rating: number;
+  is_active: boolean;
+  display_order: number;
+  language: string;
+}
+
+interface Transformation {
+  id: string;
+  name: string;
+  before_image_url: string;
+  after_image_url: string;
+  description: string | null;
+  is_active: boolean;
+  display_order: number;
 }
 
 // Section configurations with friendly labels
@@ -228,12 +256,38 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [images, setImages] = useState<ImageItem[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [transformations, setTransformations] = useState<Transformation[]>([]);
   const [currentLang, setCurrentLang] = useState("en");
   const [savingKeys, setSavingKeys] = useState<Set<string>>(new Set());
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set());
   const [newImageKey, setNewImageKey] = useState("");
   const [newImageAlt, setNewImageAlt] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
+  
+  // Testimonial form state
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
+  const [testimonialForm, setTestimonialForm] = useState({
+    name: "",
+    role: "",
+    message: "",
+    image_url: "",
+    highlight: "",
+    rating: 5,
+    language: "fr",
+  });
+  const [uploadingTestimonialImage, setUploadingTestimonialImage] = useState(false);
+  
+  // Transformation form state
+  const [editingTransformation, setEditingTransformation] = useState<Transformation | null>(null);
+  const [transformationForm, setTransformationForm] = useState({
+    name: "",
+    before_image_url: "",
+    after_image_url: "",
+    description: "",
+  });
+  const [uploadingBeforeImage, setUploadingBeforeImage] = useState(false);
+  const [uploadingAfterImage, setUploadingAfterImage] = useState(false);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -245,6 +299,8 @@ export default function AdminDashboard() {
     if (user && isAdmin) {
       fetchContents();
       fetchImages();
+      fetchTestimonials();
+      fetchTransformations();
     }
   }, [user, isAdmin]);
 
@@ -261,6 +317,28 @@ export default function AdminDashboard() {
 
     if (!error && data) {
       setImages(data);
+    }
+  };
+
+  const fetchTestimonials = async () => {
+    const { data, error } = await supabase
+      .from("testimonials")
+      .select("*")
+      .order("display_order");
+
+    if (!error && data) {
+      setTestimonials(data as Testimonial[]);
+    }
+  };
+
+  const fetchTransformations = async () => {
+    const { data, error } = await supabase
+      .from("transformations")
+      .select("*")
+      .order("display_order");
+
+    if (!error && data) {
+      setTransformations(data as Transformation[]);
     }
   };
 
@@ -383,6 +461,259 @@ export default function AdminDashboard() {
       toast.success("Image deleted successfully!");
       fetchImages();
     }
+  };
+
+  // Testimonial CRUD functions
+  const handleTestimonialImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingTestimonialImage(true);
+    const fileExt = file.name.split(".").pop();
+    const fileName = `testimonial_${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("site-images")
+      .upload(fileName, file, { upsert: true });
+
+    if (uploadError) {
+      toast.error("Failed to upload image");
+      setUploadingTestimonialImage(false);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(fileName);
+    setTestimonialForm(prev => ({ ...prev, image_url: urlData.publicUrl }));
+    setUploadingTestimonialImage(false);
+    toast.success("Image uploaded!");
+  };
+
+  const handleSaveTestimonial = async () => {
+    if (!testimonialForm.name || !testimonialForm.message) {
+      toast.error("Name and message are required");
+      return;
+    }
+
+    const testimonialData = {
+      name: testimonialForm.name,
+      role: testimonialForm.role || null,
+      message: testimonialForm.message,
+      image_url: testimonialForm.image_url || null,
+      highlight: testimonialForm.highlight || null,
+      rating: testimonialForm.rating,
+      language: testimonialForm.language,
+      display_order: testimonials.length,
+    };
+
+    if (editingTestimonial) {
+      const { error } = await supabase
+        .from("testimonials")
+        .update(testimonialData)
+        .eq("id", editingTestimonial.id);
+
+      if (error) {
+        toast.error("Failed to update testimonial");
+      } else {
+        toast.success("Testimonial updated!");
+        setEditingTestimonial(null);
+        resetTestimonialForm();
+        fetchTestimonials();
+      }
+    } else {
+      const { error } = await supabase
+        .from("testimonials")
+        .insert(testimonialData);
+
+      if (error) {
+        toast.error("Failed to add testimonial");
+      } else {
+        toast.success("Testimonial added!");
+        resetTestimonialForm();
+        fetchTestimonials();
+      }
+    }
+  };
+
+  const handleEditTestimonial = (testimonial: Testimonial) => {
+    setEditingTestimonial(testimonial);
+    setTestimonialForm({
+      name: testimonial.name,
+      role: testimonial.role || "",
+      message: testimonial.message,
+      image_url: testimonial.image_url || "",
+      highlight: testimonial.highlight || "",
+      rating: testimonial.rating,
+      language: testimonial.language,
+    });
+  };
+
+  const handleDeleteTestimonial = async (id: string) => {
+    const { error } = await supabase.from("testimonials").delete().eq("id", id);
+
+    if (error) {
+      toast.error("Failed to delete testimonial");
+    } else {
+      toast.success("Testimonial deleted!");
+      fetchTestimonials();
+    }
+  };
+
+  const handleToggleTestimonialActive = async (testimonial: Testimonial) => {
+    const { error } = await supabase
+      .from("testimonials")
+      .update({ is_active: !testimonial.is_active })
+      .eq("id", testimonial.id);
+
+    if (!error) {
+      fetchTestimonials();
+    }
+  };
+
+  const resetTestimonialForm = () => {
+    setTestimonialForm({
+      name: "",
+      role: "",
+      message: "",
+      image_url: "",
+      highlight: "",
+      rating: 5,
+      language: "fr",
+    });
+    setEditingTestimonial(null);
+  };
+
+  // Transformation CRUD functions
+  const handleBeforeImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingBeforeImage(true);
+    const fileExt = file.name.split(".").pop();
+    const fileName = `transform_before_${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("site-images")
+      .upload(fileName, file, { upsert: true });
+
+    if (uploadError) {
+      toast.error("Failed to upload image");
+      setUploadingBeforeImage(false);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(fileName);
+    setTransformationForm(prev => ({ ...prev, before_image_url: urlData.publicUrl }));
+    setUploadingBeforeImage(false);
+    toast.success("Before image uploaded!");
+  };
+
+  const handleAfterImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingAfterImage(true);
+    const fileExt = file.name.split(".").pop();
+    const fileName = `transform_after_${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("site-images")
+      .upload(fileName, file, { upsert: true });
+
+    if (uploadError) {
+      toast.error("Failed to upload image");
+      setUploadingAfterImage(false);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(fileName);
+    setTransformationForm(prev => ({ ...prev, after_image_url: urlData.publicUrl }));
+    setUploadingAfterImage(false);
+    toast.success("After image uploaded!");
+  };
+
+  const handleSaveTransformation = async () => {
+    if (!transformationForm.name || !transformationForm.before_image_url || !transformationForm.after_image_url) {
+      toast.error("Name and both images are required");
+      return;
+    }
+
+    const transformationData = {
+      name: transformationForm.name,
+      before_image_url: transformationForm.before_image_url,
+      after_image_url: transformationForm.after_image_url,
+      description: transformationForm.description || null,
+      display_order: transformations.length,
+    };
+
+    if (editingTransformation) {
+      const { error } = await supabase
+        .from("transformations")
+        .update(transformationData)
+        .eq("id", editingTransformation.id);
+
+      if (error) {
+        toast.error("Failed to update transformation");
+      } else {
+        toast.success("Transformation updated!");
+        setEditingTransformation(null);
+        resetTransformationForm();
+        fetchTransformations();
+      }
+    } else {
+      const { error } = await supabase
+        .from("transformations")
+        .insert(transformationData);
+
+      if (error) {
+        toast.error("Failed to add transformation");
+      } else {
+        toast.success("Transformation added!");
+        resetTransformationForm();
+        fetchTransformations();
+      }
+    }
+  };
+
+  const handleEditTransformation = (transformation: Transformation) => {
+    setEditingTransformation(transformation);
+    setTransformationForm({
+      name: transformation.name,
+      before_image_url: transformation.before_image_url,
+      after_image_url: transformation.after_image_url,
+      description: transformation.description || "",
+    });
+  };
+
+  const handleDeleteTransformation = async (id: string) => {
+    const { error } = await supabase.from("transformations").delete().eq("id", id);
+
+    if (error) {
+      toast.error("Failed to delete transformation");
+    } else {
+      toast.success("Transformation deleted!");
+      fetchTransformations();
+    }
+  };
+
+  const handleToggleTransformationActive = async (transformation: Transformation) => {
+    const { error } = await supabase
+      .from("transformations")
+      .update({ is_active: !transformation.is_active })
+      .eq("id", transformation.id);
+
+    if (!error) {
+      fetchTransformations();
+    }
+  };
+
+  const resetTransformationForm = () => {
+    setTransformationForm({
+      name: "",
+      before_image_url: "",
+      after_image_url: "",
+      description: "",
+    });
+    setEditingTransformation(null);
   };
 
   const handleSignOut = async () => {
@@ -547,6 +878,20 @@ export default function AdminDashboard() {
             >
               <Image className="w-4 h-4 mr-2" />
               Images
+            </TabsTrigger>
+            <TabsTrigger
+              value="testimonials"
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
+            >
+              <Quote className="w-4 h-4 mr-2" />
+              Testimonials
+            </TabsTrigger>
+            <TabsTrigger
+              value="transformations"
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
+            >
+              <ArrowLeftRight className="w-4 h-4 mr-2" />
+              Transformations
             </TabsTrigger>
           </TabsList>
 
@@ -1114,6 +1459,495 @@ export default function AdminDashboard() {
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </AlertDialog>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* TESTIMONIALS TAB */}
+          <TabsContent value="testimonials" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Quote className="w-5 h-5 text-primary" />
+                  {editingTestimonial ? "Edit Testimonial" : "Add New Testimonial"}
+                </CardTitle>
+                <CardDescription>
+                  {editingTestimonial ? "Update this client testimonial" : "Add a new client review to showcase on your site"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Client Name *</Label>
+                    <Input
+                      value={testimonialForm.name}
+                      onChange={(e) => setTestimonialForm(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="e.g., Marie D."
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label>Role/Title</Label>
+                    <Input
+                      value={testimonialForm.role}
+                      onChange={(e) => setTestimonialForm(prev => ({ ...prev, role: e.target.value }))}
+                      placeholder="e.g., Entrepreneur"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Testimonial Message *</Label>
+                  <Textarea
+                    value={testimonialForm.message}
+                    onChange={(e) => setTestimonialForm(prev => ({ ...prev, message: e.target.value }))}
+                    placeholder="What did the client say about your coaching..."
+                    className="mt-1 min-h-[100px]"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Highlight Badge</Label>
+                    <Input
+                      value={testimonialForm.highlight}
+                      onChange={(e) => setTestimonialForm(prev => ({ ...prev, highlight: e.target.value }))}
+                      placeholder="e.g., -12kg in 3 months"
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label>Language</Label>
+                    <div className="flex gap-2 mt-1">
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant={testimonialForm.language === "fr" ? "default" : "outline"}
+                        onClick={() => setTestimonialForm(prev => ({ ...prev, language: "fr" }))}
+                      >
+                        🇫🇷 French
+                      </Button>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant={testimonialForm.language === "en" ? "default" : "outline"}
+                        onClick={() => setTestimonialForm(prev => ({ ...prev, language: "en" }))}
+                      >
+                        🇬🇧 English
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Rating</Label>
+                    <div className="flex gap-1 mt-1">
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <button
+                          key={rating}
+                          type="button"
+                          onClick={() => setTestimonialForm(prev => ({ ...prev, rating }))}
+                          className="p-1"
+                        >
+                          <Star
+                            className={`w-6 h-6 ${
+                              rating <= testimonialForm.rating
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-muted-foreground"
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Client Photo</Label>
+                    <div className="flex gap-2 mt-1">
+                      {testimonialForm.image_url && (
+                        <img
+                          src={testimonialForm.image_url}
+                          alt="Preview"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      )}
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleTestimonialImageUpload}
+                        disabled={uploadingTestimonialImage}
+                        className="flex-1"
+                      />
+                    </div>
+                    {uploadingTestimonialImage && (
+                      <p className="text-sm text-primary flex items-center gap-1 mt-1">
+                        <RefreshCw className="w-3 h-3 animate-spin" /> Uploading...
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-2 pt-4">
+                  <Button onClick={handleSaveTestimonial}>
+                    <Save className="w-4 h-4 mr-2" />
+                    {editingTestimonial ? "Update Testimonial" : "Add Testimonial"}
+                  </Button>
+                  {editingTestimonial && (
+                    <Button variant="outline" onClick={resetTestimonialForm}>
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Your Testimonials</CardTitle>
+                    <CardDescription>Manage client reviews displayed on your site</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchTestimonials}>
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {testimonials.length === 0 ? (
+                  <div className="border border-dashed border-border rounded-2xl p-12 text-center">
+                    <Quote className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                    <p className="text-muted-foreground">No testimonials yet. Add your first one above!</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {testimonials.map((testimonial) => (
+                      <motion.div
+                        key={testimonial.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={`border rounded-xl p-4 ${
+                          testimonial.is_active ? "border-border" : "border-border/50 opacity-60"
+                        }`}
+                      >
+                        <div className="flex items-start gap-4">
+                          {testimonial.image_url && (
+                            <img
+                              src={testimonial.image_url}
+                              alt={testimonial.name}
+                              className="w-12 h-12 rounded-full object-cover"
+                            />
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="font-medium">{testimonial.name}</h3>
+                              {testimonial.role && (
+                                <span className="text-sm text-muted-foreground">• {testimonial.role}</span>
+                              )}
+                              {testimonial.highlight && (
+                                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                                  {testimonial.highlight}
+                                </span>
+                              )}
+                              <span className="text-xs text-muted-foreground ml-auto">
+                                {testimonial.language === "fr" ? "🇫🇷" : "🇬🇧"}
+                              </span>
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{testimonial.message}</p>
+                            <div className="flex items-center gap-1 mt-2">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`w-4 h-4 ${
+                                    i < testimonial.rating
+                                      ? "fill-yellow-400 text-yellow-400"
+                                      : "text-muted-foreground"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleEditTestimonial(testimonial)}
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleToggleTestimonialActive(testimonial)}
+                            >
+                              {testimonial.is_active ? "Hide" : "Show"}
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="outline" className="text-destructive">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete this testimonial?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This will permanently delete this testimonial.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleDeleteTestimonial(testimonial.id)}
+                                    className="bg-destructive text-destructive-foreground"
+                                  >
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* TRANSFORMATIONS TAB */}
+          <TabsContent value="transformations" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ArrowLeftRight className="w-5 h-5 text-primary" />
+                  {editingTransformation ? "Edit Transformation" : "Add New Transformation"}
+                </CardTitle>
+                <CardDescription>
+                  {editingTransformation ? "Update this before/after transformation" : "Add client before/after photos to showcase results"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Client Name *</Label>
+                    <Input
+                      value={transformationForm.name}
+                      onChange={(e) => setTransformationForm(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="e.g., Transformation 1"
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Input
+                      value={transformationForm.description}
+                      onChange={(e) => setTransformationForm(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="e.g., 6-month journey"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-4 border border-dashed border-border rounded-xl">
+                    <Label className="mb-2 block">Before Photo *</Label>
+                    {transformationForm.before_image_url ? (
+                      <div className="relative">
+                        <img
+                          src={transformationForm.before_image_url}
+                          alt="Before"
+                          className="w-full aspect-[3/4] object-cover rounded-lg"
+                        />
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          className="absolute top-2 right-2"
+                          onClick={() => setTransformationForm(prev => ({ ...prev, before_image_url: "" }))}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="aspect-[3/4] bg-muted rounded-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <Upload className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleBeforeImageUpload}
+                            disabled={uploadingBeforeImage}
+                            className="max-w-[200px]"
+                          />
+                          {uploadingBeforeImage && (
+                            <p className="text-sm text-primary mt-2">Uploading...</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-4 border border-dashed border-border rounded-xl">
+                    <Label className="mb-2 block">After Photo *</Label>
+                    {transformationForm.after_image_url ? (
+                      <div className="relative">
+                        <img
+                          src={transformationForm.after_image_url}
+                          alt="After"
+                          className="w-full aspect-[3/4] object-cover rounded-lg"
+                        />
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          className="absolute top-2 right-2"
+                          onClick={() => setTransformationForm(prev => ({ ...prev, after_image_url: "" }))}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="aspect-[3/4] bg-muted rounded-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <Upload className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleAfterImageUpload}
+                            disabled={uploadingAfterImage}
+                            className="max-w-[200px]"
+                          />
+                          {uploadingAfterImage && (
+                            <p className="text-sm text-primary mt-2">Uploading...</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-2 pt-4">
+                  <Button onClick={handleSaveTransformation}>
+                    <Save className="w-4 h-4 mr-2" />
+                    {editingTransformation ? "Update Transformation" : "Add Transformation"}
+                  </Button>
+                  {editingTransformation && (
+                    <Button variant="outline" onClick={resetTransformationForm}>
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Your Transformations</CardTitle>
+                    <CardDescription>Before/after photos displayed on your site</CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchTransformations}>
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {transformations.length === 0 ? (
+                  <div className="border border-dashed border-border rounded-2xl p-12 text-center">
+                    <ArrowLeftRight className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                    <p className="text-muted-foreground">No transformations yet. Add your first one above!</p>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {transformations.map((transformation) => (
+                      <motion.div
+                        key={transformation.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={`border rounded-xl overflow-hidden ${
+                          transformation.is_active ? "border-border" : "border-border/50 opacity-60"
+                        }`}
+                      >
+                        <div className="grid grid-cols-2">
+                          <div className="relative">
+                            <img
+                              src={transformation.before_image_url}
+                              alt="Before"
+                              className="aspect-square object-cover"
+                            />
+                            <span className="absolute bottom-1 left-1 text-xs bg-black/60 text-white px-2 py-0.5 rounded">
+                              Before
+                            </span>
+                          </div>
+                          <div className="relative">
+                            <img
+                              src={transformation.after_image_url}
+                              alt="After"
+                              className="aspect-square object-cover"
+                            />
+                            <span className="absolute bottom-1 right-1 text-xs bg-primary/80 text-white px-2 py-0.5 rounded">
+                              After
+                            </span>
+                          </div>
+                        </div>
+                        <div className="p-3">
+                          <h3 className="font-medium text-sm">{transformation.name}</h3>
+                          {transformation.description && (
+                            <p className="text-xs text-muted-foreground">{transformation.description}</p>
+                          )}
+                          <div className="flex gap-2 mt-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="flex-1"
+                              onClick={() => handleEditTransformation(transformation)}
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Edit
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleToggleTransformationActive(transformation)}
+                            >
+                              {transformation.is_active ? "Hide" : "Show"}
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="outline" className="text-destructive">
+                                  <Trash2 className="w-3 h-3" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete this transformation?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This will permanently delete this before/after photo.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleDeleteTransformation(transformation.id)}
+                                    className="bg-destructive text-destructive-foreground"
+                                  >
+                                    Delete
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
                         </div>
                       </motion.div>
                     ))}
