@@ -14,36 +14,38 @@ const PhilosophySection = () => {
   const philosophyItems = [
     {
       icon: Target,
-      title: getContent("philosophy_1_title") || t("Performance Durable", "Sustainable Performance"),
-      description: getContent("philosophy_1_description") || t(
-        "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
-        "Build strength, mobility, and technique without injury. A long-term approach for lasting results."
-      ),
+      title: getContent("philosophy_1_title") || t("Performance", "Performance"),
+      description:
+        getContent("philosophy_1_description") ||
+        t(
+          "Renforcer la force, la mobilité et la technique sans blessure. Une approche à long terme pour des résultats qui durent.",
+          "Build strength, mobility, and technique without injury. A long-term approach for lasting results.",
+        ),
     },
     {
       icon: Users,
-      title: getContent("philosophy_2_title") || t("Suivi Personnalisé", "Personalized Support"),
-      description: getContent("philosophy_2_description") || t(
-        "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
-        "Each program is tailored to your goals, level, and lifestyle. Custom-made support."
-      ),
+      title: getContent("philosophy_2_title") || t("Riguer", "Strictness"),
+      description:
+        getContent("philosophy_2_description") ||
+        t(
+          "Chaque programme est adapté à vos objectifs, votre niveau et votre style de vie. Un accompagnement sur mesure.",
+          "Each program is tailored to your goals, level, and lifestyle. Custom-made support.",
+        ),
     },
     {
       icon: TrendingUp,
-      title: getContent("philosophy_3_title") || t("Résultats Mesurables", "Measurable Results"),
-      description: getContent("philosophy_3_description") || t(
-        "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
-        "Clear progress indicators and quantifiable goals to track your evolution in real-time."
-      ),
+      title: getContent("philosophy_3_title") || t("Bien-être", "Well-Being"),
+      description:
+        getContent("philosophy_3_description") ||
+        t(
+          "Des indicateurs de progression clairs et des objectifs quantifiables pour suivre votre évolution en temps réel.",
+          "Clear progress indicators and quantifiable goals to track your evolution in real-time.",
+        ),
     },
   ];
 
   return (
-    <section
-      id="philosophy"
-      className="py-32 relative overflow-hidden bg-card"
-      ref={ref}
-    >
+    <section id="philosophy" className="py-32 relative overflow-hidden bg-card" ref={ref}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -72,7 +74,7 @@ const PhilosophySection = () => {
           <p className="text-muted-foreground text-lg">
             {t(
               "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, rigueur et bien-être. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
-              "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and well-being. Each coaching is designed to enable sustainable and measurable progress."
+              "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and well-being. Each coaching is designed to enable sustainable and measurable progress.",
             )}
           </p>
         </motion.div>
@@ -97,9 +99,7 @@ const PhilosophySection = () => {
                   <h3 className="font-display text-2xl font-bold mb-4 group-hover:text-gold transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
               </div>
             </motion.div>
