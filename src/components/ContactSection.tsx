@@ -112,7 +112,7 @@ const ContactSection = () => {
               sectionTitle
             )}
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-white text-lg">
             {sectionSubtitle}
           </p>
         </motion.div>
@@ -262,7 +262,7 @@ const ContactSection = () => {
               {t("Où nous", "Where to")}{' '}
               <span className="text-gradient">{t("trouver?", "find us?")}</span>
             </h3>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
+            <p className="text-white text-lg leading-relaxed max-w-3xl mx-auto">
               {t(
                 "Basés à Lille, nous intervenons sur l'ensemble de la métropole lilloise : Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal et alentours. Coaching en ligne également disponible.",
                 "Based in Lille, we operate throughout the Lille metropolitan area: Marcq-en-Barœul, Mouvaux, Croix, Bondues, Villeneuve-d'Ascq, Roubaix, Wasquehal and surroundings. Online coaching also available."

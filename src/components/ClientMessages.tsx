@@ -81,7 +81,7 @@ const ClientMessages = () => {
             <span className="text-gradient">{isFrench ? "nous disent" : "tell us"}</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             {isFrench
               ? "Des retours authentiques de nos clients après leurs séances"
               : "Authentic feedback from our clients after their sessions"}
@@ -158,7 +158,7 @@ const ClientMessages = () => {
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <p className="font-display text-3xl md:text-4xl font-bold text-gold mb-1">{stat.value}</p>
-              <p className="text-muted-foreground text-sm">{stat.label}</p>
+              <p className="text-white/80 text-sm">{stat.label}</p>
             </div>
           ))}
         </motion.div>

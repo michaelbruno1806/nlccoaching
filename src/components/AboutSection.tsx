@@ -162,7 +162,7 @@ const AboutSection = () => {
                   {title.split("performance")[1]}
                 </> : title}
             </h2>
-            <motion.p className="text-muted-foreground text-lg leading-relaxed mb-6" initial={{
+            <motion.p className="text-white text-lg leading-relaxed mb-6" initial={{
             opacity: 0,
             y: 20
           }} animate={isInView ? {
@@ -174,7 +174,7 @@ const AboutSection = () => {
           }}>
               {paragraph1}
             </motion.p>
-            <motion.p className="text-muted-foreground leading-relaxed mb-8" initial={{
+            <motion.p className="text-white leading-relaxed mb-8" initial={{
             opacity: 0,
             y: 20
           }} animate={isInView ? {
