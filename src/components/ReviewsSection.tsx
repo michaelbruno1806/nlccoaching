@@ -213,7 +213,7 @@ const testimonials: Testimonial[] = [
 ];
 
 const transformationShowcases: TransformationShowcase[] = [
-  { name: "Transformation 1", beforeImage: transformBefore1, afterImage: transformAfter1 },
+  { name: "Transformation 1", beforeImage: transformAfter1, afterImage: transformBefore1 },
   { name: "Transformation 2", beforeImage: transformBefore2, afterImage: transformAfter2 },
   { name: "Transformation 3", beforeImage: transformBefore3, afterImage: transformAfter3 },
   { name: "Transformation 4", beforeImage: transformBefore4, afterImage: transformAfter4 },
@@ -446,19 +446,19 @@ const ReviewsSection = () => {
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
                 whileHover={{ y: -5 }}
               >
-                {/* Before/After comparison - After photo on left, Before photo on right */}
+                {/* Before/After comparison - Before photo on left, After photo on right */}
                 <div className="relative aspect-[3/4]">
                   <div className="absolute inset-0 grid grid-cols-2">
                     <div className="relative overflow-hidden">
-                      <img src={showcase.afterImage} alt="Après" className="w-full h-full object-cover object-center" />
+                      <img src={showcase.beforeImage} alt="Avant" className="w-full h-full object-cover object-center" />
                       <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg">
                         {isFrench ? "Avant" : "Before"}
                       </div>
                     </div>
                     <div className="relative overflow-hidden">
                       <img
-                        src={showcase.beforeImage}
-                        alt="Avant"
+                        src={showcase.afterImage}
+                        alt="Après"
                         className="w-full h-full object-cover object-center"
                       />
                       <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-primary-foreground shadow-lg">
