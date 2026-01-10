@@ -465,7 +465,7 @@ const ReviewsSection = () => {
         >
           {[
             { value: "100%", label: isFrench ? "Satisfaction" : "Satisfaction" },
-            { value: "50+", label: isFrench ? "Clients transformés" : "Transformed clients" },
+            { value: "350", label: isFrench ? "Clients transformés" : "Transformed clients" },
             { value: "-15kg", label: isFrench ? "Perte moyenne" : "Average loss" },
             { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
           ].map((stat, index) => (
