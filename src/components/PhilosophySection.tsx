@@ -34,7 +34,7 @@ const PhilosophySection = () => {
     },
     {
       icon: TrendingUp,
-      title: getContent("philosophy_3_title") || t("Bien-être", "Well-Being"),
+      title: getContent("philosophy_3_title") || t("Résultats Mesurables", "Measurable Results"),
       description:
         getContent("philosophy_3_description") ||
         t(
