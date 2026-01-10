@@ -5,9 +5,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
 import ScrollIndicator from "@/components/ScrollIndicator";
-import serviceIndividual from "@/assets/service-individual.jpg";
-import serviceGroup from "@/assets/service-group.jpg";
 import serviceProgram from "@/assets/service-program.jpg";
+import serviceIndividual from "@/assets/service-individual-new.jpg";
+import serviceGroup from "@/assets/service-group-new.jpg";
 import serviceCarnets from "@/assets/service-carnets.jpg";
 
 const Formules = () => {
@@ -212,7 +212,7 @@ const Formules = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
+              className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10"
             >
               {isFrench
                 ? "Choisissez l'accompagnement qui vous transformera et vous aidera à atteindre vos objectifs personnels et professionnels."
@@ -267,7 +267,7 @@ const Formules = () => {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               {isFrench ? "Choisissez votre formule" : "Choose your package"}
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-white max-w-xl mx-auto">
               {isFrench 
                 ? "Des offres adaptées à tous les niveaux et tous les objectifs"
                 : "Offers adapted to all levels and all goals"}

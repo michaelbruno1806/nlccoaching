@@ -198,26 +198,23 @@ const ReviewsSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+        {/* Video Testimonial Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-20 max-w-sm mx-auto"
         >
-          <span className="text-primary uppercase tracking-widest text-sm font-medium mb-4 block">
-            {isFrench ? "Avis" : "Reviews"}
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-gradient">
-              {isFrench ? "Témoignages" : "Testimonials"}
-            </span>{" "}
-            <span className="text-foreground">&</span>{" "}
-            <span className="text-gradient">
-              {isFrench ? "Résultats" : "Results"}
-            </span>
-          </h2>
+          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/30 aspect-[9/16]">
+            <iframe
+              src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
+              className="absolute inset-0 w-full h-full"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title={isFrench ? "Témoignage client" : "Customer testimonial"}
+            />
+          </div>
         </motion.div>
 
 
@@ -398,7 +395,7 @@ const ReviewsSection = () => {
           <h3 className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
             {isFrench ? "Nos Transformations" : "Our Transformations"}
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {transformationShowcases.map((showcase, index) => (
               <motion.div
                 key={showcase.name}
@@ -406,35 +403,35 @@ const ReviewsSection = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500"
+                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
                 whileHover={{ y: -5 }}
               >
-                {/* Before/After comparison */}
+                {/* Before/After comparison - INVERTED: After on left, Before on right */}
                 <div className="relative aspect-[3/4]">
                   <div className="absolute inset-0 grid grid-cols-2">
                     <div className="relative overflow-hidden">
                       <img
-                        src={showcase.beforeImage}
-                        alt="Avant"
-                        className="w-full h-full object-cover"
+                        src={showcase.afterImage}
+                        alt="Après"
+                        className="w-full h-full object-cover object-center"
                       />
-                      <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-white">
-                        {isFrench ? "Avant" : "Before"}
+                      <div className="absolute bottom-2 left-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-primary-foreground shadow-lg">
+                        {isFrench ? "Après" : "After"}
                       </div>
                     </div>
                     <div className="relative overflow-hidden">
                       <img
-                        src={showcase.afterImage}
-                        alt="Après"
-                        className="w-full h-full object-cover"
+                        src={showcase.beforeImage}
+                        alt="Avant"
+                        className="w-full h-full object-cover object-center"
                       />
-                      <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-semibold text-primary-foreground">
-                        {isFrench ? "Après" : "After"}
+                      <div className="absolute bottom-2 right-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg">
+                        {isFrench ? "Avant" : "Before"}
                       </div>
                     </div>
                   </div>
                   {/* Center divider */}
-                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-gold/50" />
+                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
                 </div>
               </motion.div>
             ))}
