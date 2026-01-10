@@ -24,7 +24,7 @@ const PhilosophySection = () => {
     },
     {
       icon: Users,
-      title: getContent("philosophy_2_title") || t("Riguer", "Strictness"),
+      title: getContent("philosophy_2_title") || t("Rigueur", "Rigor"),
       description:
         getContent("philosophy_2_description") ||
         t(
@@ -34,7 +34,7 @@ const PhilosophySection = () => {
     },
     {
       icon: TrendingUp,
-      title: getContent("philosophy_3_title") || t("Résultats Mesurables", "Measurable Results"),
+      title: getContent("philosophy_3_title") || t("Bienveillance", "Kindness"),
       description:
         getContent("philosophy_3_description") ||
         t(

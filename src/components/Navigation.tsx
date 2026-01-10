@@ -88,10 +88,10 @@ const Navigation = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <nav className="flex items-center justify-between h-14 sm:h-20">
             <Link to="/" className="flex items-center">
-              <motion.img 
+            <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-16 sm:h-24 md:h-28 w-auto max-w-[200px] sm:max-w-[300px] md:max-w-[380px]"
+                className="h-20 sm:h-28 md:h-36 w-auto max-w-[240px] sm:max-w-[350px] md:max-w-[450px]"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
