@@ -154,20 +154,20 @@ const testimonials: Testimonial[] = [{
 }];
 const transformationShowcases: TransformationShowcase[] = [{
   name: "Transformation 1",
-  beforeImage: transformBefore1,
-  afterImage: transformAfter1
+  beforeImage: transformAfter1,
+  afterImage: transformBefore1
 }, {
   name: "Transformation 2",
-  beforeImage: transformBefore2,
-  afterImage: transformAfter2
+  beforeImage: transformAfter2,
+  afterImage: transformBefore2
 }, {
   name: "Transformation 3",
   beforeImage: transformBefore3,
   afterImage: transformAfter3
 }, {
   name: "Transformation 4",
-  beforeImage: transformBefore4,
-  afterImage: transformAfter4
+  beforeImage: transformAfter4,
+  afterImage: transformBefore4
 }];
 const ReviewsSection = () => {
   const {
