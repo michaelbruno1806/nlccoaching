@@ -20,11 +20,11 @@ const ClientMessages = () => {
   const messages: ClientMessage[] = [
     {
       image: testimonial1,
-      text: isFrench
+      text: isFrench 
         ? "J'ai les fesses en feu !! 😭 Depuis que j'ai commencé avec toi je ressent vraiment la différence sur mes séances, merci Nono 🙏"
         : "My glutes are on fire!! 😭 Since I started with you I really feel the difference in my sessions, thanks Nono 🙏",
       author: "Client NLC",
-      highlight: isFrench ? "Résultats visibles" : "Visible results",
+      highlight: isFrench ? "Résultats visibles" : "Visible results"
     },
     {
       image: testimonial2,
@@ -32,13 +32,15 @@ const ClientMessages = () => {
         ? "Merci Noa pour tes coachings, grâce à toi je fais du sport sans me blesser, ça me reboost et me donne la motivation de venir quoi qu'il arrive 🙏"
         : "Thanks Noa for your coaching, thanks to you I exercise without getting injured, it boosts me and gives me motivation to come no matter what 🙏",
       author: "Client NLC",
-      highlight: isFrench ? "Sans blessure" : "Injury-free",
+      highlight: isFrench ? "Sans blessure" : "Injury-free"
     },
     {
       image: testimonial3,
-      text: isFrench ? "Merci vraiment noa-liam pour la séance ! 🙏" : "Really thank you noa-liam for the session! 🙏",
+      text: isFrench
+        ? "Merci vraiment noa-liam pour la séance ! 🙏"
+        : "Really thank you noa-liam for the session! 🙏",
       author: "Client NLC",
-      highlight: isFrench ? "Satisfaction" : "Satisfaction",
+      highlight: isFrench ? "Satisfaction" : "Satisfaction"
     },
     {
       image: testimonial4,
@@ -46,8 +48,8 @@ const ClientMessages = () => {
         ? "J'ai adoré le small Groups du jour haha. C'était top tout le monde m'a encouragé j'ai hâte de la prochaine séance !"
         : "I loved today's small groups haha. It was great, everyone encouraged me, I can't wait for the next session!",
       author: "Client NLC",
-      highlight: isFrench ? "Esprit d'équipe" : "Team spirit",
-    },
+      highlight: isFrench ? "Esprit d'équipe" : "Team spirit"
+    }
   ];
 
   return (
@@ -55,7 +57,7 @@ const ClientMessages = () => {
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
-
+      
       <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -64,7 +66,7 @@ const ClientMessages = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.span
+          <motion.span 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -73,13 +75,13 @@ const ClientMessages = () => {
             <MessageCircle className="w-4 h-4" />
             {isFrench ? "Messages Clients" : "Client Messages"}
           </motion.span>
-
+          
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             {isFrench ? "Ce que nos clients" : "What our clients"}{" "}
             <span className="text-gradient">{isFrench ? "nous disent" : "tell us"}</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             {isFrench
               ? "Des retours authentiques de nos clients après leurs séances"
               : "Authentic feedback from our clients after their sessions"}
@@ -108,7 +110,7 @@ const ClientMessages = () => {
                     </span>
                   </div>
                 )}
-
+                
                 {/* Screenshot image */}
                 <div className="p-6 pb-0">
                   <div className="relative rounded-xl overflow-hidden bg-black/20 backdrop-blur-sm">
@@ -121,7 +123,7 @@ const ClientMessages = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
-
+                
                 {/* Content */}
                 <div className="p-6 pt-4">
                   <div className="flex items-center gap-3">
@@ -130,7 +132,9 @@ const ClientMessages = () => {
                     </div>
                     <div>
                       <p className="font-medium text-foreground text-sm">{message.author}</p>
-                      <p className="text-muted-foreground text-xs">{isFrench ? "Message direct" : "Direct message"}</p>
+                      <p className="text-muted-foreground text-xs">
+                        {isFrench ? "Message direct" : "Direct message"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -149,12 +153,12 @@ const ClientMessages = () => {
         >
           {[
             { value: "100%", label: isFrench ? "Clients satisfaits" : "Satisfied clients" },
-            { value: "350+", label: isFrench ? "Transformations" : "Transformations" },
+            { value: "50+", label: isFrench ? "Transformations" : "Transformations" },
             { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <p className="font-display text-3xl md:text-4xl font-bold text-gold mb-1">{stat.value}</p>
-              <p className="text-muted-foreground text-sm">{stat.label}</p>
+              <p className="text-white/80 text-sm">{stat.label}</p>
             </div>
           ))}
         </motion.div>
