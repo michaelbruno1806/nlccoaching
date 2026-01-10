@@ -14,7 +14,7 @@ const PhilosophySection = () => {
   const philosophyItems = [
     {
       icon: Target,
-      title: getContent("philosophy_1_title") || t("Performance", "Performance"),
+      title: getContent("philosophy_1_title") || t("Performance Durable", "Lasting Performance"),
       description:
         getContent("philosophy_1_description") ||
         t(
