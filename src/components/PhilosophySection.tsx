@@ -73,8 +73,8 @@ const PhilosophySection = () => {
           </h2>
           <p className="text-muted-foreground text-lg">
             {t(
-              "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, rigueur et bien-être. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
-              "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and well-being. Each coaching is designed to enable sustainable and measurable progress.",
+              "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, rigueur et bienveillance. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
+              "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and kindness. Each coaching is designed to enable sustainable and measurable progress.",
             )}
           </p>
         </motion.div>
