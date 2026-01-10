@@ -59,7 +59,7 @@ const Footer = () => {
                 transition={{ duration: 0.2 }}
               />
             </a>
-            <p className="text-muted-foreground mb-6 max-w-sm">
+            <p className="text-white/90 mb-6 max-w-sm text-base">
               {t(
                 "Transformer votre potentiel en performance. Coaching d'élite basé sur la science, la discipline et la performance humaine.",
                 "Transform your potential into performance. Elite coaching based on science, discipline, and human performance."
@@ -93,14 +93,14 @@ const Footer = () => {
                     {link.href.startsWith("/") ? (
                       <Link
                         to={link.href}
-                        className="text-muted-foreground hover:text-gold transition-colors duration-300 text-sm"
+                        className="text-white/80 hover:text-gold transition-colors duration-300 text-base"
                       >
                         {link.label}
                       </Link>
                     ) : (
                       <a
                         href={link.href}
-                        className="text-muted-foreground hover:text-gold transition-colors duration-300 text-sm"
+                        className="text-white/80 hover:text-gold transition-colors duration-300 text-base"
                       >
                         {link.label}
                       </a>
@@ -114,10 +114,10 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-white/80">
             © {new Date().getFullYear()} NLC Coaching. {t("Tous droits réservés.", "All rights reserved.")}
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-white/80">
             {t("Conçu avec passion pour la performance", "Designed with passion for performance")}
           </p>
         </div>
