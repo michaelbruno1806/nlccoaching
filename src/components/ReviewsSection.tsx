@@ -241,16 +241,20 @@ const ReviewsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-20 max-w-sm mx-auto"
+          className="mb-20"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/30 aspect-[9/16]">
-            <iframe
-              src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
-              className="absolute inset-0 w-full h-full"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title={isFrench ? "Témoignage client" : "Customer testimonial"}
-            />
+          <div className="max-w-4xl mx-auto">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
+              <div className="relative rounded-2xl overflow-hidden aspect-video bg-black">
+                <iframe
+                  src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview"
+                  className="absolute inset-0 w-full h-full"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title={isFrench ? "Témoignage client" : "Customer testimonial"}
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -333,7 +337,7 @@ const ReviewsSection = () => {
             <Heart className="w-7 h-7 text-primary" />
             {isFrench ? "Témoignages Clients" : "Client Testimonials"}
           </h3>
-          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-center text-white/90 text-lg mb-8 max-w-2xl mx-auto">
             {isFrench
               ? "Cliquez sur une carte pour découvrir l'histoire complète"
               : "Click on a card to discover the full story"}
@@ -442,23 +446,23 @@ const ReviewsSection = () => {
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
                 whileHover={{ y: -5 }}
               >
-                {/* Before/After comparison - INVERTED: After on left, Before on right */}
+                {/* Before/After comparison - Before on left, After on right */}
                 <div className="relative aspect-[3/4]">
                   <div className="absolute inset-0 grid grid-cols-2">
                     <div className="relative overflow-hidden">
-                      <img src={showcase.afterImage} alt="Après" className="w-full h-full object-cover object-center" />
-                      <div className="absolute bottom-2 left-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-primary-foreground shadow-lg">
-                        {isFrench ? "Après" : "After"}
+                      <img src={showcase.beforeImage} alt="Avant" className="w-full h-full object-cover object-center" />
+                      <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg">
+                        {isFrench ? "Avant" : "Before"}
                       </div>
                     </div>
                     <div className="relative overflow-hidden">
                       <img
-                        src={showcase.beforeImage}
-                        alt="Avant"
+                        src={showcase.afterImage}
+                        alt="Après"
                         className="w-full h-full object-cover object-center"
                       />
-                      <div className="absolute bottom-2 right-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-lg">
-                        {isFrench ? "Avant" : "Before"}
+                      <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-primary-foreground shadow-lg">
+                        {isFrench ? "Après" : "After"}
                       </div>
                     </div>
                   </div>

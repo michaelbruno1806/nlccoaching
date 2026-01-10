@@ -19,7 +19,6 @@ const ServicesSection = () => {
 
   const services = [
     {
-      category: t("Programme", "Program"),
       titleLine1: t("SUIVI", "PERSONALIZED"),
       titleLine2: t("PERSONNALISÉ", "COACHING"),
       description: getContent("service_1_description") || t(
@@ -30,7 +29,6 @@ const ServicesSection = () => {
       link: "/suivi-personnalise",
     },
     {
-      category: t("Programme", "Program"),
       titleLine1: t("COACHING", "INDIVIDUAL"),
       titleLine2: t("INDIVIDUEL", "COACHING"),
       description: getContent("service_2_description") || t(
@@ -41,7 +39,6 @@ const ServicesSection = () => {
       link: "/coaching-individuel",
     },
     {
-      category: t("Groupes", "Groups"),
       titleLine1: "SMALL",
       titleLine2: "GROUPS",
       description: getContent("service_3_description") || t(
@@ -100,11 +97,7 @@ const ServicesSection = () => {
               <div className="relative bg-card/30 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--primary),0.2)]">
                 {/* Content */}
                 <div className="p-6 lg:p-8 flex-grow">
-                  <span className="text-primary text-sm font-medium tracking-wide">
-                    {service.category}
-                  </span>
-                  
-                  <h3 className="font-display text-2xl lg:text-3xl font-bold mt-3 leading-tight">
+                  <h3 className="font-display text-2xl lg:text-3xl font-bold leading-tight">
                     <span className="text-primary block">{service.titleLine1}</span>
                     <span className="text-primary block">{service.titleLine2}</span>
                   </h3>
