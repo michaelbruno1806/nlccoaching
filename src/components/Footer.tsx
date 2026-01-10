@@ -52,7 +52,7 @@ const Footer = () => {
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-24 md:h-32 w-auto"
+                className="h-32 md:h-44 w-auto"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
