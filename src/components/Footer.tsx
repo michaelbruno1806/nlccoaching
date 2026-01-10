@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import nlcLogo from "@/assets/nlc-coaching-logo.png";
 
-const socialLinks = [
-  { icon: Instagram, href: "https://www.instagram.com/noaliam_coaching/", label: "Instagram" },
-];
+const INSTAGRAM_URL = "https://www.instagram.com/nlc.coaching?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -65,20 +63,19 @@ const Footer = () => {
                 "Transform your potential into performance. Elite coaching based on science, discipline, and human performance."
               )}
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center hover:border-gold/50 hover:text-gold transition-all duration-300"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
-            </div>
+            
+            {/* Instagram CTA Button */}
+            <motion.a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] rounded-xl text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Instagram className="w-6 h-6" />
+              <span>{t("Pour avoir des conseils suis-nous et abonne-toi !", "Follow us for tips and subscribe!")}</span>
+            </motion.a>
           </div>
 
           {/* Links */}
