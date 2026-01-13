@@ -425,7 +425,7 @@ const APropos = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold mx-auto rounded-full mb-8" />
             <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              {language === 'fr' ? "Chez NLC Coaching, nous allions les principes du sport de haut niveau à une approche humaine et accessible. Pas de promesses miracles, pas de discours creux : une méthode claire, personnalisée et mesurable." : "At NLC Coaching, we combine high-level sport principles with a human and accessible approach. No miracle promises, no hollow speeches: a clear, personalized and measurable method."}
+              {language === 'fr' ? "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, discipline et bienveillance. Chaque accompagnement est pensé pour permettre une progression durable et mesurable." : "At NLC Coaching, we believe in a sports approach that combines performance, discipline and kindness. Each coaching is designed to enable sustainable and measurable progress."}
             </p>
           </motion.div>
 
