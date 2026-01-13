@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import ClientMessages from "@/components/ClientMessages";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
@@ -146,7 +148,9 @@ const CustomerFeedback = () => {
   const [expandedReview, setExpandedReview] = useState<string | null>(null);
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-background pt-20">
       {/* Hero Header */}
       <section className="relative pt-20 pb-16 bg-gradient-to-b from-primary/10 to-background">
         <div className="container mx-auto px-4">
@@ -449,7 +453,9 @@ const CustomerFeedback = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <Footer />
     </main>
+    </>
   );
 };
 

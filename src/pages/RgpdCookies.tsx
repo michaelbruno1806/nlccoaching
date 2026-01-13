@@ -3,13 +3,17 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const RgpdCookies = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-background pt-20">
       <section className="relative pt-20 pb-16 bg-gradient-to-b from-primary/10 to-background">
         <div className="container mx-auto px-4">
           <Link to="/">
@@ -187,7 +191,9 @@ const RgpdCookies = () => {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
+    </>
   );
 };
 
