@@ -210,10 +210,10 @@ const CarnetsSeances = () => {
 
                 <div className="text-center mb-6">
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold text-gradient">{pkg.price}</span>
+                    <span className="text-4xl font-bold text-gold">{pkg.price}</span>
                     <span className="text-muted-foreground">€</span>
                   </div>
-                  <div className="text-sm text-muted-foreground mt-1">
+                  <div className="text-sm text-gold/80 mt-1">
                     {pkg.pricePerSession}€ / {isFrench ? "séance" : "session"}
                   </div>
                 </div>

@@ -87,7 +87,7 @@ const SuiviPersonnalise = () => {
 
               <div className="flex items-center gap-6 mb-8">
                 <div className="bg-primary/10 border border-primary/30 rounded-xl px-6 py-4">
-                  <div className="text-4xl font-bold text-primary">100</div>
+                  <div className="text-4xl font-bold text-gold">100</div>
                   <div className="text-sm text-muted-foreground">
                     {isFrench ? "euro / mois" : "euro / month"}
                   </div>
