@@ -5,6 +5,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
 import ScrollIndicator from "@/components/ScrollIndicator";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import serviceProgram from "@/assets/service-program.jpg";
 import serviceIndividual from "@/assets/service-individual-new.jpg";
 import serviceGroup from "@/assets/service-group-new.jpg";
@@ -134,7 +136,9 @@ const Formules = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-background pt-20">
       <SEOHead
         title={seoTitle}
         description={seoDescription}
@@ -490,7 +494,9 @@ const Formules = () => {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
+    </>
   );
 };
 
