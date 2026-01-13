@@ -180,14 +180,50 @@ const ReviewsSection = () => {
   } | null>(null);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(!isMuted);
+    setIsMuted((prev) => {
+      const next = !prev;
+      if (videoRef.current) videoRef.current.muted = next;
+      return next;
+    });
+  };
+
+  const tryAutoplay = () => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    // Ensure muted is applied before attempting to play (required by most browsers)
+    el.muted = isMuted;
+
+    const p = el.play();
+    if (p && typeof (p as Promise<void>).catch === "function") {
+      (p as Promise<void>).catch(() => {
+        setAutoplayBlocked(true);
+      });
     }
   };
+
+  const handleUserPlay = () => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const p = el.play();
+    if (p && typeof (p as Promise<void>).then === "function") {
+      (p as Promise<void>)
+        .then(() => setAutoplayBlocked(false))
+        .catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    const t = window.setTimeout(() => tryAutoplay(), 50);
+    return () => window.clearTimeout(t);
+  }, []);
+
   return <section id="reviews" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
@@ -203,7 +239,7 @@ const ReviewsSection = () => {
       }} whileInView={{
         opacity: 1,
         y: 0
-      }} viewport={{
+      }} onViewportEnter={tryAutoplay} viewport={{
         once: true
       }} transition={{
         duration: 0.6
@@ -219,11 +255,41 @@ const ReviewsSection = () => {
                   src="/videos/avis-client.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
                   autoPlay
-                  muted
+                  muted={isMuted}
                   loop
                   playsInline
+                  preload="auto"
+                  onLoadedMetadata={tryAutoplay}
+                  onCanPlay={tryAutoplay}
+                  onPlay={() => setAutoplayBlocked(false)}
+                  onError={() => setVideoError(true)}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
+
+                {videoError && (
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                    <div className="max-w-xs rounded-xl bg-background/80 backdrop-blur-sm border border-border px-4 py-3 text-center">
+                      <p className="text-sm text-foreground">
+                        {isFrench
+                          ? "Vidéo non compatible ici. Réexporte en MP4 H.264 + AAC."
+                          : "Video not supported. Re-export as MP4 H.264 + AAC."}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {autoplayBlocked && !videoError && (
+                  <motion.button
+                    onClick={handleUserPlay}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-background/70 backdrop-blur-sm border border-border flex items-center justify-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={isFrench ? "Lancer la vidéo" : "Play video"}
+                  >
+                    <Play className="w-7 h-7 text-foreground" />
+                  </motion.button>
+                )}
+
                 {/* Sound control button */}
                 <motion.button
                   onClick={toggleMute}
