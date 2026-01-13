@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight, Play, MessageCircle, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowRight, Play, MessageCircle, Heart, ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -179,7 +179,15 @@ const ReviewsSection = () => {
     title: string;
   } | null>(null);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
   return <section id="reviews" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
@@ -216,6 +224,20 @@ const ReviewsSection = () => {
                   playsInline
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
+                {/* Sound control button */}
+                <motion.button
+                  onClick={toggleMute}
+                  className="absolute bottom-4 right-4 w-12 h-12 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-primary/80 transition-colors duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={isMuted ? (isFrench ? "Activer le son" : "Unmute") : (isFrench ? "Couper le son" : "Mute")}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-5 h-5 text-white" />
+                  ) : (
+                    <Volume2 className="w-5 h-5 text-white" />
+                  )}
+                </motion.button>
               </div>
             </div>
           </div>
