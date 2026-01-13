@@ -200,18 +200,19 @@ const ReviewsSection = () => {
       }} transition={{
         duration: 0.6
       }} className="mb-20">
-          <div className="max-w-md mx-auto">
+          <div className="max-w-sm mx-auto">
             <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
               <div 
                 className="relative rounded-2xl overflow-hidden bg-black"
-                style={{ aspectRatio: '9/16' }}
+                style={{ aspectRatio: '9/16', minHeight: '500px' }}
               >
                 <iframe 
-                  src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview" 
-                  className="absolute inset-0 w-full h-full" 
+                  src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview?autoplay=1" 
+                  className="absolute inset-0 w-full h-full scale-[1.8] origin-center" 
                   allow="autoplay; encrypted-media" 
                   allowFullScreen 
-                  title={isFrench ? "Témoignage client" : "Customer testimonial"} 
+                  title={isFrench ? "Témoignage client" : "Customer testimonial"}
+                  style={{ border: 'none' }}
                 />
               </div>
             </div>
