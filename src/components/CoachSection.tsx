@@ -49,9 +49,6 @@ const CoachSection = () => {
         } : {}} transition={{
           duration: 0.8
         }} className="order-2 lg:order-1">
-            <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
-              {getContent("coach_title") || t("Votre Coach", "Your Coach")}
-            </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
               <span className="text-gradient text-5xl md:text-6xl lg:text-7xl">Noa-Liam</span>
             </h2>
