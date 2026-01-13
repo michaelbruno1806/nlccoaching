@@ -52,12 +52,12 @@ const CoachSection = () => {
             <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
               {getContent("coach_title") || t("Votre Coach", "Your Coach")}
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {getContent("coach_headline") || <>
-                  {t("Coach sportif et", "Sports coach and")}{" "}
-                  <span className="text-gradient">{t("mentor de vie", "life mentor")}</span>
-                </>}
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+              <span className="text-gradient text-5xl md:text-6xl lg:text-7xl">Noa-Liam</span>
             </h2>
+            <p className="text-2xl md:text-3xl font-display font-semibold text-gold mb-6">
+              {t("Fondateur de NLC Coaching", "Founder of NLC Coaching")}
+            </p>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               {getContent("coach_bio_1") || t("J'accompagne chacun vers l'équilibre et la performance. Mon approche est simple : transformer les défis en opportunités et vous guider vers votre meilleure version.", "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version.")}
             </p>

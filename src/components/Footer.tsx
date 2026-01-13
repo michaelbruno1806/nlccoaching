@@ -16,7 +16,8 @@ const Footer = () => {
         { label: t("Accueil", "Home"), href: "/" },
         { label: t("À Propos", "About"), href: "/a-propos" },
         { label: t("Formules", "Programs"), href: "/formules" },
-        { label: "Contact", href: "/#contact" },
+        { label: t("Avis Clients", "Client Reviews"), href: "/avis-clients" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
@@ -52,7 +53,7 @@ const Footer = () => {
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-32 md:h-44 w-auto"
+                className="h-48 md:h-64 w-auto max-w-full"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
