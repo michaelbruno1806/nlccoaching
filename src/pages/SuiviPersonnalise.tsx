@@ -5,6 +5,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import BookingFormSection from "@/components/BookingFormSection";
 import ClientMessages from "@/components/ClientMessages";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import serviceProgram from "@/assets/service-program.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -36,7 +38,9 @@ const SuiviPersonnalise = () => {
   const transformations = [transformation1, transformation2, transformation3, transformation4];
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-background pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         {/* Background */}
@@ -244,7 +248,9 @@ const SuiviPersonnalise = () => {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
+    </>
   );
 };
 

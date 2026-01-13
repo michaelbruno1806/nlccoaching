@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import BookingFormSection from "@/components/BookingFormSection";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import serviceIndividual from "@/assets/service-individual.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -48,7 +50,9 @@ const CoachingIndividuel = () => {
   const transformations = [transformation1, transformation2, transformation3, transformation4];
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-background pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -295,7 +299,9 @@ const CoachingIndividuel = () => {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
+    </>
   );
 };
 
