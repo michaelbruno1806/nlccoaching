@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -527,17 +528,17 @@ const APropos = () => {
           duration: 0.8,
           delay: 0.3
         }} className="flex flex-col sm:flex-row gap-4">
-            <a href="/formules">
+            <Link to="/formules">
               <Button variant="gold" size="lg" className="group text-lg px-8 py-6">
                 {language === 'fr' ? 'Les Formules' : 'Programs'}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </a>
-            <a href="/#contact">
+            </Link>
+            <Link to="/contact">
               <Button variant="goldOutline" size="lg" className="text-lg px-8 py-6">
                 {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
               </Button>
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>
