@@ -236,7 +236,7 @@ const APropos = () => {
             } : {}} transition={{
               duration: 0.6,
               delay: 0.2
-            }} className="text-lg md:text-xl text-foreground/90 leading-relaxed font-light font-sans">
+            }} className="text-muted-foreground leading-relaxed">
                 {language === 'fr' ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur en force installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance." : "Founded by Noa Liam Politino, sports coach, physical trainer and strength coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."}
               </motion.p>
               
