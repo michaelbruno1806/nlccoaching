@@ -413,7 +413,7 @@ const Formules = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "100%", label: isFrench ? "Satisfaction" : "Satisfaction" },
-              { value: "350+", label: isFrench ? "Clients accompagnés" : "Clients coached" },
+              { value: "5000+", label: isFrench ? "Clients accompagnés" : "Clients coached" },
               { value: "500+", label: isFrench ? "Séances réalisées" : "Sessions completed" },
               { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
             ].map((stat, index) => (
