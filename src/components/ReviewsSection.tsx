@@ -206,13 +206,15 @@ const ReviewsSection = () => {
                 className="relative rounded-2xl overflow-hidden bg-black"
                 style={{ aspectRatio: '9/16', minHeight: '500px' }}
               >
-                <iframe 
-                  src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview?autoplay=1" 
-                  className="absolute inset-0 w-full h-full scale-[1.8] origin-center" 
-                  allow="autoplay; encrypted-media" 
-                  allowFullScreen 
+                <video
+                  ref={videoRef}
+                  src="/videos/Avis Client.mp4"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
-                  style={{ border: 'none' }}
                 />
               </div>
             </div>
