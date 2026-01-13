@@ -131,7 +131,7 @@ const CoachingIndividuel = () => {
             >
               <div className="text-sm text-muted-foreground mb-1">{isFrench ? "à partir de" : "starting at"}</div>
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold text-foreground">50</span>
+                <span className="text-5xl font-bold text-gold">50</span>
                 <span className="text-xl text-muted-foreground">€ / {isFrench ? "séance" : "session"}</span>
               </div>
               <div className="text-xs text-muted-foreground/70 mt-1">{isFrench ? "(conditions applicables)" : "(conditions apply)"}</div>
