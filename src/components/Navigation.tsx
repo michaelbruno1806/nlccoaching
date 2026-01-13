@@ -62,8 +62,8 @@ const Navigation = () => {
   const navLinks = [
     { href: "/a-propos", fr: "À propos de\nNLC Coaching", en: "About\nNLC Coaching", multiline: true },
     { href: "/formules", fr: "Les Formules", en: "Programs" },
-    { href: "/#reviews", fr: "Avis Clients", en: "Client Reviews" },
-    { href: "/#contact", fr: "Contact", en: "Contact" },
+    { href: "/avis-clients", fr: "Avis Clients", en: "Client Reviews" },
+    { href: "/contact", fr: "Contact", en: "Contact" },
   ];
 
   const serviceLinks = [
@@ -121,9 +121,6 @@ const Navigation = () => {
               })}
 
               <LanguageToggle />
-              <Button variant="gold" size="sm" onClick={() => handleNavClick("/#contact")}>
-                <AnimatedText fr="Commencer" en="Get Started" />
-              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -203,7 +200,7 @@ const Navigation = () => {
                 );
               })}
 
-              {/* Mobile Get Started Button */}
+              {/* Mobile Language Toggle */}
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -216,9 +213,6 @@ const Navigation = () => {
                 className="flex flex-col items-center gap-4 mt-4"
               >
                 <LanguageToggle />
-                <Button variant="gold" size="lg" onClick={() => handleNavClick("/#contact")}>
-                  <AnimatedText fr="Commencer" en="Get Started" />
-                </Button>
               </motion.div>
             </motion.div>
           </motion.div>

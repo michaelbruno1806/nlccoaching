@@ -25,6 +25,8 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import APropos from "./pages/APropos";
 import Parcours from "./pages/Parcours";
+import AvisClients from "./pages/AvisClients";
+import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import BackToTopButton from "./components/BackToTopButton";
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
         <Route path="/a-propos" element={<PageTransition><APropos /></PageTransition>} />
         <Route path="/parcours" element={<PageTransition><Parcours /></PageTransition>} />
+        <Route path="/avis-clients" element={<PageTransition><AvisClients /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/feedback" element={<PageTransition><CustomerFeedback /></PageTransition>} />
         <Route path="/formules" element={<PageTransition><Formules /></PageTransition>} />
         <Route path="/suivi-personnalise" element={<PageTransition><SuiviPersonnalise /></PageTransition>} />

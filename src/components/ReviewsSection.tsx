@@ -201,9 +201,29 @@ const ReviewsSection = () => {
         duration: 0.6
       }} className="mb-20">
           <div className="max-w-4xl mx-auto">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
-              <div className="relative rounded-2xl overflow-hidden aspect-video bg-black">
-                <iframe src="https://drive.google.com/file/d/1gud3g7P0XdVco7BNc_84oGNRpf0vBUjC/preview" className="absolute inset-0 w-full h-full" allow="autoplay; encrypted-media" allowFullScreen title={isFrench ? "Témoignage client" : "Customer testimonial"} />
+            <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2 max-w-md mx-auto">
+              <div 
+                className="relative rounded-2xl overflow-hidden bg-black group"
+                style={{ aspectRatio: '9/16' }}
+                onMouseEnter={() => videoRef.current?.play()}
+                onMouseLeave={() => {
+                  if (videoRef.current) {
+                    videoRef.current.pause();
+                  }
+                }}
+              >
+                <video 
+                  ref={videoRef}
+                  src="/videos/reviews-video.mp4"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  muted
+                  playsInline
+                  loop
+                  poster="/lovable-uploads/f0173019-13b6-466d-9eaa-2c6f650b0dba.jpg"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-300 flex items-center justify-center">
+                  <Play className="w-16 h-16 text-white/80 group-hover:opacity-0 transition-opacity duration-300" />
+                </div>
               </div>
             </div>
           </div>
