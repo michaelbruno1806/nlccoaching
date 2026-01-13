@@ -198,20 +198,26 @@ const APropos = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Text Content - Left Side */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              animate={origineInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: -30
+          }} animate={origineInView ? {
+            opacity: 1,
+            x: 0
+          } : {}} transition={{
+            duration: 0.8
+          }} className="space-y-8">
               {/* Section Header */}
               <div className="mb-8">
-                <motion.span 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={origineInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5 }}
-                  className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
-                >
+                <motion.span initial={{
+                opacity: 0,
+                y: 10
+              }} animate={origineInView ? {
+                opacity: 1,
+                y: 0
+              } : {}} transition={{
+                duration: 0.5
+              }} className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5">
                   {language === 'fr' ? 'Parcours' : 'Journey'}
                 </motion.span>
                 <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
@@ -221,47 +227,59 @@ const APropos = () => {
                 <div className="w-24 h-1 bg-gradient-to-r from-gold/50 to-gold rounded-full" />
               </div>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={origineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg md:text-xl text-white leading-relaxed font-light"
-              >
+              <motion.p initial={{
+              opacity: 0,
+              y: 20
+            }} animate={origineInView ? {
+              opacity: 1,
+              y: 0
+            } : {}} transition={{
+              duration: 0.6,
+              delay: 0.2
+            }} className="text-lg md:text-xl text-foreground/90 leading-relaxed font-light font-sans">
                 {language === 'fr' ? "Fondé par Noa Liam Politino, coach sportif, préparateur physique et entraineur en force installé dans la métropole lilloise, NLC Coaching s'appuie sur un parcours profondément ancré dans la culture du sport et de la performance." : "Founded by Noa Liam Politino, sports coach, physical trainer and strength coach based in the Lille metropolitan area, NLC Coaching relies on a background deeply rooted in the culture of sport and performance."}
               </motion.p>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={origineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-muted-foreground leading-relaxed"
-              >
+              <motion.p initial={{
+              opacity: 0,
+              y: 20
+            }} animate={origineInView ? {
+              opacity: 1,
+              y: 0
+            } : {}} transition={{
+              duration: 0.6,
+              delay: 0.3
+            }} className="text-muted-foreground leading-relaxed">
                 {language === 'fr' ? "Originaire de l'océan Indien, Noa-liam a grandi entre montagnes, mer et terrains de rugby, au contact de la discipline, du collectif et du dépassement. Plusieurs fois champion de La Réunion avec son équipe, il s'est ensuite orienté vers l'haltérophilie et la préparation physique." : "Originally from the Indian Ocean, Noa-liam grew up between mountains, sea and rugby fields, in contact with discipline, teamwork and surpassing oneself. Several times champion of Réunion Island with his team, he then turned to weightlifting and physical preparation."}
               </motion.p>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={origineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-muted-foreground leading-relaxed"
-              >
+              <motion.p initial={{
+              opacity: 0,
+              y: 20
+            }} animate={origineInView ? {
+              opacity: 1,
+              y: 0
+            } : {}} transition={{
+              duration: 0.6,
+              delay: 0.4
+            }} className="text-muted-foreground leading-relaxed">
                 {language === 'fr' ? "Après avoir passé son BPJEPS AF à 18 ans, puis une première année en Licence STAPS à 19 ans, il a choisi la voie du DEJEPS dans les métiers de la force et de la coordination de projet sportif : une formation plus concrète, centrée sur la performance et l'entraînement." : "After passing his BPJEPS AF at 18, then a first year in a STAPS degree at 19, he chose the DEJEPS path in strength professions and sports project coordination: a more concrete training, focused on performance and training."}
               </motion.p>
             </motion.div>
             
             {/* Image - Right Side */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              animate={origineInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: 30
+          }} animate={origineInView ? {
+            opacity: 1,
+            x: 0
+          } : {}} transition={{
+            duration: 0.8,
+            delay: 0.3
+          }} className="relative">
               <div className="aspect-[4/5] rounded-lg overflow-hidden">
-                <img
-                  src={methodTraining}
-                  alt={language === 'fr' ? "Coach en action" : "Coach in action"}
-                  className="w-full h-full object-cover"
-                />
+                <img src={methodTraining} alt={language === 'fr' ? "Coach en action" : "Coach in action"} className="w-full h-full object-cover" />
               </div>
               {/* Corner decorations */}
               <div className="absolute -top-4 -right-4 w-24 h-24 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
@@ -270,12 +288,16 @@ const APropos = () => {
           </div>
           
           {/* Experiences Card - Below */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={origineInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-20 max-w-3xl"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 30
+        }} animate={origineInView ? {
+          opacity: 1,
+          y: 0
+        } : {}} transition={{
+          duration: 0.6,
+          delay: 0.5
+        }} className="mt-20 max-w-3xl">
             <div className="bg-gradient-to-br from-card via-card/80 to-card/60 rounded-2xl p-8 border border-gold/20 shadow-xl shadow-black/20 relative overflow-hidden">
               {/* Card glow */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-3xl" />
@@ -362,11 +384,7 @@ const APropos = () => {
                 
                 <div className="relative z-10">
                   <div className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
-                    {benefit.image ? (
-                      <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
-                    ) : benefit.icon ? (
-                      <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" />
-                    ) : null}
+                    {benefit.image ? <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" /> : benefit.icon ? <benefit.icon className="w-7 h-7 text-gold group-hover:scale-110 transition-transform" /> : null}
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                 </div>
@@ -440,18 +458,18 @@ const APropos = () => {
             </div>
             
             {/* Image */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              animate={philosophyInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: 30
+          }} animate={philosophyInView ? {
+            opacity: 1,
+            x: 0
+          } : {}} transition={{
+            duration: 0.8,
+            delay: 0.3
+          }} className="relative hidden lg:block">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden">
-                <img
-                  src={coachThinking}
-                  alt={language === 'fr' ? "Coach en réflexion" : "Coach thinking"}
-                  className="w-full h-full object-cover"
-                />
+                <img src={coachThinking} alt={language === 'fr' ? "Coach en réflexion" : "Coach thinking"} className="w-full h-full object-cover" />
               </div>
               <div className="absolute -top-4 -right-4 w-20 h-20 border-r-2 border-t-2 border-gold/40 rounded-tr-xl" />
               <div className="absolute -bottom-4 -left-4 w-20 h-20 border-l-2 border-b-2 border-gold/40 rounded-bl-xl" />
