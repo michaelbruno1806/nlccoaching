@@ -47,18 +47,18 @@ const Footer = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          {/* Brand */}
-          <div className="lg:col-span-2">
+          {/* Brand - Centered Logo */}
+          <div className="lg:col-span-2 flex flex-col items-center text-center">
             <a href="#" className="inline-block mb-6">
               <motion.img 
                 src={nlcLogo} 
                 alt="NLC Coaching" 
-                className="h-48 md:h-64 w-auto max-w-full"
+                className="h-48 md:h-64 w-auto max-w-full mx-auto"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
             </a>
-            <p className="text-white/90 mb-6 max-w-sm text-base">
+            <p className="text-white/90 mb-6 max-w-sm text-base text-center">
               {t(
                 "Transformer votre potentiel en performance. Coaching d'élite basé sur la science, la discipline et la performance humaine.",
                 "Transform your potential into performance. Elite coaching based on science, discipline, and human performance."
@@ -66,17 +66,19 @@ const Footer = () => {
             </p>
             
             {/* Instagram CTA Button */}
-            <motion.a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] rounded-xl text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Instagram className="w-6 h-6" />
-              <span>{t("Pour avoir des conseils suis-nous et abonne-toi !", "Follow us for tips and subscribe!")}</span>
-            </motion.a>
+            <div className="flex justify-center">
+              <motion.a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] rounded-xl text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <Instagram className="w-6 h-6" />
+                <span>{t("Pour avoir des conseils suis-nous et abonne-toi !", "Follow us for tips and subscribe!")}</span>
+              </motion.a>
+            </div>
           </div>
 
           {/* Links */}

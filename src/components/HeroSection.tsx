@@ -60,13 +60,6 @@ const HeroSection = () => {
       delay: 1
     }} />
       
-      {/* Floating Particles */}
-      <FloatingParticle delay={0} x="10%" y="20%" size={8} />
-      <FloatingParticle delay={0.5} x="85%" y="30%" size={6} />
-      <FloatingParticle delay={1} x="70%" y="60%" size={10} />
-      <FloatingParticle delay={1.5} x="15%" y="70%" size={5} />
-      <FloatingParticle delay={2} x="90%" y="80%" size={7} />
-      <FloatingParticle delay={0.3} x="50%" y="15%" size={4} />
 
       {/* Animated Lines */}
       <motion.div className="absolute left-10 top-1/3 w-px h-32 bg-gradient-to-b from-transparent via-gold/50 to-transparent" animate={{
