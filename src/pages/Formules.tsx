@@ -338,7 +338,7 @@ const Formules = () => {
                           <div className="space-y-2">
                             {formule.prices?.map((price, i) => (
                               <div key={i} className="flex items-baseline gap-2">
-                                <span className="text-2xl font-bold text-foreground">{price.amount}</span>
+                                <span className="text-2xl font-bold text-gold">{price.amount}</span>
                                 <span className="text-muted-foreground text-sm">€ / {price.label}</span>
                               </div>
                             ))}
@@ -348,7 +348,7 @@ const Formules = () => {
                             {formule.pricePrefix && (
                               <span className="text-sm text-muted-foreground">{formule.pricePrefix}</span>
                             )}
-                            <span className="text-5xl font-bold text-foreground">{formule.price}</span>
+                            <span className="text-5xl font-bold text-gold">{formule.price}</span>
                             <span className="text-muted-foreground">{formule.priceSuffix}</span>
                             {formule.priceNote && (
                               <span className="text-xs text-muted-foreground/70 w-full mt-1">{formule.priceNote}</span>
