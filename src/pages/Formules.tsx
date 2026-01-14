@@ -21,7 +21,7 @@ const Formules = () => {
     ? "Formules & Tarifs - Coaching Sportif Lille"
     : "Programs & Pricing - Sports Coaching Lille";
   const seoDescription = isFrench
-    ? "Découvrez nos formules de coaching : suivi personnalisé, coaching individuel, small groupes et carnets de séances. Tarifs adaptés à tous les budgets."
+    ? "Découvrez nos formules de coaching : suivi personnalisé, coaching individuel, small groups et carnets de séances. Tarifs adaptés à tous les budgets."
     : "Discover our coaching programs: personalized follow-up, individual coaching, small groups and session packages. Pricing for all budgets.";
 
   const formules = [
@@ -81,7 +81,7 @@ const Formules = () => {
     },
     {
       category: isFrench ? "Groupes" : "Groups",
-      title: "Small Groupes",
+      title: "Small Groups",
       description: isFrench ? "Jusqu'à 6 personnes pour un suivi de qualité" : "Up to 6 people for quality support",
       image: serviceGroup,
       price: "30",
@@ -142,7 +142,7 @@ const Formules = () => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        keywords="formules coaching Lille, tarifs coach sportif, prix coaching individuel, small groupes Wasquehal, carnets séances"
+        keywords="formules coaching Lille, tarifs coach sportif, prix coaching individuel, small groups Wasquehal, carnets séances"
       />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">

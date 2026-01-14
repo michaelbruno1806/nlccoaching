@@ -80,7 +80,7 @@ const MentionsLegales = () => {
                   3. Activité
                 </h2>
                 <p className="text-muted-foreground">
-                  Le site présente les services de coaching sportif proposés par NLC Coaching : coaching individuel, small groupes, carnets de séances, programmes personnalisés.
+                  Le site présente les services de coaching sportif proposés par NLC Coaching : coaching individuel, small groups, carnets de séances, programmes personnalisés.
                 </p>
               </div>
 

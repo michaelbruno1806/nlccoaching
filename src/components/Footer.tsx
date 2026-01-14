@@ -25,7 +25,7 @@ const Footer = () => {
       links: [
         { label: t("Suivi Personnalisé", "Personalized Follow-up"), href: "/suivi-personnalise" },
         { label: t("Coaching Individuel", "Individual Coaching"), href: "/coaching-individuel" },
-        { label: t("Small Groupes", "Small Groups"), href: "/small-groupes" },
+        { label: t("Small Groups", "Small Groups"), href: "/small-groupes" },
         { label: t("Carnets de Séances", "Session Packages"), href: "/carnets-seances" },
       ],
     },

@@ -108,7 +108,7 @@ const SmallGroupes = () => {
             >
               <span className="text-gradient">SMALL</span>
               <br />
-              <span className="text-foreground/90">GROUPES</span>
+              <span className="text-foreground/90">GROUPS</span>
             </motion.h1>
             
             <motion.p 
@@ -221,7 +221,7 @@ const SmallGroupes = () => {
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               {isFrench ? "POURQUOI CHOISIR" : "WHY CHOOSE"}
-              <span className="text-gradient"> SMALL GROUPES ?</span>
+              <span className="text-gradient"> SMALL GROUPS ?</span>
             </h2>
           </motion.div>
 
@@ -267,7 +267,7 @@ const SmallGroupes = () => {
       </section>
 
       {/* Contact Form Section */}
-      <BookingFormSection serviceName={isFrench ? "le Small Groupes" : "Small Groups"} />
+      <BookingFormSection serviceName={isFrench ? "le Small Groups" : "Small Groups"} />
 
       {/* Testimonials/Transformations */}
       <section className="py-24 bg-card/50 border-y border-border/30 relative overflow-hidden">
@@ -290,23 +290,21 @@ const SmallGroupes = () => {
             </p>
           </motion.div>
 
-          <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory">
-            {[...transformations, ...transformations].map((img, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {transformations.map((img, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex-shrink-0 w-64 md:w-80 snap-center"
+                className="rounded-xl overflow-hidden"
               >
-                <div className="bg-card border border-border/50 rounded-2xl overflow-hidden">
-                  <img
-                    src={img}
-                    alt={`Transformation ${(index % 4) + 1}`}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
+                <img
+                  src={img}
+                  alt={`Transformation ${index + 1}`}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
               </motion.div>
             ))}
           </div>
