@@ -148,12 +148,72 @@ const Footer = () => {
             href="#" 
             className="group flex items-center gap-2 text-muted-foreground/40 hover:text-muted-foreground/60 transition-colors duration-300"
           >
-            <span className="text-[10px] tracking-[0.2em] uppercase">Powered by</span>
-            <span className="text-sm font-semibold">
-              <span className="text-lime-500/60 group-hover:text-lime-500/80 transition-colors">MB</span>
-              <span className="text-muted-foreground/50 group-hover:text-muted-foreground/70 transition-colors">18</span>
+            {/* Network Logo with Animation */}
+            <motion.div 
+              className="relative w-5 h-5 flex items-center justify-center"
+              whileHover={{ scale: 1.1 }}
+            >
+              {/* Central node */}
+              <motion.div 
+                className="w-1.5 h-1.5 rounded-full bg-lime-500/60 group-hover:bg-lime-500/90 transition-colors"
+                animate={{ 
+                  boxShadow: ["0 0 0px rgba(132, 204, 22, 0)", "0 0 6px rgba(132, 204, 22, 0.4)", "0 0 0px rgba(132, 204, 22, 0)"]
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+              
+              {/* Orbiting nodes */}
+              {[0, 72, 144, 216, 288].map((angle, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 rounded-full bg-muted-foreground/40 group-hover:bg-muted-foreground/70 transition-colors"
+                  style={{
+                    left: `calc(50% + ${Math.cos((angle * Math.PI) / 180) * 7}px - 2px)`,
+                    top: `calc(50% + ${Math.sin((angle * Math.PI) / 180) * 7}px - 2px)`,
+                  }}
+                  animate={{
+                    opacity: [0.4, 1, 0.4],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+              
+              {/* Connection lines */}
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 20 20">
+                {[0, 72, 144, 216, 288].map((angle, i) => (
+                  <motion.line
+                    key={i}
+                    x1="10"
+                    y1="10"
+                    x2={10 + Math.cos((angle * Math.PI) / 180) * 7}
+                    y2={10 + Math.sin((angle * Math.PI) / 180) * 7}
+                    className="stroke-muted-foreground/20 group-hover:stroke-lime-500/30 transition-colors"
+                    strokeWidth="0.5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: [0.3, 1, 0.3] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.2,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ))}
+              </svg>
+            </motion.div>
+            
+            <span className="text-[10px] tracking-[0.15em] uppercase font-medium">Powered by</span>
+            <span className="text-xs font-bold tracking-wide">
+              <span className="text-lime-500/60 group-hover:text-lime-500/90 transition-colors">MB</span>
+              <span className="text-muted-foreground/50 group-hover:text-muted-foreground/80 transition-colors">18</span>
+              <span className="text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors ml-0.5">SOLUTIONS</span>
             </span>
-            <span className="text-[10px] tracking-[0.2em] uppercase">Solutions</span>
           </a>
         </div>
       </div>
