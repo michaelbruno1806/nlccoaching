@@ -362,26 +362,32 @@ const CustomerFeedback = () => {
                   </div>
                 )}
 
-                {/* Play/Pause Button - Centered with fade effect */}
+                {/* Play/Pause Button - YouTube Style - Centered */}
                 {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
                     initial={{ opacity: 1 }}
-                    animate={{ opacity: isPlaying ? 0.3 : 1 }}
-                    whileHover={{ opacity: 1, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center hover:bg-primary/80 hover:border-primary z-10"
-                    style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                    animate={{ opacity: isPlaying ? 0 : 1 }}
+                    whileHover={{ opacity: 1 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-20 h-14 rounded-xl bg-red-600/90 hover:bg-red-600 flex items-center justify-center shadow-lg z-20"
+                    style={{ 
+                      position: 'absolute',
+                      top: '50%', 
+                      left: '50%', 
+                      transform: 'translate(-50%, -50%)',
+                      margin: 0
+                    }}
                     aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
                   >
                     {isPlaying ? (
-                      <div className="flex gap-1.5">
-                        <div className="w-1.5 h-5 bg-white rounded-sm" />
-                        <div className="w-1.5 h-5 bg-white rounded-sm" />
+                      <div className="flex gap-1">
+                        <div className="w-1.5 h-6 bg-white rounded-sm" />
+                        <div className="w-1.5 h-6 bg-white rounded-sm" />
                       </div>
                     ) : (
-                      <Play className="w-6 h-6 text-white ml-1" fill="white" />
+                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
                     )}
                   </motion.button>
                 )}
