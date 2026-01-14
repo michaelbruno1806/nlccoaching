@@ -65,20 +65,25 @@ const Footer = () => {
               )}
             </p>
             
-            {/* Instagram CTA Button */}
-            <div className="flex justify-center">
-              <motion.a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] rounded-xl text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <Instagram className="w-6 h-6" />
-                <span>{t("Pour avoir des conseils suis-nous et abonne-toi !", "Follow us for tips and subscribe!")}</span>
-              </motion.a>
-            </div>
+            {/* Instagram Section */}
+            <motion.a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-4"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {/* Instagram Logo */}
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                <Instagram className="w-7 h-7 text-white" />
+              </div>
+              
+              {/* Text */}
+              <p className="text-white/80 group-hover:text-gold text-sm text-center max-w-xs transition-colors duration-300">
+                {t("Suis-nous sur Instagram pour des conseils exclusifs", "Follow us on Instagram for exclusive tips")}
+              </p>
+            </motion.a>
           </div>
 
           {/* Links */}
