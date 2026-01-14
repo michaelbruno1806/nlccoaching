@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
         },
         body: JSON.stringify({
           from: "NLC Coaching <onboarding@resend.dev>",
-          to: ["michaelbruno1806@icloud.com"],
+          to: ["contact.nlccoaching@gmail.com"],
           subject: `Nouvelle demande de contact - ${fullName}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
