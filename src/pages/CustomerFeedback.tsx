@@ -161,7 +161,30 @@ const CustomerFeedback = () => {
   const [videoError, setVideoError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
+  const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseMove = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    if (isPlaying) {
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowControls(false);
+      }, 3000);
+    }
+  };
+
+  useEffect(() => {
+    if (!isPlaying) {
+      setShowControls(true);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    }
+  }, [isPlaying]);
 
   const toggleMute = () => {
     setIsMuted((prev) => {
@@ -331,8 +354,11 @@ const CustomerFeedback = () => {
           >
             <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
               <div 
-                className="relative rounded-2xl overflow-hidden bg-black flex items-center justify-center"
+                className="relative rounded-2xl overflow-hidden bg-black flex items-center justify-center cursor-pointer"
                 style={{ aspectRatio: '9/16', minHeight: '500px' }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={() => isPlaying && setShowControls(false)}
+                onClick={handleUserPlay}
               >
                 <video
                   ref={videoRef}
@@ -369,36 +395,32 @@ const CustomerFeedback = () => {
                   </div>
                 )}
 
-                {/* Simple Play/Pause Button */}
-                {!videoError && (
-                  <motion.button
-                    onClick={handleUserPlay}
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: isPlaying ? 0 : 0.9 }}
-                    whileHover={{ opacity: 1, scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center z-20"
-                    aria-label={isPlaying ? "Pause" : "Play"}
+                {/* Simple Play/Pause Button - Only visible when paused */}
+                {!videoError && !isPlaying && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center z-20 pointer-events-none"
                   >
-                    {isPlaying ? (
-                      <div className="flex gap-1">
-                        <div className="w-1 h-5 bg-white rounded-sm" />
-                        <div className="w-1 h-5 bg-white rounded-sm" />
-                      </div>
-                    ) : (
-                      <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
-                    )}
-                  </motion.button>
+                    <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
+                  </motion.div>
                 )}
 
                 {/* Control Bar with Progress and Sound */}
                 {!videoError && (
-                  <div className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-black/60 to-transparent pt-6 pb-2 px-3">
+                  <motion.div 
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: showControls ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-black/60 to-transparent pt-6 pb-2 px-3"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {/* Progress Bar */}
                     <div 
                       className="w-full h-1 bg-white/30 cursor-pointer rounded-full mb-2"
                       onClick={(e) => {
+                        e.stopPropagation();
                         const rect = e.currentTarget.getBoundingClientRect();
                         const percent = (e.clientX - rect.left) / rect.width;
                         if (videoRef.current && videoRef.current.duration) {
@@ -415,7 +437,7 @@ const CustomerFeedback = () => {
                     <div className="flex items-center justify-between">
                       {/* Play/Pause Button */}
                       <button
-                        onClick={handleUserPlay}
+                        onClick={(e) => { e.stopPropagation(); handleUserPlay(); }}
                         className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white transition-colors"
                         aria-label={isPlaying ? "Pause" : "Play"}
                       >
@@ -430,7 +452,7 @@ const CustomerFeedback = () => {
                       </button>
                       {/* Sound Button */}
                       <button
-                        onClick={toggleMute}
+                        onClick={(e) => { e.stopPropagation(); toggleMute(); }}
                         className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white transition-colors"
                         aria-label={isMuted ? "Unmute" : "Mute"}
                       >
@@ -441,7 +463,7 @@ const CustomerFeedback = () => {
                         )}
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
             </div>
