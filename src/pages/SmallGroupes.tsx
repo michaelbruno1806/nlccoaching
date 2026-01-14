@@ -130,7 +130,7 @@ const SmallGroupes = () => {
               className="inline-block bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-6"
             >
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold text-gold">30</span>
+                <span className="text-5xl font-bold text-gold">20</span>
                 <span className="text-xl text-muted-foreground">€ / {isFrench ? "personne" : "person"}</span>
               </div>
             </motion.div>

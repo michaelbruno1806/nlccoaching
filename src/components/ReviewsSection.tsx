@@ -21,6 +21,7 @@ import transformBefore3 from "@/assets/transform-before-3.jpg";
 import transformAfter3 from "@/assets/transform-after-3.jpg";
 import transformBefore4 from "@/assets/transform-before-4.jpg";
 import transformAfter4 from "@/assets/transform-after-4.jpg";
+import transformation5 from "@/assets/transformation-5.jpg";
 
 // Additional text reviews without images
 interface TextReview {
@@ -168,6 +169,10 @@ const transformationShowcases: TransformationShowcase[] = [{
   name: "Transformation 4",
   beforeImage: transformAfter4,
   afterImage: transformBefore4
+}, {
+  name: "Transformation 5",
+  beforeImage: transformation5,
+  afterImage: transformation5
 }];
 const ReviewsSection = () => {
   const {
@@ -182,6 +187,7 @@ const ReviewsSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = () => {
@@ -201,9 +207,12 @@ const ReviewsSection = () => {
 
     const p = el.play();
     if (p && typeof (p as Promise<void>).catch === "function") {
-      (p as Promise<void>).catch(() => {
-        setAutoplayBlocked(true);
-      });
+      (p as Promise<void>)
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          setAutoplayBlocked(true);
+          setIsPlaying(false);
+        });
     }
   };
 
@@ -211,11 +220,19 @@ const ReviewsSection = () => {
     const el = videoRef.current;
     if (!el) return;
 
-    const p = el.play();
-    if (p && typeof (p as Promise<void>).then === "function") {
-      (p as Promise<void>)
-        .then(() => setAutoplayBlocked(false))
-        .catch(() => {});
+    if (isPlaying) {
+      el.pause();
+      setIsPlaying(false);
+    } else {
+      const p = el.play();
+      if (p && typeof (p as Promise<void>).then === "function") {
+        (p as Promise<void>)
+          .then(() => {
+            setAutoplayBlocked(false);
+            setIsPlaying(true);
+          })
+          .catch(() => {});
+      }
     }
   };
 
@@ -261,7 +278,8 @@ const ReviewsSection = () => {
                   preload="auto"
                   onLoadedMetadata={tryAutoplay}
                   onCanPlay={tryAutoplay}
-                  onPlay={() => setAutoplayBlocked(false)}
+                  onPlay={() => { setAutoplayBlocked(false); setIsPlaying(true); }}
+                  onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
@@ -278,15 +296,27 @@ const ReviewsSection = () => {
                   </div>
                 )}
 
-                {autoplayBlocked && !videoError && (
+                {/* Play/Pause Button - Always visible */}
+                {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-background/70 backdrop-blur-sm border border-border flex items-center justify-center"
-                    whileHover={{ scale: 1.05 }}
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full backdrop-blur-sm border-2 flex items-center justify-center transition-all duration-300 ${
+                      isPlaying 
+                        ? "bg-black/30 border-white/20 opacity-0 hover:opacity-100" 
+                        : "bg-primary/90 border-primary shadow-[0_0_30px_rgba(34,197,94,0.5)]"
+                    }`}
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    aria-label={isFrench ? "Lancer la vidéo" : "Play video"}
+                    aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
                   >
-                    <Play className="w-7 h-7 text-foreground" />
+                    {isPlaying ? (
+                      <div className="flex gap-1">
+                        <div className="w-1.5 h-6 bg-white rounded-full" />
+                        <div className="w-1.5 h-6 bg-white rounded-full" />
+                      </div>
+                    ) : (
+                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                    )}
                   </motion.button>
                 )}
 
@@ -560,10 +590,10 @@ const ReviewsSection = () => {
           label: isFrench ? "Satisfaction" : "Satisfaction"
         }, {
           value: "350+",
-          label: isFrench ? "Clients transformés" : "Transformed clients"
+          label: isFrench ? "Clients accompagnés" : "Clients coached"
         }, {
-          value: "-15kg",
-          label: isFrench ? "Perte moyenne" : "Average loss"
+          value: "5000+",
+          label: isFrench ? "Séances réalisées" : "Sessions completed"
         }, {
           value: "5★",
           label: isFrench ? "Note moyenne" : "Average rating"

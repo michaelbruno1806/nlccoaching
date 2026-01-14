@@ -21,7 +21,7 @@ const CoachSection = () => {
   const stats = [{
     icon: Award,
     value: getContent("coach_stat_1_value") || "350+",
-    label: getContent("coach_stat_1_label") || t("Clients transformés", "Clients transformed")
+    label: getContent("coach_stat_1_label") || t("Clients accompagnés", "Clients coached")
   }, {
     icon: Users,
     value: getContent("coach_stat_2_value") || "6+",
