@@ -303,40 +303,33 @@ const ReviewsSection = () => {
                   </div>
                 )}
 
-                {/* Play/Pause Button - YouTube Style - Centered */}
+                {/* Simple Play/Pause Button */}
                 {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
                     initial={{ opacity: 1 }}
-                    animate={{ opacity: isPlaying ? 0 : 1 }}
-                    whileHover={{ opacity: 1 }}
-                    whileTap={{ scale: 0.9 }}
+                    animate={{ opacity: isPlaying ? 0 : 0.9 }}
+                    whileHover={{ opacity: 1, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="w-20 h-14 rounded-xl bg-red-600/90 hover:bg-red-600 flex items-center justify-center shadow-lg z-20"
-                    style={{ 
-                      position: 'absolute',
-                      top: '50%', 
-                      left: '50%', 
-                      transform: 'translate(-50%, -50%)',
-                      margin: 0
-                    }}
-                    aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center z-20"
+                    aria-label={isPlaying ? "Pause" : "Play"}
                   >
                     {isPlaying ? (
                       <div className="flex gap-1">
-                        <div className="w-1.5 h-6 bg-white rounded-sm" />
-                        <div className="w-1.5 h-6 bg-white rounded-sm" />
+                        <div className="w-1 h-5 bg-white rounded-sm" />
+                        <div className="w-1 h-5 bg-white rounded-sm" />
                       </div>
                     ) : (
-                      <Play className="w-8 h-8 text-white" fill="white" />
+                      <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
                     )}
                   </motion.button>
                 )}
 
-                {/* YouTube-style Progress Bar */}
+                {/* Progress Bar */}
                 {!videoError && (
                   <div 
-                    className="absolute bottom-0 left-0 right-0 h-1 bg-white/30 cursor-pointer z-30 group hover:h-2 transition-all duration-200"
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 cursor-pointer z-30"
                     onClick={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const percent = (e.clientX - rect.left) / rect.width;
@@ -346,11 +339,9 @@ const ReviewsSection = () => {
                     }}
                   >
                     <div 
-                      className="h-full bg-red-600 relative"
+                      className="h-full bg-white"
                       style={{ width: `${videoProgress}%` }}
-                    >
-                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    </div>
+                    />
                   </div>
                 )}
 
