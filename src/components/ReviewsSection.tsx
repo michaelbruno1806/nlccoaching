@@ -188,6 +188,7 @@ const ReviewsSection = () => {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = () => {
@@ -281,6 +282,12 @@ const ReviewsSection = () => {
                   onPlay={() => { setAutoplayBlocked(false); setIsPlaying(true); }}
                   onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
+                  onTimeUpdate={(e) => {
+                    const video = e.currentTarget;
+                    if (video.duration) {
+                      setVideoProgress((video.currentTime / video.duration) * 100);
+                    }
+                  }}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
 
@@ -326,18 +333,39 @@ const ReviewsSection = () => {
                   </motion.button>
                 )}
 
+                {/* YouTube-style Progress Bar */}
+                {!videoError && (
+                  <div 
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-white/30 cursor-pointer z-30 group hover:h-2 transition-all duration-200"
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const percent = (e.clientX - rect.left) / rect.width;
+                      if (videoRef.current && videoRef.current.duration) {
+                        videoRef.current.currentTime = percent * videoRef.current.duration;
+                      }
+                    }}
+                  >
+                    <div 
+                      className="h-full bg-red-600 relative"
+                      style={{ width: `${videoProgress}%` }}
+                    >
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Sound control button */}
                 <motion.button
                   onClick={toggleMute}
-                  className="absolute bottom-4 right-4 w-12 h-12 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-primary/80 transition-colors duration-300"
+                  className="absolute bottom-6 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-primary/80 transition-colors duration-300 z-20"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={isMuted ? (isFrench ? "Activer le son" : "Unmute") : (isFrench ? "Couper le son" : "Mute")}
                 >
                   {isMuted ? (
-                    <VolumeX className="w-5 h-5 text-white" />
+                    <VolumeX className="w-4 h-4 text-white" />
                   ) : (
-                    <Volume2 className="w-5 h-5 text-white" />
+                    <Volume2 className="w-4 h-4 text-white" />
                   )}
                 </motion.button>
               </div>
