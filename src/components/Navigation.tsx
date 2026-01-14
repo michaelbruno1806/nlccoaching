@@ -69,7 +69,7 @@ const Navigation = () => {
   const serviceLinks = [
     { href: "/suivi-personnalise", fr: "Suivi Personnalisé", en: "Personalized Coaching", price: "À partir de 150€/mois", priceEn: "From €150/month" },
     { href: "/coaching-individuel", fr: "Coaching Individuel", en: "Individual Coaching", price: "À partir de 50€/séance", priceEn: "From €50/session" },
-    { href: "/small-groupes", fr: "Small Groupes", en: "Small Groups", price: "À partir de 25€/séance", priceEn: "From €25/session" },
+    { href: "/small-groupes", fr: "Small Groups", en: "Small Groups", price: "À partir de 25€/séance", priceEn: "From €25/session" },
     { href: "/carnets-seances", fr: "Carnets de Séances", en: "Session Packages", price: "Packs de 5 ou 10 séances", priceEn: "Packs of 5 or 10 sessions" },
   ];
 

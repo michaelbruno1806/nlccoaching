@@ -17,8 +17,8 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <SEOHead 
         title="Coach Sportif & Préparateur Physique à Lille, Wasquehal"
-        description="NLC Coaching - Coach sportif et préparateur physique dans la métropole lilloise. Suivi personnalisé, coaching individuel, small groupes. Transformez votre corps avec Noa Liam Politino."
-        keywords="coach sportif Lille, préparateur physique Wasquehal, coaching personnalisé, musculation Lille, personal trainer métropole lilloise, coaching individuel, small groupes, perte de poids"
+        description="NLC Coaching - Coach sportif et préparateur physique dans la métropole lilloise. Suivi personnalisé, coaching individuel, small groups. Transformez votre corps avec Noa Liam Politino."
+        keywords="coach sportif Lille, préparateur physique Wasquehal, coaching personnalisé, musculation Lille, personal trainer métropole lilloise, coaching individuel, small groups, perte de poids"
       />
       <Navigation />
       <HeroSection />

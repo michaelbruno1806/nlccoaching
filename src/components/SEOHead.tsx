@@ -13,7 +13,7 @@ interface SEOHeadProps {
 const defaultSEO = {
   title: "NLC Coaching | Coach Sportif & Préparateur Physique à Lille",
   description:
-    "NLC Coaching - Coach sportif et préparateur physique dans la métropole lilloise. Suivi personnalisé, coaching individuel, small groupes.",
+    "NLC Coaching - Coach sportif et préparateur physique dans la métropole lilloise. Suivi personnalisé, coaching individuel, small groups.",
   keywords: "coach sportif Lille, préparateur physique Wasquehal, coaching personnalisé, musculation",
   baseUrl: "www.nlc-coaching.com",
 };
