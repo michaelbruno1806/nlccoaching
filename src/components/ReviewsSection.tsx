@@ -296,26 +296,22 @@ const ReviewsSection = () => {
                   </div>
                 )}
 
-                {/* Play/Pause Button - Always visible */}
+                {/* Play/Pause Button - Always visible at center */}
                 {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
-                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full backdrop-blur-sm border-2 flex items-center justify-center transition-all duration-300 ${
-                      isPlaying 
-                        ? "bg-black/30 border-white/20 opacity-0 hover:opacity-100" 
-                        : "bg-primary/90 border-primary shadow-[0_0_30px_rgba(34,197,94,0.5)]"
-                    }`}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center hover:bg-primary/80 hover:border-primary transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
                   >
                     {isPlaying ? (
-                      <div className="flex gap-1">
-                        <div className="w-1.5 h-6 bg-white rounded-full" />
-                        <div className="w-1.5 h-6 bg-white rounded-full" />
+                      <div className="flex gap-1.5">
+                        <div className="w-1.5 h-5 bg-white rounded-sm" />
+                        <div className="w-1.5 h-5 bg-white rounded-sm" />
                       </div>
                     ) : (
-                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      <Play className="w-6 h-6 text-white ml-1" fill="white" />
                     )}
                   </motion.button>
                 )}
