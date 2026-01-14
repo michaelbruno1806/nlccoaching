@@ -395,17 +395,6 @@ const CustomerFeedback = () => {
                   </div>
                 )}
 
-                {/* Simple Play/Pause Button - Only visible when paused */}
-                {!videoError && !isPlaying && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center z-20 pointer-events-none"
-                  >
-                    <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
-                  </motion.div>
-                )}
 
                 {/* Control Bar with Progress and Sound */}
                 {!videoError && (
