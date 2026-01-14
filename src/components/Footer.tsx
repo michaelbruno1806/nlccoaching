@@ -71,13 +71,28 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               {/* Instagram Logo */}
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+              <motion.div 
+                className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] flex items-center justify-center shadow-lg"
+                whileHover={{ 
+                  scale: 1.15,
+                  rotate: [0, -5, 5, 0],
+                  boxShadow: "0 0 30px rgba(253, 29, 29, 0.5)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 400, 
+                  damping: 15,
+                  rotate: { duration: 0.4 }
+                }}
+              >
                 <Instagram className="w-7 h-7 text-white" />
-              </div>
+                
+                {/* Glow ring on hover */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] opacity-0 group-hover:opacity-40 blur-xl transition-opacity duration-500 -z-10" />
+              </motion.div>
               
               {/* Text */}
               <p className="text-white/80 group-hover:text-gold text-sm text-center max-w-xs transition-colors duration-300">
