@@ -228,21 +228,21 @@ const SmallGroupes = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
-                number: "01",
+                number: "I",
                 title: isFrench ? "Motivation Collective" : "Collective Motivation",
                 description: isFrench 
                   ? "L'énergie du groupe te pousse à te dépasser à chaque séance."
                   : "The energy of the group pushes you to surpass yourself in every session."
               },
               {
-                number: "02",
+                number: "II",
                 title: isFrench ? "Prix Avantageux" : "Competitive Price",
                 description: isFrench 
                   ? "Profite d'un coaching de qualité à un tarif accessible."
                   : "Enjoy quality coaching at an accessible rate."
               },
               {
-                number: "03",
+                number: "III",
                 title: isFrench ? "Réseau & Soutien" : "Network & Support",
                 description: isFrench 
                   ? "Crée des liens avec des personnes partageant les mêmes objectifs."
@@ -257,7 +257,7 @@ const SmallGroupes = () => {
                 transition={{ delay: index * 0.15 }}
                 className="text-center"
               >
-                <div className="text-5xl font-bold text-primary/20 mb-4">{item.number}</div>
+                <div className="text-5xl font-bold text-primary mb-4">{item.number}</div>
                 <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
               </motion.div>
@@ -279,9 +279,9 @@ const SmallGroupes = () => {
             className="text-center mb-12"
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {isFrench ? "OPTIMISE TON PARCOURS DE" : "OPTIMIZE YOUR"}
+              <span className="text-gradient">{isFrench ? "TRANSFORMATIONS" : "CLIENT"}</span>
               <br />
-              <span className="text-gradient">PERFORMANCE</span>
+              {isFrench ? "CLIENTS" : "TRANSFORMATIONS"}
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               {isFrench
