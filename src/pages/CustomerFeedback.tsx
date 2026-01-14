@@ -11,6 +11,7 @@ import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
 import transformation4 from "@/assets/transformation-4.png";
+import transformation5 from "@/assets/transformation-5.jpg";
 
 // Testimonial images
 import testimonialArmand from "@/assets/testimonial-armand.png";
@@ -141,6 +142,12 @@ const transformationShowcases: TransformationShowcase[] = [
     resultEn: "Strength and flexibility",
     reverseOrder: true,
   },
+  {
+    name: "Nouvelle transformation",
+    image: transformation5,
+    result: "Résultats visibles",
+    resultEn: "Visible results",
+  },
 ];
 
 
@@ -152,6 +159,7 @@ const CustomerFeedback = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = () => {
@@ -168,20 +176,32 @@ const CustomerFeedback = () => {
     el.muted = isMuted;
     const p = el.play();
     if (p && typeof (p as Promise<void>).catch === "function") {
-      (p as Promise<void>).catch(() => {
-        setAutoplayBlocked(true);
-      });
+      (p as Promise<void>)
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          setAutoplayBlocked(true);
+          setIsPlaying(false);
+        });
     }
   };
 
   const handleUserPlay = () => {
     const el = videoRef.current;
     if (!el) return;
-    const p = el.play();
-    if (p && typeof (p as Promise<void>).then === "function") {
-      (p as Promise<void>)
-        .then(() => setAutoplayBlocked(false))
-        .catch(() => {});
+    
+    if (isPlaying) {
+      el.pause();
+      setIsPlaying(false);
+    } else {
+      const p = el.play();
+      if (p && typeof (p as Promise<void>).then === "function") {
+        (p as Promise<void>)
+          .then(() => {
+            setAutoplayBlocked(false);
+            setIsPlaying(true);
+          })
+          .catch(() => {});
+      }
     }
   };
 
@@ -324,7 +344,8 @@ const CustomerFeedback = () => {
                   preload="auto"
                   onLoadedMetadata={tryAutoplay}
                   onCanPlay={tryAutoplay}
-                  onPlay={() => setAutoplayBlocked(false)}
+                  onPlay={() => { setAutoplayBlocked(false); setIsPlaying(true); }}
+                  onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
@@ -341,15 +362,27 @@ const CustomerFeedback = () => {
                   </div>
                 )}
 
-                {autoplayBlocked && !videoError && (
+                {/* Play/Pause Button - Always visible */}
+                {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-background/70 backdrop-blur-sm border border-border flex items-center justify-center"
-                    whileHover={{ scale: 1.05 }}
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full backdrop-blur-sm border-2 flex items-center justify-center transition-all duration-300 ${
+                      isPlaying 
+                        ? "bg-black/30 border-white/20 opacity-0 hover:opacity-100" 
+                        : "bg-primary/90 border-primary shadow-[0_0_30px_rgba(34,197,94,0.5)]"
+                    }`}
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    aria-label={isFrench ? "Lancer la vidéo" : "Play video"}
+                    aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
                   >
-                    <Play className="w-7 h-7 text-foreground" />
+                    {isPlaying ? (
+                      <div className="flex gap-1">
+                        <div className="w-1.5 h-6 bg-white rounded-full" />
+                        <div className="w-1.5 h-6 bg-white rounded-full" />
+                      </div>
+                    ) : (
+                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                    )}
                   </motion.button>
                 )}
 

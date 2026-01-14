@@ -149,7 +149,7 @@ const ClientMessages = () => {
         >
           {[
             { value: "100%", label: isFrench ? "Clients satisfaits" : "Satisfied clients" },
-            { value: "350+", label: isFrench ? "Transformations" : "Transformations" },
+            { value: "5000+", label: isFrench ? "Séances réalisées" : "Sessions completed" },
             { value: "5★", label: isFrench ? "Note moyenne" : "Average rating" },
           ].map((stat, index) => (
             <div key={index} className="text-center">
