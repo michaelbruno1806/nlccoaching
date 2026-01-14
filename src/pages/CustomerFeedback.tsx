@@ -392,39 +392,41 @@ const CustomerFeedback = () => {
                   </motion.button>
                 )}
 
-                {/* Progress Bar */}
+                {/* Control Bar with Progress and Sound */}
                 {!videoError && (
-                  <div 
-                    className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 cursor-pointer z-30"
-                    onClick={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const percent = (e.clientX - rect.left) / rect.width;
-                      if (videoRef.current && videoRef.current.duration) {
-                        videoRef.current.currentTime = percent * videoRef.current.duration;
-                      }
-                    }}
-                  >
+                  <div className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-black/60 to-transparent pt-6 pb-2 px-3">
+                    {/* Progress Bar */}
                     <div 
-                      className="h-full bg-white"
-                      style={{ width: `${videoProgress}%` }}
-                    />
+                      className="w-full h-1 bg-white/30 cursor-pointer rounded-full mb-2"
+                      onClick={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const percent = (e.clientX - rect.left) / rect.width;
+                        if (videoRef.current && videoRef.current.duration) {
+                          videoRef.current.currentTime = percent * videoRef.current.duration;
+                        }
+                      }}
+                    >
+                      <div 
+                        className="h-full bg-white rounded-full"
+                        style={{ width: `${videoProgress}%` }}
+                      />
+                    </div>
+                    {/* Sound Button */}
+                    <div className="flex justify-end">
+                      <button
+                        onClick={toggleMute}
+                        className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                        aria-label={isMuted ? "Unmute" : "Mute"}
+                      >
+                        {isMuted ? (
+                          <VolumeX className="w-4 h-4" />
+                        ) : (
+                          <Volume2 className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 )}
-
-                {/* Sound control button */}
-                <motion.button
-                  onClick={toggleMute}
-                  className="absolute bottom-6 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-primary/80 transition-colors duration-300 z-20"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={isMuted ? (isFrench ? "Activer le son" : "Unmute") : (isFrench ? "Couper le son" : "Mute")}
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-4 h-4 text-white" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 text-white" />
-                  )}
-                </motion.button>
               </div>
             </div>
           </motion.div>
