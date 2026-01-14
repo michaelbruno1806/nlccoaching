@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Dumbbell, Scale, Bone, Zap, Footprints, Users } from "lucide-react";
+import { ArrowRight, Scale, Bone, Zap, Activity, Heart, Users } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -57,10 +57,10 @@ const APropos = () => {
     icon: Zap,
     label: language === 'fr' ? "Soutient la réathlétisation" : "Supports re-athletization"
   }, {
-    icon: Dumbbell,
+    icon: Activity,
     label: language === 'fr' ? "Équilibre le métabolisme" : "Balances metabolism"
   }, {
-    icon: Footprints,
+    icon: Heart,
     label: language === 'fr' ? "Développe la confiance physique" : "Develops physical confidence"
   }];
   const philosophyItems = [{
