@@ -4,15 +4,27 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Phone, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Send, Phone, Mail, MapPin, MessageCircle, ArrowRight, User, Target, UserCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-
+import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    objective: "",
+    profile: "",
+    message: ""
+  });
   const { t, language } = useLanguage();
   const { getContent } = useSiteContent();
 
@@ -54,17 +66,58 @@ const ContactSection = () => {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!acceptedTerms) {
+      toast.error(t("Veuillez accepter les conditions générales de vente", "Please accept the terms and conditions"));
+      return;
+    }
+
+    if (!formData.fullName.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error(t("Veuillez remplir tous les champs obligatoires", "Please fill in all required fields"));
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          objective: formData.objective,
+          profile: formData.profile,
+          message: formData.message,
+          language
+        }
+      });
+
+      if (error) throw error;
+
       toast.success(t("Message envoyé avec succès!", "Message sent successfully!"), {
         description: t("Nous vous répondrons dans les plus brefs délais.", "We will get back to you as soon as possible."),
       });
-    }, 1500);
+
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        objective: "",
+        profile: "",
+        message: ""
+      });
+      setAcceptedTerms(false);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error(t("Erreur lors de l'envoi du message", "Error sending message"), {
+        description: t("Veuillez réessayer plus tard.", "Please try again later."),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Get discovery session content
@@ -172,77 +225,151 @@ const ContactSection = () => {
             >
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    {t("Prénom", "First Name")}
+                  <label className="block text-sm font-medium mb-2 text-foreground">
+                    {t("Nom complet", "Full Name")}
                   </label>
-                  <Input
-                    placeholder={t("Votre prénom", "Your first name")}
-                    className="bg-card border-border focus:border-gold"
-                    required
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      placeholder={t("Votre nom", "Your name")}
+                      className="bg-card border-border focus:border-gold pl-10"
+                      required
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    {t("Nom", "Last Name")}
+                  <label className="block text-sm font-medium mb-2 text-foreground">
+                    Email
                   </label>
-                  <Input
-                    placeholder={t("Votre nom", "Your last name")}
-                    className="bg-card border-border focus:border-gold"
-                    required
-                  />
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder={t("Votre email", "Your email")}
+                      className="bg-card border-border focus:border-gold pl-10"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                  Email
+                <label className="block text-sm font-medium mb-2 text-foreground">
+                  {t("Téléphone", "Phone")}
                 </label>
-                <Input
-                  type="email"
-                  placeholder={t("votre@email.com", "your@email.com")}
-                  className="bg-card border-border focus:border-gold"
-                  required
-                />
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder={t("Votre numéro", "Your number")}
+                    className="bg-card border-border focus:border-gold pl-10"
+                  />
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">
+                    {t("Objectif", "Objective")}
+                  </label>
+                  <div className="relative">
+                    <Target className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                    <Select value={formData.objective} onValueChange={(value) => setFormData({ ...formData, objective: value })}>
+                      <SelectTrigger className="bg-card border-border focus:border-gold pl-10">
+                        <SelectValue placeholder={t("Sélectionner", "Select")} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="perte-poids">{t("Perte de poids", "Weight loss")}</SelectItem>
+                        <SelectItem value="prise-masse">{t("Prise de masse", "Muscle gain")}</SelectItem>
+                        <SelectItem value="remise-forme">{t("Remise en forme", "Fitness")}</SelectItem>
+                        <SelectItem value="performance">{t("Performance sportive", "Athletic performance")}</SelectItem>
+                        <SelectItem value="sante">{t("Santé & Bien-être", "Health & Wellness")}</SelectItem>
+                        <SelectItem value="autre">{t("Autre", "Other")}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-foreground">
+                    {t("Profil", "Profile")}
+                  </label>
+                  <div className="relative">
+                    <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                    <Select value={formData.profile} onValueChange={(value) => setFormData({ ...formData, profile: value })}>
+                      <SelectTrigger className="bg-card border-border focus:border-gold pl-10">
+                        <SelectValue placeholder={t("Sélectionner", "Select")} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="debutant">{t("Débutant", "Beginner")}</SelectItem>
+                        <SelectItem value="intermediaire">{t("Intermédiaire", "Intermediate")}</SelectItem>
+                        <SelectItem value="avance">{t("Avancé", "Advanced")}</SelectItem>
+                        <SelectItem value="sportif">{t("Sportif confirmé", "Experienced athlete")}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                  {t("Téléphone", "Phone")}
-                </label>
-                <Input
-                  type="tel"
-                  placeholder="+33 6 00 00 00 00"
-                  className="bg-card border-border focus:border-gold"
-                />
-              </div>
-
-              <div className="mb-8">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                <label className="block text-sm font-medium mb-2 text-foreground">
                   Message
                 </label>
                 <Textarea
-                  placeholder={t("Parlez-nous de vos objectifs...", "Tell us about your goals...")}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder={t("Décrivez vos objectifs et attentes...", "Describe your goals and expectations...")}
                   rows={5}
                   className="bg-card border-border focus:border-gold resize-none"
                   required
                 />
               </div>
 
-              <Button
-                type="submit"
-                variant="gold"
-                className="w-full"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  t("Envoi en cours...", "Sending...")
-                ) : (
-                  <>
-                    {t("Envoyer le message", "Send message")}
-                    <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
+              <div className="flex items-center space-x-3 mb-8">
+                <Checkbox 
+                  id="terms" 
+                  checked={acceptedTerms}
+                  onCheckedChange={(checked) => setAcceptedTerms(checked as boolean)}
+                  className="border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                />
+                <label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer">
+                  {t("J'accepte les", "I accept the")}{" "}
+                  <Link to="/conditions-vente" className="text-primary hover:underline">
+                    {t("conditions générales de vente", "terms and conditions")}
+                  </Link>
+                </label>
+              </div>
+
+              <div className="flex gap-4">
+                <Button
+                  type="submit"
+                  className="flex-1 bg-[#25D366] hover:bg-[#25D366]/90 text-white"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    t("Envoi en cours...", "Sending...")
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      {t("Envoyer ma demande", "Send my request")}
+                    </>
+                  )}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-border hover:border-[#25D366] hover:text-[#25D366]"
+                  onClick={() => window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`, '_blank')}
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </Button>
+              </div>
             </form>
           </motion.div>
         </div>
