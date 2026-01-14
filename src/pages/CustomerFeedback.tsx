@@ -394,7 +394,7 @@ const CustomerFeedback = () => {
                         <div className="w-1.5 h-6 bg-white rounded-sm" />
                       </div>
                     ) : (
-                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      <Play className="w-8 h-8 text-white" fill="white" />
                     )}
                   </motion.button>
                 )}
