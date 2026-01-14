@@ -192,6 +192,7 @@ const ReviewsSection = () => {
   const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const userPausedRef = useRef(false);
 
   const handleMouseMove = () => {
     setShowControls(true);
@@ -225,6 +226,7 @@ const ReviewsSection = () => {
   const tryAutoplay = () => {
     const el = videoRef.current;
     if (!el) return;
+    if (userPausedRef.current) return;
 
     // Ensure muted is applied before attempting to play (required by most browsers)
     el.muted = isMuted;
@@ -232,7 +234,10 @@ const ReviewsSection = () => {
     const p = el.play();
     if (p && typeof (p as Promise<void>).catch === "function") {
       (p as Promise<void>)
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          userPausedRef.current = false;
+          setIsPlaying(true);
+        })
         .catch(() => {
           setAutoplayBlocked(true);
           setIsPlaying(false);
@@ -245,9 +250,11 @@ const ReviewsSection = () => {
     if (!el) return;
 
     if (isPlaying) {
+      userPausedRef.current = true;
       el.pause();
       setIsPlaying(false);
     } else {
+      userPausedRef.current = false;
       const p = el.play();
       if (p && typeof (p as Promise<void>).then === "function") {
         (p as Promise<void>)
@@ -305,7 +312,7 @@ const ReviewsSection = () => {
                   preload="auto"
                   onLoadedMetadata={tryAutoplay}
                   onCanPlay={tryAutoplay}
-                  onPlay={() => { setAutoplayBlocked(false); setIsPlaying(true); }}
+                  onPlay={() => { userPausedRef.current = false; setAutoplayBlocked(false); setIsPlaying(true); }}
                   onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
                   onTimeUpdate={(e) => {
