@@ -411,8 +411,24 @@ const CustomerFeedback = () => {
                         style={{ width: `${videoProgress}%` }}
                       />
                     </div>
-                    {/* Sound Button */}
-                    <div className="flex justify-end">
+                    {/* Controls Row */}
+                    <div className="flex items-center justify-between">
+                      {/* Play/Pause Button */}
+                      <button
+                        onClick={handleUserPlay}
+                        className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                        aria-label={isPlaying ? "Pause" : "Play"}
+                      >
+                        {isPlaying ? (
+                          <div className="flex gap-0.5">
+                            <div className="w-1 h-4 bg-current rounded-sm" />
+                            <div className="w-1 h-4 bg-current rounded-sm" />
+                          </div>
+                        ) : (
+                          <Play className="w-4 h-4" fill="currentColor" />
+                        )}
+                      </button>
+                      {/* Sound Button */}
                       <button
                         onClick={toggleMute}
                         className="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white transition-colors"
