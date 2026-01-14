@@ -39,6 +39,7 @@ interface TransformationShowcase {
   image: string;
   result: string;
   resultEn: string;
+  flipped?: boolean;
 }
 
 const testimonials: Testimonial[] = [
@@ -122,24 +123,26 @@ const transformationShowcases: TransformationShowcase[] = [
     resultEn: "-14 kg in 6 months",
   },
   {
-    name: "Armand",
+    name: "Bruno",
     image: transformation2,
-    result: "Préparation triathlon réussie",
-    resultEn: "Successful triathlon preparation",
+    result: "Développement musculaire",
+    resultEn: "Muscle development",
   },
   {
-    name: "Ricardo",
+    name: "Daisy",
     image: transformation3,
-    result: "-15 kg, plus de douleurs",
-    resultEn: "-15 kg, no more pain",
+    result: "Transformation complète",
+    resultEn: "Complete transformation",
   },
   {
-    name: "Ludivine",
+    name: "Cécile",
     image: transformation4,
     result: "Force et souplesse",
     resultEn: "Strength and flexibility",
+    flipped: true,
   },
 ];
+
 
 const CustomerFeedback = () => {
   const { language } = useLanguage();
@@ -254,7 +257,7 @@ const CustomerFeedback = () => {
                   <img
                     src={showcase.image}
                     alt={`${showcase.name} transformation`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${showcase.flipped ? 'scale-x-[-1]' : ''}`}
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
