@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Scale, Bone, Zap, Activity, Heart, Users } from "lucide-react";
+import { ArrowRight, Scale, Bone, Zap, Activity, Heart, Users } from "lucide-react"; // icons
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
