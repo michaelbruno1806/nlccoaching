@@ -39,7 +39,7 @@ interface TransformationShowcase {
   image: string;
   result: string;
   resultEn: string;
-  flipped?: boolean;
+  reverseOrder?: boolean;
 }
 
 const testimonials: Testimonial[] = [
@@ -139,7 +139,7 @@ const transformationShowcases: TransformationShowcase[] = [
     image: transformation4,
     result: "Force et souplesse",
     resultEn: "Strength and flexibility",
-    flipped: true,
+    reverseOrder: true,
   },
 ];
 
@@ -253,11 +253,12 @@ const CustomerFeedback = () => {
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
                 onClick={() => setSelectedImage(showcase)}
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className={`aspect-[4/3] overflow-hidden flex ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
                   <img
                     src={showcase.image}
                     alt={`${showcase.name} transformation`}
-                    className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${showcase.flipped ? 'scale-x-[-1]' : ''}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    style={showcase.reverseOrder ? { transform: 'scaleX(-1)' } : undefined}
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
