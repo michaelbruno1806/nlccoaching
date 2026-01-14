@@ -43,80 +43,87 @@ const SuiviPersonnalise = () => {
       <main className="min-h-screen bg-background pt-20">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
+          <img
+            src={serviceProgram}
+            alt="Suivi Personnalisé"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" />
         </div>
 
-        {/* Floating decorations */}
         <motion.div
-          className="absolute top-20 left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 5, repeat: Infinity }}
         />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
+          <Link to="/formules">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.5 }}
             >
-              <Link to="/formules">
-                <Button variant="ghost" className="mb-6 gap-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  {isFrench ? "Retour aux formules" : "Back to packages"}
-                </Button>
-              </Link>
+              <Button variant="ghost" className="mb-8 gap-2 hover:bg-primary/10">
+                <ArrowLeft className="w-4 h-4" />
+                {isFrench ? "Retour aux formules" : "Back to packages"}
+              </Button>
+            </motion.div>
+          </Link>
 
-              <span className="text-primary uppercase tracking-[0.3em] text-sm font-medium mb-4 block">
-                Suivi
-              </span>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl"
+          >
+            <motion.span 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-block text-primary uppercase tracking-[0.4em] text-sm font-medium mb-6"
+            >
+              Suivi
+            </motion.span>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            >
+              <span className="text-gradient">SUIVI</span>
+              <br />
+              <span className="text-foreground/90">PERSONNALISÉ</span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-8"
+            >
+              {isFrench
+                ? "Choisissez le suivi et le programme qui vous transformera et vous aidera à atteindre vos objectifs personnels et professionnels."
+                : "Choose the follow-up and program that will transform you and help you achieve your personal and professional goals."}
+            </motion.p>
 
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                SUIVI{" "}
-                <span className="text-gradient">PERSONNALISÉ</span>
-              </h1>
-
-              <p className="text-muted-foreground text-lg mb-8 max-w-lg">
-                {isFrench
-                  ? "Choisissez le suivi et le programme qui vous transformera et vous aidera à atteindre vos objectifs personnels et professionnels."
-                  : "Choose the follow-up and program that will transform you and help you achieve your personal and professional goals."}
-              </p>
-
-              <div className="flex items-center gap-6 mb-8">
-                <div className="bg-primary/10 border border-primary/30 rounded-xl px-6 py-4">
-                  <div className="text-4xl font-bold text-gold">100</div>
-                  <div className="text-sm text-muted-foreground">
-                    {isFrench ? "euro / mois" : "euro / month"}
-                  </div>
-                </div>
-                <a href="#contact">
-                  <Button size="lg" className="px-8">
-                    {isFrench ? "Réserver" : "Book"}
-                  </Button>
-                </a>
+            {/* Pricing Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="inline-block bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-6"
+            >
+              <div className="text-sm text-muted-foreground mb-1">{isFrench ? "à partir de" : "starting at"}</div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-5xl font-bold text-gold">100</span>
+                <span className="text-xl text-muted-foreground">€ / {isFrench ? "mois" : "month"}</span>
               </div>
             </motion.div>
-
-            {/* Right Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={serviceProgram}
-                  alt="Suivi Personnalisé"
-                  className="w-full h-auto object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
-              </div>
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
