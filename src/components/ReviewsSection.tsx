@@ -264,7 +264,7 @@ const ReviewsSection = () => {
           <div className="max-w-sm mx-auto">
             <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
               <div 
-                className="relative rounded-2xl overflow-hidden bg-black"
+                className="relative rounded-2xl overflow-hidden bg-black flex items-center justify-center"
                 style={{ aspectRatio: '9/16', minHeight: '500px' }}
               >
                 <video
@@ -296,13 +296,17 @@ const ReviewsSection = () => {
                   </div>
                 )}
 
-                {/* Play/Pause Button - Always visible at center */}
+                {/* Play/Pause Button - Centered with fade effect */}
                 {!videoError && (
                   <motion.button
                     onClick={handleUserPlay}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center hover:bg-primary/80 hover:border-primary transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: isPlaying ? 0.3 : 1 }}
+                    whileHover={{ opacity: 1, scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-black/60 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center hover:bg-primary/80 hover:border-primary z-10"
+                    style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
                     aria-label={isPlaying ? (isFrench ? "Pause" : "Pause") : (isFrench ? "Lancer la vidéo" : "Play video")}
                   >
                     {isPlaying ? (
