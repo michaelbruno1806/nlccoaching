@@ -62,7 +62,7 @@ const Navigation = () => {
   const navLinks = [
     { href: "/a-propos", fr: "À propos de\nNLC Coaching", en: "About\nNLC Coaching", multiline: true },
     { href: "/formules", fr: "Les Formules", en: "Programs" },
-    { href: "/avis-clients", fr: "Avis Clients", en: "Client Reviews" },
+    { href: "/feedback", fr: "Avis Clients", en: "Client Reviews" },
     { href: "/contact", fr: "Contact", en: "Contact" },
   ];
 
