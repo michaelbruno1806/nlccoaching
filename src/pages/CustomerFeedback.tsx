@@ -354,7 +354,7 @@ const CustomerFeedback = () => {
           >
             <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
               <div 
-                className="relative rounded-2xl overflow-hidden bg-black flex items-center justify-center cursor-pointer"
+                className="relative rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer"
                 style={{ aspectRatio: '9/16', minHeight: '500px' }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={() => isPlaying && setShowControls(false)}
