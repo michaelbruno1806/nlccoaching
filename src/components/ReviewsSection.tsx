@@ -189,6 +189,8 @@ const ReviewsSection = () => {
   const [videoError, setVideoError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -319,6 +321,13 @@ const ReviewsSection = () => {
                     const video = e.currentTarget;
                     if (video.duration) {
                       setVideoProgress((video.currentTime / video.duration) * 100);
+                      setCurrentTime(video.currentTime);
+                    }
+                  }}
+                  onLoadedData={(e) => {
+                    const video = e.currentTarget;
+                    if (video.duration) {
+                      setDuration(video.duration);
                     }
                   }}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
@@ -380,6 +389,10 @@ const ReviewsSection = () => {
                           <Play className="w-4 h-4" fill="currentColor" />
                         )}
                       </button>
+                      {/* Time Display */}
+                      <span className="text-xs text-white/80 font-mono">
+                        {Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, '0')} / {Math.floor(duration / 60)}:{String(Math.floor(duration % 60)).padStart(2, '0')}
+                      </span>
                       {/* Sound Button */}
                       <button
                         onClick={(e) => { e.stopPropagation(); toggleMute(); }}
