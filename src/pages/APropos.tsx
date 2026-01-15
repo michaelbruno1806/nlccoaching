@@ -12,6 +12,7 @@ import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
 import spineIcon from "@/assets/spine-icon.png";
 import bicepIcon from "@/assets/bicep-icon.png";
+import weightIcon from "@/assets/weight-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
@@ -49,7 +50,8 @@ const APropos = () => {
     image: spineIcon,
     label: language === 'fr' ? "Améliore la posture et la mobilité" : "Improves posture and mobility"
   }, {
-    icon: Scale,
+    icon: null,
+    image: weightIcon,
     label: language === 'fr' ? "Favorise la perte de masse grasse" : "Promotes fat loss"
   }, {
     icon: Bone,
