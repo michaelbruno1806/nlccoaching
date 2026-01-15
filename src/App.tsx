@@ -28,7 +28,6 @@ import Parcours from "./pages/Parcours";
 import AvisClients from "./pages/AvisClients";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ScrollToTop";
-import BackToTopButton from "./components/BackToTopButton";
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
@@ -92,7 +91,6 @@ const App = () => {
                   <BrowserRouter>
                     <ScrollToTop />
                     <AnimatedRoutes />
-                    <BackToTopButton />
                     <CookieConsent />
                   </BrowserRouter>
                 </motion.div>
