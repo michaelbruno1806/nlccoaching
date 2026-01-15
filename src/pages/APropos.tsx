@@ -395,7 +395,7 @@ const APropos = () => {
                 
                 <div className="relative z-10">
                   <div className="mb-5">
-                    {benefit.image ? <img src={benefit.image} alt="" className="w-14 h-14 object-contain group-hover:scale-110 transition-transform drop-shadow-lg" style={{ filter: 'hue-rotate(85deg) saturate(1.2) brightness(1.1)' }} /> : benefit.icon ? <benefit.icon className="w-10 h-10 text-emerald-400 group-hover:scale-110 transition-transform" /> : null}
+                    {benefit.image ? <img src={benefit.image} alt="" className="w-20 h-20 object-contain group-hover:scale-110 transition-transform drop-shadow-lg" style={{ filter: 'hue-rotate(85deg) saturate(1.2) brightness(1.1)' }} /> : benefit.icon ? <benefit.icon className="w-14 h-14 text-emerald-400 group-hover:scale-110 transition-transform" /> : null}
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                 </div>
