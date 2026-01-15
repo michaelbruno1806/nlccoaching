@@ -15,6 +15,7 @@ import bicepIcon from "@/assets/bicep-icon.png";
 import weightIcon from "@/assets/weight-icon.png";
 import kneeJointIcon from "@/assets/knee-joint-icon.png";
 import metabolismIcon from "@/assets/metabolism-icon.png";
+import reathletizationIcon from "@/assets/reathletization-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
@@ -60,7 +61,8 @@ const APropos = () => {
     image: kneeJointIcon,
     label: language === 'fr' ? "Renforce la densité osseuse" : "Strengthens bone density"
   }, {
-    icon: Zap,
+    icon: null,
+    image: reathletizationIcon,
     label: language === 'fr' ? "Soutient la réathlétisation" : "Supports re-athletization"
   }, {
     icon: null,
