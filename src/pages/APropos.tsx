@@ -13,6 +13,7 @@ import coachBackground from "@/assets/coach-background.jpg";
 import spineIcon from "@/assets/spine-icon.png";
 import bicepIcon from "@/assets/bicep-icon.png";
 import weightIcon from "@/assets/weight-icon.png";
+import kneeJointIcon from "@/assets/knee-joint-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
@@ -54,7 +55,8 @@ const APropos = () => {
     image: weightIcon,
     label: language === 'fr' ? "Favorise la perte de masse grasse" : "Promotes fat loss"
   }, {
-    icon: Bone,
+    icon: null,
+    image: kneeJointIcon,
     label: language === 'fr' ? "Renforce la densité osseuse" : "Strengthens bone density"
   }, {
     icon: Zap,
