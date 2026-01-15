@@ -11,7 +11,8 @@ import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
 import transformation4 from "@/assets/transformation-4.png";
-import transformation5 from "@/assets/transformation-5.jpg";
+import transformBefore5 from "@/assets/transform-before-5.jpg";
+import transformAfter5 from "@/assets/transform-after-5.jpg";
 
 // Testimonial images
 import testimonialArmand from "@/assets/testimonial-armand.png";
@@ -38,6 +39,7 @@ interface Testimonial {
 interface TransformationShowcase {
   name: string;
   image: string;
+  beforeImage?: string;
   result: string;
   resultEn: string;
   reverseOrder?: boolean;
@@ -144,7 +146,8 @@ const transformationShowcases: TransformationShowcase[] = [
   },
   {
     name: "Nouvelle transformation",
-    image: transformation5,
+    image: transformAfter5,
+    beforeImage: transformBefore5,
     result: "Résultats visibles",
     resultEn: "Visible results",
   },
@@ -307,18 +310,40 @@ const CustomerFeedback = () => {
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
                 onClick={() => setSelectedImage(showcase)}
               >
-                <div className={`aspect-[4/3] overflow-hidden flex relative ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
-                  <img
-                    src={showcase.image}
-                    alt={`${showcase.name} transformation`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    style={showcase.reverseOrder ? { transform: 'scaleX(-1)' } : undefined}
-                  />
-                  {/* Separator for transformation 5 (before/after in same image) */}
-                  {showcase.name === "Nouvelle transformation" && (
+                {showcase.beforeImage ? (
+                  <div className="aspect-[4/3] overflow-hidden flex relative">
+                    <div className="w-1/2 h-full overflow-hidden">
+                      <img
+                        src={showcase.beforeImage}
+                        alt={`${showcase.name} avant`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="w-1/2 h-full overflow-hidden">
+                      <img
+                        src={showcase.image}
+                        alt={`${showcase.name} après`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
                     <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/80 shadow-[0_0_15px_rgba(255,215,0,0.6)] z-10" />
-                  )}
-                </div>
+                    <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
+                      {isFrench ? "Avant" : "Before"}
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary-foreground">
+                      {isFrench ? "Après" : "After"}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`aspect-[4/3] overflow-hidden flex relative ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
+                    <img
+                      src={showcase.image}
+                      alt={`${showcase.name} transformation`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      style={showcase.reverseOrder ? { transform: 'scaleX(-1)' } : undefined}
+                    />
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <ZoomIn className="w-4 h-4 text-white" />

@@ -21,7 +21,8 @@ import transformBefore3 from "@/assets/transform-before-3.jpg";
 import transformAfter3 from "@/assets/transform-after-3.jpg";
 import transformBefore4 from "@/assets/transform-before-4.jpg";
 import transformAfter4 from "@/assets/transform-after-4.jpg";
-import transformation5 from "@/assets/transformation-5.jpg";
+import transformBefore5 from "@/assets/transform-before-5.jpg";
+import transformAfter5 from "@/assets/transform-after-5.jpg";
 
 // Additional text reviews without images
 interface TextReview {
@@ -171,8 +172,8 @@ const transformationShowcases: TransformationShowcase[] = [{
   afterImage: transformBefore4
 }, {
   name: "Transformation 5",
-  beforeImage: transformation5,
-  afterImage: transformation5
+  beforeImage: transformBefore5,
+  afterImage: transformAfter5
 }];
 const ReviewsSection = () => {
   const {
