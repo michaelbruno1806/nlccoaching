@@ -59,7 +59,7 @@ const CoachSection = () => {
               {getContent("coach_bio_1") || t("J'accompagne chacun vers l'équilibre et la performance. Mon approche est simple : transformer les défis en opportunités et vous guider vers votre meilleure version.", "I guide everyone towards balance and performance. My approach is simple: transform challenges into opportunities and guide you to your best version.")}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              {getContent("coach_bio_2") || t("Depuis 2019 dans le domaine du coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.", "With over 10 years of experience in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance.")}
+              {getContent("coach_bio_2") || t("Depuis 2019 dans le domaine du coaching sportif et le développement personnel, j'ai développé une méthodologie unique qui combine science du sport, psychologie de la performance et accompagnement humain.", "Since 2019 in sports coaching and personal development, I've developed a unique methodology that combines sports science, performance psychology, and human guidance.")}
             </p>
 
             {/* Stats */}
