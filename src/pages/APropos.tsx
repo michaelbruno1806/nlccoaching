@@ -394,8 +394,8 @@ const APropos = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-300" />
                 
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-800/40 to-emerald-900/60 border border-emerald-600/30 flex items-center justify-center mb-5 group-hover:from-emerald-700/50 group-hover:to-emerald-800/70 group-hover:border-emerald-500/50 group-hover:shadow-lg group-hover:shadow-emerald-900/30 transition-all duration-300">
-                    {benefit.image ? <img src={benefit.image} alt="" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform drop-shadow-lg" style={{ filter: 'hue-rotate(95deg) saturate(1) brightness(0.85)' }} /> : benefit.icon ? <benefit.icon className="w-7 h-7 text-emerald-400 group-hover:scale-110 transition-transform" /> : null}
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-600/30 to-emerald-700/40 border border-emerald-500/40 flex items-center justify-center mb-5 group-hover:from-emerald-500/40 group-hover:to-emerald-600/50 group-hover:border-emerald-400/60 group-hover:shadow-xl group-hover:shadow-emerald-500/20 transition-all duration-300">
+                    {benefit.image ? <img src={benefit.image} alt="" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-lg" style={{ filter: 'hue-rotate(85deg) saturate(1.2) brightness(1.1)' }} /> : benefit.icon ? <benefit.icon className="w-9 h-9 text-emerald-400 group-hover:scale-110 transition-transform" /> : null}
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground">{benefit.label}</h3>
                 </div>
