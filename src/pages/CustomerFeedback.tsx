@@ -307,13 +307,17 @@ const CustomerFeedback = () => {
                 className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
                 onClick={() => setSelectedImage(showcase)}
               >
-                <div className={`aspect-[4/3] overflow-hidden flex ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div className={`aspect-[4/3] overflow-hidden flex relative ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
                   <img
                     src={showcase.image}
                     alt={`${showcase.name} transformation`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     style={showcase.reverseOrder ? { transform: 'scaleX(-1)' } : undefined}
                   />
+                  {/* Separator for transformation 5 (before/after in same image) */}
+                  {showcase.name === "Nouvelle transformation" && (
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/80 shadow-[0_0_15px_rgba(255,215,0,0.6)] z-10" />
+                  )}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
