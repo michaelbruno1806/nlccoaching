@@ -147,7 +147,6 @@ const transformationShowcases: TransformationShowcase[] = [
   {
     name: "Nouvelle transformation",
     image: transformAfter5,
-    beforeImage: transformBefore5,
     result: "Résultats visibles",
     resultEn: "Visible results",
   },
