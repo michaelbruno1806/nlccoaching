@@ -11,6 +11,7 @@ import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
 import spineIcon from "@/assets/spine-icon.png";
+import bicepIcon from "@/assets/bicep-icon.png";
 import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
@@ -60,7 +61,8 @@ const APropos = () => {
     icon: Activity,
     label: language === 'fr' ? "Équilibre le métabolisme" : "Balances metabolism"
   }, {
-    icon: Heart,
+    icon: null,
+    image: bicepIcon,
     label: language === 'fr' ? "Développe la confiance physique" : "Develops physical confidence"
   }];
   const philosophyItems = [{
