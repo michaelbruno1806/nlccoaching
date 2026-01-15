@@ -314,24 +314,24 @@ const CustomerFeedback = () => {
                   <div className="aspect-[4/3] overflow-hidden flex relative">
                     <div className="w-1/2 h-full overflow-hidden">
                       <img
-                        src={showcase.image}
-                        alt={`${showcase.name} après`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="w-1/2 h-full overflow-hidden">
-                      <img
                         src={showcase.beforeImage}
                         alt={`${showcase.name} avant`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/80 shadow-[0_0_15px_rgba(255,215,0,0.6)] z-10" />
-                    <div className="absolute bottom-2 left-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary-foreground">
-                      {isFrench ? "Après" : "After"}
+                    <div className="w-1/2 h-full overflow-hidden">
+                      <img
+                        src={showcase.image}
+                        alt={`${showcase.name} après`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
                     </div>
-                    <div className="absolute bottom-2 right-2 bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/80 shadow-[0_0_15px_rgba(255,215,0,0.6)] z-10" />
+                    <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
                       {isFrench ? "Avant" : "Before"}
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary-foreground">
+                      {isFrench ? "Après" : "After"}
                     </div>
                   </div>
                 ) : (
