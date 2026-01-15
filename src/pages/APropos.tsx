@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
-import spineIcon from "@/assets/spine-icon.png";
+import spineIcon from "@/assets/posture-icon.png";
 import bicepIcon from "@/assets/bicep-icon.png";
 import weightIcon from "@/assets/weight-icon.png";
 import kneeJointIcon from "@/assets/knee-joint-icon.png";
