@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import ClientMessages from "@/components/ClientMessages";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
@@ -684,6 +685,7 @@ const CustomerFeedback = () => {
         )}
       </AnimatePresence>
       <Footer />
+      <ChatAssistant />
     </main>
     </>
   );

@@ -7,6 +7,7 @@ import BookingFormSection from "@/components/BookingFormSection";
 import ClientMessages from "@/components/ClientMessages";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import serviceProgram from "@/assets/service-program.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -256,6 +257,7 @@ const SuiviPersonnalise = () => {
         </div>
       </section>
       <Footer />
+      <ChatAssistant />
     </main>
     </>
   );

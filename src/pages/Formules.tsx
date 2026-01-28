@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import serviceProgram from "@/assets/service-program.jpg";
 import serviceIndividual from "@/assets/service-individual-new.jpg";
 import serviceGroup from "@/assets/service-group-new.jpg";
@@ -495,6 +496,7 @@ const Formules = () => {
         </div>
       </section>
       <Footer />
+      <ChatAssistant />
     </main>
     </>
   );

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import BookingFormSection from "@/components/BookingFormSection";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import serviceCarnets from "@/assets/service-carnets.jpg";
 import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
@@ -412,6 +413,7 @@ const CarnetsSeances = () => {
         </div>
       </section>
       <Footer />
+      <ChatAssistant />
     </main>
     </>
   );

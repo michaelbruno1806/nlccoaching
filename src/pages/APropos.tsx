@@ -7,6 +7,7 @@ import { ArrowRight, Scale, Bone, Zap, Activity, Heart, Users } from "lucide-rea
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
@@ -554,6 +555,7 @@ const APropos = () => {
       </section>
 
       <Footer />
+      <ChatAssistant />
     </div>;
 };
 export default APropos;
