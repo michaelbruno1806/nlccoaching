@@ -186,7 +186,6 @@ const ReviewsSection = () => {
   } | null>(null);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
@@ -195,7 +194,6 @@ const ReviewsSection = () => {
   const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const userPausedRef = useRef(false);
 
   const handleMouseMove = () => {
     setShowControls(true);
@@ -226,43 +224,18 @@ const ReviewsSection = () => {
     });
   };
 
-  const tryAutoplay = () => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (userPausedRef.current) return;
-
-    // Ensure muted is applied before attempting to play (required by most browsers)
-    el.muted = isMuted;
-
-    const p = el.play();
-    if (p && typeof (p as Promise<void>).catch === "function") {
-      (p as Promise<void>)
-        .then(() => {
-          userPausedRef.current = false;
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          setAutoplayBlocked(true);
-          setIsPlaying(false);
-        });
-    }
-  };
-
   const handleUserPlay = () => {
     const el = videoRef.current;
     if (!el) return;
 
     if (isPlaying) {
-      userPausedRef.current = true;
       el.pause();
       setIsPlaying(false);
     } else {
-      userPausedRef.current = false;
       const p = el.play();
       if (p && typeof (p as Promise<void>).then === "function") {
         (p as Promise<void>)
           .then(() => {
-            setAutoplayBlocked(false);
             setIsPlaying(true);
           })
           .catch(() => {});
@@ -270,10 +243,6 @@ const ReviewsSection = () => {
     }
   };
 
-  useEffect(() => {
-    const t = window.setTimeout(() => tryAutoplay(), 50);
-    return () => window.clearTimeout(t);
-  }, []);
 
   return <section id="reviews" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -290,16 +259,16 @@ const ReviewsSection = () => {
       }} whileInView={{
         opacity: 1,
         y: 0
-      }} onViewportEnter={tryAutoplay} viewport={{
+      }} viewport={{
         once: true
       }} transition={{
         duration: 0.6
       }} className="mb-20">
-          <div className="max-w-sm mx-auto">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-2">
+          <div className="max-w-xs sm:max-w-sm mx-auto px-4 sm:px-0">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-primary/30 shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-gradient-to-br from-card to-card/50 p-1.5 sm:p-2">
               <div 
-                className="relative rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer"
-                style={{ aspectRatio: '9/16', minHeight: '500px' }}
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer"
+                style={{ aspectRatio: '9/16', minHeight: '400px' }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={() => isPlaying && setShowControls(false)}
                 onClick={handleUserPlay}
@@ -308,14 +277,11 @@ const ReviewsSection = () => {
                   ref={videoRef}
                   src="/videos/Avis-Client-3-2.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
-                  autoPlay
                   muted={isMuted}
                   loop
                   playsInline
                   preload="auto"
-                  onLoadedMetadata={tryAutoplay}
-                  onCanPlay={tryAutoplay}
-                  onPlay={() => { userPausedRef.current = false; setAutoplayBlocked(false); setIsPlaying(true); }}
+                  onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
                   onTimeUpdate={(e) => {
@@ -346,6 +312,18 @@ const ReviewsSection = () => {
                   </div>
                 )}
 
+                {/* Play Overlay when paused */}
+                {!isPlaying && !videoError && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 flex items-center justify-center z-20 bg-black/30"
+                  >
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/90 rounded-full flex items-center justify-center shadow-lg hover:bg-primary transition-colors">
+                      <Play className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground ml-1" fill="currentColor" />
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Control Bar with Progress and Sound */}
                 {!videoError && (
