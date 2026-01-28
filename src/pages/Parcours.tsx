@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatAssistant from "@/components/ChatAssistant";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach.png";
 import methodTraining from "@/assets/method-training.jpg";
@@ -447,6 +448,7 @@ const Parcours = () => {
       </section>
 
       <Footer />
+      <ChatAssistant />
     </div>
   );
 };
