@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
-interface TransformationShowcase {
+export interface TransformationShowcase {
   name: string;
   beforeImage: string;
   afterImage: string;
+  reversed?: boolean; // If true, swap before/after positions
 }
 
 interface TransformationsCarouselProps {
@@ -79,45 +80,64 @@ const TransformationsCarousel = ({ transformationShowcases, isFrench }: Transfor
         {/* Carousel Container */}
         <div className="overflow-hidden mx-8 md:mx-0" ref={emblaRef}>
           <div className="flex gap-4 sm:gap-6">
-            {transformationShowcases.map((showcase, index) => (
-              <motion.div
-                key={showcase.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[350px] lg:w-[300px] group relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
-                whileHover={{ y: -5 }}
-              >
-                {/* Before/After comparison */}
-                <div className="relative aspect-[3/4]">
-                  <div className="absolute inset-0 grid grid-cols-2">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={showcase.beforeImage}
-                        alt={isFrench ? "Avant" : "Before"}
-                        className="w-full h-full object-cover object-center"
-                      />
-                      <div className="absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 bg-black/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-white shadow-lg">
-                        {isFrench ? "Avant" : "Before"}
+            {transformationShowcases.map((showcase, index) => {
+              // For reversed cards, swap the images
+              const leftImage = showcase.reversed ? showcase.afterImage : showcase.beforeImage;
+              const rightImage = showcase.reversed ? showcase.beforeImage : showcase.afterImage;
+              const leftLabel = showcase.reversed 
+                ? (isFrench ? "Après" : "After") 
+                : (isFrench ? "Avant" : "Before");
+              const rightLabel = showcase.reversed 
+                ? (isFrench ? "Avant" : "Before") 
+                : (isFrench ? "Après" : "After");
+              
+              return (
+                <motion.div
+                  key={showcase.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[350px] lg:w-[300px] group relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
+                  whileHover={{ y: -5 }}
+                >
+                  {/* Before/After comparison */}
+                  <div className="relative aspect-[3/4]">
+                    <div className="absolute inset-0 grid grid-cols-2">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={leftImage}
+                          alt={leftLabel}
+                          className="w-full h-full object-cover object-center"
+                        />
+                        <div className={`absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 ${showcase.reversed ? 'bg-primary/90' : 'bg-black/80'} backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold ${showcase.reversed ? 'text-primary-foreground' : 'text-white'} shadow-lg`}>
+                          {leftLabel}
+                        </div>
+                      </div>
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={rightImage}
+                          alt={rightLabel}
+                          className="w-full h-full object-cover object-center"
+                        />
+                        <div className={`absolute bottom-1.5 sm:bottom-2 right-1.5 sm:right-2 ${showcase.reversed ? 'bg-black/80' : 'bg-primary/90'} backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold ${showcase.reversed ? 'text-white' : 'text-primary-foreground'} shadow-lg`}>
+                          {rightLabel}
+                        </div>
                       </div>
                     </div>
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={showcase.afterImage}
-                        alt={isFrench ? "Après" : "After"}
-                        className="w-full h-full object-cover object-center"
-                      />
-                      <div className="absolute bottom-1.5 sm:bottom-2 right-1.5 sm:right-2 bg-primary/90 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-primary-foreground shadow-lg">
-                        {isFrench ? "Après" : "After"}
-                      </div>
+                    {/* Center divider */}
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 sm:w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
+                    
+                    {/* Name overlay at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4">
+                      <h4 className="text-center font-display text-lg sm:text-xl font-bold text-white drop-shadow-lg">
+                        {showcase.name}
+                      </h4>
                     </div>
                   </div>
-                  {/* Center divider */}
-                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 sm:w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

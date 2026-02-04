@@ -98,6 +98,7 @@ interface TransformationShowcase {
   name: string;
   beforeImage: string;
   afterImage: string;
+  reversed?: boolean;
 }
 const testimonials: Testimonial[] = [{
   name: "Armand",
@@ -156,23 +157,24 @@ const testimonials: Testimonial[] = [{
   highlightEn: "Complete transformation"
 }];
 const transformationShowcases: TransformationShowcase[] = [{
-  name: "Transformation 1",
+  name: "Magdalena",
   beforeImage: transformBefore1,
   afterImage: transformAfter1
 }, {
-  name: "Transformation 2",
+  name: "Bruno",
   beforeImage: transformBefore2,
   afterImage: transformAfter2
 }, {
-  name: "Transformation 3",
+  name: "Cécile",
   beforeImage: transformBefore3,
-  afterImage: transformAfter3
+  afterImage: transformAfter3,
+  reversed: true // Inverse l'ordre avant/après pour cette photo
 }, {
-  name: "Transformation 4",
+  name: "Daisy",
   beforeImage: transformBefore4,
   afterImage: transformAfter4
 }, {
-  name: "Transformation 5",
+  name: "Manon",
   beforeImage: transformBefore5,
   afterImage: transformAfter5
 }];
