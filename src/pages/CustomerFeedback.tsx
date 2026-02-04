@@ -123,7 +123,7 @@ const testimonials: Testimonial[] = [
 const transformationShowcases = [
   { name: "Magdalena", beforeImage: transformBefore1, afterImage: transformAfter1 },
   { name: "Bruno", beforeImage: transformBefore2, afterImage: transformAfter2 },
-  { name: "Cécile", beforeImage: transformBefore3, afterImage: transformAfter3, reversed: true },
+  { name: "Cécile", beforeImage: transformAfter3, afterImage: transformBefore3 },
   { name: "Daisy", beforeImage: transformBefore4, afterImage: transformAfter4 },
   { name: "Manon", beforeImage: transformBefore5, afterImage: transformAfter5 },
 ];
