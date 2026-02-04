@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, Clock, Target, Trophy, X, ZoomIn, ArrowLeft, MessageCircle, Play, Volume2, VolumeX, ArrowRight } from "lucide-react";
+import { Star, Quote, Clock, Target, Trophy, X, ArrowLeft, MessageCircle, Play, Volume2, VolumeX, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,18 @@ import ClientMessages from "@/components/ClientMessages";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatAssistant from "@/components/ChatAssistant";
-import transformation1 from "@/assets/transformation-1.png";
-import transformation2 from "@/assets/transformation-2.png";
-import transformation3 from "@/assets/transformation-3.png";
-import transformation4 from "@/assets/transformation-4.png";
+import TransformationsCarousel from "@/components/TransformationsCarousel";
+
+// Transformation images (same as ReviewsSection)
+import transformBefore1 from "@/assets/transform-before-1.jpg";
+import transformAfter1 from "@/assets/transform-after-1.jpg";
+import transformBefore2 from "@/assets/transform-before-2.jpg";
+import transformAfter2 from "@/assets/transform-after-2.jpg";
+import transformBefore3 from "@/assets/transform-before-3.jpg";
+import transformAfter3 from "@/assets/transform-after-3.jpg";
+import transformBefore4 from "@/assets/transform-before-4.jpg";
+import transformAfter4 from "@/assets/transform-after-4.jpg";
+import transformBefore5 from "@/assets/transform-before-5.jpg";
 import transformAfter5 from "@/assets/transform-after-5.jpg";
 
 // Testimonial images
@@ -36,14 +44,7 @@ interface Testimonial {
   fullReviewEn?: string;
 }
 
-interface TransformationShowcase {
-  name: string;
-  image: string;
-  beforeImage?: string;
-  result: string;
-  resultEn: string;
-  reverseOrder?: boolean;
-}
+// Transformation showcases use the same structure as ReviewsSection
 
 const testimonials: Testimonial[] = [
   {
@@ -118,44 +119,19 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const transformationShowcases: TransformationShowcase[] = [
-  {
-    name: "Magdalena",
-    image: transformation1,
-    result: "-14 kg en 6 mois",
-    resultEn: "-14 kg in 6 months",
-  },
-  {
-    name: "Bruno",
-    image: transformation2,
-    result: "Développement musculaire",
-    resultEn: "Muscle development",
-  },
-  {
-    name: "Daisy",
-    image: transformation3,
-    result: "Transformation complète",
-    resultEn: "Complete transformation",
-  },
-  {
-    name: "Cécile",
-    image: transformation4,
-    result: "Force et souplesse",
-    resultEn: "Strength and flexibility",
-  },
-  {
-    name: "Transformation",
-    image: transformAfter5,
-    result: "Résultats visibles",
-    resultEn: "Visible results",
-  },
+// Same transformations as ReviewsSection for consistency
+const transformationShowcases = [
+  { name: "Transformation 1", beforeImage: transformBefore1, afterImage: transformAfter1 },
+  { name: "Transformation 2", beforeImage: transformBefore2, afterImage: transformAfter2 },
+  { name: "Transformation 3", beforeImage: transformBefore3, afterImage: transformAfter3 },
+  { name: "Transformation 4", beforeImage: transformBefore4, afterImage: transformAfter4 },
+  { name: "Transformation 5", beforeImage: transformBefore5, afterImage: transformAfter5 },
 ];
 
 
 const CustomerFeedback = () => {
   const { language } = useLanguage();
   const isFrench = language === "fr";
-  const [selectedImage, setSelectedImage] = useState<TransformationShowcase | null>(null);
   const [expandedReview, setExpandedReview] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [videoError, setVideoError] = useState(false);
@@ -258,78 +234,13 @@ const CustomerFeedback = () => {
         </div>
       </section>
 
-      {/* Transformation Gallery */}
+      {/* Transformation Gallery - Using same carousel as ReviewsSection */}
       <section className="py-16 bg-card/30">
         <div className="container mx-auto px-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center font-display text-2xl md:text-3xl font-bold text-foreground mb-10"
-          >
-            {isFrench ? "Transformations en images" : "Transformations in pictures"}
-          </motion.h2>
-          
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {transformationShowcases.map((showcase, index) => (
-              <motion.div
-                key={showcase.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 cursor-pointer"
-                onClick={() => setSelectedImage(showcase)}
-              >
-                {showcase.beforeImage ? (
-                  <div className="aspect-[4/3] overflow-hidden flex relative">
-                    <div className="w-1/2 h-full overflow-hidden">
-                      <img
-                        src={showcase.beforeImage}
-                        alt={`${showcase.name} avant`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="w-1/2 h-full overflow-hidden">
-                      <img
-                        src={showcase.image}
-                        alt={`${showcase.name} après`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    </div>
-                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-gold/80 shadow-[0_0_15px_rgba(255,215,0,0.6)] z-10" />
-                    <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white">
-                      {isFrench ? "Avant" : "Before"}
-                    </div>
-                    <div className="absolute bottom-2 right-2 bg-primary/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary-foreground">
-                      {isFrench ? "Après" : "After"}
-                    </div>
-                  </div>
-                ) : (
-                  <div className={`aspect-[4/3] overflow-hidden flex relative ${showcase.reverseOrder ? 'flex-row-reverse' : 'flex-row'}`}>
-                    <img
-                      src={showcase.image}
-                      alt={`${showcase.name} transformation`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      style={showcase.reverseOrder ? { transform: 'scaleX(-1)' } : undefined}
-                    />
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ZoomIn className="w-4 h-4 text-white" />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h4 className="font-display text-lg font-bold text-white mb-1">
-                    {showcase.name}
-                  </h4>
-                  <p className="text-sm text-white/80">
-                    {isFrench ? showcase.result : showcase.resultEn}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <TransformationsCarousel 
+            transformationShowcases={transformationShowcases} 
+            isFrench={isFrench} 
+          />
         </div>
       </section>
 
@@ -611,58 +522,6 @@ const CustomerFeedback = () => {
         </div>
       </section>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
-            onClick={() => setSelectedImage(null)}
-          >
-            <button
-              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
-              onClick={() => setSelectedImage(null)}
-            >
-              <X className="w-6 h-6 text-white" />
-            </button>
-
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative max-w-5xl w-full max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedImage.image}
-                alt={`${selectedImage.name} transformation`}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-display text-2xl font-bold text-white mb-1">
-                      {selectedImage.name}
-                    </h3>
-                    <p className="text-white/80">
-                      {isFrench ? selectedImage.result : selectedImage.resultEn}
-                    </p>
-                  </div>
-                  <div className="bg-primary px-4 py-2 rounded-full">
-                    <span className="font-semibold text-primary-foreground">
-                      {isFrench ? "Avant / Après" : "Before / After"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <Footer />
       <ChatAssistant />
     </main>
