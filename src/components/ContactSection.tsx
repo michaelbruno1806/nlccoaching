@@ -35,8 +35,8 @@ const ContactSection = () => {
   const whatsappNumber = getContent("contact_whatsapp") || "33616224037";
 
   const WHATSAPP_MESSAGE = language === "fr" 
-    ? "Bonjour, j'étais sur votre site internet. Je suis intéressé(e) par vos services de coaching NLC!"
-    : "Hello, I was on your website. I'm interested in your NLC coaching services!";
+    ? "Bonjour, j'étais sur votre site internet. Je suis intéressé(e) par vos services de coaching !"
+    : "Hello, I was on your website. I'm interested in your coaching services!";
 
   const contactInfo = [
     {
