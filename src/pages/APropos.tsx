@@ -8,6 +8,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatAssistant from "@/components/ChatAssistant";
+import ReviewsSection from "@/components/ReviewsSection";
 import SEOHead from "@/components/SEOHead";
 import aboutCoach from "@/assets/about-coach-new.png";
 import coachBackground from "@/assets/coach-background.jpg";
@@ -553,6 +554,9 @@ const APropos = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Reviews/Transformations Section */}
+      <ReviewsSection />
 
       <Footer />
       <ChatAssistant />
