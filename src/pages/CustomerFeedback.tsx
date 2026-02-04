@@ -161,7 +161,6 @@ const CustomerFeedback = () => {
   const [selectedImage, setSelectedImage] = useState<TransformationShowcase | null>(null);
   const [expandedReview, setExpandedReview] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
@@ -201,26 +200,6 @@ const CustomerFeedback = () => {
     });
   };
 
-  const tryAutoplay = () => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (userPausedRef.current) return;
-
-    el.muted = isMuted;
-    const p = el.play();
-    if (p && typeof (p as Promise<void>).catch === "function") {
-      (p as Promise<void>)
-        .then(() => {
-          userPausedRef.current = false;
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          setAutoplayBlocked(true);
-          setIsPlaying(false);
-        });
-    }
-  };
-
   const handleUserPlay = () => {
     const el = videoRef.current;
     if (!el) return;
@@ -235,18 +214,12 @@ const CustomerFeedback = () => {
       if (p && typeof (p as Promise<void>).then === "function") {
         (p as Promise<void>)
           .then(() => {
-            setAutoplayBlocked(false);
             setIsPlaying(true);
           })
           .catch(() => {});
       }
     }
   };
-
-  useEffect(() => {
-    const t = window.setTimeout(() => tryAutoplay(), 50);
-    return () => window.clearTimeout(t);
-  }, []);
 
   return (
     <>
@@ -372,7 +345,6 @@ const CustomerFeedback = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            onViewportEnter={tryAutoplay}
             viewport={{ once: true }}
             className="text-center mb-10"
           >
@@ -404,14 +376,11 @@ const CustomerFeedback = () => {
                   ref={videoRef}
                   src="/videos/Avis-Client-3-2.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
-                  autoPlay
                   muted={isMuted}
                   loop
                   playsInline
                   preload="auto"
-                  onLoadedMetadata={tryAutoplay}
-                  onCanPlay={tryAutoplay}
-                  onPlay={() => { userPausedRef.current = false; setAutoplayBlocked(false); setIsPlaying(true); }}
+                  onPlay={() => { userPausedRef.current = false; setIsPlaying(true); }}
                   onPause={() => setIsPlaying(false)}
                   onError={() => setVideoError(true)}
                   onTimeUpdate={(e) => {
@@ -429,6 +398,19 @@ const CustomerFeedback = () => {
                   }}
                   title={isFrench ? "Témoignage client" : "Customer testimonial"}
                 />
+
+                {/* Play Overlay when paused */}
+                {!isPlaying && !videoError && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 flex items-center justify-center z-20 bg-black/30"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
+                      <Play className="w-8 h-8 text-primary-foreground fill-current ml-1" />
+                    </div>
+                  </motion.div>
+                )}
 
                 {videoError && (
                   <div className="absolute inset-0 flex items-center justify-center p-6">
