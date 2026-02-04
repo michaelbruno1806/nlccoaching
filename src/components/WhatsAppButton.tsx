@@ -8,7 +8,7 @@ interface WhatsAppButtonProps {
 
 const WhatsAppButton = ({ 
   phoneNumber, 
-  message = "Bonjour! Je suis intéressé(e) par vos services de coaching." 
+  message = "Bonjour, j'étais sur votre site internet. Je suis intéressé(e) par vos services de coaching NLC!" 
 }: WhatsAppButtonProps) => {
   // Format phone number (remove spaces, dashes, etc.)
   const formattedPhone = phoneNumber.replace(/[\s-()]/g, '');
