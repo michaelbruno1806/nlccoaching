@@ -48,21 +48,21 @@ const TransformationsCarousel = ({ transformationShowcases, isFrench }: Transfor
               {/* Before/After comparison */}
               <div className="relative aspect-[3/4]">
                 <div className="absolute inset-0 grid grid-cols-2">
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden bg-black/20">
                     <img
                       src={leftImage}
                       alt={leftLabel}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain object-center"
                     />
                     <div className={`absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 ${showcase.reversed ? 'bg-primary/90' : 'bg-black/80'} backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold ${showcase.reversed ? 'text-primary-foreground' : 'text-white'} shadow-lg`}>
                       {leftLabel}
                     </div>
                   </div>
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden bg-black/20">
                     <img
                       src={rightImage}
                       alt={rightLabel}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain object-center"
                     />
                     <div className={`absolute bottom-1.5 sm:bottom-2 right-1.5 sm:right-2 ${showcase.reversed ? 'bg-black/80' : 'bg-primary/90'} backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold ${showcase.reversed ? 'text-white' : 'text-primary-foreground'} shadow-lg`}>
                       {rightLabel}
