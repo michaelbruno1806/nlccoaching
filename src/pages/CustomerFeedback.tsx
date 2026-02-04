@@ -12,7 +12,6 @@ import transformation1 from "@/assets/transformation-1.png";
 import transformation2 from "@/assets/transformation-2.png";
 import transformation3 from "@/assets/transformation-3.png";
 import transformation4 from "@/assets/transformation-4.png";
-import transformBefore5 from "@/assets/transform-before-5.jpg";
 import transformAfter5 from "@/assets/transform-after-5.jpg";
 
 // Testimonial images
@@ -143,12 +142,10 @@ const transformationShowcases: TransformationShowcase[] = [
     image: transformation4,
     result: "Force et souplesse",
     resultEn: "Strength and flexibility",
-    reverseOrder: true,
   },
   {
-    name: "Nouvelle transformation",
+    name: "Transformation",
     image: transformAfter5,
-    beforeImage: transformBefore5,
     result: "Résultats visibles",
     resultEn: "Visible results",
   },
