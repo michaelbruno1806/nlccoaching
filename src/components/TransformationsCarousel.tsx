@@ -72,9 +72,9 @@ const TransformationsCarousel = ({ transformationShowcases, isFrench }: Transfor
                 {/* Center divider */}
                 <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 sm:w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
                 
-                {/* Name overlay at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4">
-                  <h4 className="text-center font-display text-base sm:text-lg font-bold text-white drop-shadow-lg">
+                {/* Name overlay at top left */}
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
+                  <h4 className="font-display text-sm sm:text-base font-bold text-white drop-shadow-lg bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md">
                     {showcase.name}
                   </h4>
                 </div>
