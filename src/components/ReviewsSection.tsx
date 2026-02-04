@@ -166,9 +166,8 @@ const transformationShowcases: TransformationShowcase[] = [{
   afterImage: transformAfter2
 }, {
   name: "Cécile",
-  beforeImage: transformBefore3,
-  afterImage: transformAfter3,
-  reversed: true // Inverse l'ordre avant/après pour cette photo
+  beforeImage: transformAfter3,
+  afterImage: transformBefore3
 }, {
   name: "Daisy",
   beforeImage: transformBefore4,
