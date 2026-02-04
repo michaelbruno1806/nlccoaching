@@ -5,6 +5,8 @@ export interface TransformationShowcase {
   beforeImage: string;
   afterImage: string;
   reversed?: boolean; // If true, swap before/after positions
+  description?: string;
+  descriptionEn?: string;
 }
 
 interface TransformationsCarouselProps {
@@ -72,11 +74,18 @@ const TransformationsCarousel = ({ transformationShowcases, isFrench }: Transfor
                 {/* Center divider */}
                 <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 sm:w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
                 
-                {/* Name overlay at top left */}
+                {/* Name and description overlay at top left */}
                 <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                  <h4 className="font-display text-sm sm:text-base font-bold text-white drop-shadow-lg bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md">
-                    {showcase.name}
-                  </h4>
+                  <div className="bg-black/60 backdrop-blur-sm px-2 py-1.5 rounded-md">
+                    <h4 className="font-display text-sm sm:text-base font-bold text-white drop-shadow-lg">
+                      {showcase.name}
+                    </h4>
+                    {(showcase.description || showcase.descriptionEn) && (
+                      <p className="text-[9px] sm:text-xs text-white/80 mt-0.5 leading-tight">
+                        {isFrench ? showcase.description : showcase.descriptionEn}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>

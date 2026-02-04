@@ -121,11 +121,11 @@ const testimonials: Testimonial[] = [
 
 // Same transformations as ReviewsSection for consistency
 const transformationShowcases = [
-  { name: "Magdalena", beforeImage: transformBefore1, afterImage: transformAfter1 },
-  { name: "Bruno", beforeImage: transformBefore2, afterImage: transformAfter2 },
-  { name: "Cécile", beforeImage: transformAfter3, afterImage: transformBefore3 },
-  { name: "Daisy", beforeImage: transformBefore4, afterImage: transformAfter4 },
-  { name: "Manon", beforeImage: transformBefore5, afterImage: transformAfter5 },
+  { name: "Magdalena", beforeImage: transformBefore1, afterImage: transformAfter1, description: "-14 kg • 6 mois de coaching", descriptionEn: "-14 kg • 6 months coaching" },
+  { name: "Bruno", beforeImage: transformBefore2, afterImage: transformAfter2, description: "Prise de masse musculaire", descriptionEn: "Muscle mass gain" },
+  { name: "Cécile", beforeImage: transformAfter3, afterImage: transformBefore3, description: "Tonification & bien-être", descriptionEn: "Toning & wellness" },
+  { name: "Daisy", beforeImage: transformBefore4, afterImage: transformAfter4, description: "Silhouette affinée", descriptionEn: "Refined silhouette" },
+  { name: "Manon", beforeImage: transformBefore5, afterImage: transformAfter5, description: "Transformation complète • 3 mois", descriptionEn: "Complete transformation • 3 months" },
 ];
 
 
