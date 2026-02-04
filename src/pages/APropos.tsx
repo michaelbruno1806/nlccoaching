@@ -21,32 +21,6 @@ import methodTraining from "@/assets/method-training.jpg";
 import coachSquat from "@/assets/coach-squat.jpg";
 import coachThinking from "@/assets/coach-thinking.jpg";
 import coachExplaining from "@/assets/coach-explaining.jpg";
-
-// Transformation images
-import transformBefore1 from "@/assets/transform-before-1.jpg";
-import transformAfter1 from "@/assets/transform-after-1.jpg";
-import transformBefore2 from "@/assets/transform-before-2.jpg";
-import transformAfter2 from "@/assets/transform-after-2.jpg";
-import transformBefore3 from "@/assets/transform-before-3.jpg";
-import transformAfter3 from "@/assets/transform-after-3.jpg";
-import transformBefore4 from "@/assets/transform-before-4.jpg";
-import transformAfter4 from "@/assets/transform-after-4.jpg";
-import transformBefore5 from "@/assets/transform-before-5.jpg";
-import transformAfter5 from "@/assets/transform-after-5.jpg";
-
-interface TransformationShowcase {
-  name: string;
-  beforeImage: string;
-  afterImage: string;
-}
-
-const transformationShowcases: TransformationShowcase[] = [
-  { name: "Thomas", beforeImage: transformBefore1, afterImage: transformAfter1 },
-  { name: "Sophie", beforeImage: transformBefore2, afterImage: transformAfter2 },
-  { name: "Antoine", beforeImage: transformBefore3, afterImage: transformAfter3 },
-  { name: "Julie", beforeImage: transformBefore4, afterImage: transformAfter4 },
-  { name: "Marc", beforeImage: transformBefore5, afterImage: transformAfter5 },
-];
 const APropos = () => {
   const {
     language
@@ -577,76 +551,6 @@ const APropos = () => {
               </Button>
             </Link>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Transformations Section */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <motion.span 
-              className="inline-block text-gold uppercase tracking-[0.4em] text-xs font-semibold mb-6 px-4 py-2 border border-gold/20 rounded-full bg-gold/5"
-            >
-              {language === 'fr' ? 'Résultats' : 'Results'}
-            </motion.span>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-              {language === 'fr' ? 'Nos ' : 'Our '}
-              <span className="text-gradient">{language === 'fr' ? 'Transformations' : 'Transformations'}</span>
-            </h2>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
-            {transformationShowcases.map((showcase, index) => (
-              <motion.div
-                key={showcase.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl"
-                whileHover={{ y: -5 }}
-              >
-                {/* Before/After comparison */}
-                <div className="relative aspect-[3/4]">
-                  <div className="absolute inset-0 grid grid-cols-2">
-                    <div className="relative overflow-hidden">
-                      <img 
-                        src={showcase.beforeImage} 
-                        alt={`${showcase.name} - Avant`} 
-                        className="w-full h-full object-cover object-center" 
-                      />
-                      <div className="absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 bg-black/80 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-white shadow-lg">
-                        {language === 'fr' ? "Avant" : "Before"}
-                      </div>
-                    </div>
-                    <div className="relative overflow-hidden">
-                      <img 
-                        src={showcase.afterImage} 
-                        alt={`${showcase.name} - Après`} 
-                        className="w-full h-full object-cover object-center" 
-                      />
-                      <div className="absolute bottom-1.5 sm:bottom-2 right-1.5 sm:right-2 bg-primary/90 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-primary-foreground shadow-lg">
-                        {language === 'fr' ? "Après" : "After"}
-                      </div>
-                    </div>
-                  </div>
-                  {/* Center divider */}
-                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 sm:w-1 bg-gold/70 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
-                </div>
-                
-                {/* Name badge */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-gold/90 backdrop-blur-sm text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
-                  {showcase.name}
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
