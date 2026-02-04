@@ -114,7 +114,7 @@ const Formules = () => {
       multiPrice: true,
       prices: [
         { amount: "250", label: isFrench ? "5 séances" : "5 sessions" },
-        { amount: "500", label: isFrench ? "10 séances" : "10 sessions" },
+        { amount: "480", label: isFrench ? "10 séances" : "10 sessions" },
         { amount: "540", label: isFrench ? "12 séances" : "12 sessions" },
       ],
       icon: Sparkles,
