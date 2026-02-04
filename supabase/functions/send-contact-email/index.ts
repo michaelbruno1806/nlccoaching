@@ -41,7 +41,7 @@ const handler = async (req: Request): Promise<Response> => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "NLC Coaching <onboarding@resend.dev>",
+          from: "NLC Coaching <contact@nlc-coaching.com>",
           to: ["contact.nlccoaching@gmail.com"],
           subject: `Nouvelle demande de contact - ${fullName}`,
           html: `
@@ -104,9 +104,9 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
-        from: "NLC Coaching <onboarding@resend.dev>",
-        to: [email],
+        body: JSON.stringify({
+          from: "NLC Coaching <contact@nlc-coaching.com>",
+          to: [email],
         subject: "Confirmation de votre demande - NLC Coaching",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
