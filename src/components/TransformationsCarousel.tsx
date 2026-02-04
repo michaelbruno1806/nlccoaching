@@ -28,9 +28,10 @@ const TransformationsCarousel = ({ transformationShowcases, isFrench }: Transfor
       {/* Grid layout - all items visible */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
         {transformationShowcases.map((showcase, index) => {
-          // For reversed cards, swap the images
+          // For reversed cards, swap image positions but keep correct labels
           const leftImage = showcase.reversed ? showcase.afterImage : showcase.beforeImage;
           const rightImage = showcase.reversed ? showcase.beforeImage : showcase.afterImage;
+          // Labels always indicate what's in the image (Avant = before photo, Après = after photo)
           const leftLabel = showcase.reversed 
             ? (isFrench ? "Après" : "After") 
             : (isFrench ? "Avant" : "Before");
