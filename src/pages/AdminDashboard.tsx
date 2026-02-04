@@ -769,21 +769,21 @@ export default function AdminDashboard() {
               <span className="text-primary font-bold">NLC</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">Admin Panel</h1>
-              <p className="text-xs text-muted-foreground">Manage your website content</p>
+              <h1 className="text-xl font-bold text-foreground">{currentLang === "fr" ? "Panneau Admin" : "Admin Panel"}</h1>
+              <p className="text-xs text-muted-foreground">{currentLang === "fr" ? "Gérez le contenu de votre site" : "Manage your website content"}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
               <Home className="w-4 h-4 mr-2" />
-              View Site
+              {currentLang === "fr" ? "Voir le site" : "View Site"}
             </Button>
             <div className="hidden sm:block text-sm text-muted-foreground border-l border-border pl-3">
               {user.email}
             </div>
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
+              {currentLang === "fr" ? "Déconnexion" : "Sign Out"}
             </Button>
           </div>
         </div>
@@ -801,9 +801,9 @@ export default function AdminDashboard() {
               <Lightbulb className="w-6 h-6 text-primary" />
             </div>
             <div className="flex-1">
-              <h2 className="text-lg font-semibold mb-1">Welcome to your Admin Panel!</h2>
+              <h2 className="text-lg font-semibold mb-1">{currentLang === "fr" ? "Bienvenue sur votre Panneau Admin !" : "Welcome to your Admin Panel!"}</h2>
               <p className="text-muted-foreground text-sm">
-                Edit each section of your website below. Changes save instantly when you click Save.
+                {currentLang === "fr" ? "Modifiez chaque section de votre site ci-dessous. Les changements sont sauvegardés instantanément." : "Edit each section of your website below. Changes save instantly when you click Save."}
               </p>
             </div>
             {/* Language Selector */}
@@ -822,7 +822,7 @@ export default function AdminDashboard() {
                   currentLang === "fr" ? "bg-primary text-primary-foreground" : "hover:bg-muted"
                 }`}
               >
-                🇫🇷 French
+                🇫🇷 Français
               </button>
             </div>
           </div>
@@ -835,14 +835,14 @@ export default function AdminDashboard() {
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
             >
               <LayoutDashboard className="w-4 h-4 mr-2" />
-              Home
+              {currentLang === "fr" ? "Accueil" : "Home"}
             </TabsTrigger>
             <TabsTrigger
               value="about"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
             >
               <UserCircle className="w-4 h-4 mr-2" />
-              About
+              {currentLang === "fr" ? "À Propos" : "About"}
             </TabsTrigger>
             <TabsTrigger
               value="services"
@@ -856,14 +856,14 @@ export default function AdminDashboard() {
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
             >
               <Brain className="w-4 h-4 mr-2" />
-              Philosophy
+              {currentLang === "fr" ? "Philosophie" : "Philosophy"}
             </TabsTrigger>
             <TabsTrigger
               value="coach"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
             >
               <UserCircle className="w-4 h-4 mr-2" />
-              Coach Bio
+              {currentLang === "fr" ? "Bio Coach" : "Coach Bio"}
             </TabsTrigger>
             <TabsTrigger
               value="contact"
@@ -884,7 +884,7 @@ export default function AdminDashboard() {
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-4 py-2"
             >
               <Quote className="w-4 h-4 mr-2" />
-              Testimonials
+              {currentLang === "fr" ? "Témoignages" : "Testimonials"}
             </TabsTrigger>
             <TabsTrigger
               value="transformations"
