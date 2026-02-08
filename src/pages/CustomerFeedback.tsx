@@ -125,7 +125,7 @@ const transformationShowcases = [
   { name: "Bruno", beforeImage: transformBefore2, afterImage: transformAfter2, description: "Prise de masse musculaire", descriptionEn: "Muscle mass gain" },
   { name: "Cécile", beforeImage: transformAfter3, afterImage: transformBefore3, description: "Tonification & bien-être", descriptionEn: "Toning & wellness" },
   { name: "Daisy", beforeImage: transformBefore4, afterImage: transformAfter4, description: "Silhouette affinée", descriptionEn: "Refined silhouette" },
-  { name: "Manon", beforeImage: transformBefore5, afterImage: transformAfter5, description: "Transformation complète • 3 mois", descriptionEn: "Complete transformation • 3 months" },
+  { name: "Manon", beforeImage: transformBefore5, afterImage: transformAfter5, description: "Tonifier le corps • 3 mois", descriptionEn: "Body toning • 3 months" },
 ];
 
 
