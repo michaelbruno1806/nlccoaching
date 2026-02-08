@@ -93,41 +93,41 @@ interface Transformation {
 // Admin panel translations
 const t = (lang: string, en: string, fr: string) => lang === "fr" ? fr : en;
 
-// Section configurations with friendly labels
-const sectionConfigs = {
+// Section configurations with friendly labels (bilingual)
+const getSectionConfigs = (lang: string) => ({
   hero: {
-    title: "Hero Section",
-    description: "The main banner at the top of your homepage",
+    title: t(lang, "Hero Section", "Section Accueil"),
+    description: t(lang, "The main banner at the top of your homepage", "La bannière principale en haut de votre page d'accueil"),
     icon: LayoutDashboard,
     fields: [
-      { key: "hero_title", label: "Main Title", type: "text", placeholder: "Your powerful headline" },
-      { key: "hero_subtitle", label: "Subtitle", type: "textarea", placeholder: "Supporting text under the title" },
-      { key: "hero_cta", label: "Button Text", type: "text", placeholder: "Call to action button text" },
+      { key: "hero_title", label: t(lang, "Main Title", "Titre principal"), type: "text", placeholder: t(lang, "Your powerful headline", "Votre titre accrocheur") },
+      { key: "hero_subtitle", label: t(lang, "Subtitle", "Sous-titre"), type: "textarea", placeholder: t(lang, "Supporting text under the title", "Texte d'accompagnement sous le titre") },
+      { key: "hero_cta", label: t(lang, "Button Text", "Texte du bouton"), type: "text", placeholder: t(lang, "Call to action button text", "Texte du bouton d'appel à l'action") },
     ],
   },
   about: {
-    title: "About Section",
-    description: "Tell visitors who you are and what you do",
+    title: t(lang, "About Section", "Section À Propos"),
+    description: t(lang, "Tell visitors who you are and what you do", "Présentez-vous à vos visiteurs"),
     icon: UserCircle,
     fields: [
-      { key: "about_badge", label: "Section Badge", type: "text", placeholder: "Who We Are" },
-      { key: "about_title", label: "Main Title", type: "text", placeholder: "Optimize your journey to performance" },
-      { key: "about_paragraph_1", label: "First Paragraph", type: "textarea", placeholder: "Your main description..." },
-      { key: "about_paragraph_2", label: "Second Paragraph", type: "textarea", placeholder: "Additional details..." },
-      { key: "about_button", label: "Button Text", type: "text", placeholder: "Learn More" },
+      { key: "about_badge", label: t(lang, "Section Badge", "Badge de section"), type: "text", placeholder: t(lang, "Who We Are", "Qui sommes-nous") },
+      { key: "about_title", label: t(lang, "Main Title", "Titre principal"), type: "text", placeholder: t(lang, "Optimize your journey to performance", "Optimisez votre parcours vers la performance") },
+      { key: "about_paragraph_1", label: t(lang, "First Paragraph", "Premier paragraphe"), type: "textarea", placeholder: t(lang, "Your main description...", "Votre description principale...") },
+      { key: "about_paragraph_2", label: t(lang, "Second Paragraph", "Deuxième paragraphe"), type: "textarea", placeholder: t(lang, "Additional details...", "Détails supplémentaires...") },
+      { key: "about_button", label: t(lang, "Button Text", "Texte du bouton"), type: "text", placeholder: t(lang, "Learn More", "En savoir plus") },
     ],
     stats: [
       {
         key: "about_stat_value",
         labelKey: "about_stat_label",
         defaultValue: "10+",
-        defaultLabel: "Years of experience",
+        defaultLabel: t(lang, "Years of experience", "Années d'expérience"),
       },
     ],
   },
   services: {
-    title: "Services Section",
-    description: "Your coaching programs and offerings",
+    title: t(lang, "Services Section", "Section Services"),
+    description: t(lang, "Your coaching programs and offerings", "Vos programmes et offres de coaching"),
     icon: Dumbbell,
     services: [
       {
@@ -135,8 +135,8 @@ const sectionConfigs = {
         icon: Sparkles,
         titleKey: "service_1_title",
         descKey: "service_1_description",
-        defaultTitle: "Personalized Program",
-        defaultDesc: "Tailored support to achieve your specific goals",
+        defaultTitle: t(lang, "Personalized Program", "Programme personnalisé"),
+        defaultDesc: t(lang, "Tailored support to achieve your specific goals", "Accompagnement sur mesure pour atteindre vos objectifs"),
         features: ["service_1_feature_1", "service_1_feature_2", "service_1_feature_3", "service_1_feature_4"],
       },
       {
@@ -144,8 +144,8 @@ const sectionConfigs = {
         icon: User,
         titleKey: "service_2_title",
         descKey: "service_2_description",
-        defaultTitle: "Individual Coaching",
-        defaultDesc: "Intensive sessions to maximize your potential",
+        defaultTitle: t(lang, "Individual Coaching", "Coaching individuel"),
+        defaultDesc: t(lang, "Intensive sessions to maximize your potential", "Séances intensives pour maximiser votre potentiel"),
         features: ["service_2_feature_1", "service_2_feature_2", "service_2_feature_3", "service_2_feature_4"],
       },
       {
@@ -153,107 +153,107 @@ const sectionConfigs = {
         icon: Users,
         titleKey: "service_3_title",
         descKey: "service_3_description",
-        defaultTitle: "Small Groups",
-        defaultDesc: "Up to 4 people for quality support",
+        defaultTitle: t(lang, "Small Groups", "Petits groupes"),
+        defaultDesc: t(lang, "Up to 4 people for quality support", "Jusqu'à 4 personnes pour un suivi de qualité"),
         features: ["service_3_feature_1", "service_3_feature_2", "service_3_feature_3", "service_3_feature_4"],
       },
     ],
   },
   philosophy: {
-    title: "Philosophy Section",
-    description: "Your coaching approach and values",
+    title: t(lang, "Philosophy Section", "Section Philosophie"),
+    description: t(lang, "Your coaching approach and values", "Votre approche et vos valeurs"),
     icon: Brain,
     items: [
       {
         id: "performance",
         titleKey: "philosophy_1_title",
         descKey: "philosophy_1_description",
-        defaultTitle: "Sustainable Performance",
-        defaultDesc: "Build strength, mobility, and technique without injury",
+        defaultTitle: t(lang, "Sustainable Performance", "Performance durable"),
+        defaultDesc: t(lang, "Build strength, mobility, and technique without injury", "Développez force, mobilité et technique sans blessure"),
       },
       {
         id: "personalized",
         titleKey: "philosophy_2_title",
         descKey: "philosophy_2_description",
-        defaultTitle: "Personalized Support",
-        defaultDesc: "Each program is tailored to your goals",
+        defaultTitle: t(lang, "Personalized Support", "Accompagnement personnalisé"),
+        defaultDesc: t(lang, "Each program is tailored to your goals", "Chaque programme est adapté à vos objectifs"),
       },
       {
         id: "results",
         titleKey: "philosophy_3_title",
         descKey: "philosophy_3_description",
-        defaultTitle: "Measurable Results",
-        defaultDesc: "Clear progress indicators and quantifiable goals",
+        defaultTitle: t(lang, "Measurable Results", "Résultats mesurables"),
+        defaultDesc: t(lang, "Clear progress indicators and quantifiable goals", "Des indicateurs de progrès clairs et des objectifs quantifiables"),
       },
     ],
   },
   coach: {
-    title: "Coach Bio",
-    description: "Information about you, the coach",
+    title: t(lang, "Coach Bio", "Bio du Coach"),
+    description: t(lang, "Information about you, the coach", "Informations vous concernant, le coach"),
     icon: UserCircle,
     fields: [
-      { key: "coach_title", label: "Section Title", type: "text", placeholder: "Your Coach" },
-      { key: "coach_headline", label: "Headline", type: "text", placeholder: "Sports coach and life mentor" },
-      { key: "coach_bio_1", label: "First Paragraph", type: "textarea", placeholder: "Your introduction..." },
-      { key: "coach_bio_2", label: "Second Paragraph", type: "textarea", placeholder: "Your experience..." },
+      { key: "coach_title", label: t(lang, "Section Title", "Titre de section"), type: "text", placeholder: t(lang, "Your Coach", "Votre Coach") },
+      { key: "coach_headline", label: t(lang, "Headline", "Accroche"), type: "text", placeholder: t(lang, "Sports coach and life mentor", "Coach sportif et mentor de vie") },
+      { key: "coach_bio_1", label: t(lang, "First Paragraph", "Premier paragraphe"), type: "textarea", placeholder: t(lang, "Your introduction...", "Votre présentation...") },
+      { key: "coach_bio_2", label: t(lang, "Second Paragraph", "Deuxième paragraphe"), type: "textarea", placeholder: t(lang, "Your experience...", "Votre expérience...") },
     ],
     stats: [
       {
         key: "coach_stat_1_value",
         labelKey: "coach_stat_1_label",
         defaultValue: "500+",
-        defaultLabel: "Clients transformed",
+        defaultLabel: t(lang, "Clients transformed", "Clients transformés"),
       },
       {
         key: "coach_stat_2_value",
         labelKey: "coach_stat_2_label",
         defaultValue: "10+",
-        defaultLabel: "Years of experience",
+        defaultLabel: t(lang, "Years of experience", "Années d'expérience"),
       },
       {
         key: "coach_stat_3_value",
         labelKey: "coach_stat_3_label",
         defaultValue: "5000+",
-        defaultLabel: "Sessions completed",
+        defaultLabel: t(lang, "Sessions completed", "Séances réalisées"),
       },
     ],
   },
   contact: {
-    title: "Contact Section",
-    description: "Your contact information and form settings",
+    title: t(lang, "Contact Section", "Section Contact"),
+    description: t(lang, "Your contact information and form settings", "Vos informations de contact et paramètres"),
     icon: Mail,
     fields: [
-      { key: "contact_title", label: "Section Title", type: "text", placeholder: "Ready to transform your life?" },
+      { key: "contact_title", label: t(lang, "Section Title", "Titre de section"), type: "text", placeholder: t(lang, "Ready to transform your life?", "Prêt à transformer votre vie ?") },
       {
         key: "contact_subtitle",
-        label: "Section Subtitle",
+        label: t(lang, "Section Subtitle", "Sous-titre de section"),
         type: "textarea",
-        placeholder: "Contact us to discuss your goals...",
+        placeholder: t(lang, "Contact us to discuss your goals...", "Contactez-nous pour discuter de vos objectifs..."),
       },
     ],
     contactInfo: [
-      { key: "contact_phone", label: "Phone Number", icon: Phone, placeholder: "+33 6 16 22 40 37" },
-      { key: "contact_email", label: "Email Address", icon: Mail, placeholder: "contact.nlccoaching@gmail.com" },
-      { key: "contact_location", label: "Location", icon: MapPin, placeholder: "Lille, France" },
+      { key: "contact_phone", label: t(lang, "Phone Number", "Numéro de téléphone"), icon: Phone, placeholder: "+33 6 16 22 40 37" },
+      { key: "contact_email", label: t(lang, "Email Address", "Adresse email"), icon: Mail, placeholder: "contact.nlccoaching@gmail.com" },
+      { key: "contact_location", label: t(lang, "Location", "Localisation"), icon: MapPin, placeholder: "Lille, France" },
       {
         key: "contact_whatsapp",
-        label: "WhatsApp Number",
+        label: t(lang, "WhatsApp Number", "Numéro WhatsApp"),
         icon: MessageCircle,
-        placeholder: "33616224037 (without +)",
+        placeholder: t(lang, "33616224037 (without +)", "33616224037 (sans le +)"),
       },
     ],
     discoverySession: [
-      { key: "discovery_title", label: "Discovery Box Title", type: "text", placeholder: "Discovery Session" },
+      { key: "discovery_title", label: t(lang, "Discovery Box Title", "Titre de l'encadré découverte"), type: "text", placeholder: t(lang, "Discovery Session", "Séance découverte") },
       {
         key: "discovery_description",
-        label: "Discovery Box Description",
+        label: t(lang, "Discovery Box Description", "Description de l'encadré découverte"),
         type: "textarea",
-        placeholder: "Book your first free session...",
+        placeholder: t(lang, "Book your first free session...", "Réservez votre première séance gratuite..."),
       },
-      { key: "discovery_button", label: "Discovery Button Text", type: "text", placeholder: "Book now" },
+      { key: "discovery_button", label: t(lang, "Discovery Button Text", "Texte du bouton découverte"), type: "text", placeholder: t(lang, "Book now", "Réserver maintenant") },
     ],
   },
-};
+});
 
 export default function AdminDashboard() {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -263,6 +263,7 @@ export default function AdminDashboard() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [transformations, setTransformations] = useState<Transformation[]>([]);
   const [currentLang, setCurrentLang] = useState("en");
+  const sectionConfigs = getSectionConfigs(currentLang);
   const [savingKeys, setSavingKeys] = useState<Set<string>>(new Set());
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set());
   const [newImageKey, setNewImageKey] = useState("");
@@ -1083,7 +1084,7 @@ export default function AdminDashboard() {
                                 <Input
                                   value={featureValue}
                                   onChange={(e) => updateLocalContent(featureKey, e.target.value)}
-                                  placeholder={`Feature ${fIndex + 1}`}
+                                  placeholder={t(currentLang, `Feature ${fIndex + 1}`, `Caractéristique ${fIndex + 1}`)}
                                   className="flex-1"
                                 />
                                 {renderSaveButton(featureKey, featureValue)}
