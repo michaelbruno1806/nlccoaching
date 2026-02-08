@@ -138,7 +138,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-32 relative overflow-hidden bg-card"
+      className="py-16 md:py-32 relative overflow-hidden bg-card"
       ref={ref}
     >
       {/* Background decoration */}
@@ -146,26 +146,26 @@ const ContactSection = () => {
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-10 md:mb-16"
         >
           <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
             Contact
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             {sectionTitle.includes("transform") || sectionTitle.includes("transformer") ? (
               <>
-                {t("Prêt à", "Ready to")} <span className="text-gradient">{t("transformer", "transform")}</span> {t("votre vie?", "your life?")}
+                {t("Prêt à ", "Ready to ")}<span className="text-gradient">{t("transformer", "transform")}</span>{" "}{t("votre vie?", "your life?")}
               </>
             ) : (
               sectionTitle
             )}
           </h2>
-          <p className="text-white text-lg">
+          <p className="text-white text-base md:text-lg px-2">
             {sectionSubtitle}
           </p>
         </motion.div>

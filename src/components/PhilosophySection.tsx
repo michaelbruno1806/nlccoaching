@@ -45,7 +45,7 @@ const PhilosophySection = () => {
   ];
 
   return (
-    <section id="philosophy" className="py-32 relative overflow-hidden bg-card" ref={ref}>
+    <section id="philosophy" className="py-16 md:py-32 relative overflow-hidden bg-card" ref={ref}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -57,21 +57,21 @@ const PhilosophySection = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-20"
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-20"
         >
           <span className="inline-block text-gold uppercase tracking-[0.3em] text-sm font-medium mb-4">
             {t("Notre Philosophie", "Our Philosophy")}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             {t("Une approche qui allie", "An approach that combines")}{" "}
-            <span className="text-gradient">{t("performance, discipline", "performance, discipline")}</span> {t("et bienveillance", "and kindness")}
+            <span className="text-gradient">{t("performance, discipline", "performance, discipline")}</span>{" "}{t("et bienveillance", "and kindness")}
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base md:text-lg px-2">
             {t(
               "Chez NLC Coaching, nous croyons en une approche du sport qui allie performance, discipline et bienveillance. Chaque accompagnement est pensé pour permettre une progression durable et mesurable.",
               "At NLC Coaching, we believe in a sports approach that combines performance, rigor, and kindness. Each coaching is designed to enable sustainable and measurable progress.",
