@@ -186,8 +186,8 @@ const transformationShowcases: TransformationShowcase[] = [{
   name: "Manon",
   beforeImage: transformBefore5,
   afterImage: transformAfter5,
-  description: "Transformation complète • 3 mois",
-  descriptionEn: "Complete transformation • 3 months"
+  description: "Tonifier le corps • 3 mois",
+  descriptionEn: "Body toning • 3 months"
 }];
 const ReviewsSection = () => {
   const {
