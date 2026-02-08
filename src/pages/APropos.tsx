@@ -493,17 +493,17 @@ const APropos = () => {
 
 
       {/* New Generation Section */}
-      <section className="py-12 relative overflow-hidden min-h-[600px] flex flex-col">
+      <section className="py-12 relative overflow-hidden min-h-[500px] md:min-h-[600px] flex flex-col">
         {/* Background Image - Full Banner */}
         <div className="absolute inset-0 w-full h-full">
-          <img src={coachBackground} alt="Coach background" className="w-full h-full object-cover" style={{
-          objectPosition: 'center 30%'
-        }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-background/90" />
+          <img src={coachBackground} alt="Coach background" className="w-full h-full object-cover object-[25%_30%] md:object-[center_30%]" />
+          {/* Mobile: darker overlay for text readability, Desktop: gradient to the right */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/70 md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-background/90 hidden md:block" />
         </div>
         
-        {/* Text Content - Positioned over the O */}
-        <div className="container mx-auto px-6 relative z-10 flex justify-center pt-8 pl-20 lg:pl-32">
+        {/* Text Content */}
+        <div className="container mx-auto px-6 relative z-10 flex justify-center pt-8 md:pl-20 lg:pl-32">
           <motion.div initial={{
           opacity: 0,
           y: 20
@@ -516,18 +516,18 @@ const APropos = () => {
           duration: 0.8
         }} className="text-center max-w-3xl">
             <Users className="w-10 h-10 text-gold mb-3 mx-auto" />
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               {language === 'fr' ? 'Une nouvelle génération de' : 'A new generation of'}{' '}
               <span className="text-gradient">{language === 'fr' ? 'coachs' : 'coaches'}</span>
             </h2>
-            <p className="text-foreground text-base md:text-lg leading-relaxed">
+            <p className="text-foreground text-sm sm:text-base md:text-lg leading-relaxed">
               {language === 'fr' ? "Noa Liam incarne une nouvelle génération de coachs : exigeante, à l'écoute et connectée à la réalité des clients. Une équipe jeune, sérieuse et passionnée, plaçant discipline, technique et confiance au cœur de chaque progression." : "Noa Liam embodies a new generation of coaches: demanding, attentive and connected to clients' reality. A young, serious and passionate team, placing discipline, technique and confidence at the heart of every progression."}
             </p>
           </motion.div>
         </div>
         
-        {/* CTA Buttons - Positioned to the right */}
-        <div className="flex-1 flex items-center justify-center container mx-auto px-6 relative z-10 pl-20 lg:pl-32">
+        {/* CTA Buttons */}
+        <div className="flex-1 flex items-center justify-center container mx-auto px-6 relative z-10 md:pl-20 lg:pl-32">
           <motion.div initial={{
           opacity: 0,
           y: 20
@@ -541,13 +541,13 @@ const APropos = () => {
           delay: 0.3
         }} className="flex flex-col sm:flex-row gap-4">
             <Link to="/formules">
-              <Button variant="gold" size="lg" className="group text-lg px-8 py-6">
+              <Button variant="gold" size="lg" className="group text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
                 {language === 'fr' ? 'Les Formules' : 'Programs'}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/contact">
-              <Button variant="goldOutline" size="lg" className="text-lg px-8 py-6">
+              <Button variant="goldOutline" size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
                 {language === 'fr' ? 'Nous Contacter' : 'Contact Us'}
               </Button>
             </Link>
