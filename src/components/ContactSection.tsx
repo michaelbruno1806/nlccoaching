@@ -170,13 +170,13 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-5 gap-6 md:gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 grid grid-cols-2 lg:grid-cols-1 gap-3 md:gap-4 lg:space-y-4"
           >
             {contactInfo.map((item, index) => (
               <motion.a
@@ -189,22 +189,22 @@ const ContactSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className={`flex items-center gap-4 p-4 rounded-xl bg-background border transition-all duration-300 group ${
+                className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-background border transition-all duration-300 group ${
                   item.isWhatsApp 
                     ? "border-[#25D366]/30 hover:border-[#25D366] hover:bg-[#25D366]/10" 
                     : "border-border hover:border-gold/50"
                 }`}
               >
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
                   item.isWhatsApp 
                     ? "bg-[#25D366]/20 group-hover:bg-[#25D366]/30" 
                     : "bg-gold/10 group-hover:bg-gold/20"
                 }`}>
-                  <item.icon className={`w-5 h-5 ${item.isWhatsApp ? "text-[#25D366]" : "text-gold"}`} />
+                  <item.icon className={`w-4 h-4 md:w-5 md:h-5 ${item.isWhatsApp ? "text-[#25D366]" : "text-gold"}`} />
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">{item.label}</p>
-                  <p className={`font-medium ${item.isWhatsApp ? "text-[#25D366]" : "text-foreground"}`}>
+                <div className="min-w-0">
+                  <p className="text-xs md:text-sm text-muted-foreground">{item.label}</p>
+                  <p className={`font-medium text-xs md:text-base truncate ${item.isWhatsApp ? "text-[#25D366]" : "text-foreground"}`}>
                     {item.value}
                   </p>
                 </div>
@@ -221,9 +221,9 @@ const ContactSection = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="p-8 rounded-2xl bg-background border border-border"
+              className="p-4 sm:p-6 md:p-8 rounded-2xl bg-background border border-border"
             >
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+              <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 <div>
                   <label className="block text-sm font-medium mb-2 text-foreground">
                     {t("Nom complet", "Full Name")}
@@ -257,7 +257,7 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium mb-2 text-foreground">
                   {t("Téléphone", "Phone")}
                 </label>
@@ -273,7 +273,7 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+              <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 <div>
                   <label className="block text-sm font-medium mb-2 text-foreground">
                     {t("Objectif", "Objective")}
@@ -316,7 +316,7 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <label className="block text-sm font-medium mb-2 text-foreground">
                   Message
                 </label>
@@ -324,13 +324,13 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t("Décrivez vos objectifs et attentes...", "Describe your goals and expectations...")}
-                  rows={5}
+                  rows={4}
                   className="bg-card border-border focus:border-gold resize-none"
                   required
                 />
               </div>
 
-              <div className="flex items-center space-x-3 mb-8">
+              <div className="flex items-start space-x-3 mb-6 md:mb-8">
                 <Checkbox 
                   id="terms" 
                   checked={acceptedTerms}
@@ -345,7 +345,7 @@ const ContactSection = () => {
                 </label>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 <Button
                   type="submit"
                   className="flex-1 bg-[#25D366] hover:bg-[#25D366]/90 text-white"
