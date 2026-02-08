@@ -38,7 +38,7 @@ import {
   ArrowLeftRight,
   Edit,
   X,
-  Download,
+  
 } from "lucide-react";
 import {
   AlertDialog,
@@ -806,14 +806,6 @@ export default function AdminDashboard() {
               <p className="text-muted-foreground text-sm mb-2">
                 {currentLang === "fr" ? "Modifiez chaque section de votre site ci-dessous. Les changements sont sauvegardés instantanément." : "Edit each section of your website below. Changes save instantly when you click Save."}
               </p>
-              <a
-                href="/docs/guide-admin-nlc-coaching.md"
-                download="Guide-Admin-NLC-Coaching.md"
-                className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
-              >
-                <Download className="w-4 h-4" />
-                {currentLang === "fr" ? "📋 Télécharger le guide d'utilisation" : "📋 Download the user guide"}
-              </a>
             </div>
             {/* Language Selector */}
             <div className="flex items-center gap-2 bg-background rounded-lg p-1 border border-border">
