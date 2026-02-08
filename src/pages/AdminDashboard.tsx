@@ -90,6 +90,9 @@ interface Transformation {
   display_order: number;
 }
 
+// Admin panel translations
+const t = (lang: string, en: string, fr: string) => lang === "fr" ? fr : en;
+
 // Section configurations with friendly labels
 const sectionConfigs = {
   hero: {
@@ -731,15 +734,15 @@ export default function AdminDashboard() {
     >
       {savingKeys.has(key) ? (
         <>
-          <RefreshCw className="w-4 h-4 mr-1 animate-spin" /> Saving
+          <RefreshCw className="w-4 h-4 mr-1 animate-spin" /> {t(currentLang, "Saving", "Sauvegarde...")}
         </>
       ) : savedKeys.has(key) ? (
         <>
-          <CheckCircle className="w-4 h-4 mr-1" /> Saved!
+          <CheckCircle className="w-4 h-4 mr-1" /> {t(currentLang, "Saved!", "Sauvegardé !")}
         </>
       ) : (
         <>
-          <Save className="w-4 h-4 mr-1" /> Save
+          <Save className="w-4 h-4 mr-1" /> {t(currentLang, "Save", "Sauvegarder")}
         </>
       )}
     </Button>
@@ -750,7 +753,7 @@ export default function AdminDashboard() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading your dashboard...</p>
+          <p className="text-muted-foreground">{t(currentLang, "Loading your dashboard...", "Chargement du tableau de bord...")}</p>
         </div>
       </div>
     );
@@ -902,9 +905,9 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <LayoutDashboard className="w-5 h-5 text-primary" />
-                  Hero Section
+                  {t(currentLang, "Hero Section", "Section Accueil")}
                 </CardTitle>
-                <CardDescription>The main banner at the top of your homepage</CardDescription>
+                <CardDescription>{t(currentLang, "The main banner at the top of your homepage", "La bannière principale en haut de votre page d'accueil")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {sectionConfigs.hero.fields.map((field) => {
@@ -942,9 +945,9 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <UserCircle className="w-5 h-5 text-primary" />
-                  About Section
+                  {t(currentLang, "About Section", "Section À Propos")}
                 </CardTitle>
-                <CardDescription>Tell visitors who you are and what you do</CardDescription>
+                <CardDescription>{t(currentLang, "Tell visitors who you are and what you do", "Présentez-vous à vos visiteurs")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {sectionConfigs.about.fields.map((field) => {
@@ -975,9 +978,9 @@ export default function AdminDashboard() {
 
                 {/* Stats */}
                 <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-lg mb-4">Statistics Card</h3>
+                  <h3 className="font-semibold text-lg mb-4">{t(currentLang, "Statistics Card", "Carte Statistiques")}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    The floating stats card displayed over the images
+                    {t(currentLang, "The floating stats card displayed over the images", "La carte de statistiques flottante affichée sur les images")}
                   </p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {sectionConfigs.about.stats.map((stat) => {
@@ -987,7 +990,7 @@ export default function AdminDashboard() {
                       return (
                         <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30 space-y-3">
                           <div>
-                            <Label className="text-sm text-muted-foreground">Number/Value</Label>
+                            <Label className="text-sm text-muted-foreground">{t(currentLang, "Number/Value", "Nombre/Valeur")}</Label>
                             <div className="flex items-center gap-2 mt-1">
                               <Input
                                 value={valueContent}
@@ -999,7 +1002,7 @@ export default function AdminDashboard() {
                             </div>
                           </div>
                           <div>
-                            <Label className="text-sm text-muted-foreground">Label</Label>
+                            <Label className="text-sm text-muted-foreground">{t(currentLang, "Label", "Libellé")}</Label>
                             <div className="flex items-center gap-2 mt-1">
                               <Input
                                 value={labelContent}
@@ -1025,9 +1028,9 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Dumbbell className="w-5 h-5 text-primary" />
-                  Services Section
+                  {t(currentLang, "Services Section", "Section Services")}
                 </CardTitle>
-                <CardDescription>Your coaching programs and offerings - edit each service below</CardDescription>
+                <CardDescription>{t(currentLang, "Your coaching programs and offerings - edit each service below", "Vos programmes de coaching — modifiez chaque service ci-dessous")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-8">
                 {sectionConfigs.services.services.map((service, index) => {
@@ -1047,7 +1050,7 @@ export default function AdminDashboard() {
                       <div className="grid gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <Label>Service Title</Label>
+                            <Label>{t(currentLang, "Service Title", "Titre du service")}</Label>
                             {renderSaveButton(service.titleKey, titleValue)}
                           </div>
                           <Input
@@ -1059,7 +1062,7 @@ export default function AdminDashboard() {
 
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <Label>Service Description</Label>
+                            <Label>{t(currentLang, "Service Description", "Description du service")}</Label>
                             {renderSaveButton(service.descKey, descValue)}
                           </div>
                           <Textarea
@@ -1071,7 +1074,7 @@ export default function AdminDashboard() {
                         </div>
 
                         <div className="space-y-3">
-                          <Label className="text-muted-foreground">Features (bullet points)</Label>
+                          <Label className="text-muted-foreground">{t(currentLang, "Features (bullet points)", "Caractéristiques (points clés)")}</Label>
                           {service.features.map((featureKey, fIndex) => {
                             const featureValue = getContentValue(featureKey);
                             return (
@@ -1102,9 +1105,9 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Brain className="w-5 h-5 text-primary" />
-                  Philosophy Section
+                  {t(currentLang, "Philosophy Section", "Section Philosophie")}
                 </CardTitle>
-                <CardDescription>Your coaching approach and core values</CardDescription>
+                <CardDescription>{t(currentLang, "Your coaching approach and core values", "Votre approche et vos valeurs fondamentales")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {sectionConfigs.philosophy.items.map((item, index) => {
@@ -1113,12 +1116,12 @@ export default function AdminDashboard() {
 
                   return (
                     <div key={item.id} className="p-6 rounded-xl border border-border bg-muted/30">
-                      <h3 className="font-semibold text-lg mb-4">Philosophy Point {index + 1}</h3>
+                      <h3 className="font-semibold text-lg mb-4">{t(currentLang, `Philosophy Point ${index + 1}`, `Point Philosophie ${index + 1}`)}</h3>
 
                       <div className="grid gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <Label>Title</Label>
+                            <Label>{t(currentLang, "Title", "Titre")}</Label>
                             {renderSaveButton(item.titleKey, titleValue)}
                           </div>
                           <Input
@@ -1130,7 +1133,7 @@ export default function AdminDashboard() {
 
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <Label>Description</Label>
+                            <Label>{t(currentLang, "Description", "Description")}</Label>
                             {renderSaveButton(item.descKey, descValue)}
                           </div>
                           <Textarea
@@ -1154,9 +1157,9 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <UserCircle className="w-5 h-5 text-primary" />
-                  Coach Bio
+                  {t(currentLang, "Coach Bio", "Bio du Coach")}
                 </CardTitle>
-                <CardDescription>Information about you, the coach</CardDescription>
+                <CardDescription>{t(currentLang, "Information about you, the coach", "Informations vous concernant, le coach")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {sectionConfigs.coach.fields.map((field) => {
@@ -1187,8 +1190,8 @@ export default function AdminDashboard() {
 
                 {/* Stats Section */}
                 <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-lg mb-4">Your Statistics</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Showcase your experience with impressive numbers</p>
+                  <h3 className="font-semibold text-lg mb-4">{t(currentLang, "Your Statistics", "Vos Statistiques")}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{t(currentLang, "Showcase your experience with impressive numbers", "Mettez en avant votre expérience avec des chiffres marquants")}</p>
                   <div className="grid md:grid-cols-3 gap-4">
                     {sectionConfigs.coach.stats.map((stat, index) => {
                       const valueContent = getContentValue(stat.key) || stat.defaultValue;
@@ -1196,7 +1199,7 @@ export default function AdminDashboard() {
 
                       return (
                         <div key={stat.key} className="p-4 rounded-xl border border-border bg-muted/30">
-                          <Label className="text-sm text-muted-foreground">Stat {index + 1}</Label>
+                          <Label className="text-sm text-muted-foreground">{t(currentLang, `Stat ${index + 1}`, `Stat ${index + 1}`)}</Label>
                           <div className="mt-2 space-y-3">
                             <div>
                               <Input
@@ -1232,14 +1235,14 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Mail className="w-5 h-5 text-primary" />
-                  Contact Section
+                  {t(currentLang, "Contact Section", "Section Contact")}
                 </CardTitle>
-                <CardDescription>Your contact information and messaging</CardDescription>
+                <CardDescription>{t(currentLang, "Your contact information and messaging", "Vos informations de contact et messagerie")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Section Header */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Section Header</h3>
+                  <h3 className="font-semibold text-lg">{t(currentLang, "Section Header", "En-tête de section")}</h3>
                   {sectionConfigs.contact.fields.map((field) => {
                     const value = getContentValue(field.key);
                     return (
@@ -1269,8 +1272,8 @@ export default function AdminDashboard() {
 
                 {/* Contact Information */}
                 <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-lg mb-4">Contact Information</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Update your contact details shown on the website</p>
+                   <h3 className="font-semibold text-lg mb-4">{t(currentLang, "Contact Information", "Informations de contact")}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{t(currentLang, "Update your contact details shown on the website", "Mettez à jour vos coordonnées affichées sur le site")}</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {sectionConfigs.contact.contactInfo.map((info) => {
                       const InfoIcon = info.icon;
@@ -1300,9 +1303,9 @@ export default function AdminDashboard() {
 
                 {/* Discovery Session Box */}
                 <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-lg mb-4">Discovery Session Box</h3>
+                   <h3 className="font-semibold text-lg mb-4">{t(currentLang, "Discovery Session Box", "Encadré Séance Découverte")}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    The promotional box that encourages visitors to book a free session
+                    {t(currentLang, "The promotional box that encourages visitors to book a free session", "L'encadré promotionnel qui encourage les visiteurs à réserver une séance gratuite")}
                   </p>
                   <div className="p-6 rounded-xl border border-primary/30 bg-primary/5 space-y-4">
                     {sectionConfigs.contact.discoverySession.map((field) => {
@@ -1342,14 +1345,14 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Upload className="w-5 h-5 text-primary" />
-                  Upload New Image
+                  {t(currentLang, "Upload New Image", "Ajouter une nouvelle image")}
                 </CardTitle>
-                <CardDescription>Upload images to use on your website</CardDescription>
+                <CardDescription>{t(currentLang, "Upload images to use on your website", "Téléchargez des images pour votre site")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 md:grid-cols-3">
                   <div>
-                    <Label htmlFor="imageKey">Name for this image</Label>
+                    <Label htmlFor="imageKey">{t(currentLang, "Name for this image", "Nom de l'image")}</Label>
                     <Input
                       id="imageKey"
                       value={newImageKey}
@@ -1359,7 +1362,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="imageAlt">Description (for accessibility)</Label>
+                    <Label htmlFor="imageAlt">{t(currentLang, "Description (for accessibility)", "Description (pour l'accessibilité)")}</Label>
                     <Input
                       id="imageAlt"
                       value={newImageAlt}
@@ -1369,7 +1372,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="imageFile">Choose image file</Label>
+                    <Label htmlFor="imageFile">{t(currentLang, "Choose image file", "Choisir un fichier image")}</Label>
                     <Input
                       id="imageFile"
                       type="file"
@@ -1383,13 +1386,13 @@ export default function AdminDashboard() {
                 {!newImageKey && (
                   <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2 mt-3">
                     <AlertCircle className="w-4 h-4" />
-                    Please enter a name for your image before uploading
+                    {t(currentLang, "Please enter a name for your image before uploading", "Veuillez entrer un nom pour votre image avant de télécharger")}
                   </p>
                 )}
                 {uploadingImage && (
                   <p className="text-sm text-primary flex items-center gap-2 mt-3">
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    Uploading your image...
+                    {t(currentLang, "Uploading your image...", "Téléchargement de votre image...")}
                   </p>
                 )}
               </CardContent>
@@ -1399,12 +1402,12 @@ export default function AdminDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Your Website Images</CardTitle>
-                    <CardDescription>Manage all images used on your website</CardDescription>
+                    <CardTitle>{t(currentLang, "Your Website Images", "Images de votre site")}</CardTitle>
+                    <CardDescription>{t(currentLang, "Manage all images used on your website", "Gérez toutes les images utilisées sur votre site")}</CardDescription>
                   </div>
                   <Button variant="outline" size="sm" onClick={fetchImages}>
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
+                     <RefreshCw className="w-4 h-4 mr-2" />
+                    {t(currentLang, "Refresh", "Actualiser")}
                   </Button>
                 </div>
               </CardHeader>
@@ -1412,7 +1415,7 @@ export default function AdminDashboard() {
                 {images.length === 0 ? (
                   <div className="border border-dashed border-border rounded-2xl p-12 text-center">
                     <Image className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-                    <p className="text-muted-foreground">No images uploaded yet</p>
+                    <p className="text-muted-foreground">{t(currentLang, "No images uploaded yet", "Aucune image téléchargée")}</p>
                   </div>
                 ) : (
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -1439,23 +1442,23 @@ export default function AdminDashboard() {
                             <AlertDialogTrigger asChild>
                               <Button size="sm" variant="outline" className="w-full text-destructive">
                                 <Trash2 className="w-4 h-4 mr-2" />
-                                Delete
+                                {t(currentLang, "Delete", "Supprimer")}
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Delete this image?</AlertDialogTitle>
+                                <AlertDialogTitle>{t(currentLang, "Delete this image?", "Supprimer cette image ?")}</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  This will permanently delete this image. This action cannot be undone.
+                                  {t(currentLang, "This will permanently delete this image. This action cannot be undone.", "Cette image sera définitivement supprimée. Cette action est irréversible.")}
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogCancel>{t(currentLang, "Cancel", "Annuler")}</AlertDialogCancel>
                                 <AlertDialogAction
                                   onClick={() => handleDeleteImage(item)}
                                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                 >
-                                  Yes, Delete
+                                  {t(currentLang, "Yes, Delete", "Oui, supprimer")}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
@@ -1475,16 +1478,16 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Quote className="w-5 h-5 text-primary" />
-                  {editingTestimonial ? "Edit Testimonial" : "Add New Testimonial"}
+                   {editingTestimonial ? t(currentLang, "Edit Testimonial", "Modifier le témoignage") : t(currentLang, "Add New Testimonial", "Ajouter un témoignage")}
                 </CardTitle>
                 <CardDescription>
-                  {editingTestimonial ? "Update this client testimonial" : "Add a new client review to showcase on your site"}
+                  {editingTestimonial ? t(currentLang, "Update this client testimonial", "Mettre à jour ce témoignage client") : t(currentLang, "Add a new client review to showcase on your site", "Ajoutez un nouvel avis client à afficher sur votre site")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Label>Client Name *</Label>
+                     <Label>{t(currentLang, "Client Name *", "Nom du client *")}</Label>
                     <Input
                       value={testimonialForm.name}
                       onChange={(e) => setTestimonialForm(prev => ({ ...prev, name: e.target.value }))}
@@ -1493,7 +1496,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <Label>Role/Title</Label>
+                    <Label>{t(currentLang, "Role/Title", "Rôle/Titre")}</Label>
                     <Input
                       value={testimonialForm.role}
                       onChange={(e) => setTestimonialForm(prev => ({ ...prev, role: e.target.value }))}
@@ -1504,7 +1507,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div>
-                  <Label>Testimonial Message *</Label>
+                  <Label>{t(currentLang, "Testimonial Message *", "Message du témoignage *")}</Label>
                   <Textarea
                     value={testimonialForm.message}
                     onChange={(e) => setTestimonialForm(prev => ({ ...prev, message: e.target.value }))}
@@ -1515,7 +1518,7 @@ export default function AdminDashboard() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Label>Highlight Badge</Label>
+                    <Label>{t(currentLang, "Highlight Badge", "Badge en vedette")}</Label>
                     <Input
                       value={testimonialForm.highlight}
                       onChange={(e) => setTestimonialForm(prev => ({ ...prev, highlight: e.target.value }))}
@@ -1524,7 +1527,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <Label>Language</Label>
+                    <Label>{t(currentLang, "Language", "Langue")}</Label>
                     <div className="flex gap-2 mt-1">
                       <Button
                         type="button"
@@ -1532,7 +1535,7 @@ export default function AdminDashboard() {
                         variant={testimonialForm.language === "fr" ? "default" : "outline"}
                         onClick={() => setTestimonialForm(prev => ({ ...prev, language: "fr" }))}
                       >
-                        🇫🇷 French
+                        🇫🇷 {t(currentLang, "French", "Français")}
                       </Button>
                       <Button
                         type="button"
@@ -1540,7 +1543,7 @@ export default function AdminDashboard() {
                         variant={testimonialForm.language === "en" ? "default" : "outline"}
                         onClick={() => setTestimonialForm(prev => ({ ...prev, language: "en" }))}
                       >
-                        🇬🇧 English
+                         🇬🇧 {t(currentLang, "English", "Anglais")}
                       </Button>
                     </div>
                   </div>
@@ -1548,7 +1551,7 @@ export default function AdminDashboard() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Label>Rating</Label>
+                    <Label>{t(currentLang, "Rating", "Note")}</Label>
                     <div className="flex gap-1 mt-1">
                       {[1, 2, 3, 4, 5].map((rating) => (
                         <button
@@ -1569,7 +1572,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   <div>
-                    <Label>Client Photo</Label>
+                    <Label>{t(currentLang, "Client Photo", "Photo du client")}</Label>
                     <div className="flex gap-2 mt-1">
                       {testimonialForm.image_url && (
                         <img
@@ -1588,7 +1591,7 @@ export default function AdminDashboard() {
                     </div>
                     {uploadingTestimonialImage && (
                       <p className="text-sm text-primary flex items-center gap-1 mt-1">
-                        <RefreshCw className="w-3 h-3 animate-spin" /> Uploading...
+                        <RefreshCw className="w-3 h-3 animate-spin" /> {t(currentLang, "Uploading...", "Téléchargement...")}
                       </p>
                     )}
                   </div>
@@ -1597,12 +1600,12 @@ export default function AdminDashboard() {
                 <div className="flex gap-2 pt-4">
                   <Button onClick={handleSaveTestimonial}>
                     <Save className="w-4 h-4 mr-2" />
-                    {editingTestimonial ? "Update Testimonial" : "Add Testimonial"}
+                    {editingTestimonial ? t(currentLang, "Update Testimonial", "Mettre à jour") : t(currentLang, "Add Testimonial", "Ajouter le témoignage")}
                   </Button>
                   {editingTestimonial && (
                     <Button variant="outline" onClick={resetTestimonialForm}>
                       <X className="w-4 h-4 mr-2" />
-                      Cancel
+                       {t(currentLang, "Cancel", "Annuler")}
                     </Button>
                   )}
                 </div>
@@ -1613,12 +1616,12 @@ export default function AdminDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Your Testimonials</CardTitle>
-                    <CardDescription>Manage client reviews displayed on your site</CardDescription>
+                     <CardTitle>{t(currentLang, "Your Testimonials", "Vos témoignages")}</CardTitle>
+                    <CardDescription>{t(currentLang, "Manage client reviews displayed on your site", "Gérez les avis clients affichés sur votre site")}</CardDescription>
                   </div>
                   <Button variant="outline" size="sm" onClick={fetchTestimonials}>
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
+                     <RefreshCw className="w-4 h-4 mr-2" />
+                    {t(currentLang, "Refresh", "Actualiser")}
                   </Button>
                 </div>
               </CardHeader>
@@ -1626,7 +1629,7 @@ export default function AdminDashboard() {
                 {testimonials.length === 0 ? (
                   <div className="border border-dashed border-border rounded-2xl p-12 text-center">
                     <Quote className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-                    <p className="text-muted-foreground">No testimonials yet. Add your first one above!</p>
+                    <p className="text-muted-foreground">{t(currentLang, "No testimonials yet. Add your first one above!", "Aucun témoignage. Ajoutez le premier ci-dessus !")}</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -1689,7 +1692,7 @@ export default function AdminDashboard() {
                               variant="outline"
                               onClick={() => handleToggleTestimonialActive(testimonial)}
                             >
-                              {testimonial.is_active ? "Hide" : "Show"}
+                              {testimonial.is_active ? t(currentLang, "Hide", "Masquer") : t(currentLang, "Show", "Afficher")}
                             </Button>
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
@@ -1699,18 +1702,18 @@ export default function AdminDashboard() {
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Delete this testimonial?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    This will permanently delete this testimonial.
+                                   <AlertDialogTitle>{t(currentLang, "Delete this testimonial?", "Supprimer ce témoignage ?")}</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    {t(currentLang, "This will permanently delete this testimonial.", "Ce témoignage sera définitivement supprimé.")}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                   <AlertDialogCancel>{t(currentLang, "Cancel", "Annuler")}</AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={() => handleDeleteTestimonial(testimonial.id)}
                                     className="bg-destructive text-destructive-foreground"
-                                  >
-                                    Delete
+                                   >
+                                    {t(currentLang, "Delete", "Supprimer")}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -1731,16 +1734,16 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ArrowLeftRight className="w-5 h-5 text-primary" />
-                  {editingTransformation ? "Edit Transformation" : "Add New Transformation"}
+                   {editingTransformation ? t(currentLang, "Edit Transformation", "Modifier la transformation") : t(currentLang, "Add New Transformation", "Ajouter une transformation")}
                 </CardTitle>
                 <CardDescription>
-                  {editingTransformation ? "Update this before/after transformation" : "Add client before/after photos to showcase results"}
+                  {editingTransformation ? t(currentLang, "Update this before/after transformation", "Mettre à jour cette transformation avant/après") : t(currentLang, "Add client before/after photos to showcase results", "Ajoutez des photos avant/après pour montrer les résultats")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Label>Client Name *</Label>
+                    <Label>{t(currentLang, "Client Name *", "Nom du client *")}</Label>
                     <Input
                       value={transformationForm.name}
                       onChange={(e) => setTransformationForm(prev => ({ ...prev, name: e.target.value }))}
@@ -1749,7 +1752,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <div>
-                    <Label>Description</Label>
+                    <Label>{t(currentLang, "Description", "Description")}</Label>
                     <Input
                       value={transformationForm.description}
                       onChange={(e) => setTransformationForm(prev => ({ ...prev, description: e.target.value }))}
@@ -1761,7 +1764,7 @@ export default function AdminDashboard() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="p-4 border border-dashed border-border rounded-xl">
-                    <Label className="mb-2 block">Before Photo *</Label>
+                    <Label className="mb-2 block">{t(currentLang, "Before Photo *", "Photo Avant *")}</Label>
                     {transformationForm.before_image_url ? (
                       <div className="relative">
                         <img
@@ -1790,7 +1793,7 @@ export default function AdminDashboard() {
                             className="max-w-[200px]"
                           />
                           {uploadingBeforeImage && (
-                            <p className="text-sm text-primary mt-2">Uploading...</p>
+                             <p className="text-sm text-primary mt-2">{t(currentLang, "Uploading...", "Téléchargement...")}</p>
                           )}
                         </div>
                       </div>
@@ -1798,7 +1801,7 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="p-4 border border-dashed border-border rounded-xl">
-                    <Label className="mb-2 block">After Photo *</Label>
+                    <Label className="mb-2 block">{t(currentLang, "After Photo *", "Photo Après *")}</Label>
                     {transformationForm.after_image_url ? (
                       <div className="relative">
                         <img
@@ -1827,7 +1830,7 @@ export default function AdminDashboard() {
                             className="max-w-[200px]"
                           />
                           {uploadingAfterImage && (
-                            <p className="text-sm text-primary mt-2">Uploading...</p>
+                            <p className="text-sm text-primary mt-2">{t(currentLang, "Uploading...", "Téléchargement...")}</p>
                           )}
                         </div>
                       </div>
@@ -1838,12 +1841,12 @@ export default function AdminDashboard() {
                 <div className="flex gap-2 pt-4">
                   <Button onClick={handleSaveTransformation}>
                     <Save className="w-4 h-4 mr-2" />
-                    {editingTransformation ? "Update Transformation" : "Add Transformation"}
+                    {editingTransformation ? t(currentLang, "Update Transformation", "Mettre à jour") : t(currentLang, "Add Transformation", "Ajouter la transformation")}
                   </Button>
                   {editingTransformation && (
                     <Button variant="outline" onClick={resetTransformationForm}>
                       <X className="w-4 h-4 mr-2" />
-                      Cancel
+                       <X className="w-4 h-4 mr-2" /> {t(currentLang, "Cancel", "Annuler")}
                     </Button>
                   )}
                 </div>
@@ -1854,12 +1857,12 @@ export default function AdminDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Your Transformations</CardTitle>
-                    <CardDescription>Before/after photos displayed on your site</CardDescription>
+                     <CardTitle>{t(currentLang, "Your Transformations", "Vos transformations")}</CardTitle>
+                    <CardDescription>{t(currentLang, "Before/after photos displayed on your site", "Photos avant/après affichées sur votre site")}</CardDescription>
                   </div>
                   <Button variant="outline" size="sm" onClick={fetchTransformations}>
                     <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
+                     {t(currentLang, "Refresh", "Actualiser")}
                   </Button>
                 </div>
               </CardHeader>
@@ -1867,7 +1870,7 @@ export default function AdminDashboard() {
                 {transformations.length === 0 ? (
                   <div className="border border-dashed border-border rounded-2xl p-12 text-center">
                     <ArrowLeftRight className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-                    <p className="text-muted-foreground">No transformations yet. Add your first one above!</p>
+                    <p className="text-muted-foreground">{t(currentLang, "No transformations yet. Add your first one above!", "Aucune transformation. Ajoutez la première ci-dessus !")}</p>
                   </div>
                 ) : (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1887,8 +1890,8 @@ export default function AdminDashboard() {
                               alt="Before"
                               className="aspect-square object-cover"
                             />
-                            <span className="absolute bottom-1 left-1 text-xs bg-black/60 text-white px-2 py-0.5 rounded">
-                              Before
+                             <span className="absolute bottom-1 left-1 text-xs bg-black/60 text-white px-2 py-0.5 rounded">
+                              {t(currentLang, "Before", "Avant")}
                             </span>
                           </div>
                           <div className="relative">
@@ -1897,8 +1900,8 @@ export default function AdminDashboard() {
                               alt="After"
                               className="aspect-square object-cover"
                             />
-                            <span className="absolute bottom-1 right-1 text-xs bg-primary/80 text-white px-2 py-0.5 rounded">
-                              After
+                             <span className="absolute bottom-1 right-1 text-xs bg-primary/80 text-white px-2 py-0.5 rounded">
+                              {t(currentLang, "After", "Après")}
                             </span>
                           </div>
                         </div>
@@ -1915,14 +1918,14 @@ export default function AdminDashboard() {
                               onClick={() => handleEditTransformation(transformation)}
                             >
                               <Edit className="w-3 h-3 mr-1" />
-                              Edit
+                               {t(currentLang, "Edit", "Modifier")}
                             </Button>
                             <Button
                               size="sm"
                               variant="outline"
                               onClick={() => handleToggleTransformationActive(transformation)}
                             >
-                              {transformation.is_active ? "Hide" : "Show"}
+                              {transformation.is_active ? t(currentLang, "Hide", "Masquer") : t(currentLang, "Show", "Afficher")}
                             </Button>
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
@@ -1932,18 +1935,18 @@ export default function AdminDashboard() {
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Delete this transformation?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    This will permanently delete this before/after photo.
+                                   <AlertDialogTitle>{t(currentLang, "Delete this transformation?", "Supprimer cette transformation ?")}</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    {t(currentLang, "This will permanently delete this before/after photo.", "Cette photo avant/après sera définitivement supprimée.")}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogCancel>{t(currentLang, "Cancel", "Annuler")}</AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={() => handleDeleteTransformation(transformation.id)}
                                     className="bg-destructive text-destructive-foreground"
                                   >
-                                    Delete
+                                     {t(currentLang, "Delete", "Supprimer")}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
